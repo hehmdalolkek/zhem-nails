@@ -1,2 +1,12 @@
 server:
   port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/zhem
+    username: root
+    password: root
+  flyway:
+    schemas:
+      - public
+      - zhem
