@@ -10,3 +10,6 @@ spring:
     schemas:
       - public
       - zhem
+  jpa:
+    hibernate:
+      ddl-auto: validate
