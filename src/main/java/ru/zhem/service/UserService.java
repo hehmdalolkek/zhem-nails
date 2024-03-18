@@ -1,0 +1,20 @@
+package ru.zhem.service;
+
+import ru.zhem.entity.User;
+
+import java.math.BigDecimal;
+import java.util.Optional;
+
+public interface UserService {
+
+    Iterable<User> findUsers();
+
+    Optional<User> findUser(long userId);
+
+    User createUser(BigDecimal phone, String name, String surname);
+
+    void updateUser(Long userId, BigDecimal phone, String name, String surname);
+
+    void deleteUser(long userId);
+
+}
