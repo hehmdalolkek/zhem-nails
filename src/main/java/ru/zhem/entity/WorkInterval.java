@@ -1,10 +1,12 @@
 package ru.zhem.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
@@ -19,14 +21,16 @@ public class WorkInterval {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_workday", referencedColumnName = "id")
-    private WorkDay workDay;
+    @NotNull
+    @Column(name = "c_date")
+    private LocalDate date;
 
+    @NotNull
     @Column(name = "c_start_time")
     private LocalTime startTime;
 
+    @NotNull
     @Column(name = "c_is_booked")
-    private Boolean isBooked = false    ;
+    private Boolean isBooked = false;
 
 }

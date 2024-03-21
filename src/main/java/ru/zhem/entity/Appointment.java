@@ -1,6 +1,7 @@
 package ru.zhem.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,10 +22,12 @@ public class Appointment {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "id_workinterval")
     private WorkInterval workInterval;
@@ -36,10 +39,5 @@ public class Appointment {
     @UpdateTimestamp
     @Column(name = "c_updated_at")
     private LocalDateTime updatedAt;
-
-    @PrePersist
-    public void prePersist() {
-        this.workInterval.setIsBooked(true);
-    }
 
 }
