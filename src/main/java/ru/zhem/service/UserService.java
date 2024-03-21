@@ -13,7 +13,7 @@ public interface UserService {
 
     User createUser(BigDecimal phone, String name, String surname);
 
-    void updateUser(Long userId, BigDecimal phone, String name, String surname);
+    void updateUser(long userId, BigDecimal phone, String name, String surname);
 
     void deleteUser(long userId);
 
