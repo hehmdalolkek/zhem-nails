@@ -7,5 +7,5 @@ import ru.zhem.entity.Appointment;
 @Repository
 public interface AppointmentRepository extends CrudRepository<Appointment, Long> {
 
-    Iterable<Appointment> findAllByUserId(Long userId);
+    Iterable<Appointment> findAllByUserId(long userId);
 }

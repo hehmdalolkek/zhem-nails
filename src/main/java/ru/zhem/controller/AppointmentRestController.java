@@ -27,7 +27,7 @@ public class AppointmentRestController {
         return this.appointmentService.findAllAppointments();
     }
 
-    @GetMapping("/{appointmentId}")
+    @GetMapping("/{appointmentId:\\d+}")
     public Appointment findAppointment(@PathVariable("appointmentId") long appointmentId) {
         return this.appointmentService.findAppointment(appointmentId)
                 .orElseThrow(NoSuchElementException::new);
@@ -53,7 +53,7 @@ public class AppointmentRestController {
         }
     }
 
-    @PatchMapping("/{appointmentId}")
+    @PatchMapping("/{appointmentId:\\d+}")
     public ResponseEntity<?> updateAppointment(@PathVariable("appointmentId") long appointmentId,
                                                @Valid @RequestBody UpdateAppointmentPayload payload,
                                                BindingResult bindingResult) throws BindException {
@@ -70,7 +70,7 @@ public class AppointmentRestController {
         }
     }
 
-    @DeleteMapping("/{appointmentId}")
+    @DeleteMapping("/{appointmentId:\\d+}")
     public ResponseEntity<Void> deleteAppointment(@PathVariable("appointmentId") long appointmentId) {
         this.appointmentService.findAppointment(appointmentId)
                 .orElseThrow(NoSuchElementException::new);
