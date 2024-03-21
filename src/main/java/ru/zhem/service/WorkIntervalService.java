@@ -4,6 +4,8 @@ import ru.zhem.entity.WorkInterval;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface WorkIntervalService {
@@ -18,4 +20,5 @@ public interface WorkIntervalService {
 
     void deleteWorkInterval(long workIntervalId);
 
+    Map<LocalDate, List<WorkInterval>> findAvailableWorkIntervalsGroupedByDate();
 }

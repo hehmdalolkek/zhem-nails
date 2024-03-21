@@ -12,6 +12,8 @@ import ru.zhem.controller.payload.UpdateWorkIntervalPayload;
 import ru.zhem.entity.WorkInterval;
 import ru.zhem.service.WorkIntervalService;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -77,6 +79,11 @@ public class WorkIntervalRestController {
         this.workIntervalService.deleteWorkInterval(workIntervalId);
         return ResponseEntity.noContent()
                 .build();
+    }
+
+    @GetMapping("/available")
+    public Map<LocalDate, List<WorkInterval>> findAvailableWorkIntervals() {
+        return this.workIntervalService.findAvailableWorkIntervalsGroupedByDate();
     }
 
 }

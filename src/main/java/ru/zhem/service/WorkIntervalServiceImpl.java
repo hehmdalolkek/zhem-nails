@@ -8,8 +8,8 @@ import ru.zhem.repository.WorkIntervalRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -20,7 +20,7 @@ public class WorkIntervalServiceImpl implements WorkIntervalService {
     @Override
     @Transactional
     public Iterable<WorkInterval> findWorkIntervals() {
-        return this.workIntervalRepository.findAllByOrderByDateDescStartTimeAsc();
+        return this.workIntervalRepository.findAllByOrderByDateAscStartTime();
     }
 
     @Override
@@ -57,5 +57,14 @@ public class WorkIntervalServiceImpl implements WorkIntervalService {
     @Override
     public void deleteWorkInterval(long workIntervalId) {
         this.workIntervalRepository.deleteById(workIntervalId);
+    }
+
+    @Override
+    public Map<LocalDate, List<WorkInterval>> findAvailableWorkIntervalsGroupedByDate() {
+        List<WorkInterval> workIntervals = this.workIntervalRepository
+                .findWorkIntervalsByIsBookedIsFalseAndDateGreaterThanOrderByStartTime(LocalDate.now());
+        return workIntervals.stream()
+                .collect(Collectors.groupingBy(WorkInterval::getDate,
+                        LinkedHashMap::new, Collectors.toList()));
     }
 }
