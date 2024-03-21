@@ -1,5 +1,6 @@
 package ru.zhem.service;
 
+import ru.zhem.entity.Appointment;
 import ru.zhem.entity.User;
 
 import java.math.BigDecimal;
@@ -16,5 +17,7 @@ public interface UserService {
     void updateUser(long userId, BigDecimal phone, String name, String surname);
 
     void deleteUser(long userId);
+
+    Iterable<Appointment> findAppointmentsByUserId(long userId);
 
 }

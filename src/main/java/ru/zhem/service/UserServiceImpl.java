@@ -3,7 +3,9 @@ package ru.zhem.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.zhem.entity.Appointment;
 import ru.zhem.entity.User;
+import ru.zhem.repository.AppointmentRepository;
 import ru.zhem.repository.UserRepository;
 
 import java.math.BigDecimal;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+
+    private final AppointmentRepository appointmentRepository;
 
     @Override
     @Transactional
@@ -60,5 +64,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(long userId) {
         this.userRepository.deleteById(userId);
+    }
+
+    @Override
+    @Transactional
+    public Iterable<Appointment> findAppointmentsByUserId(long userId) {
+        return this.appointmentRepository.findAllByUserId(userId);
     }
 }
