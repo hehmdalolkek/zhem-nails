@@ -55,11 +55,13 @@ public class WorkIntervalServiceImpl implements WorkIntervalService {
     }
 
     @Override
+    @Transactional
     public void deleteWorkInterval(long workIntervalId) {
         this.workIntervalRepository.deleteById(workIntervalId);
     }
 
     @Override
+    @Transactional
     public Map<LocalDate, List<WorkInterval>> findAvailableWorkIntervalsGroupedByDate() {
         List<WorkInterval> workIntervals = this.workIntervalRepository
                 .findWorkIntervalsByIsBookedIsFalseAndDateGreaterThanOrderByStartTime(LocalDate.now());
