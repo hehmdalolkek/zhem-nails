@@ -32,7 +32,7 @@ public class WorkIntervalRestController {
     @GetMapping("/{workIntervalId:\\d+}")
     public WorkInterval findWorkInterval(@PathVariable("workIntervalId") long workIntervalId) {
         return this.workIntervalService.findWorkInterval(workIntervalId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("WorkInterval is not found"));
     }
 
     @PostMapping
@@ -75,7 +75,7 @@ public class WorkIntervalRestController {
     @DeleteMapping("/{workIntervalId:\\d+}")
     public ResponseEntity<Void> deleteWorkInterval(@PathVariable("workIntervalId") long workIntervalId) {
         this.workIntervalService.findWorkInterval(workIntervalId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("WorkInterval is not found"));
         this.workIntervalService.deleteWorkInterval(workIntervalId);
         return ResponseEntity.noContent()
                 .build();

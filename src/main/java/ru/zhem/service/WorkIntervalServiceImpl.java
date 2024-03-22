@@ -50,7 +50,7 @@ public class WorkIntervalServiceImpl implements WorkIntervalService {
                         workInterval.setIsBooked(isBooked);
                     }
                 }, () -> {
-                    throw new NoSuchElementException();
+                    throw new NoSuchElementException("WorkInterval is not found");
                 });
     }
 

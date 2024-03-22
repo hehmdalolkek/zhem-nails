@@ -26,7 +26,7 @@ public class UserRestController {
     @GetMapping("/{userId:\\d+}")
     public User getUser(@PathVariable("userId") long userId) {
         return this.userService.findUser(userId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("User is not found"));
     }
 
     @GetMapping
@@ -72,7 +72,7 @@ public class UserRestController {
     @DeleteMapping("/{userId:\\d+}")
     public ResponseEntity<Void> deleteUser(@PathVariable("userId") long userId) {
         this.userService.findUser(userId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("User is not found"));
         this.userService.deleteUser(userId);
         return ResponseEntity.noContent()
                 .build();
@@ -81,7 +81,7 @@ public class UserRestController {
     @GetMapping("/{userId:\\d+}/appointments")
     public Iterable<Appointment> findAppointmentsByUser(@PathVariable("userId") long userId) {
         this.userService.findUser(userId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("User is not found"));
         return this.userService.findAppointmentsByUserId(userId);
     }
 
