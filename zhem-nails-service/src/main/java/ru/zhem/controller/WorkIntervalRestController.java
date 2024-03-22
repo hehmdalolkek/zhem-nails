@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/workintervals")
+@RequestMapping("/service-api/v1/workintervals")
 public class WorkIntervalRestController {
 
     private final WorkIntervalService workIntervalService;

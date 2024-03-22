@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/service-api/v1/users")
 @RequiredArgsConstructor
 public class UserRestController {
 
