@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ZhemNailsApplication {
+public class ZhemNailsServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ZhemNailsApplication.class, args);
+        SpringApplication.run(ZhemNailsServiceApplication.class, args);
     }
 
 }
