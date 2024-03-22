@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>zhem-nails-service</module>
+        <module>zhem-nails-manager-app</module>
     </modules>
 
     <properties>
