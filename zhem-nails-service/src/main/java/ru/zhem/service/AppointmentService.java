@@ -10,9 +10,9 @@ public interface AppointmentService {
 
     Optional<Appointment> findAppointment(long appointmentId);
 
-    Appointment createAppointment(Long userId, Long workIntervalId);
+    Appointment createAppointment(Long userId, Long workIntervalId, String details);
 
-    void updateAppointment(long appointmentId, Long userId, Long workIntervalId);
+    void updateAppointment(long appointmentId, Long userId, Long workIntervalId, String details);
 
     void deleteAppointment(long appointmentId);
 

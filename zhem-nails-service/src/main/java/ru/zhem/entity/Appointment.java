@@ -2,6 +2,7 @@ package ru.zhem.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,10 @@ public class Appointment {
     @OneToOne
     @JoinColumn(name = "id_workinterval")
     private WorkInterval workInterval;
+
+    @Size(min = 2, max = 500)
+    @Column(name = "details")
+    private String details;
 
     @CreationTimestamp
     @Column(name = "c_created_at")

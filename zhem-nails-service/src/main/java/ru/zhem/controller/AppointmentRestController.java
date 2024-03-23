@@ -44,7 +44,8 @@ public class AppointmentRestController {
                 throw new BindException(bindingResult);
             }
         } else {
-            Appointment appointment = this.appointmentService.createAppointment(payload.userId(), payload.workIntervalId());
+            Appointment appointment = this.appointmentService.createAppointment(
+                    payload.userId(), payload.workIntervalId(), payload.details());
             return ResponseEntity.created(
                     uriComponentsBuilder
                             .replacePath("/api/v1/appointments/{appointmentId}")
@@ -64,7 +65,8 @@ public class AppointmentRestController {
                 throw new BindException(bindingResult);
             }
         } else {
-            this.appointmentService.updateAppointment(appointmentId, payload.userId(), payload.workIntervalId());
+            this.appointmentService.updateAppointment(
+                    appointmentId, payload.userId(), payload.workIntervalId(), payload.details());
             return ResponseEntity.noContent()
                     .build();
         }

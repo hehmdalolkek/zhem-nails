@@ -37,7 +37,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     @Transactional
-    public Appointment createAppointment(Long userId, Long workIntervalId) {
+    public Appointment createAppointment(Long userId, Long workIntervalId, String details) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("User is not found"));
         WorkInterval workInterval = this.workIntervalRepository.findById(workIntervalId)
@@ -48,13 +48,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         workInterval.setIsBooked(true);
         return this.appointmentRepository.save(
-                new Appointment(null, user, workInterval, null, null)
+                new Appointment(null, user, workInterval,
+                        details.isBlank() ? null : details, null, null)
         );
     }
 
     @Override
     @Transactional
-    public void updateAppointment(long appointmentId, Long userId, Long workIntervalId) {
+    public void updateAppointment(long appointmentId, Long userId, Long workIntervalId, String details) {
         this.appointmentRepository.findById(appointmentId)
                 .ifPresentOrElse((appointment) -> {
                     if (userId != null) {
@@ -71,6 +72,9 @@ public class AppointmentServiceImpl implements AppointmentService {
                         workInterval.setIsBooked(true);
                         appointment.getWorkInterval().setIsBooked(false);
                         appointment.setWorkInterval(workInterval);
+                    }
+                    if (details != null && !details.isBlank()) {
+                        appointment.setDetails(details);
                     }
                 }, () -> {
                     throw new NoSuchElementException("Appointment is not found");
