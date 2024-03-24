@@ -25,8 +25,8 @@ public class WorkIntervalRestController {
     private final WorkIntervalService workIntervalService;
 
     @GetMapping
-    public Iterable<WorkInterval> findWorkIntervals() {
-        return this.workIntervalService.findWorkIntervals();
+    public Map<LocalDate, List<WorkInterval>> findWorkIntervals() {
+        return this.workIntervalService.findWorkIntervalsGroupedByDate();
     }
 
     @GetMapping("/{workIntervalId:\\d+}")
@@ -74,8 +74,6 @@ public class WorkIntervalRestController {
 
     @DeleteMapping("/{workIntervalId:\\d+}")
     public ResponseEntity<Void> deleteWorkInterval(@PathVariable("workIntervalId") long workIntervalId) {
-        this.workIntervalService.findWorkInterval(workIntervalId)
-                .orElseThrow(() -> new NoSuchElementException("WorkInterval is not found"));
         this.workIntervalService.deleteWorkInterval(workIntervalId);
         return ResponseEntity.noContent()
                 .build();

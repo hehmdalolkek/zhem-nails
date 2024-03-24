@@ -19,8 +19,13 @@ public class WorkIntervalServiceImpl implements WorkIntervalService {
 
     @Override
     @Transactional
-    public Iterable<WorkInterval> findWorkIntervals() {
-        return this.workIntervalRepository.findAllByOrderByDateAscStartTime();
+    public Map<LocalDate, List<WorkInterval>> findWorkIntervalsGroupedByDate() {
+        List<WorkInterval> workIntervals = this.workIntervalRepository.findAllByOrderByDateAscStartTime();
+        return workIntervals.stream()
+                .collect(Collectors.groupingBy(
+                                WorkInterval::getDate, LinkedHashMap::new, Collectors.toList()
+                        )
+                );
     }
 
     @Override
@@ -57,6 +62,11 @@ public class WorkIntervalServiceImpl implements WorkIntervalService {
     @Override
     @Transactional
     public void deleteWorkInterval(long workIntervalId) {
+        WorkInterval workInterval = workIntervalRepository.findById(workIntervalId)
+                .orElseThrow(() -> new NoSuchElementException("WorkInterval is not found"));
+        if (workInterval.getIsBooked().equals(true)) {
+            throw new IllegalStateException("WorkInterval is booked");
+        }
         this.workIntervalRepository.deleteById(workIntervalId);
     }
 
