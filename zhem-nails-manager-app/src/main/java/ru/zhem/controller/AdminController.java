@@ -1,8 +1,12 @@
 package ru.zhem.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,25 @@ import java.util.NoSuchElementException;
 public class AdminController {
 
     private final WorkIntervalRestClient workIntervalRestClient;
+
+    @GetMapping("/login")
+    public String login() {
+        return "service/admin/common/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        return "redirect:/admin/login?logout";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "service/admin/common/dashboard";
+    }
 
     @GetMapping("/workintervals")
     public String getWorkIntervalsList(Model model) {
@@ -58,7 +81,7 @@ public class AdminController {
     }
 
     @GetMapping("/workintervals/{workInterval:\\d+}/edit")
-    public String getEditWorkIntervalPage(@PathVariable("workInterval") long workIntervalId,Model model) {
+    public String getEditWorkIntervalPage(@PathVariable("workInterval") long workIntervalId, Model model) {
         WorkInterval workInterval = this.workIntervalRestClient.findWorkInterval(workIntervalId)
                 .orElseThrow(() -> new NoSuchElementException("WorkInterval is not found"));
         model.addAttribute("workInterval", workInterval);
