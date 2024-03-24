@@ -28,47 +28,60 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Optional<User> findUser(long userId) {
-        return this.userRepository.findById(userId);
+    public Optional<User> findUser(BigDecimal phone) {
+        return this.userRepository.findById(phone);
     }
 
     @Override
     @Transactional
     public User createUser(BigDecimal phone, String name, String surname) {
         return this.userRepository.save(
-                new User(null, phone, name, surname.isBlank() ? null : surname, null)
+                new User(phone, name, (surname == null || surname.isBlank()) ? null : surname, null)
         );
     }
 
     @Override
     @Transactional
-    public void updateUser(long userId, BigDecimal phone, String name, String surname) {
-        this.userRepository.findById(userId)
-                .ifPresentOrElse((user) -> {
-                            if (phone != null) {
-                                user.setPhone(phone);
-                            }
-                            if (name != null && !name.isBlank()) {
-                                user.setName(name);
-                            }
-                            if (surname != null && !surname.isBlank()) {
-                                user.setSurname(surname);
-                            }
-                        },
-                        () -> {
-                            throw new NoSuchElementException();
-                        });
+    public void updateUser(BigDecimal phone, BigDecimal newPhone, String name, String surname) {
+        this.userRepository.findById(phone).ifPresentOrElse((user) -> {
+                    if (newPhone == null) {
+                        if (name != null && !name.isBlank()) {
+                            user.setName(name);
+                        }
+                        if (surname != null && !surname.isBlank()) {
+                            user.setSurname(surname);
+                        }
+                    } else {
+                        User newUser = new User();
+                        newUser.setPhone(newPhone);
+                        if (name != null && !name.isBlank()) {
+                            newUser.setName(name);
+                        } else {
+                            newUser.setName(user.getName());
+                        }
+                        if (surname != null && !surname.isBlank()) {
+                            newUser.setSurname(surname);
+                        } else {
+                            newUser.setSurname(user.getSurname());
+                        }
+                        this.userRepository.delete(user);
+                        this.userRepository.save(newUser);
+                    }
+                },
+                () -> {
+                    throw new NoSuchElementException("User in not found");
+                });
     }
 
     @Override
     @Transactional
-    public void deleteUser(long userId) {
-        this.userRepository.deleteById(userId);
+    public void deleteUser(BigDecimal phone) {
+        this.userRepository.deleteById(phone);
     }
 
     @Override
     @Transactional
-    public Iterable<Appointment> findAppointmentsByUserId(long userId) {
-        return this.appointmentRepository.findAllByUserId(userId);
+    public Iterable<Appointment> findAppointmentsByUserPhone(BigDecimal phone) {
+        return this.appointmentRepository.findAllByUserPhone(phone);
     }
 }

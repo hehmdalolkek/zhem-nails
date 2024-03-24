@@ -10,14 +10,14 @@ public interface UserService {
 
     Iterable<User> findUsers();
 
-    Optional<User> findUser(long userId);
+    Optional<User> findUser(BigDecimal phone);
 
     User createUser(BigDecimal phone, String name, String surname);
 
-    void updateUser(long userId, BigDecimal phone, String name, String surname);
+    void updateUser(BigDecimal phone, BigDecimal newPhone, String name, String surname);
 
-    void deleteUser(long userId);
+    void deleteUser(BigDecimal phone);
 
-    Iterable<Appointment> findAppointmentsByUserId(long userId);
+    Iterable<Appointment> findAppointmentsByUserPhone(BigDecimal phone);
 
 }

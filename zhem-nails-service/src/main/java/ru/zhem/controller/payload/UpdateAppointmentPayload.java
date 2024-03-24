@@ -5,11 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import ru.zhem.entity.User;
 import ru.zhem.entity.WorkInterval;
+import ru.zhem.entity.constraints.CheckPhoneNumber;
+
+import java.math.BigDecimal;
 
 public record UpdateAppointmentPayload(
 
-        @Min(1)
-        Long userId,
+        BigDecimal phone,
 
         @Min(1)
         Long workIntervalId,

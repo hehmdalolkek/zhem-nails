@@ -10,6 +10,7 @@ import ru.zhem.repository.AppointmentRepository;
 import ru.zhem.repository.UserRepository;
 import ru.zhem.repository.WorkIntervalRepository;
 
+import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -37,8 +38,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     @Transactional
-    public Appointment createAppointment(Long userId, Long workIntervalId, String details) {
-        User user = this.userRepository.findById(userId)
+    public Appointment createAppointment(BigDecimal userPhone, Long workIntervalId, String details) {
+        User user = this.userRepository.findById(userPhone)
                 .orElseThrow(() -> new NoSuchElementException("User is not found"));
         WorkInterval workInterval = this.workIntervalRepository.findById(workIntervalId)
                 .orElseThrow(() -> new NoSuchElementException("Work interval is not found"));
@@ -49,17 +50,17 @@ public class AppointmentServiceImpl implements AppointmentService {
         workInterval.setIsBooked(true);
         return this.appointmentRepository.save(
                 new Appointment(null, user, workInterval,
-                        details.isBlank() ? null : details, null, null)
+                        (details == null || details.isBlank()) ? null : details, null, null)
         );
     }
 
     @Override
     @Transactional
-    public void updateAppointment(long appointmentId, Long userId, Long workIntervalId, String details) {
+    public void updateAppointment(long appointmentId, BigDecimal userPhone, Long workIntervalId, String details) {
         this.appointmentRepository.findById(appointmentId)
                 .ifPresentOrElse((appointment) -> {
-                    if (userId != null) {
-                        User user = this.userRepository.findById(userId)
+                    if (userPhone != null) {
+                        User user = this.userRepository.findById(userPhone)
                                 .orElseThrow(() -> new NoSuchElementException("User is not found"));
                         appointment.setUser(user);
                     }
