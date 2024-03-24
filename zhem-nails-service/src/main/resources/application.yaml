@@ -2,6 +2,12 @@ server:
   port: 8081
 
 spring:
+  security:
+    user:
+      name: dsakdsal
+      password: ksaldkas
+      roles:
+        - SERVICE
   datasource:
     url: jdbc:postgresql://localhost:5432/zhem
     username: root
