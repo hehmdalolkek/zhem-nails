@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменить интервал работы</title>
+</head>
+<body>
+    <h1>Изменить интервал работы</h1>
+    <div data-th-if="${errors}">
+        <h3>Допущены ошибки</h3>
+        <ul>
+            <li data-th-each="error : ${errors}" data-th-text="${error}"></li>
+        </ul>
+    </div>
+    <form method="post" data-th-action="@{/admin/workintervals/{workIntervalId}/edit(workIntervalId=${workInterval.id})}">
+        <label>
+            Дата:
+            <input type="date" name="date" data-th-value="${payload != null ? payload.date : workInterval.date}">
+        </label>
+        <label>
+            Время:
+            <input type="time" name="startTime" data-th-value="${payload != null ? payload.startTime : workInterval.startTime}">
+        </label>
+        <input type="submit" value="Сохранить">
+    </form>
+</body>
+</html>

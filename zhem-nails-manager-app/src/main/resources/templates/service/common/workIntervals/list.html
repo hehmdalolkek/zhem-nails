@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Свободные интервалы для записи</title>
+</head>
+<body>
+    <h1>Свободные интервалы для записи</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Время</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="entry : ${workIntervals}">
+            <td data-th-text="${entry.key}"></td>
+            <td>
+                <table>
+                    <tr data-th-each="workInterval : ${entry.value}">
+                        <td data-th-text="${workInterval.startTime}"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

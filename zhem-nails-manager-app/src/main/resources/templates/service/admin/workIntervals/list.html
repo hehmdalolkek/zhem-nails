@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список всех интервалов</title>
+</head>
+<body>
+    <h1>Список всех интервалов</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Время</th>
+                <th>Бронь</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-th-each="entry : ${workIntervals}">
+                <td data-th-text="${entry.key}"></td>
+                <td>
+                    <table>
+                        <tr data-th-each="workInterval : ${entry.value}">
+                            <td data-th-text="${workInterval.startTime}"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr data-th-each="workInterval : ${entry.value}">
+                            <td data-th-text="${workInterval.isBooked} ? 'Забронирован' : '-'"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr data-th-each="workInterval : ${entry.value}">
+                            <td>
+                                <a data-th-href="@{/admin/workintervals/{workIntervalId}/edit(workIntervalId=${workInterval.id})}">Изменить</a>
+                            </td>
+                            <td>
+                                <form method="post" data-th-action="@{/admin/workintervals/{workIntervalId}/delete(workIntervalId=${workInterval.id})}">
+                                    <input type="submit" value="Удалить">
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
