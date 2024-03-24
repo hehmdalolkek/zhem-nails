@@ -38,7 +38,7 @@
                             <td>
                                 <a data-th-href="@{/admin/workintervals/{workIntervalId}/edit(workIntervalId=${workInterval.id})}">Изменить</a>
                             </td>
-                            <td>
+                            <td data-th-if="${workInterval.isBooked == false}">
                                 <form method="post" data-th-action="@{/admin/workintervals/{workIntervalId}/delete(workIntervalId=${workInterval.id})}">
                                     <input type="submit" value="Удалить">
                                 </form>
