@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface WorkIntervalRepository extends CrudRepository<WorkInterval, Long> {
-    Iterable<WorkInterval> findAllByOrderByDateAscStartTime();
+    List<WorkInterval> findAllByOrderByDateAscStartTime();
 
     List<WorkInterval> findWorkIntervalsByIsBookedIsFalseAndDateGreaterThanOrderByStartTime(LocalDate date);
 }

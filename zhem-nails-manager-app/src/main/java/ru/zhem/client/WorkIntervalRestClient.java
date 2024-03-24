@@ -5,13 +5,14 @@ import ru.zhem.entity.WorkInterval;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface WorkIntervalRestClient {
 
-    List<WorkInterval> findAllWorkIntervals();
+    Map<LocalDate, List<WorkInterval>> findAllWorkIntervals();
 
-    List<WorkInterval> findAvailableWorkIntervalsGroupedByDate();
+    Map<LocalDate, List<WorkInterval>> findAvailableWorkIntervalsGroupedByDate();
 
     Optional<WorkInterval> findWorkInterval(long workIntervalId);
 

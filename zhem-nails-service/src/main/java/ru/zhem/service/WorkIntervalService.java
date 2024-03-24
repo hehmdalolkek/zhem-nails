@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface WorkIntervalService {
 
-    Iterable<WorkInterval> findWorkIntervals();
+    Map<LocalDate, List<WorkInterval>> findWorkIntervalsGroupedByDate();
 
     Optional<WorkInterval> findWorkInterval(long workIntervalId);
 
