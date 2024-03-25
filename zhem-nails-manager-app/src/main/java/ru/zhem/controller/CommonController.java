@@ -19,9 +19,4 @@ public class CommonController {
                 this.workIntervalRestClient.findAvailableWorkIntervalsGroupedByDate());
         return "service/common/workIntervals/list";
     }
-
-    @GetMapping("/workintervals/booking")
-    public String getBookingWorkIntervals() {
-        return "service/user/workIntervals/list";
-    }
 }
