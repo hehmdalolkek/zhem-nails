@@ -37,7 +37,7 @@ public class ClientRestController {
 
     @PostMapping
     public ResponseEntity<?> createClient(@Valid @RequestBody NewClientPayload payload, UriComponentsBuilder uriComponentsBuilder,
-                                        BindingResult bindingResult) throws BindException {
+                                          BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -45,7 +45,7 @@ public class ClientRestController {
                 throw new BindException(bindingResult);
             }
         } else {
-            Client client = this.clientService.createClient(payload.phone(), payload.name(), payload.surname());
+            Client client = this.clientService.createClient(payload.phone(), payload.name(), payload.surname(), payload.password());
             return ResponseEntity.created(
                     uriComponentsBuilder
                             .replacePath("/api/v1/clients/{phone}")
@@ -56,7 +56,7 @@ public class ClientRestController {
 
     @PatchMapping("/{phone:\\d+}")
     public ResponseEntity<?> updateClient(@PathVariable("phone") BigDecimal phone, @Valid @RequestBody UpdateClientPayload payload,
-                                        BindingResult bindingResult) throws BindException {
+                                          BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -64,7 +64,7 @@ public class ClientRestController {
                 throw new BindException(bindingResult);
             }
         } else {
-            this.clientService.updateClient(phone, payload.phone(), payload.name(), payload.surname());
+            this.clientService.updateClient(phone, payload.phone(), payload.name(), payload.surname(), payload.password());
             return ResponseEntity.noContent()
                     .build();
         }

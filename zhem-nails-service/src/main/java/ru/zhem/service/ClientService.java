@@ -12,9 +12,9 @@ public interface ClientService {
 
     Optional<Client> findClient(BigDecimal phone);
 
-    Client createClient(BigDecimal phone, String name, String surname);
+    Client createClient(BigDecimal phone, String name, String surname, String password);
 
-    void updateClient(BigDecimal phone, BigDecimal newPhone, String name, String surname);
+    void updateClient(BigDecimal phone, BigDecimal newPhone, String name, String surname, String password);
 
     void deleteClient(BigDecimal phone);
 

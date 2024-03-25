@@ -23,7 +23,6 @@ public class Client {
     @Column(name = "c_phone", unique = true)
     private BigDecimal phone;
 
-    @NotNull
     @NotBlank
     @Size(min = 2, max = 32)
     @Column(name = "c_name")
@@ -32,6 +31,10 @@ public class Client {
     @Size(min = 2, max = 32)
     @Column(name = "c_surname")
     private String surname;
+
+    @NotBlank
+    @Column(name = "c_password")
+    private String password;
 
     @CreationTimestamp
     @Column(name = "c_created_at")

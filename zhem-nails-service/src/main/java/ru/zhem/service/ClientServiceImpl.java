@@ -2,6 +2,8 @@ package ru.zhem.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.Appointment;
 import ru.zhem.entity.Client;
@@ -20,6 +22,8 @@ public class ClientServiceImpl implements ClientService {
 
     private final AppointmentRepository appointmentRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional
     public Iterable<Client> findClients() {
@@ -34,15 +38,17 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
-    public Client createClient(BigDecimal phone, String name, String surname) {
+    public Client createClient(BigDecimal phone, String name, String surname, String password) {
+        String bcryptPassword = "{bcrypt}" + new BCryptPasswordEncoder().encode(password);
         return this.clientRepository.save(
-                new Client(phone, name, (surname == null || surname.isBlank()) ? null : surname, null)
+                new Client(phone, name, (surname == null || surname.isBlank()) ? null : surname,
+                        bcryptPassword, null)
         );
     }
 
     @Override
     @Transactional
-    public void updateClient(BigDecimal phone, BigDecimal newPhone, String name, String surname) {
+    public void updateClient(BigDecimal phone, BigDecimal newPhone, String name, String surname, String password) {
         this.clientRepository.findById(phone).ifPresentOrElse((user) -> {
                     if (newPhone == null) {
                         if (name != null && !name.isBlank()) {
@@ -50,6 +56,10 @@ public class ClientServiceImpl implements ClientService {
                         }
                         if (surname != null && !surname.isBlank()) {
                             user.setSurname(surname);
+                        }
+                        if (password != null && !password.isBlank()) {
+                            String bcryptPassword = "{bcrypt}" + this.passwordEncoder.encode(password);
+                            user.setPassword(bcryptPassword);
                         }
                     } else {
                         Client newClient = new Client();
@@ -63,6 +73,12 @@ public class ClientServiceImpl implements ClientService {
                             newClient.setSurname(surname);
                         } else {
                             newClient.setSurname(user.getSurname());
+                        }
+                        if (password != null && !password.isBlank()) {
+                            String bcryptPassword = "{bcrypt}" + this.passwordEncoder.encode(password);
+                            newClient.setPassword(bcryptPassword);
+                        } else {
+                            newClient.setPassword(user.getPassword());
                         }
                         this.clientRepository.delete(user);
                         this.clientRepository.save(newClient);

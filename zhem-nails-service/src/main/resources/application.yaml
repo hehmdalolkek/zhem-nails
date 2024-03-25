@@ -1,11 +1,10 @@
 server:
   port: 8081
-
 spring:
   security:
     user:
       name: dsakdsal
-      password: ksaldkas
+      password: $2a$10$/mVp9ZSLMsSpTrpX10p2VOdgC4w/OWNT5upP3Id6sxiL1wZXCVvHC
       roles:
         - SERVICE
   datasource:

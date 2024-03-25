@@ -8,6 +8,8 @@ public record Client(
         BigDecimal phone,
         String name,
         String surname,
+
+        String password,
         LocalDateTime createdAt
 ) {
 }

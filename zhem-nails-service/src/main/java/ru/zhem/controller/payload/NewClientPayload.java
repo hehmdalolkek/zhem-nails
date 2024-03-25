@@ -15,6 +15,10 @@ public record NewClientPayload(
         String name,
 
         @Size(min = 2, max = 32)
-        String surname
+        String surname,
+
+        @NotBlank
+        @Size(min = 8, max = 18)
+        String password
 ) {
 }
