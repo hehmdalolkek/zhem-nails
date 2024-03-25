@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(schema = "zhem", name = "t_users")
-public class User {
+@Table(schema = "zhem", name = "t_clients")
+public class Client {
 
     @Id
     @CheckPhoneNumber

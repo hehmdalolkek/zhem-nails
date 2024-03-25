@@ -4,10 +4,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.Appointment;
-import ru.zhem.entity.User;
+import ru.zhem.entity.Client;
 import ru.zhem.entity.WorkInterval;
 import ru.zhem.repository.AppointmentRepository;
-import ru.zhem.repository.UserRepository;
+import ru.zhem.repository.ClientRepository;
 import ru.zhem.repository.WorkIntervalRepository;
 
 import java.math.BigDecimal;
@@ -20,7 +20,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
 
-    private final UserRepository userRepository;
+    private final ClientRepository clientRepository;
 
     private final WorkIntervalRepository workIntervalRepository;
 
@@ -39,8 +39,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @Transactional
     public Appointment createAppointment(BigDecimal userPhone, Long workIntervalId, String details) {
-        User user = this.userRepository.findById(userPhone)
-                .orElseThrow(() -> new NoSuchElementException("User is not found"));
+        Client client = this.clientRepository.findById(userPhone)
+                .orElseThrow(() -> new NoSuchElementException("Client is not found"));
         WorkInterval workInterval = this.workIntervalRepository.findById(workIntervalId)
                 .orElseThrow(() -> new NoSuchElementException("Work interval is not found"));
         if (workInterval.getIsBooked().equals(true)) {
@@ -49,7 +49,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         workInterval.setIsBooked(true);
         return this.appointmentRepository.save(
-                new Appointment(null, user, workInterval,
+                new Appointment(null, client, workInterval,
                         (details == null || details.isBlank()) ? null : details, null, null)
         );
     }
@@ -60,9 +60,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         this.appointmentRepository.findById(appointmentId)
                 .ifPresentOrElse((appointment) -> {
                     if (userPhone != null) {
-                        User user = this.userRepository.findById(userPhone)
-                                .orElseThrow(() -> new NoSuchElementException("User is not found"));
-                        appointment.setUser(user);
+                        Client client = this.clientRepository.findById(userPhone)
+                                .orElseThrow(() -> new NoSuchElementException("Client is not found"));
+                        appointment.setClient(client);
                     }
                     if (workIntervalId != null){
                         WorkInterval workInterval = this.workIntervalRepository.findById(workIntervalId)

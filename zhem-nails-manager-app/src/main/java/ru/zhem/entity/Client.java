@@ -4,8 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
-public record User(
-        long id,
+public record Client(
         BigDecimal phone,
         String name,
         String surname,

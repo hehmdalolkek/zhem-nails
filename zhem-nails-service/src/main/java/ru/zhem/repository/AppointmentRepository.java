@@ -9,5 +9,5 @@ import java.math.BigDecimal;
 @Repository
 public interface AppointmentRepository extends CrudRepository<Appointment, Long> {
 
-    Iterable<Appointment> findAllByUserPhone(BigDecimal phone);
+    Iterable<Appointment> findAllByClientPhone(BigDecimal phone);
 }

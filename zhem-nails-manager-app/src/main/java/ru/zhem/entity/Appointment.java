@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public record Appointment(
         long id,
-        User user,
+        Client client,
         String details,
         WorkInterval workInterval,
         LocalDateTime createdAt,

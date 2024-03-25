@@ -25,8 +25,8 @@ public class Appointment {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_user")
-    private User user;
+    @JoinColumn(name = "id_client")
+    private Client client;
 
     @NotNull
     @OneToOne
