@@ -28,20 +28,6 @@ public class AdminController {
 
     private final WorkIntervalRestClient workIntervalRestClient;
 
-    @GetMapping("/login")
-    public String login() {
-        return "service/admin/common/login";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
-            new SecurityContextLogoutHandler().logout(request, response, authentication);
-        }
-        return "redirect:/admin/login?logout";
-    }
-
     @GetMapping("/dashboard")
     public String dashboard() {
         return "service/admin/common/dashboard";
