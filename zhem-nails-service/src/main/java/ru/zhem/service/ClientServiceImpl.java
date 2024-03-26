@@ -39,7 +39,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public Client createClient(BigDecimal phone, String name, String surname, String password) {
-        String bcryptPassword = "{bcrypt}" + new BCryptPasswordEncoder().encode(password);
+        String bcryptPassword = new BCryptPasswordEncoder().encode(password);
         return this.clientRepository.save(
                 new Client(phone, name, (surname == null || surname.isBlank()) ? null : surname,
                         bcryptPassword, null)
@@ -58,7 +58,7 @@ public class ClientServiceImpl implements ClientService {
                             user.setSurname(surname);
                         }
                         if (password != null && !password.isBlank()) {
-                            String bcryptPassword = "{bcrypt}" + this.passwordEncoder.encode(password);
+                            String bcryptPassword = this.passwordEncoder.encode(password);
                             user.setPassword(bcryptPassword);
                         }
                     } else {
