@@ -4,14 +4,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class BadRequestException extends RuntimeException {
 
-    private final List<String> errors;
+    private final Map<String, String> errors;
 
-    public BadRequestException(List<String> errors) {
+    public BadRequestException(Map<String, String> errors) {
         this.errors = errors;
     }
 

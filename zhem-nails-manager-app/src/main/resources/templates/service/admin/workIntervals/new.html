@@ -6,21 +6,19 @@
 </head>
 <body>
     <h1>Добавить новый интервал</h1>
-    <div data-th-if="${errors}">
-        <h3>Допущены ошибки</h3>
-        <ul>
-            <li data-th-each="error : ${errors}" data-th-text="${error}"></li>
-        </ul>
-    </div>
     <form method="post" data-th-action="@{/admin/workintervals/create}">
         <label>
-          Дата:
-          <input type="date" name="date" data-th-value="${payload?.date}">
-        </label>
+            Дата:
+            <input type="date" name="date" data-th-value="${payload?.date}">
+            <span data-th-text="${errors?.containsKey('date')} ? ${errors.get('date')}"></span>
+        </label><br><br>
+
         <label>
-          Время:
-          <input type="time" name="startTime" data-th-value="${payload?.startTime}">
-        </label>
+            Время:
+            <input type="time" name="startTime" data-th-value="${payload?.startTime}">
+            <span data-th-text="${errors?.containsKey('startTime')} ? ${errors.get('startTime')}"></span>
+        </label><br><br>
+
         <input type="submit" value="Добавить">
     </form>
 </body>

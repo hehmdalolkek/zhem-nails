@@ -67,7 +67,8 @@ public class RestClientWorkIntervalRestClient implements WorkIntervalRestClient 
                     .body(WorkInterval.class);
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
+            Map<String, String> errors = (Map<String, String>) problemDetail.getProperties().get("errors");
+            throw new BadRequestException(errors);
         }
     }
 
@@ -84,7 +85,8 @@ public class RestClientWorkIntervalRestClient implements WorkIntervalRestClient 
             throw new NoSuchElementException(exception);
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
+            Map<String, String> errors = (Map<String, String>) problemDetail.getProperties().get("errors");
+            throw new BadRequestException(errors);
         }
     }
 
