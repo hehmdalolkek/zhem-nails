@@ -14,14 +14,15 @@ public class ConflictControllerAdvice {
     public ResponseEntity<ProblemDetail> handleIllegalStateException(IllegalStateException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ProblemDetail.forStatusAndDetail(
-                        HttpStatus.CONFLICT, exception.getMessage()));
+                        HttpStatus.CONFLICT, "Data conflict"
+                ));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ProblemDetail> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ProblemDetail.forStatusAndDetail(
-                        HttpStatus.CONFLICT, exception.getMessage()
+                        HttpStatus.CONFLICT, "Data conflict"
                 ));
     }
 }
