@@ -25,12 +25,12 @@ public class SecurityController {
         return "redirect:/admin/login?logout";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public String loginUser() {
         return "service/user/common/login";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/user/logout")
     public String logoutUser(HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {

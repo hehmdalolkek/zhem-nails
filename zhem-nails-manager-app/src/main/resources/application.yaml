@@ -1,14 +1,5 @@
 server:
   port: 8080
-
-spring:
-  security:
-    user:
-      name: admin
-      password: admin
-      roles:
-        - ADMIN
-
 zhem-nails:
   services:
     service:

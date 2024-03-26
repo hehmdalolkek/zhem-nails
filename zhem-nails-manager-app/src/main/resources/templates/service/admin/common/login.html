@@ -7,9 +7,11 @@
 <body>
     <h1>Please Log In</h1>
     <div th:if="${param.error}">
-        Invalid username and password.</div>
+        Invalid username and password.
+    </div>
     <div th:if="${param.logout}">
-        You have been logged out.</div>
+        You have been logged out.
+    </div>
     <form th:action="@{/admin/login}" method="post">
         <div>
             <input type="text" name="username" placeholder="Username"/>
@@ -17,6 +19,7 @@
         <div>
             <input type="password" name="password" placeholder="Password"/>
         </div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <input type="submit" value="Log in" />
     </form>
 </body>
