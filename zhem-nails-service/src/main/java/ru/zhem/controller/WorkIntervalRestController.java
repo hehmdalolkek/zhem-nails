@@ -37,7 +37,8 @@ public class WorkIntervalRestController {
 
     @PostMapping
     public ResponseEntity<?> createWorkInterval(@Valid @RequestBody NewWorkIntervalPayload payload,
-                                                BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) throws BindException {
+                                                BindingResult bindingResult,
+                                                UriComponentsBuilder uriComponentsBuilder) throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -56,8 +57,8 @@ public class WorkIntervalRestController {
 
     @PatchMapping("/{workIntervalId:\\d+}")
     public ResponseEntity<?> updateWorkInterval(@PathVariable("workIntervalId") long workIntervalId,
-                                   @Valid @RequestBody UpdateWorkIntervalPayload payload,
-                                   BindingResult bindingResult) throws BindException {
+                                                @Valid @RequestBody UpdateWorkIntervalPayload payload,
+                                                BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
