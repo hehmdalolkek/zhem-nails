@@ -1,14 +1,13 @@
 package ru.zhem.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +18,8 @@ import ru.zhem.entity.WorkInterval;
 import ru.zhem.entity.payload.NewWorkIntervalPayload;
 import ru.zhem.entity.payload.UpdateWorkIntervalPayload;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class AdminController {
     }
 
     @GetMapping("/workintervals")
-    public String getWorkIntervalsList(Model model) {
+    public String getWorkIntervalList(Model model) {
         model.addAttribute("workIntervals", this.workIntervalRestClient.findAllWorkIntervals());
         return "service/admin/workIntervals/list";
     }
@@ -53,16 +54,29 @@ public class AdminController {
     }
 
     @PostMapping("/workintervals/create")
-    public String createWorkInterval(NewWorkIntervalPayload payload,
+    public String createWorkInterval(@Valid NewWorkIntervalPayload payload, BindingResult bindingResult,
                                      Model model, HttpServletResponse response) {
-        try {
-            this.workIntervalRestClient.createWorkInterval(payload.date(), payload.startTime());
-            return "redirect:/admin/workintervals";
-        } catch (BadRequestException exception) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (Object error : bindingResult.getAllErrors()) {
+                if (error instanceof FieldError fieldError) {
+                    errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+                }
+            }
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getErrors());
+            model.addAttribute("errors", errors);
             return "service/admin/workIntervals/new";
+        } else {
+            try {
+                this.workIntervalRestClient.createWorkInterval(payload.date(), payload.startTime());
+                return "redirect:/admin/workintervals";
+            } catch (BadRequestException exception) {
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                model.addAttribute("payload", payload);
+                model.addAttribute("errors", exception.getErrors());
+                return "service/admin/workIntervals/new";
+            }
         }
     }
 
@@ -70,21 +84,36 @@ public class AdminController {
     public String getEditWorkIntervalPage(@PathVariable("workInterval") long workIntervalId, Model model) {
         WorkInterval workInterval = this.workIntervalRestClient.findWorkInterval(workIntervalId)
                 .orElseThrow(() -> new NoSuchElementException("WorkInterval is not found"));
+        model.addAttribute("workIntervalId", workIntervalId);
         model.addAttribute("workInterval", workInterval);
         return "service/admin/workIntervals/edit";
     }
 
     @PostMapping("/workintervals/{workInterval:\\d+}/edit")
-    public String editWorkInterval(@PathVariable("workInterval") long workIntervalId, Model model,
-                                   UpdateWorkIntervalPayload payload, HttpServletResponse response) {
-        try {
-            this.workIntervalRestClient.updateWorkInterval(workIntervalId, payload.date(), payload.startTime());
-            return "redirect:/admin/workintervals";
-        } catch (BadRequestException exception) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+    public String editWorkInterval(@PathVariable("workInterval") long workIntervalId, @Valid UpdateWorkIntervalPayload payload,
+                                   BindingResult bindingResult, Model model, HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (Object error : bindingResult.getAllErrors()) {
+                if (error instanceof FieldError fieldError) {
+                    errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+                }
+            }
+            model.addAttribute("workIntervalId", workIntervalId);
             model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getErrors());
-            return "service/admin/workIntervals/new";
+            model.addAttribute("errors", errors);
+            return "service/admin/workIntervals/edit";
+        } else {
+            try {
+                this.workIntervalRestClient.updateWorkInterval(workIntervalId, payload.date(), payload.startTime());
+                return "redirect:/admin/workintervals";
+            } catch (BadRequestException exception) {
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                model.addAttribute("workIntervalId", workIntervalId);
+                model.addAttribute("payload", payload);
+                model.addAttribute("errors", exception.getErrors());
+                return "service/admin/workIntervals/edit";
+            }
         }
     }
 
