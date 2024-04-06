@@ -1,0 +1,20 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/zhem-db
+    username: postgres
+    password: root
+  flyway:
+    schemas:
+      - public
+      - zhem
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  security:
+    user:
+      name: service
+      password: service
+      roles:
+        - SERVICE
