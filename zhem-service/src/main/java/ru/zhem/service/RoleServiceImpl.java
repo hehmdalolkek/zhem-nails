@@ -15,13 +15,13 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public Role createRole(String title) {
-        boolean isExists = this.roleRepository.existsByTitleIgnoreCase(title);
+    public Role createRole(Role role) {
+        boolean isExists = this.roleRepository.existsByTitleIgnoreCase(role.getTitle());
         if (isExists) {
             throw new RoleWithDuplicateTitleException("Role with this title is already exists");
         }
         return this.roleRepository.save(Role.builder()
-                .title(title.toUpperCase())
+                .title(role.getTitle().toUpperCase())
                 .build());
     }
 }

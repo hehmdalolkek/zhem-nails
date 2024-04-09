@@ -1,4 +1,4 @@
-package ru.zhem.controller.payload;
+package ru.zhem.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewRolePayload {
+public class RoleCreationDto {
 
     @NotBlank(message = "Поле должно быть заполнено")
     @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")

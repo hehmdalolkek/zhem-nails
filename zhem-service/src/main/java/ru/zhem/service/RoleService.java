@@ -4,6 +4,6 @@ import ru.zhem.entity.Role;
 
 public interface RoleService {
 
-    Role createRole(String title);
+    Role createRole(Role role);
 
 }
