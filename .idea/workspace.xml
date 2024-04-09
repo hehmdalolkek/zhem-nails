@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment=".idea">
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/RoleMapper.java" afterDir="false" />
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="changed payload to dto">
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/IntervalCreationDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/IntervalUpdateDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/UserMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Appointment.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/AppointmentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/IntervalRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/IntervalRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/RoleRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/RoleRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/payload/NewRolePayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/RoleCreationDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/payload/NewZhemUserPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserCreationDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/payload/ReturnRolePayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/RoleDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/payload/ReturnZhemUserPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/payload/UpdateZhemUserPayload.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserUpdateDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/IntervalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/IntervalRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/RoleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/RoleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/resources/application.yaml" afterDir="false" />
@@ -154,7 +149,7 @@
       <workItem from="1712468600190" duration="4109000" />
       <workItem from="1712572736951" duration="6125000" />
       <workItem from="1712601100186" duration="4577000" />
-      <workItem from="1712644676002" duration="5690000" />
+      <workItem from="1712644676002" duration="6111000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -340,7 +335,31 @@
       <option name="project" value="LOCAL" />
       <updated>1712603578150</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary=".idea">
+      <option name="closed" value="true" />
+      <created>1712650898410</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1712650898410</updated>
+    </task>
+    <task id="LOCAL-00025" summary="changed payload to dto">
+      <option name="closed" value="true" />
+      <created>1712650937597</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1712650937597</updated>
+    </task>
+    <task id="LOCAL-00026" summary="changed payload to dto">
+      <option name="closed" value="true" />
+      <created>1712650943599</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1712650943599</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,6 +385,7 @@
     <MESSAGE value="added Interval entity and Status enum for Interval" />
     <MESSAGE value="init Interval" />
     <MESSAGE value=".idea" />
-    <option name="LAST_COMMIT_MESSAGE" value=".idea" />
+    <MESSAGE value="changed payload to dto" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed payload to dto" />
   </component>
 </project>
