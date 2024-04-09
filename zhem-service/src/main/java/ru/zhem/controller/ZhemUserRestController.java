@@ -13,10 +13,7 @@ import ru.zhem.dto.ZhemUserDto;
 import ru.zhem.dto.ZhemUserUpdateDto;
 import ru.zhem.dto.mapper.UserMapper;
 import ru.zhem.entity.ZhemUser;
-import ru.zhem.exception.RoleNotFoundException;
-import ru.zhem.exception.ZhemUserNotFoundException;
-import ru.zhem.exception.ZhemUserWithDuplicateEmailException;
-import ru.zhem.exception.ZhemUserWithDuplicatePhoneException;
+import ru.zhem.exception.*;
 import ru.zhem.service.ZhemUserService;
 
 import java.net.URI;
@@ -42,11 +39,7 @@ public class ZhemUserRestController {
             return ResponseEntity.ok()
                     .body(allUsersPayload);
         } catch (RoleNotFoundException exception) {
-            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                    HttpStatus.NOT_FOUND, exception.getMessage()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(problemDetail);
+            throw new NotFoundException(exception.getMessage());
         }
     }
 
@@ -57,11 +50,7 @@ public class ZhemUserRestController {
             return ResponseEntity.ok()
                     .body(this.userMapper.fromEntity(foundedUser));
         } catch (ZhemUserNotFoundException exception) {
-            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                    HttpStatus.NOT_FOUND, exception.getMessage()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(problemDetail);
+            throw new NotFoundException(exception.getMessage());
         }
     }
 
@@ -72,11 +61,7 @@ public class ZhemUserRestController {
             return ResponseEntity.ok()
                     .body(this.userMapper.fromEntity(foundedUser));
         } catch (ZhemUserNotFoundException exception) {
-            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                    HttpStatus.NOT_FOUND, exception.getMessage()
-            );
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(problemDetail);
+            throw new NotFoundException(exception.getMessage());
         }
     }
 
@@ -95,11 +80,7 @@ public class ZhemUserRestController {
                 return ResponseEntity.created(URI.create("/service-api/v1/users/user/" + createdUser.getId()))
                         .body(this.userMapper.fromEntity(createdUser));
             } catch (ZhemUserWithDuplicatePhoneException | ZhemUserWithDuplicateEmailException exception) {
-                ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                        HttpStatus.BAD_REQUEST, exception.getMessage()
-                );
-                return ResponseEntity.badRequest()
-                        .body(problemDetail);
+                throw new BadRequestException(exception.getMessage());
             }
         }
     }
@@ -120,11 +101,7 @@ public class ZhemUserRestController {
                         .body(this.userMapper.fromEntity(updatedUser));
             } catch (ZhemUserWithDuplicatePhoneException | ZhemUserWithDuplicateEmailException
                      | ZhemUserNotFoundException exception) {
-                ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                        HttpStatus.BAD_REQUEST, exception.getMessage()
-                );
-                return ResponseEntity.badRequest()
-                        .body(problemDetail);
+                throw new BadRequestException(exception.getMessage());
             }
         }
     }
@@ -136,11 +113,7 @@ public class ZhemUserRestController {
             return ResponseEntity.ok()
                     .build();
         } catch (ZhemUserNotFoundException exception) {
-            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                    HttpStatus.BAD_REQUEST, exception.getMessage()
-            );
-            return ResponseEntity.badRequest()
-                    .body(problemDetail);
+            throw new BadRequestException(exception.getMessage());
         }
     }
 

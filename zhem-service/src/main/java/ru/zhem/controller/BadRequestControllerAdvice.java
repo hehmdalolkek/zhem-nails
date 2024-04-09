@@ -1,4 +1,4 @@
-package ru.zhem.exception;
+package ru.zhem.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -7,6 +7,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import ru.zhem.exception.BadRequestException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,15 @@ public class BadRequestControllerAdvice {
 
         problemDetail.setProperty("errors", errors);
 
+        return ResponseEntity.badRequest()
+                .body(problemDetail);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<?> handlerBadRequestException(BadRequestException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, exception.getMessage()
+        );
         return ResponseEntity.badRequest()
                 .body(problemDetail);
     }

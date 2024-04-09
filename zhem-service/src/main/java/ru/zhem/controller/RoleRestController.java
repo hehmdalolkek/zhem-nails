@@ -3,7 +3,6 @@ package ru.zhem.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.zhem.dto.RoleCreationDto;
 import ru.zhem.dto.mapper.RoleMapper;
 import ru.zhem.entity.Role;
+import ru.zhem.exception.BadRequestException;
 import ru.zhem.exception.RoleWithDuplicateTitleException;
 import ru.zhem.service.RoleService;
 
@@ -41,11 +41,7 @@ public class RoleRestController {
                 return ResponseEntity.status(HttpStatus.CREATED)
                         .body(this.roleMapper.fromEntity(createdRole));
             } catch (RoleWithDuplicateTitleException exception) {
-                ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                        HttpStatus.BAD_REQUEST, exception.getMessage()
-                );
-                return ResponseEntity.badRequest()
-                        .body(problemDetail);
+                throw new BadRequestException(exception.getMessage());
             }
         }
     }
