@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.zhem.entity.Role;
-import ru.zhem.entity.ZhemUser;
 
 import java.time.LocalDateTime;
 import java.util.Set;

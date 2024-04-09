@@ -1,10 +1,8 @@
 package ru.zhem.service;
 
-import ru.zhem.entity.Role;
 import ru.zhem.entity.ZhemUser;
 
 import java.util.List;
-import java.util.Set;
 
 public interface ZhemUserService {
 
