@@ -1,4 +1,4 @@
-package ru.zhem.controller.payload;
+package ru.zhem.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -11,7 +11,7 @@ import ru.zhem.entity.constraints.NullOrNotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateZhemUserPayload {
+public class ZhemUserUpdateDto {
 
     @CheckPhoneNumberOrNull(message = "Поле должно иметь международный формат номера телефона или быть пустым")
     private String phone;

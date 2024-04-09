@@ -16,11 +16,9 @@ public interface ZhemUserService {
 
     ZhemUser findUserByEmail(String email);
 
-    ZhemUser createUser(String phone, String password, String email,
-                        String firstName, String lastName, Set<Role> roles);
+    ZhemUser createUser(ZhemUser user);
 
-    ZhemUser updateUser(Long userId, String phone, String password, String email,
-                        String firstName, String lastName);
+    ZhemUser updateUser(long userId, ZhemUser user);
 
     void deleteUserById(long userId);
 

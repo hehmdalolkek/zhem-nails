@@ -1,4 +1,4 @@
-package ru.zhem.controller.payload;
+package ru.zhem.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +16,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewZhemUserPayload {
+public class ZhemUserCreationDto {
 
     @CheckPhoneNumber(message = "Поле должно иметь международный формат номера телефона")
     private String phone;

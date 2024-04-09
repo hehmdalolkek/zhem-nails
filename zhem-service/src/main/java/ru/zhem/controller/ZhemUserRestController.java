@@ -8,9 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.zhem.controller.payload.NewZhemUserPayload;
-import ru.zhem.controller.payload.ReturnZhemUserPayload;
-import ru.zhem.controller.payload.UpdateZhemUserPayload;
+import ru.zhem.dto.ZhemUserCreationDto;
+import ru.zhem.dto.ZhemUserDto;
+import ru.zhem.dto.ZhemUserUpdateDto;
+import ru.zhem.dto.mapper.UserMapper;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exception.RoleNotFoundException;
 import ru.zhem.exception.ZhemUserNotFoundException;
@@ -28,12 +29,14 @@ public class ZhemUserRestController {
 
     private final ZhemUserService zhemUserService;
 
+    private final UserMapper userMapper;
+
     @GetMapping
     public ResponseEntity<?> findAllUsers(@RequestParam(value = "role", required = false) String role) {
         try {
             List<ZhemUser> allUsers = this.zhemUserService.findAllUsers(role);
-            List<ReturnZhemUserPayload> allUsersPayload = allUsers.stream()
-                    .map(ReturnZhemUserPayload::fromEntity)
+            List<ZhemUserDto> allUsersPayload = allUsers.stream()
+                    .map(userMapper::fromEntity)
                     .toList();
 
             return ResponseEntity.ok()
@@ -52,7 +55,7 @@ public class ZhemUserRestController {
         try {
             ZhemUser foundedUser = this.zhemUserService.findUserById(userId);
             return ResponseEntity.ok()
-                    .body(ReturnZhemUserPayload.fromEntity(foundedUser));
+                    .body(this.userMapper.fromEntity(foundedUser));
         } catch (ZhemUserNotFoundException exception) {
             ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                     HttpStatus.NOT_FOUND, exception.getMessage()
@@ -67,7 +70,7 @@ public class ZhemUserRestController {
         try {
             ZhemUser foundedUser = this.zhemUserService.findUserByPhone(phone);
             return ResponseEntity.ok()
-                    .body(ReturnZhemUserPayload.fromEntity(foundedUser));
+                    .body(this.userMapper.fromEntity(foundedUser));
         } catch (ZhemUserNotFoundException exception) {
             ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                     HttpStatus.NOT_FOUND, exception.getMessage()
@@ -78,7 +81,7 @@ public class ZhemUserRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createUser(@Valid @RequestBody NewZhemUserPayload payload,
+    public ResponseEntity<?> createUser(@Valid @RequestBody ZhemUserCreationDto userDto,
                                         BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
@@ -88,10 +91,9 @@ public class ZhemUserRestController {
             }
         } else {
             try {
-                ZhemUser createdUser = this.zhemUserService.createUser(payload.getPhone(), payload.getPassword(),
-                        payload.getEmail(), payload.getFirstName(), payload.getLastName(), payload.getRoles());
+                ZhemUser createdUser = this.zhemUserService.createUser(this.userMapper.fromCreationDto(userDto));
                 return ResponseEntity.created(URI.create("/service-api/v1/users/user/" + createdUser.getId()))
-                        .body(ReturnZhemUserPayload.fromEntity(createdUser));
+                        .body(this.userMapper.fromEntity(createdUser));
             } catch (ZhemUserWithDuplicatePhoneException | ZhemUserWithDuplicateEmailException exception) {
                 ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                         HttpStatus.BAD_REQUEST, exception.getMessage()
@@ -103,7 +105,7 @@ public class ZhemUserRestController {
     }
 
     @PatchMapping("/user/{userId:\\d+}")
-    public ResponseEntity<?> updateUserById(@PathVariable("userId") long userId, @Valid @RequestBody UpdateZhemUserPayload payload,
+    public ResponseEntity<?> updateUserById(@PathVariable("userId") long userId, @Valid @RequestBody ZhemUserUpdateDto userDto,
                                             BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
@@ -113,10 +115,9 @@ public class ZhemUserRestController {
             }
         } else {
             try {
-                ZhemUser updatedUser = this.zhemUserService.updateUser(userId, payload.getPhone(), payload.getPassword(),
-                        payload.getEmail(), payload.getFirstName(), payload.getLastName());
+                ZhemUser updatedUser = this.zhemUserService.updateUser(userId, this.userMapper.fromUpdateDto(userDto));
                 return ResponseEntity.ok()
-                        .body(ReturnZhemUserPayload.fromEntity(updatedUser));
+                        .body(this.userMapper.fromEntity(updatedUser));
             } catch (ZhemUserWithDuplicatePhoneException | ZhemUserWithDuplicateEmailException
                      | ZhemUserNotFoundException exception) {
                 ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(

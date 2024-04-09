@@ -15,7 +15,6 @@ import ru.zhem.repository.ZhemUserRepository;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -61,61 +60,61 @@ public class ZhemUserServiceImpl implements ZhemUserService {
 
     @Override
     @Transactional
-    public ZhemUser createUser(String phone, String password, String email,
-                               String firstName, String lastName, Set<Role> roles) {
-        boolean phoneIsExists = this.zhemUserRepository.existsByPhone(phone);
-        boolean emailIsExists = this.zhemUserRepository.existsByEmail(email);
+    public ZhemUser createUser(ZhemUser user) {
+        boolean phoneIsExists = this.zhemUserRepository.existsByPhone(user.getPhone());
         if (phoneIsExists) {
             throw new ZhemUserWithDuplicatePhoneException("User with this phone is already exists");
         }
-        if (emailIsExists) {
-            throw new ZhemUserWithDuplicateEmailException("User with this email is already exists");
+        if (Objects.nonNull(user.getEmail())) {
+            boolean emailIsExists = this.zhemUserRepository.existsByEmail(user.getEmail());
+            if (emailIsExists) {
+                throw new ZhemUserWithDuplicateEmailException("User with this email is already exists");
+            }
         }
 
-        return this.zhemUserRepository.save(ZhemUser.builder()
-                .phone(phone)
-                .password(passwordEncoder.encode(password))
-                .email(email)
-                .firstName(firstName)
-                .lastName(lastName)
-                .roles(roles)
-                .build());
+        String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        return this.zhemUserRepository.save(user);
     }
 
     @Override
     @Transactional
-    public ZhemUser updateUser(Long userId, String phone, String password, String email,
-                               String firstName, String lastName) {
-        ZhemUser user = this.zhemUserRepository.findById(userId)
+    public ZhemUser updateUser(long userId, ZhemUser user) {
+        ZhemUser foundedUser = this.zhemUserRepository.findById(userId)
                 .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
-        if (Objects.nonNull(phone)) {
-            boolean phoneIsExists = this.zhemUserRepository.existsByPhone(phone);
-            if (phoneIsExists && !user.getPhone().equals(phone)) {
+        if (Objects.nonNull(user.getPhone())) {
+            boolean phoneIsExists = this.zhemUserRepository.existsByPhone(user.getPhone());
+            if (phoneIsExists && !foundedUser.getPhone().equals(user.getPhone())) {
                 throw new ZhemUserWithDuplicatePhoneException("User with this phone is already exists");
             } else {
-                user.setPhone(phone);
+                foundedUser.setPhone(user.getPhone());
             }
         }
-        if (Objects.nonNull(password)) {
-            String encodedPassword = this.passwordEncoder.encode(password);
-            user.setPassword(encodedPassword);
+        if (Objects.nonNull(user.getPassword())) {
+            String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+            foundedUser.setPassword(encodedPassword);
         }
-        if (Objects.nonNull(email)) {
-            boolean emailIsExists = this.zhemUserRepository.existsByEmail(email);
-            if (emailIsExists && !user.getEmail().equals(email)) {
-                throw new ZhemUserWithDuplicateEmailException("User with this email is already exists");
+        if (Objects.nonNull(user.getEmail())) {
+            boolean emailIsExists = this.zhemUserRepository.existsByEmail(user.getEmail());
+            if (emailIsExists) {
+                if (Objects.nonNull(foundedUser.getEmail()) && !foundedUser.getEmail().equals(user.getEmail())) {
+                    throw new ZhemUserWithDuplicateEmailException("User with this email is already exists");
+                } else if (Objects.isNull(foundedUser.getEmail())) {
+                    throw new ZhemUserWithDuplicateEmailException("User with this email is already exists");
+                }
             } else {
-                user.setEmail(email);
+                foundedUser.setEmail(user.getEmail());
             }
         }
-        if (Objects.nonNull(firstName)) {
-            user.setFirstName(firstName);
+        if (Objects.nonNull(user.getFirstName())) {
+            foundedUser.setFirstName(user.getFirstName());
         }
-        if (Objects.nonNull(lastName)) {
-            user.setLastName(lastName);
+        if (Objects.nonNull(user.getLastName())) {
+            foundedUser.setLastName(user.getLastName());
         }
 
-        return this.zhemUserRepository.save(user);
+        return this.zhemUserRepository.save(foundedUser);
     }
 
     @Override
