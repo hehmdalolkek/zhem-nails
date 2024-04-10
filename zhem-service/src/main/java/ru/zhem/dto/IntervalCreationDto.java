@@ -13,10 +13,10 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class IntervalCreationDto {
 
-    @NotNull
+    @NotNull(message = "Поле должно быть заполнено")
     private LocalDate date;
 
-    @NotNull
+    @NotNull(message = "Поле должно быть заполнено")
     private LocalTime time;
 
 }
