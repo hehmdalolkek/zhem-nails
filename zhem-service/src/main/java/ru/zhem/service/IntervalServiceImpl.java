@@ -100,5 +100,6 @@ public class IntervalServiceImpl implements IntervalService {
         if (foundedInterval.getStatus() == Status.BOOKED) {
             throw new IntervalIsBookedException("Interval is booked");
         }
+        this.intervalRepository.deleteById(intervalId);
     }
 }
