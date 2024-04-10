@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import ru.zhem.dto.AppointmentCreationDto;
 import ru.zhem.dto.AppointmentDto;
 import ru.zhem.dto.AppointmentUpdateDto;
+import ru.zhem.dto.DailyAppointmentDto;
 import ru.zhem.dto.mapper.AppointmentMapper;
 import ru.zhem.entity.Appointment;
 import ru.zhem.exception.*;
 import ru.zhem.service.AppointmentService;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,8 +46,14 @@ public class AppointmentRestController {
     @GetMapping
     public ResponseEntity<?> findAllAppointments(@RequestParam("year") Integer year,
                                                  @RequestParam("month") Integer month) {
+        Map<LocalDate, List<Appointment>> appointments =
+                this.appointmentService.findAllAppointmentsByIntervalDate(year, month);
+        List<DailyAppointmentDto> appointmentDtos = appointments.entrySet().stream()
+                .map(this.appointmentMapper::fromEntryOfEntity)
+                .toList();
+
         return ResponseEntity.ok()
-                .body(this.appointmentService.findAllAppointmentsByIntervalDate(year, month));
+                .body(appointmentDtos);
     }
 
     @GetMapping("/appointment/{appointmentId:\\d+}")
@@ -53,7 +62,7 @@ public class AppointmentRestController {
             Appointment foundedAppointment = this.appointmentService.findAppointmentById(appointmentId);
             return ResponseEntity.ok()
                     .body(this.appointmentMapper.fromEntity(foundedAppointment));
-        } catch (ZhemUserNotFoundException exception) {
+        } catch (AppointmentNotFoundException exception) {
             throw new NotFoundException(exception.getMessage());
         }
     }
@@ -95,7 +104,8 @@ public class AppointmentRestController {
                         .updateAppointment(appointmentId,this.appointmentMapper.fromUpdateDto(appointmentDto));
                 return ResponseEntity.ok()
                         .body(this.appointmentMapper.fromEntity(updatedAppointment));
-            } catch (ZhemUserNotFoundException | IntervalNotFoundException | IntervalIsBookedException exception) {
+            } catch (ZhemUserNotFoundException | IntervalNotFoundException
+                     | IntervalIsBookedException | AppointmentNotFoundException exception) {
                 throw new BadRequestException(exception.getMessage());
             }
         }
@@ -107,7 +117,7 @@ public class AppointmentRestController {
             this.appointmentService.deleteAppointment(appointmentId);
             return ResponseEntity.ok()
                     .build();
-        } catch (ZhemUserNotFoundException exception) {
+        } catch (AppointmentNotFoundException exception) {
             throw new NotFoundException(exception.getMessage());
         }
     }
