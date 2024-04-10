@@ -32,6 +32,6 @@ public class Interval extends BaseEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status = Status.AVAILABLE;
+    private Status status;
 
 }
