@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.zhem.entity.Appointment;
 import ru.zhem.entity.Interval;
 import ru.zhem.entity.Status;
+import ru.zhem.entity.ZhemUser;
 import ru.zhem.exception.AppointmentNotFoundException;
 import ru.zhem.exception.IntervalIsBookedException;
 import ru.zhem.exception.IntervalNotFoundException;
@@ -60,15 +61,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @Transactional
     public Appointment createAppointment(Appointment appointment) {
-        boolean userIsExists = this.zhemUserRepository.existsById(appointment.getUser().getId());
-        if (!userIsExists) {
-            throw new ZhemUserNotFoundException("User not found");
-        }
+        ZhemUser foundedUser = this.zhemUserRepository.findById(appointment.getUser().getId())
+                .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
         Interval foundedInterval = this.intervalRepository.findById(appointment.getInterval().getId())
                 .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
         if (foundedInterval.getStatus() == Status.BOOKED) {
             throw new IntervalIsBookedException("Interval is already booked");
         }
+        appointment.setUser(foundedUser);
         foundedInterval.setStatus(Status.BOOKED);
         appointment.setInterval(foundedInterval);
 
@@ -81,14 +81,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment foundedAppointment = this.appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException("Appointment not found"));
 
-        if (Objects.nonNull(appointment.getUser())) {
-            boolean isExists = this.zhemUserRepository.existsById(appointment.getUser().getId());
-            if (!isExists) {
-                throw new ZhemUserNotFoundException("User not found");
-            }
-            foundedAppointment.setUser(appointment.getUser());
+        if (Objects.nonNull(appointment.getUser().getId())) {
+            ZhemUser foundedUser = this.zhemUserRepository.findById(appointment.getUser().getId())
+                    .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
+            foundedAppointment.setUser(foundedUser);
         }
-        if (Objects.nonNull(appointment.getInterval())) {
+        if (Objects.nonNull(appointment.getInterval().getId())) {
             Interval foundedInterval = this.intervalRepository.findById(appointment.getInterval().getId())
                     .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
             if (foundedInterval.getStatus() == Status.BOOKED) {

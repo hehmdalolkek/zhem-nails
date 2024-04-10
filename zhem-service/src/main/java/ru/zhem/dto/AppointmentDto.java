@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.entity.Interval;
-import ru.zhem.entity.ZhemUser;
 
 import java.time.LocalDateTime;
 
@@ -17,9 +15,9 @@ public class AppointmentDto {
 
     private Long id;
 
-    private ZhemUser user;
+    private ZhemUserDto user;
 
-    private Interval interval;
+    private IntervalDto interval;
 
     private String details;
 
