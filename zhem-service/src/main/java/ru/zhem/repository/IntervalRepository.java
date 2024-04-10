@@ -15,14 +15,15 @@ import java.util.List;
 @Repository
 public interface IntervalRepository extends JpaRepository<Interval, Long> {
 
-    @Query("from Interval i where extract(year from i.date) = :year and extract(month from i.date) = :month")
-    List<Interval> findAllByDateOrderByDateAscTimeDesc(@Param("year") Integer year, @Param("month") Integer month);
+    @Query("from Interval i where extract(year from i.date) = :year and extract(month from i.date) = :month" +
+            " order by i.date, i.time")
+    List<Interval> findAllByDateOrderByDateTime(@Param("year") Integer year, @Param("month") Integer month);
 
     @Query("from Interval i where extract(year from i.date) = :year and extract(month from i.date) = :month" +
-            " and i.status = :status")
-    List<Interval> findAllByDateAndStatusOrderByDateAscTimeDesc(@Param("year") Integer year,
-                                                                @Param("month") Integer month,
-                                                                @Param("status") Status status);
+            " and i.status = :status order by i.date, i.time")
+    List<Interval> findAllByDateAndStatusOrderByDateTime(@Param("year") Integer year,
+                                                         @Param("month") Integer month,
+                                                         @Param("status") Status status);
 
     boolean existsByDateAndTime(LocalDate date, LocalTime time);
 

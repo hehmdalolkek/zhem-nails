@@ -31,7 +31,7 @@ public class IntervalServiceImpl implements IntervalService {
             throw new InvalidDateException("Invalid month");
         }
         List<Interval> intervals = this.intervalRepository
-                .findAllByDateOrderByDateAscTimeDesc(year, month);
+                .findAllByDateOrderByDateTime(year, month);
         return intervals.stream()
                 .collect(Collectors.groupingBy(Interval::getDate,
                         LinkedHashMap::new, Collectors.toList()));
@@ -44,7 +44,7 @@ public class IntervalServiceImpl implements IntervalService {
             throw new InvalidDateException("Invalid month");
         }
         List<Interval> intervals = this.intervalRepository
-                .findAllByDateAndStatusOrderByDateAscTimeDesc(year, month, Status.AVAILABLE);
+                .findAllByDateAndStatusOrderByDateTime(year, month, Status.AVAILABLE);
         return intervals.stream()
                 .collect(Collectors.groupingBy(Interval::getDate,
                         LinkedHashMap::new, Collectors.toList()));
