@@ -15,6 +15,6 @@ spring:
   security:
     user:
       name: service
-      password: service
+      password: $2a$12$RoiWQYm/QrFzUnCifKrC5eCHt3IHj7PRHIaNdG7OwduR.Sltgt2ay
       roles:
         - SERVICE
