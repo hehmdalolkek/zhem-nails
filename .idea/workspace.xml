@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment=".idea">
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserAuthDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentCreationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentCreationDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentUpdateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/AppointmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/AppointmentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,47 +144,7 @@
       <workItem from="1712644676002" duration="6243000" />
       <workItem from="1712671441869" duration="11288000" />
       <workItem from="1712730975380" duration="10307000" />
-      <workItem from="1712773638874" duration="3390000" />
-    </task>
-    <task id="LOCAL-00004" summary="created database">
-      <option name="closed" value="true" />
-      <created>1712422684416</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1712422684416</updated>
-    </task>
-    <task id="LOCAL-00005" summary="created database">
-      <option name="closed" value="true" />
-      <created>1712425528927</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1712425528927</updated>
-    </task>
-    <task id="LOCAL-00006" summary="created database">
-      <option name="closed" value="true" />
-      <created>1712425854859</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1712425854859</updated>
-    </task>
-    <task id="LOCAL-00007" summary="added ZhemUser entity and payloads">
-      <option name="closed" value="true" />
-      <created>1712601208016</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1712601208016</updated>
-    </task>
-    <task id="LOCAL-00008" summary="added exceptions for ZhemUser">
-      <option name="closed" value="true" />
-      <created>1712601231831</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1712601231831</updated>
+      <workItem from="1712773638874" duration="4432000" />
     </task>
     <task id="LOCAL-00009" summary="added repository and service for ZhemUser">
       <option name="closed" value="true" />
@@ -548,21 +498,57 @@
       <option name="project" value="LOCAL" />
       <updated>1712774689543</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="refactored dtos for appointment">
+      <option name="closed" value="true" />
+      <created>1712777219567</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1712777219567</updated>
+    </task>
+    <task id="LOCAL-00054" summary="fixed return body in findAllAppointments">
+      <option name="closed" value="true" />
+      <created>1712777262516</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1712777262516</updated>
+    </task>
+    <task id="LOCAL-00055" summary="refactored dtos for ZhemUser, added dto for auth">
+      <option name="closed" value="true" />
+      <created>1712777308105</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1712777308105</updated>
+    </task>
+    <task id="LOCAL-00056" summary="optimize imports">
+      <option name="closed" value="true" />
+      <created>1712777328562</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1712777328562</updated>
+    </task>
+    <task id="LOCAL-00057" summary=".idea">
+      <option name="closed" value="true" />
+      <created>1712777340057</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1712777340057</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added controller and payloads for Role" />
-    <MESSAGE value="added Interval entity and Status enum for Interval" />
-    <MESSAGE value="init Interval" />
     <MESSAGE value="changed payload to dto" />
     <MESSAGE value="changed user payload to dto" />
     <MESSAGE value="added custom exceptions for BadRequest and NotFound, added controller advice for this exceptions" />
     <MESSAGE value="changed column status in intervals from status to varchar" />
-    <MESSAGE value="optimize imports" />
     <MESSAGE value="added interval dto" />
     <MESSAGE value="added exceptions for intervals" />
     <MESSAGE value="added methods findAllBy and existsBy in repo for interval" />
@@ -579,6 +565,10 @@
     <MESSAGE value="added appointment service and controller" />
     <MESSAGE value="removed default value for status" />
     <MESSAGE value="renamed IntervalCannotBeDeletedException to IntervalIsBookedException" />
+    <MESSAGE value="refactored dtos for appointment" />
+    <MESSAGE value="fixed return body in findAllAppointments" />
+    <MESSAGE value="refactored dtos for ZhemUser, added dto for auth" />
+    <MESSAGE value="optimize imports" />
     <MESSAGE value=".idea" />
     <option name="LAST_COMMIT_MESSAGE" value=".idea" />
   </component>
