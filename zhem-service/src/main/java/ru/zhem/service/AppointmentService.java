@@ -1,7 +1,6 @@
 package ru.zhem.service;
 
 import ru.zhem.entity.Appointment;
-import ru.zhem.entity.ZhemUser;
 
 import java.time.LocalDate;
 import java.util.List;

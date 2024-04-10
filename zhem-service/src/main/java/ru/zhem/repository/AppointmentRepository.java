@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.zhem.entity.Appointment;
-import ru.zhem.entity.Interval;
-import ru.zhem.entity.ZhemUser;
 
 import java.util.List;
 import java.util.Optional;
