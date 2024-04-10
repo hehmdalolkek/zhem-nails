@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.Interval;
 import ru.zhem.entity.Status;
-import ru.zhem.exception.IntervalCannotBeDeletedException;
+import ru.zhem.exception.IntervalIsBookedException;
 import ru.zhem.exception.IntervalNotFoundException;
 import ru.zhem.exception.IntervalWithDuplicateDateTimeException;
 import ru.zhem.exception.InvalidDateException;
@@ -98,7 +98,7 @@ public class IntervalServiceImpl implements IntervalService {
         Interval foundedInterval = this.intervalRepository.findById(intervalId)
                 .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
         if (foundedInterval.getStatus() == Status.BOOKED) {
-            throw new IntervalCannotBeDeletedException("Interval is booked");
+            throw new IntervalIsBookedException("Interval is booked");
         }
     }
 }

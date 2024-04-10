@@ -73,7 +73,7 @@ public class AppointmentRestController {
                         .createAppointment(this.appointmentMapper.fromCreationDto(appointmentDto));
                 return ResponseEntity.created(URI.create("/service-api/v1/appointments/appointment/" + createdAppointment.getId()))
                         .body(this.appointmentMapper.fromEntity(createdAppointment));
-            } catch (ZhemUserNotFoundException | IntervalNotFoundException | IntervalsBookedException exception) {
+            } catch (ZhemUserNotFoundException | IntervalNotFoundException | IntervalIsBookedException exception) {
                 throw new BadRequestException(exception.getMessage());
             }
         }
@@ -95,7 +95,7 @@ public class AppointmentRestController {
                         .updateAppointment(appointmentId,this.appointmentMapper.fromUpdateDto(appointmentDto));
                 return ResponseEntity.ok()
                         .body(this.appointmentMapper.fromEntity(updatedAppointment));
-            } catch (ZhemUserNotFoundException | IntervalNotFoundException | IntervalsBookedException exception) {
+            } catch (ZhemUserNotFoundException | IntervalNotFoundException | IntervalIsBookedException exception) {
                 throw new BadRequestException(exception.getMessage());
             }
         }

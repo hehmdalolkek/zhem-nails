@@ -7,7 +7,7 @@ import ru.zhem.entity.Appointment;
 import ru.zhem.entity.Interval;
 import ru.zhem.entity.Status;
 import ru.zhem.exception.AppointmentNotFoundException;
-import ru.zhem.exception.IntervalsBookedException;
+import ru.zhem.exception.IntervalIsBookedException;
 import ru.zhem.exception.IntervalNotFoundException;
 import ru.zhem.exception.ZhemUserNotFoundException;
 import ru.zhem.repository.AppointmentRepository;
@@ -67,7 +67,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Interval foundedInterval = this.intervalRepository.findById(appointment.getInterval().getId())
                 .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
         if (foundedInterval.getStatus() == Status.BOOKED) {
-            throw new IntervalsBookedException("Interval is already booked");
+            throw new IntervalIsBookedException("Interval is already booked");
         }
         foundedInterval.setStatus(Status.BOOKED);
         appointment.setInterval(foundedInterval);
@@ -92,7 +92,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             Interval foundedInterval = this.intervalRepository.findById(appointment.getInterval().getId())
                     .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
             if (foundedInterval.getStatus() == Status.BOOKED) {
-                throw new IntervalsBookedException("Interval is already booked");
+                throw new IntervalIsBookedException("Interval is already booked");
             }
             foundedAppointment.getInterval().setStatus(Status.AVAILABLE);
             foundedInterval.setStatus(Status.BOOKED);

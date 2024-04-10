@@ -121,7 +121,7 @@ public class IntervalRestController {
                     .build();
         } catch (IntervalNotFoundException exception) {
             throw new NotFoundException(exception.getMessage());
-        } catch (IntervalCannotBeDeletedException exception) {
+        } catch (IntervalIsBookedException exception) {
             throw new BadRequestException(exception.getMessage());
         }
     }
