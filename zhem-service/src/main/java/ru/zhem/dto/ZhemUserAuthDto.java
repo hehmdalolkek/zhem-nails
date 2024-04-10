@@ -4,27 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.zhem.entity.Role;
 
-import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ZhemUserDto {
+public class ZhemUserAuthDto {
 
     private Long id;
 
     private String phone;
 
-    private String email;
+    private String password;
 
-    private String firstName;
-
-    private String lastName;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
+    private Set<Role> roles;
 
 }

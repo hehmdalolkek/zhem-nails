@@ -42,11 +42,17 @@ public class ZhemUserRestController {
     }
 
     @GetMapping("/user/{userId:\\d+}")
-    public ResponseEntity<?> findUserById(@PathVariable("userId") long userId) {
+    public ResponseEntity<?> findUserById(@RequestParam(value = "auth", required = false) boolean isAuth,
+                                          @PathVariable("userId") long userId) {
         try {
             ZhemUser foundedUser = this.zhemUserService.findUserById(userId);
-            return ResponseEntity.ok()
-                    .body(this.userMapper.fromEntity(foundedUser));
+            if (isAuth) {
+                return ResponseEntity.ok()
+                        .body(this.userMapper.fromEntityForAuth(foundedUser));
+            } else {
+                return ResponseEntity.ok()
+                        .body(this.userMapper.fromEntity(foundedUser));
+            }
         } catch (ZhemUserNotFoundException exception) {
             throw new NotFoundException(exception.getMessage());
         }

@@ -1,6 +1,7 @@
 package ru.zhem.dto.mapper;
 
 import org.springframework.stereotype.Component;
+import ru.zhem.dto.ZhemUserAuthDto;
 import ru.zhem.dto.ZhemUserCreationDto;
 import ru.zhem.dto.ZhemUserDto;
 import ru.zhem.dto.ZhemUserUpdateDto;
@@ -34,13 +35,20 @@ public class UserMapper {
         return ZhemUserDto.builder()
                 .id(user.getId())
                 .phone(user.getPhone())
-                .password(user.getPassword())
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .roles(user.getRoles())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
+                .build();
+    }
+
+    public ZhemUserAuthDto fromEntityForAuth(ZhemUser user) {
+        return ZhemUserAuthDto.builder()
+                .id(user.getId())
+                .phone(user.getPhone())
+                .password(user.getPassword())
+                .roles(user.getRoles())
                 .build();
     }
 
