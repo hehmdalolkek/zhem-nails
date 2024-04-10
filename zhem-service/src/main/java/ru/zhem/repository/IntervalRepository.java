@@ -1,6 +1,7 @@
 package ru.zhem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -27,4 +28,8 @@ public interface IntervalRepository extends JpaRepository<Interval, Long> {
 
     boolean existsByDateAndTimeAndIdNot(LocalDate date, LocalTime time, long intervalId);
 
+    @Modifying
+    @Query("delete from Interval i where i.date <= :date and i.status = :status")
+    void deleteOldAvailableIntervals(@Param("date") LocalDate date,
+                                     @Param("status") Status status);
 }
