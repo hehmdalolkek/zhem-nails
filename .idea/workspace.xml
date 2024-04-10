@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added default messages to valid fields">
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentCreationDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentUpdateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/DailyAppointmentDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/AppointmentMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Appointment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/exception/AppointmentNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/AppointmentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment=".idea">
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserAuthDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/IntervalRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/IntervalRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Interval.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Interval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/exception/IntervalCannotBeDeletedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/exception/IntervalIsBookedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/IntervalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/IntervalServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentCreationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentCreationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/AppointmentUpdateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/ZhemUserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/AppointmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/AppointmentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,37 +49,37 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.zhem-service [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.zhem-service [package].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ZhemServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/projects/java/диплом/zhem-nails/zhem-service/src/main/resources/db/migration&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.zhem-service [clean].executor": "Run",
+    "Maven.zhem-service [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ZhemServiceApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/projects/java/диплом/zhem-nails/zhem-service/src/main/resources/db/migration",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;redis&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "redis",
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ru.zhem.exception" />
@@ -159,31 +154,7 @@
       <workItem from="1712644676002" duration="6243000" />
       <workItem from="1712671441869" duration="11288000" />
       <workItem from="1712730975380" duration="10307000" />
-      <workItem from="1712773638874" duration="693000" />
-    </task>
-    <task id="LOCAL-00001" summary="init">
-      <option name="closed" value="true" />
-      <created>1712411251764</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1712411251764</updated>
-    </task>
-    <task id="LOCAL-00002" summary="init application.yaml">
-      <option name="closed" value="true" />
-      <created>1712412258588</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1712412258588</updated>
-    </task>
-    <task id="LOCAL-00003" summary="init">
-      <option name="closed" value="true" />
-      <created>1712422643379</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1712422643379</updated>
+      <workItem from="1712773638874" duration="3390000" />
     </task>
     <task id="LOCAL-00004" summary="created database">
       <option name="closed" value="true" />
@@ -497,21 +468,93 @@
       <option name="project" value="LOCAL" />
       <updated>1712733739653</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="added appointment entity">
+      <option name="closed" value="true" />
+      <created>1712774426872</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774426872</updated>
+    </task>
+    <task id="LOCAL-00044" summary="added appointment dtos">
+      <option name="closed" value="true" />
+      <created>1712774442012</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774442012</updated>
+    </task>
+    <task id="LOCAL-00045" summary="added appointment not found exception">
+      <option name="closed" value="true" />
+      <created>1712774463218</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774463218</updated>
+    </task>
+    <task id="LOCAL-00046" summary="added appointment repository exception">
+      <option name="closed" value="true" />
+      <created>1712774514355</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774514355</updated>
+    </task>
+    <task id="LOCAL-00047" summary="added appointment repository">
+      <option name="closed" value="true" />
+      <created>1712774534553</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774534553</updated>
+    </task>
+    <task id="LOCAL-00048" summary="added appointment service and controller">
+      <option name="closed" value="true" />
+      <created>1712774545677</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774545677</updated>
+    </task>
+    <task id="LOCAL-00049" summary="removed default value for status">
+      <option name="closed" value="true" />
+      <created>1712774560368</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774560368</updated>
+    </task>
+    <task id="LOCAL-00050" summary="renamed IntervalCannotBeDeletedException to IntervalIsBookedException">
+      <option name="closed" value="true" />
+      <created>1712774608652</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774608653</updated>
+    </task>
+    <task id="LOCAL-00051" summary="renamed IntervalCannotBeDeletedException to IntervalIsBookedException">
+      <option name="closed" value="true" />
+      <created>1712774683667</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774683667</updated>
+    </task>
+    <task id="LOCAL-00052" summary=".idea">
+      <option name="closed" value="true" />
+      <created>1712774689542</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1712774689543</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added controller for ZhemUser" />
-    <MESSAGE value="added BaseEntity for all entities" />
-    <MESSAGE value="added controller advice with exception handler BindException" />
-    <MESSAGE value="added custom validators" />
-    <MESSAGE value="added config for security" />
-    <MESSAGE value="added @Builder for Role" />
-    <MESSAGE value="added existsByTitleIgnoreCase method to repo for Role" />
-    <MESSAGE value="added service and exception for Role" />
     <MESSAGE value="added controller and payloads for Role" />
     <MESSAGE value="added Interval entity and Status enum for Interval" />
     <MESSAGE value="init Interval" />
@@ -525,10 +568,18 @@
     <MESSAGE value="added methods findAllBy and existsBy in repo for interval" />
     <MESSAGE value="added crud methods and findAllBy in service for interval" />
     <MESSAGE value="added crud methods and findAllBy in controller for interval" />
-    <MESSAGE value=".idea" />
     <MESSAGE value="added scheduled cleanup old intervals" />
     <MESSAGE value="renamed findAllBy methods and added order by to sql queries" />
     <MESSAGE value="added default messages to valid fields" />
-    <option name="LAST_COMMIT_MESSAGE" value="added default messages to valid fields" />
+    <MESSAGE value="added appointment entity" />
+    <MESSAGE value="added appointment dtos" />
+    <MESSAGE value="added appointment not found exception" />
+    <MESSAGE value="added appointment repository exception" />
+    <MESSAGE value="added appointment repository" />
+    <MESSAGE value="added appointment service and controller" />
+    <MESSAGE value="removed default value for status" />
+    <MESSAGE value="renamed IntervalCannotBeDeletedException to IntervalIsBookedException" />
+    <MESSAGE value=".idea" />
+    <option name="LAST_COMMIT_MESSAGE" value=".idea" />
   </component>
 </project>
