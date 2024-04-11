@@ -28,7 +28,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     @Override
     @Transactional
     public List<ZhemUser> findAllUsers(String role) {
-        if (Objects.nonNull(role)) {
+        if (Objects.nonNull(role) && !role.isBlank()) {
             Role foundedRole = this.roleRepository.findByTitleIgnoreCase(role)
                     .orElseThrow(() -> new RoleNotFoundException("Role not found"));
             return this.zhemUserRepository.findAllByRolesContains(foundedRole);
