@@ -1,0 +1,8 @@
+server:
+  port: 8080
+zhem-nails:
+  services:
+    service:
+      url: http://localhost:8081
+      name: service
+      password: service
