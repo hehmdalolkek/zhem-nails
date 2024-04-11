@@ -1,8 +1,8 @@
 package ru.zhem.dto.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.zhem.dto.RoleCreationDto;
-import ru.zhem.dto.RoleDto;
+import ru.zhem.dto.request.RoleCreationDto;
+import ru.zhem.dto.response.RoleDto;
 import ru.zhem.entity.Role;
 
 @Component

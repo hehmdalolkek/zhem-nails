@@ -1,23 +1,22 @@
-package ru.zhem.dto;
+package ru.zhem.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.entity.constraints.NullOrNotBlank;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppointmentCreationDto {
+public class IntervalCreationDto {
 
     @NotNull(message = "Поле должно быть заполнено")
-    private Long userId;
+    private LocalDate date;
 
     @NotNull(message = "Поле должно быть заполнено")
-    private Long intervalId;
-
-    @NullOrNotBlank(message = "Поле должно иметь хотя бы один не пустой символ")
-    private String details;
+    private LocalTime time;
 
 }

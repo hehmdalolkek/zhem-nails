@@ -1,4 +1,4 @@
-package ru.zhem.dto;
+package ru.zhem.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

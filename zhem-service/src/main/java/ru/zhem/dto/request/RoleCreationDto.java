@@ -1,4 +1,4 @@
-package ru.zhem.dto;
+package ru.zhem.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

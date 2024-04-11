@@ -1,21 +1,22 @@
-package ru.zhem.dto;
+package ru.zhem.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.zhem.entity.Status;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalTime;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DailyIntervalsDto {
+public class IntervalUpdateDto {
 
     private LocalDate date;
 
-    private List<IntervalDto> intervals;
+    private LocalTime time;
+
+    private Status status;
 
 }

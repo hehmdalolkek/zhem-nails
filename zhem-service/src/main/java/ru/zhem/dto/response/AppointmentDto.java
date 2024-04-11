@@ -1,28 +1,25 @@
-package ru.zhem.dto;
+package ru.zhem.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.entity.Status;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class IntervalDto {
+public class AppointmentDto {
 
     private Long id;
 
-    private LocalDate date;
+    private ZhemUserDto user;
 
-    private LocalTime time;
+    private IntervalDto interval;
 
-    private Status status;
+    private String details;
 
     private LocalDateTime createdAt;
 

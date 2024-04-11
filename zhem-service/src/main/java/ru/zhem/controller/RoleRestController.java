@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.zhem.dto.RoleCreationDto;
+import ru.zhem.dto.request.RoleCreationDto;
 import ru.zhem.dto.mapper.RoleMapper;
 import ru.zhem.entity.Role;
 import ru.zhem.exception.BadRequestException;

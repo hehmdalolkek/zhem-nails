@@ -1,4 +1,4 @@
-package ru.zhem.dto;
+package ru.zhem.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,15 +11,17 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppointmentDto {
+public class ZhemUserDto {
 
     private Long id;
 
-    private ZhemUserDto user;
+    private String phone;
 
-    private IntervalDto interval;
+    private String email;
 
-    private String details;
+    private String firstName;
+
+    private String lastName;
 
     private LocalDateTime createdAt;
 

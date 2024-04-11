@@ -2,10 +2,10 @@ package ru.zhem.dto.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.zhem.dto.AppointmentCreationDto;
-import ru.zhem.dto.AppointmentDto;
-import ru.zhem.dto.AppointmentUpdateDto;
-import ru.zhem.dto.DailyAppointmentDto;
+import ru.zhem.dto.request.AppointmentCreationDto;
+import ru.zhem.dto.response.AppointmentDto;
+import ru.zhem.dto.request.AppointmentUpdateDto;
+import ru.zhem.dto.response.DailyAppointmentDto;
 import ru.zhem.entity.Appointment;
 import ru.zhem.entity.Interval;
 import ru.zhem.entity.ZhemUser;

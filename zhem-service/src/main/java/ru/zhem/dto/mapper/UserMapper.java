@@ -1,10 +1,10 @@
 package ru.zhem.dto.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.zhem.dto.ZhemUserAuthDto;
-import ru.zhem.dto.ZhemUserCreationDto;
-import ru.zhem.dto.ZhemUserDto;
-import ru.zhem.dto.ZhemUserUpdateDto;
+import ru.zhem.dto.response.ZhemUserAuthDto;
+import ru.zhem.dto.request.ZhemUserCreationDto;
+import ru.zhem.dto.response.ZhemUserDto;
+import ru.zhem.dto.request.ZhemUserUpdateDto;
 import ru.zhem.entity.ZhemUser;
 
 @Component

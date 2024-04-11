@@ -1,10 +1,10 @@
 package ru.zhem.dto.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.zhem.dto.DailyIntervalsDto;
-import ru.zhem.dto.IntervalCreationDto;
-import ru.zhem.dto.IntervalDto;
-import ru.zhem.dto.IntervalUpdateDto;
+import ru.zhem.dto.response.DailyIntervalsDto;
+import ru.zhem.dto.request.IntervalCreationDto;
+import ru.zhem.dto.response.IntervalDto;
+import ru.zhem.dto.request.IntervalUpdateDto;
 import ru.zhem.entity.Interval;
 
 import java.time.LocalDate;
