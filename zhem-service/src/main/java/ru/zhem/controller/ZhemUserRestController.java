@@ -37,7 +37,7 @@ public class ZhemUserRestController {
             return ResponseEntity.ok()
                     .body(allUsersPayload);
         } catch (RoleNotFoundException exception) {
-            throw new NotFoundException(exception.getMessage());
+            throw new BadRequestException(exception.getMessage());
         }
     }
 
