@@ -14,7 +14,6 @@ public class AppointmentUpdateDto {
 
     private Long intervalId;
 
-    @NullOrNotBlank(message = "Поле должно иметь хотя бы один не пустой символ")
     private String details;
 
 }
