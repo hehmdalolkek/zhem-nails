@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem.nails - все клиенты</title>
+</head>
+<body>
+    <nav>
+        <a data-th-href="@{/admin/dashboard}"><- Назад</a>
+    </nav>
+    <main>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Created</th>
+                <th>Updated</th>
+            </tr>
+            <tr data-th-each="user : ${users.content}">
+                <td data-th-text="${user.getId()}"></td>
+                <td data-th-text="${user.getPhone()}"></td>
+                <td data-th-text="${user.getEmail()}"></td>
+                <td data-th-text="${user.getFirstName()}"></td>
+                <td data-th-text="${user.getLastName()}"></td>
+                <td data-th-text="${user.getCreatedAt().toLocalDate()}"></td>
+                <td data-th-text="${user.getUpdatedAt().toLocalDate()}"></td>
+            </tr>
+        </table>
+        <div class="pagination">
+            <ul>
+                <li data-th-if="${users.hasPrevious()}">
+                    <a data-th-href="@{'/admin/users?page=' + ${users.number - 1}}">Previous</a>
+                </li>
+                <li data-th-each="page : ${#numbers.sequence(0, users.totalPages - 1)}">
+                    <a data-th-href="@{'/admin/users?page=' + ${page}}" data-th-text="${page + 1}"></a>
+                </li>
+                <li data-th-if="${users.hasNext()}">
+                    <a data-th-href="@{'/admin/users?page=' + ${users.number + 1}}">Next</a>
+                </li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - все рабочие интервалы</title>
+</head>
+<body>
+    <nav>
+        <a data-th-href="@{/admin/dashboard}"><- Назад</a>
+    </nav>
+    <main>
+        <h2 data-th-if="${created != null && created}">Интервал успешно создан</h2>
+        <h2 data-th-if="${created != null && !created}">Интервал не создан</h2>
+        <h2 data-th-if="${recorded != null && recorded}">Клиент записан</h2>
+        <form method="post">
+            <label data-th-for="date">Дата
+                <input type="date" name="date" id="date" data-th-value="${enteredData?.getDate()}">
+            </label>
+            <span data-th-text="${errors?.containsKey('date')} ? ${errors.get('date')}"></span>
+            <label data-th-for="time">Время
+                <input type="time" name="time" id="time" data-th-value="${enteredData?.getTime()}">
+            </label>
+            <span data-th-text="${errors?.containsKey('time')} ? ${errors.get('time')}"></span>
+            <input type="submit" value="Создать">
+        </form>
+        <div>
+            <a data-th-href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                Предыдущий
+            </a>
+            <a data-th-href="@{/admin/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                Следующий
+            </a>
+        </div>
+        <div data-th-each="entry : ${mapOfIntervals}">
+            <h3 data-th-text="${entry.getDate()} + ':'"></h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th>Update</th>
+                    <th>Appointment</th>
+                </tr>
+                <tr data-th-each="interval : ${entry.getIntervals()}">
+                    <td data-th-text="${interval.getId()}"></td>
+                    <td data-th-text="${interval.getTime()}"></td>
+                    <td data-th-text="${interval.getStatus()}"></td>
+                    <td data-th-text="${interval.getCreatedAt().toLocalDate()}"></td>
+                    <td data-th-text="${interval.getUpdatedAt().toLocalDate()}"></td>
+                    <td>
+                        <a data-th-href="@{/admin/intervals/update/{intervalId}(intervalId=${interval.getId()})}">Изменить</a>
+                    </td>
+                    <td>
+                        <a data-th-if="${interval.getStatus() == statusAvailable}"
+                           data-th-href="@{/admin/appointments/create?intervalId=__${interval.getId()}__}">
+                            Записать клиента
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
