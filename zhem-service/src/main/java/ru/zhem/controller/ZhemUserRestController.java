@@ -2,14 +2,16 @@ package ru.zhem.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.zhem.dto.request.ZhemUserCreationDto;
-import ru.zhem.dto.response.ZhemUserDto;
-import ru.zhem.dto.request.ZhemUserUpdateDto;
 import ru.zhem.dto.mapper.UserMapper;
+import ru.zhem.dto.request.ZhemUserCreationDto;
+import ru.zhem.dto.request.ZhemUserUpdateDto;
+import ru.zhem.dto.response.ZhemUserDto;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exception.*;
 import ru.zhem.service.ZhemUserService;
@@ -39,6 +41,15 @@ public class ZhemUserRestController {
         } catch (RoleNotFoundException exception) {
             throw new BadRequestException(exception.getMessage());
         }
+    }
+
+    @GetMapping("/pageable")
+    public ResponseEntity<?> findAllUsersByPage(Pageable pageable) {
+        Page<ZhemUserDto> allUsers = this.zhemUserService.findAllUsersByPage(pageable)
+                .map(this.userMapper::fromEntity);
+
+        return ResponseEntity.ok()
+                .body(allUsers);
     }
 
     @GetMapping("/user/{userId:\\d+}")

@@ -2,6 +2,8 @@ package ru.zhem.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.Role;
@@ -35,6 +37,11 @@ public class ZhemUserServiceImpl implements ZhemUserService {
         } else {
             return this.zhemUserRepository.findAll();
         }
+    }
+
+    @Override
+    public Page<ZhemUser> findAllUsersByPage(Pageable pageable) {
+        return this.zhemUserRepository.findAll(pageable);
     }
 
     @Override

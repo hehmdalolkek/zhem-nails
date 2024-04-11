@@ -1,5 +1,7 @@
 package ru.zhem.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.zhem.entity.ZhemUser;
 
 import java.util.List;
@@ -7,6 +9,8 @@ import java.util.List;
 public interface ZhemUserService {
 
     List<ZhemUser> findAllUsers(String role);
+
+    Page<ZhemUser> findAllUsersByPage(Pageable pageable);
 
     ZhemUser findUserById(long userId);
 
