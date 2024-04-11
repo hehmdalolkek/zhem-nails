@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @CreationTimestamp
     @Column(name = "created_at")
