@@ -53,9 +53,14 @@ public class ZhemUserServiceImpl implements ZhemUserService {
 
     @Override
     @Transactional
-    public ZhemUser findUserByPhone(String phone) {
-        return this.zhemUserRepository.findByPhone(phone)
-                .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
+    public ZhemUser findUserByPhone(String phone, boolean isAdmin) {
+        if (isAdmin) {
+            return this.zhemUserRepository.findByPhoneAndRolesTitleContainsIgnoreCase(phone, "ADMIN")
+                    .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
+        } else {
+            return this.zhemUserRepository.findByPhone(phone)
+                    .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
+        }
     }
 
     @Override

@@ -2,8 +2,10 @@ package ru.zhem.client;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 import ru.zhem.client.response.PaginatedResponse;
+import ru.zhem.dto.request.ZhemUserAuthDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.ZhemUserCreationDto;
 import ru.zhem.dto.response.ZhemUserUpdateDto;
@@ -42,7 +44,7 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     }
 
     @Override
-    public Optional<ZhemUserDto> findUserById(Long id, Boolean auth) {
+    public Optional<ZhemUserDto> findUserById(Long id) {
         return Optional.ofNullable(
                 this.restClient.get()
                         .uri("/service-api/v1/users/user/{userId}", id)
@@ -52,8 +54,23 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     }
 
     @Override
-    public void createUser(ZhemUserCreationDto user) {
+    public Optional<ZhemUserAuthDto> findUserAuthByPhone(String phone, boolean isAdmin) {
+        return Optional.ofNullable(
+                this.restClient.get()
+                        .uri("/service-api/v1/users/user/auth/{phone}?admin={isAdmin}", phone, isAdmin)
+                        .retrieve()
+                        .body(ZhemUserAuthDto.class)
+        );
+    }
 
+    @Override
+    public void createUser(ZhemUserCreationDto user) {
+        this.restClient.post()
+                .uri("/service-api/v1/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(user)
+                .retrieve()
+                .toBodilessEntity();
     }
 
     @Override

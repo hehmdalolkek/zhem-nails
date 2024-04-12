@@ -23,6 +23,9 @@ public interface ZhemUserRepository extends JpaRepository<ZhemUser, Long> {
     Optional<ZhemUser> findByPhone(String phone);
 
     @EntityGraph(value = "zhem-user_entity-graph")
+    Optional<ZhemUser> findByPhoneAndRolesTitleContainsIgnoreCase(String phone, String role);
+
+    @EntityGraph(value = "zhem-user_entity-graph")
     List<ZhemUser> findAllByRolesContains(Role role);
 
     boolean existsByPhone(String phone);

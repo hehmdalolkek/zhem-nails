@@ -53,28 +53,23 @@ public class ZhemUserRestController {
     }
 
     @GetMapping("/user/{userId:\\d+}")
-    public ResponseEntity<?> findUserById(@RequestParam(value = "auth", required = false) boolean isAuth,
-                                          @PathVariable("userId") long userId) {
+    public ResponseEntity<?> findUserById(@PathVariable("userId") long userId) {
         try {
             ZhemUser foundedUser = this.zhemUserService.findUserById(userId);
-            if (isAuth) {
-                return ResponseEntity.ok()
-                        .body(this.userMapper.fromEntityForAuth(foundedUser));
-            } else {
-                return ResponseEntity.ok()
-                        .body(this.userMapper.fromEntity(foundedUser));
-            }
+            return ResponseEntity.ok()
+                    .body(this.userMapper.fromEntity(foundedUser));
         } catch (ZhemUserNotFoundException exception) {
             throw new NotFoundException(exception.getMessage());
         }
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<?> findUserByPhone(@RequestParam("phone") String phone) {
+    @GetMapping("/user/auth/{phone}")
+    public ResponseEntity<?> findUserByPhone(@PathVariable("phone") String phone,
+                                             @RequestParam(value = "admin", required = false) boolean isAdmin) {
         try {
-            ZhemUser foundedUser = this.zhemUserService.findUserByPhone(phone);
+            ZhemUser foundedUser = this.zhemUserService.findUserByPhone(phone, isAdmin);
             return ResponseEntity.ok()
-                    .body(this.userMapper.fromEntity(foundedUser));
+                    .body(this.userMapper.fromEntityForAuth(foundedUser));
         } catch (ZhemUserNotFoundException exception) {
             throw new NotFoundException(exception.getMessage());
         }

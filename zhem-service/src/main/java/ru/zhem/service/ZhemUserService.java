@@ -14,7 +14,7 @@ public interface ZhemUserService {
 
     ZhemUser findUserById(long userId);
 
-    ZhemUser findUserByPhone(String phone);
+    ZhemUser findUserByPhone(String phone, boolean isAdmin);
 
     ZhemUser findUserByEmail(String email);
 
