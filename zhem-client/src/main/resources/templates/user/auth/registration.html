@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-user - регистрация</title>
+</head>
+<body>
+    <h1>Регистрация</h1>
+    <form data-th-action="@{/user/registration}" method="post">
+        <div>
+            <label data-th-for="phone">Номер телефона
+                <input type="text" name="phone" id="phone" placeholder="+7 (999) 999-99-99" data-th-value="${enteredData?.getPhone()}"/>
+            </label>
+            <span data-th-text="${errors?.containsKey('phone')} ? ${errors.get('phone')}"></span>
+        </div>
+        <div>
+            <label data-th-for="email">Электронная почта
+                <input type="email" name="email" id="email" placeholder="email@email.com" data-th-value="${enteredData?.getEmail()}"/>
+            </label>
+            <span data-th-text="${errors?.containsKey('email')} ? ${errors.get('email')}"></span>
+        </div>
+        <div>
+            <label data-th-for="firstName">Имя
+                <input type="text" name="firstName" id="firstName" placeholder="Иван" data-th-value="${enteredData?.getFirstName()}"/>
+            </label>
+            <span data-th-text="${errors?.containsKey('firstName')} ? ${errors.get('firstName')}"></span>
+        </div>
+        <div>
+            <label data-th-for="lastName">Фамилия
+                <input type="text" name="lastName" id="lastName" placeholder="Иванов" data-th-value="${enteredData?.getLastName()}"/>
+            </label>
+            <span data-th-text="${errors?.containsKey('lastName')} ? ${errors.get('lastName')}"></span>
+        </div>
+        <div>
+            <label data-th-for="password">Пароль
+                <input type="password" name="password" id="password"/>
+            </label>
+            <span data-th-text="${errors?.containsKey('password')} ? ${errors.get('password')}"></span>
+        </div>
+        <div>
+            <label data-th-for="confirmPassword">Подтвердите пароль
+                <input type="password" name="confirmPassword" id="confirmPassword"/>
+            </label>
+            <span data-th-text="${errors?.containsKey('confirmPassword')} ? ${errors.get('confirmPassword')}"></span>
+        </div>
+        <input type="submit" value="Зарегистрироваться" />
+    </form>
+</body>
+</html>
