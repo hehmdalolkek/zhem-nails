@@ -10,6 +10,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
 import ru.zhem.client.AppointmentRestClientImpl;
 import ru.zhem.client.IntervalRestClientImpl;
+import ru.zhem.client.RoleRestClientImpl;
 import ru.zhem.client.ZhemUserRestClientImpl;
 
 @Configuration
@@ -49,6 +50,20 @@ public class ClientBeans {
             @Value("${zhem-nails.services.service.name}") String serviceUserName,
             @Value("${zhem-nails.services.service.password}") String serviceUserPassword) {
         return new AppointmentRestClientImpl(
+                RestClient.builder()
+                        .baseUrl(serviceBaseUrl)
+                        .requestInterceptor(
+                                new BasicAuthenticationInterceptor(serviceUserName, serviceUserPassword))
+                        .build()
+        );
+    }
+
+    @Bean
+    public RoleRestClientImpl roleRestClient(
+            @Value("${zhem-nails.services.service.url:http://localhost:8081}") String serviceBaseUrl,
+            @Value("${zhem-nails.services.service.name}") String serviceUserName,
+            @Value("${zhem-nails.services.service.password}") String serviceUserPassword) {
+        return new RoleRestClientImpl(
                 RestClient.builder()
                         .baseUrl(serviceBaseUrl)
                         .requestInterceptor(
