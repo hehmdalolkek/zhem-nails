@@ -6,14 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.zhem.dto.request.RoleCreationDto;
 import ru.zhem.dto.mapper.RoleMapper;
 import ru.zhem.entity.Role;
 import ru.zhem.exception.BadRequestException;
+import ru.zhem.exception.NotFoundException;
+import ru.zhem.exception.RoleNotFoundException;
 import ru.zhem.exception.RoleWithDuplicateTitleException;
 import ru.zhem.service.RoleService;
 
@@ -43,6 +42,17 @@ public class RoleRestController {
             } catch (RoleWithDuplicateTitleException exception) {
                 throw new BadRequestException(exception.getMessage());
             }
+        }
+    }
+
+    @GetMapping("/role/{title}")
+    public ResponseEntity<?> findRoleById(@PathVariable("title") String title) {
+        try {
+            Role role = this.roleService.findRoleByTitle(title);
+            return ResponseEntity.ok()
+                    .body(this.roleMapper.fromEntity(role));
+        } catch (RoleNotFoundException exception) {
+            throw new NotFoundException(exception.getMessage());
         }
     }
 

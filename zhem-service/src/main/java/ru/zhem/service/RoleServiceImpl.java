@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.Role;
+import ru.zhem.exception.RoleNotFoundException;
 import ru.zhem.exception.RoleWithDuplicateTitleException;
 import ru.zhem.repository.RoleRepository;
 
@@ -23,5 +24,12 @@ public class RoleServiceImpl implements RoleService {
         return this.roleRepository.save(Role.builder()
                 .title(role.getTitle().toUpperCase())
                 .build());
+    }
+
+    @Override
+    @Transactional
+    public Role findRoleByTitle(String title) {
+        return this.roleRepository.findByTitleIgnoreCase(title)
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
     }
 }
