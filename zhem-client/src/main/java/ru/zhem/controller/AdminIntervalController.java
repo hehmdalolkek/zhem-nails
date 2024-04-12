@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.client.IntervalRestClient;
+import ru.zhem.dto.request.DailyIntervalsDto;
+import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.entity.Status;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -37,13 +37,32 @@ public class AdminIntervalController {
             year = LocalDate.now().getYear();
             month = LocalDate.now().getMonth().getValue();
         }
-        YearMonth prevYearMonth = YearMonth.of(year, month).minusMonths(1);
-        YearMonth nextYearMonth = YearMonth.of(year, month).plusMonths(1);
+        YearMonth yearMonth = YearMonth.of(year, month);
+        YearMonth prevYearMonth = yearMonth.minusMonths(1);
+        YearMonth nextYearMonth = yearMonth.plusMonths(1);
         model.addAttribute("prevYearMonth", prevYearMonth);
         model.addAttribute("nextYearMonth", nextYearMonth);
         model.addAttribute("statusAvailable", Status.AVAILABLE);
-        model.addAttribute("mapOfIntervals", this.intervalRestClient.findAllIntervals(year, month));
+        model.addAttribute("mapOfIntervals", this.generateCalendarForMonth(yearMonth));
+
         return "/admin/intervals/intervals";
+    }
+
+    private Map<LocalDate, List<IntervalDto>> generateCalendarForMonth(YearMonth yearMonth) {
+        Map<LocalDate, List<IntervalDto>> mapOfIntervals = new LinkedHashMap<>();
+        LocalDate startOfMonth = yearMonth.atDay(1);
+        LocalDate endOfMonth = yearMonth.atEndOfMonth();
+
+        for (LocalDate date = startOfMonth; !date.isAfter(endOfMonth); date = date.plusDays(1)) {
+            mapOfIntervals.put(date, new ArrayList<>());
+        }
+
+        List<DailyIntervalsDto> dailyIntervals = this.intervalRestClient.findAllIntervals(yearMonth.getYear(), yearMonth.getMonthValue());
+        for (DailyIntervalsDto dailyInterval : dailyIntervals) {
+            mapOfIntervals.put(dailyInterval.getDate(), dailyInterval.getIntervals());
+        }
+
+        return mapOfIntervals;
     }
 
     @PostMapping

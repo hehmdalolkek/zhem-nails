@@ -7,6 +7,55 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Zhem-nails - все рабочие интервалы</title>
 </head>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.time-input').forEach(input => {
+            input.style.display = 'none';
+        });
+        document.querySelectorAll('.close-time-btn').forEach(button => {
+            button.style.display = 'none';
+        });
+
+        const openTimeButtons = document.querySelectorAll('.open-time-btn');
+        openTimeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const target = e.target;
+                const timeInput = target.parentElement.querySelector('.time-input');
+                const openTimeBtn = target.parentElement.querySelector('.open-time-btn');
+                const closeTimeBtn = target.parentElement.querySelector('.close-time-btn');
+
+                document.querySelectorAll('.time-input').forEach(input => {
+                    input.style.display = 'none';
+                });
+                document.querySelectorAll('.close-time-btn').forEach(button => {
+                    button.style.display = 'none';
+                });
+                document.querySelectorAll('.open-time-btn').forEach(button => {
+                    button.style.display = 'block';
+                });
+
+                timeInput.style.display = 'block';
+                openTimeBtn.style.display = 'none'
+                closeTimeBtn.style.display = 'block';
+            });
+        });
+
+        const closeTimeButtons = document.querySelectorAll('.close-time-btn');
+        closeTimeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.time-input').forEach(input => {
+                    input.style.display = 'none';
+                });
+                document.querySelectorAll('.close-time-btn').forEach(button => {
+                    button.style.display = 'none';
+                });
+                document.querySelectorAll('.open-time-btn').forEach(button => {
+                    button.style.display = 'block';
+                });
+            });
+        });
+    });
+</script>
 <body>
     <nav>
         <a data-th-href="@{/admin/dashboard}"><- Назад</a>
@@ -15,17 +64,6 @@
         <h2 data-th-if="${created != null && created}">Интервал успешно создан</h2>
         <h2 data-th-if="${created != null && !created}">Интервал не создан</h2>
         <h2 data-th-if="${recorded != null && recorded}">Клиент записан</h2>
-        <form method="post">
-            <label data-th-for="date">Дата
-                <input type="date" name="date" id="date" data-th-value="${enteredData?.getDate()}">
-            </label>
-            <span data-th-text="${errors?.containsKey('date')} ? ${errors.get('date')}"></span>
-            <label data-th-for="time">Время
-                <input type="time" name="time" id="time" data-th-value="${enteredData?.getTime()}">
-            </label>
-            <span data-th-text="${errors?.containsKey('time')} ? ${errors.get('time')}"></span>
-            <input type="submit" value="Создать">
-        </form>
         <div>
             <a data-th-href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                 Предыдущий
@@ -35,8 +73,11 @@
             </a>
         </div>
         <div data-th-each="entry : ${mapOfIntervals}">
-            <h3 data-th-text="${entry.getDate()} + ':'"></h3>
-            <table>
+            <h3 data-th-text="${entry.getKey()} + ':'"></h3>
+            <div data-th-if="${entry.getValue().isEmpty()}">
+
+            </div>
+            <table data-th-if="${!entry.getValue().isEmpty()}">
                 <tr>
                     <th>ID</th>
                     <th>Time</th>
@@ -46,7 +87,7 @@
                     <th>Update</th>
                     <th>Appointment</th>
                 </tr>
-                <tr data-th-each="interval : ${entry.getIntervals()}">
+                <tr data-th-each="interval : ${entry.getValue()}">
                     <td data-th-text="${interval.getId()}"></td>
                     <td data-th-text="${interval.getTime()}"></td>
                     <td data-th-text="${interval.getStatus()}"></td>
@@ -63,6 +104,17 @@
                     </td>
                 </tr>
             </table>
+            <form method="post">
+                <button type="button" class="open-time-btn">+ Добавить время</button>
+                <button type="button" class="close-time-btn">- Добавить время</button>
+                <div class="time-input">
+                    <input type="hidden" name="date" data-th-value="${entry.getKey()}">
+                    <label data-th-for="time">Время
+                        <input type="time" name="time" data-th-value="${enteredData?.getTime()}">
+                    </label>
+                    <input type="submit" value="Добавить">
+                </div>
+            </form>
         </div>
     </main>
 </body>
