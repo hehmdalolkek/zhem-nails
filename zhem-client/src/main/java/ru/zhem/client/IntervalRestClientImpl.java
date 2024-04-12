@@ -31,7 +31,11 @@ public class IntervalRestClientImpl implements IntervalRestClient {
 
     @Override
     public List<DailyIntervalsDto> findAllAvailableIntervals(Integer year, Integer month) {
-        return null;
+        return this.restClient.get()
+                .uri("/service-api/v1/intervals/available?year={year}&month={month}",
+                        Map.of("year", year, "month", month))
+                .retrieve()
+                .body(INTERVAL_TYPE_REFERENCE);
     }
 
     @Override
