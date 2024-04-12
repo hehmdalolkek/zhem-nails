@@ -17,13 +17,14 @@ import ru.zhem.client.AppointmentRestClient;
 import ru.zhem.client.IntervalRestClient;
 import ru.zhem.client.ZhemUserRestClient;
 import ru.zhem.client.response.PaginatedResponse;
-import ru.zhem.dto.request.IntervalDto;
-import ru.zhem.dto.request.ZhemUserDto;
+import ru.zhem.dto.request.*;
 import ru.zhem.dto.response.AppointmentCreationDto;
+import ru.zhem.entity.Status;
 import ru.zhem.exceptions.IntervalNotFoundException;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -68,5 +69,38 @@ public class AdminAppointmentController {
         }
     }
 
+    @GetMapping
+    public String showAllAppointments(@RequestParam(value = "year", required = false) Integer year,
+                                   @RequestParam(value = "month", required = false) Integer month, Model model) {
+        if (Objects.isNull(year) || Objects.isNull(month)) {
+            year = LocalDate.now().getYear();
+            month = LocalDate.now().getMonthValue();
+        }
+        YearMonth yearMonth = YearMonth.of(year, month);
+        YearMonth prevYearMonth = yearMonth.minusMonths(1);
+        YearMonth nextYearMonth = yearMonth.plusMonths(1);
+        model.addAttribute("prevYearMonth", prevYearMonth);
+        model.addAttribute("nextYearMonth", nextYearMonth);
+        model.addAttribute("mapOfAppointments", this.generateCalendarForMonth(yearMonth));
 
+        return "/admin/appointments/appointments";
+    }
+
+    private Map<LocalDate, List<AppointmentDto>> generateCalendarForMonth(YearMonth yearMonth) {
+        Map<LocalDate, List<AppointmentDto>> mapOfAppointments = new LinkedHashMap<>();
+        LocalDate startOfMonth = yearMonth.atDay(1);
+        LocalDate endOfMonth = yearMonth.atEndOfMonth();
+
+        for (LocalDate date = startOfMonth; !date.isAfter(endOfMonth); date = date.plusDays(1)) {
+            mapOfAppointments.put(date, new ArrayList<>());
+        }
+
+        List<DailyAppointmentDto> dailyAppointments =
+                this.appointmentRestClient.findAllAppointments(yearMonth.getYear(), yearMonth.getMonthValue());
+        for (DailyAppointmentDto dailyAppointment : dailyAppointments) {
+            mapOfAppointments.put(dailyAppointment.getDate(), dailyAppointment.getAppointments());
+        }
+
+        return mapOfAppointments;
+    }
 }

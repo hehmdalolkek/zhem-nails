@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nail - все записи</title>
+</head>
+<body>
+    <nav>
+        <a data-th-href="@{/admin/dashboard}"><- Назад</a>
+    </nav>
+    <main>
+<!--        <h2 data-th-if="${created != null && created}">Интервал успешно создан</h2>-->
+<!--        <h2 data-th-if="${created != null && !created}">Интервал не создан</h2>-->
+<!--        <h2 data-th-if="${recorded != null && recorded}">Клиент записан</h2>-->
+        <div>
+            <a data-th-href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                Предыдущий
+            </a>
+            <a data-th-href="@{/admin/appointments?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                Следующий
+            </a>
+        </div>
+        <div data-th-each="entry : ${mapOfAppointments}">
+            <h3 data-th-text="${entry.getKey()} + ':'"></h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Time</th>
+                    <th>Phone</th>
+                    <th>Name</th>
+                    <th>Last name</th>
+                    <th>Update</th>
+                </tr>
+                <tr data-th-each="appointment : ${entry.getValue()}">
+                    <td data-th-text="${appointment.getId()}"></td>
+                    <td data-th-text="${appointment.getInterval().getTime()}"></td>
+                    <td data-th-text="${appointment.getUser().getPhone()}"></td>
+                    <td data-th-text="${appointment.getUser().getFirstName()}"></td>
+                    <td data-th-text="${appointment.getUser().getLastName()}"></td>
+                    <td>
+                        <a data-th-href="@{/admin/appointments/update/{appointmentId}(appointmentId=${appointment.getId()})}">Изменить</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

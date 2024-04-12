@@ -1,6 +1,7 @@
 package ru.zhem.client;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 import ru.zhem.dto.request.AppointmentDto;
@@ -13,6 +14,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AppointmentRestClientImpl implements AppointmentRestClient {
 
+    private static final ParameterizedTypeReference<List<DailyAppointmentDto>> APPOINTMENT_TYPE_REFERENCE =
+            new ParameterizedTypeReference<>() {
+            };
+
     private final RestClient restClient;
 
     @Override
@@ -21,8 +26,11 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
     }
 
     @Override
-    public List<DailyAppointmentDto> findAllAppointments() {
-        return null;
+    public List<DailyAppointmentDto> findAllAppointments(int year, int month) {
+        return this.restClient.get()
+                .uri("/service-api/v1/appointments?year={year}&month={month}", year, month)
+                .retrieve()
+                .body(APPOINTMENT_TYPE_REFERENCE);
     }
 
     @Override

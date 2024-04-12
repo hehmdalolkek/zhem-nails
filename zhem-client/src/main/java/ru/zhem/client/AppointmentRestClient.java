@@ -11,7 +11,7 @@ public interface AppointmentRestClient {
 
     List<DailyAppointmentDto> findAllAppointmentsByUser(long userId);
 
-    List<DailyAppointmentDto> findAllAppointments();
+    List<DailyAppointmentDto> findAllAppointments(int year, int month);
 
     Optional<AppointmentDto> findAppointmentById(long appointmentId);
 
