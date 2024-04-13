@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.zhem.dto.mapper.UserMapper;
 import ru.zhem.dto.request.ZhemUserCreationDto;
@@ -89,8 +90,12 @@ public class ZhemUserRestController {
                 ZhemUser createdUser = this.zhemUserService.createUser(this.userMapper.fromCreationDto(userDto));
                 return ResponseEntity.created(URI.create("/service-api/v1/users/user/" + createdUser.getId()))
                         .body(this.userMapper.fromEntity(createdUser));
-            } catch (ZhemUserWithDuplicatePhoneException | ZhemUserWithDuplicateEmailException exception) {
-                throw new BadRequestException(exception.getMessage());
+            } catch (ZhemUserWithDuplicatePhoneException exception) {
+                bindingResult.addError(new FieldError("ZhemUser", "phone", "Номер телефона уже зарегистрирован"));
+                throw new BindException(bindingResult);
+            } catch (ZhemUserWithDuplicateEmailException exception) {
+                bindingResult.addError(new FieldError("ZhemUser", "email", "Электронная почта уже зарегистрирован"));
+                throw new BindException(bindingResult);
             }
         }
     }
