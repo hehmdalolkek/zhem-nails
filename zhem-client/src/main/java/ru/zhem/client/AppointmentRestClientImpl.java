@@ -3,10 +3,13 @@ package ru.zhem.client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
+import ru.zhem.exceptions.BadRequestException;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,12 +43,16 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
 
     @Override
     public void createAppointment(AppointmentCreationDto appointmentDto) {
-        this.restClient.post()
-                .uri("/service-api/v1/appointments")
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(appointmentDto)
-                .retrieve()
-                .toBodilessEntity();
+        try {
+            this.restClient.post()
+                    .uri("/service-api/v1/appointments")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(appointmentDto)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (HttpClientErrorException.BadRequest exception) {
+            throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
+        }
     }
 
     @Override
