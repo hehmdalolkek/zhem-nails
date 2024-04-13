@@ -72,7 +72,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         foundedInterval.setStatus(Status.BOOKED);
         appointment.setInterval(foundedInterval);
 
-        if (appointment.getDetails().isBlank()) {
+        if (Objects.nonNull(appointment.getDetails()) && appointment.getDetails().isBlank()) {
             appointment.setDetails(null);
         }
 
