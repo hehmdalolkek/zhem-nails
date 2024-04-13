@@ -14,9 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import ru.zhem.client.RoleRestClient;
 import ru.zhem.client.ZhemUserRestClient;
 import ru.zhem.service.AdminUserDetailsService;
-import ru.zhem.service.ClientUserDetailsService;
+import ru.zhem.service.ZhemUserDetailsService;
 
 @RequiredArgsConstructor
 @Configuration
@@ -70,10 +71,11 @@ public class SecurityBeans {
     public static class ClientConfigurationAdapter {
 
         private final ZhemUserRestClient zhemUserRestClient;
+        private final RoleRestClient roleRestClient;
 
         @Bean
         public UserDetailsService clientUserDetailsService() {
-            return new ClientUserDetailsService(zhemUserRestClient);
+            return new ZhemUserDetailsService(zhemUserRestClient, roleRestClient);
         }
 
         @Bean
@@ -88,7 +90,7 @@ public class SecurityBeans {
             http.securityMatcher("/user/**")
                     .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                             .requestMatchers(mvcMatcherBuilder.pattern("/user/registration"))
-                            .permitAll()
+                            .anonymous()
                             .requestMatchers(mvcMatcherBuilder.pattern("/user/**"))
                             .hasRole("CLIENT"))
                     .userDetailsService(this.clientUserDetailsService())
