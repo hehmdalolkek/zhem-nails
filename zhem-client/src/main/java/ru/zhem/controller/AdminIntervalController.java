@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import ru.zhem.dto.request.DailyIntervalsDto;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.entity.Status;
+import ru.zhem.exceptions.BadRequestException;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -36,6 +38,10 @@ public class AdminIntervalController {
         if (Objects.isNull(year) || Objects.isNull(month)) {
             year = LocalDate.now().getYear();
             month = LocalDate.now().getMonth().getValue();
+        }
+        if (month < 1 || month > 12) {
+            throw new BadRequestException(
+                    ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Invalid date"));
         }
         YearMonth yearMonth = YearMonth.of(year, month);
         YearMonth prevYearMonth = yearMonth.minusMonths(1);
