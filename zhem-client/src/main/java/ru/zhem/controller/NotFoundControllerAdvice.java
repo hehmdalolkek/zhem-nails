@@ -1,0 +1,22 @@
+package ru.zhem.controller;
+
+import org.springframework.http.ProblemDetail;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import ru.zhem.exceptions.BadRequestException;
+import ru.zhem.exceptions.NotFoundException;
+
+@ControllerAdvice
+public class NotFoundControllerAdvice {
+
+    @ExceptionHandler(NotFoundException.class)
+    public String handlerBadRequestException(NotFoundException exception, Model model) {
+        ProblemDetail problemDetail = exception.getProblemDetail();
+        model.addAttribute("status", problemDetail.getStatus());
+        model.addAttribute("title", problemDetail.getTitle());
+        model.addAttribute("detail", problemDetail.getDetail());
+        return "common/errors/error";
+    }
+
+}
