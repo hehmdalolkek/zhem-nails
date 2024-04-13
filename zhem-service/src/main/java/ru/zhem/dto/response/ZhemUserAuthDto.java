@@ -20,6 +20,6 @@ public class ZhemUserAuthDto {
 
     private String password;
 
-    private Set<Role> roles;
+    private Set<RoleDto> roles;
 
 }

@@ -1,5 +1,6 @@
 package ru.zhem.dto.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.zhem.dto.response.ZhemUserAuthDto;
 import ru.zhem.dto.request.ZhemUserCreationDto;
@@ -7,8 +8,13 @@ import ru.zhem.dto.response.ZhemUserDto;
 import ru.zhem.dto.request.ZhemUserUpdateDto;
 import ru.zhem.entity.ZhemUser;
 
+import java.util.stream.Collectors;
+
+@RequiredArgsConstructor
 @Component
 public class UserMapper {
+
+    private final RoleMapper roleMapper;
 
     public ZhemUser fromCreationDto(ZhemUserCreationDto userDto) {
         return ZhemUser.builder()
@@ -17,7 +23,9 @@ public class UserMapper {
                 .email(userDto.getEmail())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
-                .roles(userDto.getRoles())
+                .roles(userDto.getRoles().stream()
+                        .map(this.roleMapper::fromDto)
+                        .collect(Collectors.toSet()))
                 .build();
     }
 
@@ -48,7 +56,9 @@ public class UserMapper {
                 .id(user.getId())
                 .phone(user.getPhone())
                 .password(user.getPassword())
-                .roles(user.getRoles())
+                .roles(user.getRoles().stream()
+                        .map(this.roleMapper::fromEntity)
+                        .collect(Collectors.toSet()))
                 .build();
     }
 

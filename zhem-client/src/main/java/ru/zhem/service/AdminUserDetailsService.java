@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ru.zhem.client.ZhemUserRestClient;
+import ru.zhem.dto.request.RoleDto;
 import ru.zhem.dto.request.ZhemUserAuthDto;
-import ru.zhem.entity.Role;
 
 import java.util.stream.Collectors;
 
@@ -25,7 +25,7 @@ public class AdminUserDetailsService implements UserDetailsService {
                 .username(user.getPhone())
                 .password(user.getPassword())
                 .roles(user.getRoles().stream()
-                        .map(Role::getTitle)
+                        .map(RoleDto::getTitle)
                         .collect(Collectors.joining()))
                 .build();
     }

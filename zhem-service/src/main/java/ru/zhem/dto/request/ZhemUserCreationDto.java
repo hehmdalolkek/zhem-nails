@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.entity.Role;
+import ru.zhem.dto.response.RoleDto;
 import ru.zhem.entity.constraints.CheckPhoneNumber;
 import ru.zhem.entity.constraints.NullOrNotBlank;
 
@@ -38,6 +38,6 @@ public class ZhemUserCreationDto {
     private String lastName;
 
     @NotNull(message = "Поле не должно быть пустым")
-    private Set<Role> roles;
+    private Set<RoleDto> roles;
 
 }

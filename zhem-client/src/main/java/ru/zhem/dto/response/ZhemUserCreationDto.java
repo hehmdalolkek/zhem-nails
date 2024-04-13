@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.zhem.dto.constraints.CheckPhoneNumber;
 import ru.zhem.dto.constraints.NullOrNotBlank;
-import ru.zhem.entity.Role;
+import ru.zhem.dto.request.RoleDto;
 
 import java.util.Set;
 
@@ -40,6 +40,6 @@ public class ZhemUserCreationDto {
     private String lastName;
 
     @NotNull(message = "Поле не должно быть пустым")
-    private Set<Role> roles;
+    private Set<RoleDto> roles;
 
 }

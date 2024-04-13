@@ -14,6 +14,12 @@ public class RoleMapper {
                 .build();
     }
 
+    public Role fromDto(RoleDto roleDto) {
+        return Role.builder()
+                .title(roleDto.getTitle())
+                .build();
+    }
+
     public RoleDto fromEntity(Role role) {
         return RoleDto.builder()
                 .id(role.getId())
