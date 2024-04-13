@@ -7,6 +7,7 @@ import ru.zhem.dto.request.DailyIntervalsDto;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
+import ru.zhem.exceptions.IntervalNotFoundException;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -34,7 +35,8 @@ public class IntervalServiceImpl implements IntervalService {
 
     @Override
     public IntervalDto findIntervalById(long intervalId) {
-        return null;
+        return this.intervalRestClient.findIntervalById(intervalId)
+                .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
     }
 
     @Override
