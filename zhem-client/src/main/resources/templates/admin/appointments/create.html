@@ -15,6 +15,7 @@
         <h2>Запись клиента</h2>
         <h3 data-th-text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
         <form method="post">
+            <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
             <input type="hidden" name="intervalId" data-th-value="${interval.getId()}">
             <h3>Выберите клиента</h3>
             <span data-th-text="${errors?.containsKey('userId')} ? ${errors.get('userId')}"></span>
