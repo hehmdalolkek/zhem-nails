@@ -3,11 +3,15 @@ package ru.zhem.client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import ru.zhem.dto.request.DailyIntervalsDto;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
+import ru.zhem.exceptions.BadRequestException;
+import ru.zhem.exceptions.CustomBindException;
 
 import java.util.*;
 
@@ -22,40 +26,57 @@ public class IntervalRestClientImpl implements IntervalRestClient {
 
     @Override
     public List<DailyIntervalsDto> findAllIntervals(Integer year, Integer month) {
-        return this.restClient.get()
-                .uri("/service-api/v1/intervals?year={year}&month={month}",
-                        Map.of("year", year, "month", month))
-                .retrieve()
-                .body(INTERVAL_TYPE_REFERENCE);
+        try {
+            return this.restClient.get()
+                    .uri("/service-api/v1/intervals?year={year}&month={month}",
+                            Map.of("year", year, "month", month))
+                    .retrieve()
+                    .body(INTERVAL_TYPE_REFERENCE);
+        } catch (HttpClientErrorException.BadRequest exception) {
+            throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
+        }
     }
 
     @Override
     public List<DailyIntervalsDto> findAllAvailableIntervals(Integer year, Integer month) {
-        return this.restClient.get()
-                .uri("/service-api/v1/intervals/available?year={year}&month={month}",
-                        Map.of("year", year, "month", month))
-                .retrieve()
-                .body(INTERVAL_TYPE_REFERENCE);
+        try {
+            return this.restClient.get()
+                    .uri("/service-api/v1/intervals/available?year={year}&month={month}",
+                            Map.of("year", year, "month", month))
+                    .retrieve()
+                    .body(INTERVAL_TYPE_REFERENCE);
+        } catch (HttpClientErrorException.BadRequest exception) {
+            throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
+        }
     }
 
     @Override
     public Optional<IntervalDto> findIntervalById(long intervalId) {
-        return Optional.ofNullable(
-                this.restClient.get()
-                        .uri("/service-api/v1/intervals/interval/{intervalId}",intervalId)
-                        .retrieve()
-                        .body(IntervalDto.class)
-        );
+        try {
+            return Optional.ofNullable(
+                    this.restClient.get()
+                            .uri("/service-api/v1/intervals/interval/{intervalId}",intervalId)
+                            .retrieve()
+                            .body(IntervalDto.class)
+            );
+        } catch (HttpClientErrorException.NotFound exception) {
+            return Optional.empty();
+        }
     }
 
     @Override
     public void createInterval(IntervalCreationDto interval) {
-        this.restClient.post()
-                .uri("/service-api/v1/intervals")
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(interval)
-                .retrieve()
-                .toBodilessEntity();
+        try {
+            this.restClient.post()
+                    .uri("/service-api/v1/intervals")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(interval)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (HttpClientErrorException.BadRequest exception) {
+            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
+            throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        }
     }
 
     @Override
