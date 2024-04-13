@@ -7,9 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.zhem.dto.constraints.CheckPhoneNumber;
+import ru.zhem.entity.constraints.Password;
+import ru.zhem.entity.constraints.PasswordMatcher;
 
 import java.util.Set;
 
+@PasswordMatcher(message = "Пароли не совпадают")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Builder
@@ -20,12 +23,9 @@ public class ZhemUser extends BaseEntity {
     @CheckPhoneNumber(message = "Поле должно иметь международный формат номера телефона")
     private String phone;
 
-    @NotBlank(message = "Поле не должно быть пустым")
-    @Size(min = 8, max = 32, message = "Поле должно быть не меньше 8 символов")
+    @Password
     private String password;
 
-    @NotBlank(message = "Поле не должно быть пустым")
-    @Size(min = 8, max = 32, message = "Поле должно быть не меньше 8 символов")
     private String confirmPassword;
 
     @Email(message = "Поле должно иметь формат электронной почты")
@@ -36,7 +36,7 @@ public class ZhemUser extends BaseEntity {
     @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")
     private String firstName;
 
-    @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")
+    @Size(max = 32, message = "Поле должно быть до 32 символов")
     private String lastName;
 
     private Set<Role> roles;
