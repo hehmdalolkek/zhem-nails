@@ -17,6 +17,7 @@ public class AppointmentCreationDto {
     @NotNull(message = "Поле должно быть заполнено")
     private Long intervalId;
 
+    @NullOrNotBlank(message = "Поле должно содержать хотя бы 2 символа, либо быть полностью пустым")
     private String details;
 
 }
