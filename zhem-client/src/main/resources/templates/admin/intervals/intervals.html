@@ -61,10 +61,10 @@
         <a data-th-href="@{/admin/dashboard}"><- Назад</a>
     </nav>
     <main>
-        <h2 data-th-if="${created != null && created}">Интервал успешно создан</h2>
-        <h2 data-th-if="${created != null && !created}">Интервал не создан</h2>
-        <span data-th-text="${errors?.containsKey('time')} ? ${errors.get('time')}"></span>
-        <h2 data-th-if="${recorded != null && recorded}">Клиент записан</h2>
+        <h2 data-th-text="${created != null ? (created ? 'Интервал успешно создан' : 'Интервал не создан') : ''}"></h2>
+        <span data-th-if="${errors?.containsKey('time')}" data-th-text="${errors.get('time')}"></span>
+        <h2 data-th-text="${recorded != null ? (recorded ? 'Клиент записан' : 'Клиент не записан') : ''}"></h2>
+        <span data-th-if="${errors?.containsKey('interval')}" data-th-text="${errors.get('interval')}"></span>
         <div>
             <a data-th-href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                 Предыдущий
