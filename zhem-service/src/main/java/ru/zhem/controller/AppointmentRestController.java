@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.zhem.dto.request.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentDto;
@@ -82,8 +83,12 @@ public class AppointmentRestController {
                         .createAppointment(this.appointmentMapper.fromCreationDto(appointmentDto));
                 return ResponseEntity.created(URI.create("/service-api/v1/appointments/appointment/" + createdAppointment.getId()))
                         .body(this.appointmentMapper.fromEntity(createdAppointment));
-            } catch (ZhemUserNotFoundException | IntervalNotFoundException | IntervalIsBookedException exception) {
+            } catch (ZhemUserNotFoundException | IntervalNotFoundException exception) {
                 throw new BadRequestException(exception.getMessage());
+            } catch (IntervalIsBookedException exception) {
+                bindingResult.addError(
+                        new FieldError("Appointment", "interval", "Выбранный интервал уже забронирован"));
+                throw new BindException(bindingResult);
             }
         }
     }
