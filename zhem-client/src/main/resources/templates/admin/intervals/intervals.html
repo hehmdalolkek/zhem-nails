@@ -63,6 +63,7 @@
     <main>
         <h2 data-th-if="${created != null && created}">Интервал успешно создан</h2>
         <h2 data-th-if="${created != null && !created}">Интервал не создан</h2>
+        <span data-th-text="${errors?.containsKey('time')} ? ${errors.get('time')}"></span>
         <h2 data-th-if="${recorded != null && recorded}">Клиент записан</h2>
         <div>
             <a data-th-href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
@@ -111,9 +112,8 @@
                     <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
                     <input type="hidden" name="date" data-th-value="${entry.getKey()}">
                     <label data-th-for="time">Время
-                        <input type="time" name="time" data-th-value="${enteredData?.getTime()}">
+                        <input type="time" name="time">
                     </label>
-                    <span data-th-text="${errors?.containsKey('time')} ? ${errors.get('time')}"></span>
                     <input type="submit" value="Добавить">
                 </div>
             </form>
