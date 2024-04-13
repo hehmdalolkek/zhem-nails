@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.zhem.dto.response.DailyIntervalsDto;
 import ru.zhem.dto.request.IntervalCreationDto;
@@ -86,7 +87,8 @@ public class IntervalRestController {
                         .created(URI.create("/service-api/v1/intervals/interval/" + createdInterval.getId()))
                         .body(this.intervalMapper.fromEntity(createdInterval));
             } catch (IntervalWithDuplicateDateTimeException exception) {
-                throw new BadRequestException(exception.getMessage());
+                bindingResult.addError(new FieldError("Interval", "time", "Выбранное время уже занято"));
+                throw new BindException(bindingResult);
             }
         }
     }
@@ -107,8 +109,11 @@ public class IntervalRestController {
                         .updateInterval(intervalId, this.intervalMapper.fromUpdateDto(intervalDto));
                 return ResponseEntity.ok()
                         .body(this.intervalMapper.fromEntity(updatedInterval));
-            } catch (IntervalWithDuplicateDateTimeException | NotFoundException exception) {
+            } catch (NotFoundException exception) {
                 throw new BadRequestException(exception.getMessage());
+            } catch (IntervalWithDuplicateDateTimeException exception) {
+                bindingResult.addError(new FieldError("Interval", "time", "Выбранное время уже занято"));
+                throw new BindException(bindingResult);
             }
         }
     }

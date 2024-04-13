@@ -114,9 +114,14 @@ public class ZhemUserRestController {
                 ZhemUser updatedUser = this.zhemUserService.updateUser(userId, this.userMapper.fromUpdateDto(userDto));
                 return ResponseEntity.ok()
                         .body(this.userMapper.fromEntity(updatedUser));
-            } catch (ZhemUserWithDuplicatePhoneException | ZhemUserWithDuplicateEmailException
-                     | ZhemUserNotFoundException exception) {
+            } catch (ZhemUserNotFoundException exception) {
                 throw new BadRequestException(exception.getMessage());
+            } catch (ZhemUserWithDuplicatePhoneException exception) {
+                bindingResult.addError(new FieldError("ZhemUser", "phone", "Номер телефона уже зарегистрирован"));
+                throw new BindException(bindingResult);
+            } catch (ZhemUserWithDuplicateEmailException exception) {
+                bindingResult.addError(new FieldError("ZhemUser", "email", "Электронная почта уже зарегистрирован"));
+                throw new BindException(bindingResult);
             }
         }
     }
