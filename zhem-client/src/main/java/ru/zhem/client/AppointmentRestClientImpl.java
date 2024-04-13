@@ -10,8 +10,10 @@ import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.exceptions.BadRequestException;
+import ru.zhem.exceptions.CustomBindException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -51,7 +53,12 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
                     .retrieve()
                     .toBodilessEntity();
         } catch (HttpClientErrorException.BadRequest exception) {
-            throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
+            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
+            if (problemDetail != null && problemDetail.getProperties().containsKey("errors")) {
+                throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+            } else {
+                throw new BadRequestException(problemDetail);
+            }
         }
     }
 
