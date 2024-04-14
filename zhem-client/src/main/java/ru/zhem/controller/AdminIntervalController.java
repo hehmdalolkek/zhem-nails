@@ -51,7 +51,7 @@ public class AdminIntervalController {
         String uriToRedirect = year != null && month != null
                 ? String.format("redirect:/admin/intervals?year=%s&month=%s", year, month)
                 : "redirect:/admin/intervals";
-        redirectAttributes.addFlashAttribute("created", false);
+        redirectAttributes.addFlashAttribute("message", "Интервал не создан");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : bindingResult.getFieldErrors()) {
@@ -62,7 +62,7 @@ public class AdminIntervalController {
         } else {
             try {
                 this.intervalService.createInterval(intervalDto);
-                redirectAttributes.addFlashAttribute("created", true);
+                redirectAttributes.addFlashAttribute("message", "Интервал создан");
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());

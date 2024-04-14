@@ -75,6 +75,7 @@ public class AdminAppointmentController {
     public String createAppointment(@RequestParam("intervalId") long intervalId, @Valid AppointmentCreationDto appointmentDto,
                                     BindingResult bindingResult, HttpServletResponse response,
                                     RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message", "Клиент не записан");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : bindingResult.getFieldErrors()) {
@@ -87,11 +88,10 @@ public class AdminAppointmentController {
         } else {
             try {
                 this.appointmentService.createAppointment(appointmentDto);
-                redirectAttributes.addFlashAttribute("recorded", true);
+                redirectAttributes.addFlashAttribute("message", "Клиент записан");
                 return "redirect:/admin/intervals";
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
-                redirectAttributes.addFlashAttribute("recorded", false);
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());
                 return "redirect:/admin/intervals";
             }

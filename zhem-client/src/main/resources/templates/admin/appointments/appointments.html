@@ -5,16 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem-nail - все записи</title>
+    <title>Zhem-nails - все записи</title>
 </head>
 <body>
     <nav>
         <a data-th-href="@{/admin/dashboard}"><- Назад</a>
     </nav>
     <main>
-<!--        <h2 data-th-if="${created != null && created}">Интервал успешно создан</h2>-->
-<!--        <h2 data-th-if="${created != null && !created}">Интервал не создан</h2>-->
-<!--        <h2 data-th-if="${recorded != null && recorded}">Клиент записан</h2>-->
+        <h2 data-th-text="${message}"></h2>
         <div>
             <a data-th-href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                 Предыдущий
