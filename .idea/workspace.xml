@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added update interval functionality">
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added delete interval functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/IntervalRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/IntervalRestClientImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/IntervalRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/IntervalRestController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,15 +194,7 @@
       <workItem from="1713037910141" duration="54000" />
       <workItem from="1713037980105" duration="103000" />
       <workItem from="1713080367587" duration="9955000" />
-      <workItem from="1713093676124" duration="1612000" />
-    </task>
-    <task id="LOCAL-00068" summary="dto for appointment">
-      <option name="closed" value="true" />
-      <created>1712868600482</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868600482</updated>
+      <workItem from="1713093676124" duration="1904000" />
     </task>
     <task id="LOCAL-00069" summary="dto for interval">
       <option name="closed" value="true" />
@@ -591,14 +580,21 @@
       <option name="project" value="LOCAL" />
       <updated>1713090610425</updated>
     </task>
-    <option name="localTasksCounter" value="117" />
+    <task id="LOCAL-00117" summary="added delete interval functionality">
+      <option name="closed" value="true" />
+      <created>1713095464487</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1713095464487</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added service for zhem user" />
     <MESSAGE value="fixed validation for user" />
     <MESSAGE value="fixed validation for appointment" />
     <MESSAGE value="fixed userDetailsService" />
@@ -623,6 +619,7 @@
     <MESSAGE value=".idea" />
     <MESSAGE value="added show appointment by interval" />
     <MESSAGE value="added update interval functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="added update interval functionality" />
+    <MESSAGE value="added delete interval functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="added delete interval functionality" />
   </component>
 </project>

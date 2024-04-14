@@ -70,8 +70,8 @@ public class AdminIntervalController {
         return uriToRedirect;
     }
 
-    @PostMapping("/update/{intervalId:\\d+}")
-    public String updateInterval(@PathVariable("intervalId") long intervalId, @Valid IntervalUpdateDto intervalDto,
+    @PostMapping("/update")
+    public String updateInterval(Long intervalId, @Valid IntervalUpdateDto intervalDto,
                                  BindingResult bindingResult, HttpServletResponse response,
                                  RedirectAttributes redirectAttributes,
                                  @RequestParam(value = "year", required = false) Integer year,

@@ -127,10 +127,11 @@
                     <td>
                         <span class="current-time" data-th-text="${interval.getTime()}"></span>
                         <div class="update-time">
-                            <form method="post" data-th-action="@{'/admin/intervals/update/' + ${interval.getId()}}">
+                            <form method="post" data-th-action="@{/admin/intervals/update}">
                                 <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+                                <input type="hidden" name="intervalId" data-th-value="${interval.getId()}">
                                 <label>
-                                    <input type="time" name="time">
+                                    <input type="time" name="time" data-th-value="${interval.getTime()}">
                                 </label>
                                 <input type="submit" value="✓">
                                 <button type="button" class="close-update-time-btn">Отмена</button>

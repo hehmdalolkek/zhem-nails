@@ -18,7 +18,6 @@ public class IntervalUpdateDto {
 
     private LocalDate date;
 
-    @NotNull(message = "Время должно быть заполнено")
     private LocalTime time;
 
     private Status status;
