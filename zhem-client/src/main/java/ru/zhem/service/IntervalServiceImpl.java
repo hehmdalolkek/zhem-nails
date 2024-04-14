@@ -46,7 +46,7 @@ public class IntervalServiceImpl implements IntervalService {
 
     @Override
     public void updateInterval(long intervalId, IntervalUpdateDto interval) {
-
+        this.intervalRestClient.updateInterval(intervalId, interval);
     }
 
     @Override

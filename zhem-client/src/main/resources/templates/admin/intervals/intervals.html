@@ -12,7 +12,13 @@
         document.querySelectorAll('.time-input').forEach(input => {
             input.style.display = 'none';
         });
+        document.querySelectorAll('.update-time').forEach(input => {
+            input.style.display = 'none';
+        });
         document.querySelectorAll('.close-time-btn').forEach(button => {
+            button.style.display = 'none';
+        });
+        document.querySelectorAll('.close-update-time-btn').forEach(button => {
             button.style.display = 'none';
         });
 
@@ -24,15 +30,8 @@
                 const openTimeBtn = target.parentElement.querySelector('.open-time-btn');
                 const closeTimeBtn = target.parentElement.querySelector('.close-time-btn');
 
-                document.querySelectorAll('.time-input').forEach(input => {
-                    input.style.display = 'none';
-                });
-                document.querySelectorAll('.close-time-btn').forEach(button => {
-                    button.style.display = 'none';
-                });
-                document.querySelectorAll('.open-time-btn').forEach(button => {
-                    button.style.display = 'block';
-                });
+                closeAllTimeInputs();
+                closeAllUpdateTimes();
 
                 timeInput.style.display = 'block';
                 openTimeBtn.style.display = 'none'
@@ -43,17 +42,62 @@
         const closeTimeButtons = document.querySelectorAll('.close-time-btn');
         closeTimeButtons.forEach(button => {
             button.addEventListener('click', (e) => {
-                document.querySelectorAll('.time-input').forEach(input => {
-                    input.style.display = 'none';
-                });
-                document.querySelectorAll('.close-time-btn').forEach(button => {
-                    button.style.display = 'none';
-                });
-                document.querySelectorAll('.open-time-btn').forEach(button => {
-                    button.style.display = 'block';
-                });
+                closeAllTimeInputs();
             });
         });
+
+        const openUpdateTimeButtons = document.querySelectorAll('.open-update-time-btn');
+        openUpdateTimeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const target = e.target;
+                const updateTime = target.parentElement.querySelector('.update-time');
+                const currentTime = target.parentElement.querySelector('.current-time');
+                const openUpdateTimeBtn = target.parentElement.querySelector('.open-update-time-btn');
+                const closeUpdateTimeBtn = target.parentElement.querySelector('.close-update-time-btn');
+
+                closeAllUpdateTimes();
+                closeAllTimeInputs();
+
+                currentTime.style.display = 'none';
+                updateTime.style.display = 'block';
+                openUpdateTimeBtn.style.display = 'none'
+                closeUpdateTimeBtn.style.display = 'inline';
+            });
+        });
+
+        const closeUpdateTimeButtons = document.querySelectorAll('.close-update-time-btn');
+        closeUpdateTimeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                closeAllUpdateTimes();
+            });
+        });
+
+        function closeAllTimeInputs() {
+            document.querySelectorAll('.time-input').forEach(input => {
+                input.style.display = 'none';
+            });
+            document.querySelectorAll('.close-time-btn').forEach(button => {
+                button.style.display = 'none';
+            });
+            document.querySelectorAll('.open-time-btn').forEach(button => {
+                button.style.display = 'block';
+            });
+        }
+
+        function closeAllUpdateTimes() {
+            document.querySelectorAll('.update-time').forEach(input => {
+                input.style.display = 'none';
+            });
+            document.querySelectorAll('.close-update-time-btn').forEach(button => {
+                button.style.display = 'none';
+            });
+            document.querySelectorAll('.open-update-time-btn').forEach(button => {
+                button.style.display = 'inline';
+            });
+            document.querySelectorAll('.current-time').forEach(button => {
+                button.style.display = 'inline';
+            });
+        }
     });
 </script>
 <body>
@@ -80,20 +124,26 @@
             </div>
             <table data-th-if="${!entry.getValue().isEmpty()}">
                 <tr data-th-each="interval : ${entry.getValue()}">
-                    <td data-th-text="${interval.getTime()}"></td>
-                    <td data-th-text="${interval.getStatus()}"></td>
                     <td>
-                        <a data-th-if="${interval.getStatus() != statusAvailable}"
-                           data-th-href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">Информация о записи</a>
+                        <span class="current-time" data-th-text="${interval.getTime()}"></span>
+                        <div class="update-time">
+                            <form method="post" data-th-action="@{'/admin/intervals/update/' + ${interval.getId()}}">
+                                <label>
+                                    <input type="time" name="time">
+                                </label>
+                                <input type="submit" value="✓">
+                                <button type="button" class="close-update-time-btn">Отмена</button>
+                            </form>
+                        </div>
+                        <button type="button" class="open-update-time-btn">Изменить время</button>
                     </td>
-                    <td>
-                        <a data-th-if="${interval.getStatus() == statusAvailable}"
-                           data-th-href="@{/admin/appointments/create?intervalId=__${interval.getId()}__}">
+                    <td data-th-if="${interval.getStatus() != statusAvailable}">
+                        <a data-th-href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">Информация о записи</a>
+                    </td>
+                    <td data-th-if="${interval.getStatus() == statusAvailable}">
+                        <a data-th-href="@{/admin/appointments/create?intervalId=__${interval.getId()}__}">
                             Записать клиента
                         </a>
-                    </td>
-                    <td>
-                        <a data-th-href="@{/admin/intervals/update/{intervalId}(intervalId=${interval.getId()})}">Изменить</a>
                     </td>
                 </tr>
             </table>

@@ -1,5 +1,6 @@
 package ru.zhem.dto.response;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class IntervalUpdateDto {
 
     private LocalDate date;
 
+    @NotNull(message = "Время должно быть заполнено")
     private LocalTime time;
 
     private Status status;

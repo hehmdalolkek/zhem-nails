@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added error messages">
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/update.html" afterDir="false" />
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added show appointment by interval">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/IntervalRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/IntervalRestClientImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/appointments.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/appointments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,8 +79,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="ru.zhem.service" />
       <recent name="ru.zhem.exception" />
+      <recent name="ru.zhem.service" />
       <recent name="ru.zhem.entity.constraints" />
       <recent name="ru.zhem.entity" />
       <recent name="ru.zhem.client" />
@@ -156,8 +156,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ZhemServiceApplication" />
         <item itemvalue="Spring Boot.ZhemClientApplication" />
+        <item itemvalue="Spring Boot.ZhemServiceApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -195,31 +195,7 @@
       <workItem from="1713033230291" duration="4602000" />
       <workItem from="1713037910141" duration="54000" />
       <workItem from="1713037980105" duration="103000" />
-      <workItem from="1713080367587" duration="820000" />
-    </task>
-    <task id="LOCAL-00063" summary="fixed exception in findAllUsers">
-      <option name="closed" value="true" />
-      <created>1712844321602</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1712844321602</updated>
-    </task>
-    <task id="LOCAL-00064" summary="removed validation for details">
-      <option name="closed" value="true" />
-      <created>1712868431297</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868431299</updated>
-    </task>
-    <task id="LOCAL-00065" summary="changed to abstract">
-      <option name="closed" value="true" />
-      <created>1712868456275</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868456275</updated>
+      <workItem from="1713080367587" duration="9689000" />
     </task>
     <task id="LOCAL-00066" summary="added findAllUsersByPage method">
       <option name="closed" value="true" />
@@ -589,16 +565,37 @@
       <option name="project" value="LOCAL" />
       <updated>1713080818001</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="fixed error messages">
+      <option name="closed" value="true" />
+      <created>1713081336088</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1713081336088</updated>
+    </task>
+    <task id="LOCAL-00113" summary=".idea">
+      <option name="closed" value="true" />
+      <created>1713081346335</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1713081346335</updated>
+    </task>
+    <task id="LOCAL-00114" summary="added show appointment by interval">
+      <option name="closed" value="true" />
+      <created>1713087583623</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1713087583624</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added login/logout for all users, added registration for clients" />
-    <MESSAGE value="security" />
-    <MESSAGE value="changed role to roleDto" />
     <MESSAGE value="added errors handling in user client" />
     <MESSAGE value="added service for zhem user" />
     <MESSAGE value="fixed validation for user" />
@@ -621,6 +618,9 @@
     <MESSAGE value="added NotFoundException and handler" />
     <MESSAGE value="fixed error handling" />
     <MESSAGE value="added error messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="added error messages" />
+    <MESSAGE value="fixed error messages" />
+    <MESSAGE value=".idea" />
+    <MESSAGE value="added show appointment by interval" />
+    <option name="LAST_COMMIT_MESSAGE" value="added show appointment by interval" />
   </component>
 </project>

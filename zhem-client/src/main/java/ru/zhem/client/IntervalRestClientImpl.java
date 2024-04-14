@@ -81,7 +81,17 @@ public class IntervalRestClientImpl implements IntervalRestClient {
 
     @Override
     public void updateInterval(long intervalId, IntervalUpdateDto interval) {
-
+        try {
+            this.restClient.patch()
+                    .uri("/service-api/v1/intervals/interval/{intervalId}", intervalId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(interval)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (HttpClientErrorException.BadRequest exception) {
+            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
+            throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        }
     }
 
     @Override
