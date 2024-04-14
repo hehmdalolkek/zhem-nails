@@ -68,6 +68,19 @@ public class AppointmentRestController {
         }
     }
 
+    @GetMapping("/appointment/interval/{intervalId:\\d+}")
+    public ResponseEntity<?> findAppointmentByInterval(@PathVariable("intervalId") long intervalId) {
+        try {
+            Appointment foundedAppointment = this.appointmentService.findAppointmentByIntervalId(intervalId);
+            return ResponseEntity.ok()
+                    .body(this.appointmentMapper.fromEntity(foundedAppointment));
+        } catch (AppointmentNotFoundException exception) {
+            throw new NotFoundException(exception.getMessage());
+        } catch (IntervalNotFoundException exception) {
+            throw new BadRequestException(exception.getMessage());
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> createAppointment(@Valid @RequestBody AppointmentCreationDto appointmentDto,
                                                BindingResult bindingResult) throws BindException {

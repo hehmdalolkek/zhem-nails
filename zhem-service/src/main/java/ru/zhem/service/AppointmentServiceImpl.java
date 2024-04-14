@@ -115,4 +115,16 @@ public class AppointmentServiceImpl implements AppointmentService {
         foundedAppointment.getInterval().setStatus(Status.AVAILABLE);
         this.appointmentRepository.deleteById(appointmentId);
     }
+
+    @Override
+    public Appointment findAppointmentByIntervalId(long intervalId) {
+        boolean isExists = this.intervalRepository.existsById(intervalId);
+        if (isExists) {
+            return this.appointmentRepository.findByIntervalId(intervalId)
+                    .orElseThrow(() -> new AppointmentNotFoundException("Interval not found"));
+        } else {
+            throw new IntervalNotFoundException("Interval not found");
+        }
+
+    }
 }

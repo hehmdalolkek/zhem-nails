@@ -6,6 +6,7 @@ import ru.zhem.client.AppointmentRestClient;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
+import ru.zhem.exceptions.AppointmentNotFoundException;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -70,5 +71,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
         return mapOfAppointments;
+    }
+
+    @Override
+    public AppointmentDto findAppointmentByIntervalId(long intervalId) {
+        return this.appointmentRestClient.findAppointmentByInterval(intervalId)
+                .orElseThrow(() -> new AppointmentNotFoundException("Appointment not found"));
     }
 }

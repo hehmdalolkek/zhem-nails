@@ -25,4 +25,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             " order by i.interval.date, i.interval.time")
     List<Appointment> findAllByIntervalDate(@Param("year") Integer year, @Param("month") Integer month);
 
+    @EntityGraph(value = "appointment_entity-graph")
+    Optional<Appointment> findByIntervalId(long intervalId);
 }

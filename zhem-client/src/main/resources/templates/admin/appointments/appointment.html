@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - информация о записи</title>
+</head>
+<body>
+    <nav>
+        <a data-th-href="@{${referer} ?: '/admin/dashboard'}"><- Назад</a>
+    </nav>
+    <main>
+        <div>
+            <h1 data-th-text="'Запись №' + ${appointment.getId()}"></h1>
+            <h2>Интервал:</h2>
+            <ul>
+                <li data-th-text="'Дата: ' + ${appointment.getInterval().getDate()}"></li>
+                <li data-th-text="'Время: ' + ${appointment.getInterval().getTime()}"></li>
+            </ul>
+            <h2>Клиент:</h2>
+            <ul>
+                <li data-th-text="'ID: ' + ${appointment.getUser().getId()}"></li>
+                <li data-th-text="'Номер телефона: ' + ${appointment.getUser().getPhone()}"></li>
+                <li data-th-if="${appointment.getUser().getEmail()}"
+                    data-th-text="'Электронная почта: ' + ${appointment.getUser().getEmail()}"></li>
+                <li data-th-text="'Имя: ' + ${appointment.getUser().getFirstName()}"></li>
+                <li data-th-if="${appointment.getUser().getLastName()}"
+                    data-th-text="'Фамилия: ' + ${appointment.getUser().getLastName()()}"></li>
+            </ul>
+            <h2>Комментарий:</h2>
+            <p data-th-text="${appointment.getDetails() ?: 'Комментария нет.'}"></p>
+            <h3>Дата оформления записи:</h3>
+            <p data-th-text="${appointment.getCreatedAt().toLocalDate()}"></p>
+        </div>
+    </main>
+</body>
+</html>

@@ -24,20 +24,17 @@
         <div data-th-each="entry : ${mapOfAppointments}">
             <h3 data-th-text="${entry.getKey()} + ':'"></h3>
             <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Time</th>
-                    <th>Phone</th>
-                    <th>Name</th>
-                    <th>Last name</th>
-                    <th>Update</th>
-                </tr>
                 <tr data-th-each="appointment : ${entry.getValue()}">
                     <td data-th-text="${appointment.getId()}"></td>
                     <td data-th-text="${appointment.getInterval().getTime()}"></td>
                     <td data-th-text="${appointment.getUser().getPhone()}"></td>
                     <td data-th-text="${appointment.getUser().getFirstName()}"></td>
                     <td data-th-text="${appointment.getUser().getLastName()}"></td>
+                    <td>
+                        <a data-th-href="@{/admin/appointments/interval/{intervalId}(intervalId=${appointment.getInterval().getId()})}">
+                            Информация о записи
+                        </a>
+                    </td>
                     <td>
                         <a data-th-href="@{/admin/appointments/update/{appointmentId}(appointmentId=${appointment.getId()})}">Изменить</a>
                     </td>

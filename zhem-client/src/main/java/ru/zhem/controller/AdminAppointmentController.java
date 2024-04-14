@@ -1,5 +1,6 @@
 package ru.zhem.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -9,15 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.client.response.PaginatedResponse;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
+import ru.zhem.exceptions.AppointmentNotFoundException;
 import ru.zhem.exceptions.CustomBindException;
 import ru.zhem.exceptions.IntervalNotFoundException;
 import ru.zhem.exceptions.NotFoundException;
@@ -52,6 +51,21 @@ public class AdminAppointmentController {
                 this.appointmentService.generateCalendarForMonth(yearMonth));
 
         return "/admin/appointments/appointments";
+    }
+
+    @GetMapping("/interval/{intervalId:\\d+}")
+    public String showAppointmentByInterval(@PathVariable("intervalId") long intervalId, Model model,
+                                            HttpServletRequest request) {
+        try {
+            model.addAttribute("appointment",
+                    this.appointmentService.findAppointmentByIntervalId(intervalId));
+            model.addAttribute("referer", request.getHeader("Referer"));
+
+            return "/admin/appointments/appointment";
+        } catch (AppointmentNotFoundException exception) {
+            throw new NotFoundException(
+                    ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
+        }
     }
 
 

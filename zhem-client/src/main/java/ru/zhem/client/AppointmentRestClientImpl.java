@@ -71,4 +71,16 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
     public void deleteAppointment(long appointmentId) {
 
     }
+
+    @Override
+    public Optional<AppointmentDto> findAppointmentByInterval(long intervalId) {
+        try {
+            return Optional.ofNullable(this.restClient.get()
+                    .uri("/service-api/v1/appointments/appointment/interval/{intervalId}", intervalId)
+                    .retrieve()
+                    .body(AppointmentDto.class));
+        } catch (HttpClientErrorException.NotFound exception) {
+            return Optional.empty();
+        }
+    }
 }

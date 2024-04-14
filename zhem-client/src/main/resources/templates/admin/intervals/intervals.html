@@ -61,6 +61,7 @@
         <a data-th-href="@{/admin/dashboard}"><- Назад</a>
     </nav>
     <main>
+        <h1>Рабочий календарь</h1>
         <h2 data-th-text="${message}"></h2>
         <span data-th-if="${errors?.containsKey('time')}" data-th-text="${errors.get('time')}"></span>
         <span data-th-if="${errors?.containsKey('interval')}" data-th-text="${errors.get('interval')}"></span>
@@ -75,32 +76,24 @@
         <div data-th-each="entry : ${mapOfIntervals}">
             <h3 data-th-text="${entry.getKey()} + ':'"></h3>
             <div data-th-if="${entry.getValue().isEmpty()}">
-
+                <p>Нет интервалов</p>
             </div>
             <table data-th-if="${!entry.getValue().isEmpty()}">
-                <tr>
-                    <th>ID</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                    <th>Created</th>
-                    <th>Updated</th>
-                    <th>Update</th>
-                    <th>Appointment</th>
-                </tr>
                 <tr data-th-each="interval : ${entry.getValue()}">
-                    <td data-th-text="${interval.getId()}"></td>
                     <td data-th-text="${interval.getTime()}"></td>
                     <td data-th-text="${interval.getStatus()}"></td>
-                    <td data-th-text="${interval.getCreatedAt().toLocalDate()}"></td>
-                    <td data-th-text="${interval.getUpdatedAt().toLocalDate()}"></td>
                     <td>
-                        <a data-th-href="@{/admin/intervals/update/{intervalId}(intervalId=${interval.getId()})}">Изменить</a>
+                        <a data-th-if="${interval.getStatus() != statusAvailable}"
+                           data-th-href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">Информация о записи</a>
                     </td>
                     <td>
                         <a data-th-if="${interval.getStatus() == statusAvailable}"
                            data-th-href="@{/admin/appointments/create?intervalId=__${interval.getId()}__}">
                             Записать клиента
                         </a>
+                    </td>
+                    <td>
+                        <a data-th-href="@{/admin/intervals/update/{intervalId}(intervalId=${interval.getId()})}">Изменить</a>
                     </td>
                 </tr>
             </table>

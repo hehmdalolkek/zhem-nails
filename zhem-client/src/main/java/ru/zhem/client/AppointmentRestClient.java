@@ -21,4 +21,5 @@ public interface AppointmentRestClient {
 
     void deleteAppointment(long appointmentId);
 
+    Optional<AppointmentDto> findAppointmentByInterval(long intervalId);
 }

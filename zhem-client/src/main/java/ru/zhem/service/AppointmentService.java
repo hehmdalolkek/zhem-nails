@@ -25,4 +25,5 @@ public interface AppointmentService {
 
     Map<LocalDate, List<AppointmentDto>> generateCalendarForMonth(YearMonth yearMonth);
 
+    AppointmentDto findAppointmentByIntervalId(long intervalId);
 }
