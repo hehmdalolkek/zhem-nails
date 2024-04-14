@@ -12,6 +12,7 @@ import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
 import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.exceptions.NotFoundException;
 
 import java.util.*;
 
@@ -96,6 +97,16 @@ public class IntervalRestClientImpl implements IntervalRestClient {
 
     @Override
     public void deleteIntervalById(long intervalId) {
-
+        try {
+            this.restClient.delete()
+                    .uri("/service-api/v1/intervals/interval/{intervalId}", intervalId)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
+        } catch (HttpClientErrorException.BadRequest exception) {
+            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
+            throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        }
     }
 }

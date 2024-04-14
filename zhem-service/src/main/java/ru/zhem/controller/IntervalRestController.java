@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.MapBindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.zhem.dto.response.DailyIntervalsDto;
 import ru.zhem.dto.request.IntervalCreationDto;
@@ -17,6 +18,7 @@ import ru.zhem.service.IntervalService;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,7 +121,8 @@ public class IntervalRestController {
     }
 
     @DeleteMapping("/interval/{intervalId:\\d+}")
-    public ResponseEntity<?> deleteInterval(@PathVariable("intervalId") long intervalId) {
+    public ResponseEntity<?> deleteInterval(@PathVariable("intervalId") long intervalId)
+            throws BindException {
         try {
             this.intervalService.deleteIntervalById(intervalId);
             return ResponseEntity.ok()
@@ -127,7 +130,9 @@ public class IntervalRestController {
         } catch (IntervalNotFoundException exception) {
             throw new NotFoundException(exception.getMessage());
         } catch (IntervalIsBookedException exception) {
-            throw new BadRequestException(exception.getMessage());
+            BindingResult bindingResult = new MapBindingResult(new HashMap<>(), "Interval");
+            bindingResult.addError(new FieldError("Interval", "interval", "Интервал забронирован"));
+            throw new BindException(bindingResult);
         }
     }
 

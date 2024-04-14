@@ -100,5 +100,24 @@ public class AdminIntervalController {
         return uriToRedirect;
     }
 
+    @PostMapping("/delete")
+    public String deleteInterval(Long intervalId, RedirectAttributes redirectAttributes,
+                                 @RequestParam(value = "year", required = false) Integer year,
+                                 @RequestParam(value = "month", required = false) Integer month,
+                                 HttpServletResponse response) {
+        String uriToRedirect = year != null && month != null
+                ? String.format("redirect:/admin/intervals?year=%s&month=%s", year, month)
+                : "redirect:/admin/intervals";
+        try {
+            this.intervalService.deleteIntervalById(intervalId);
+            redirectAttributes.addFlashAttribute("message", "Интервал удален");
+            return uriToRedirect;
+        } catch (CustomBindException exception) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            redirectAttributes.addFlashAttribute("message", "Интервал не удален");
+            redirectAttributes.addFlashAttribute("errors", exception.getErrors());
+            return uriToRedirect;
+        }
+    }
 
 }

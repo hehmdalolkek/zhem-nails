@@ -51,7 +51,7 @@ public class IntervalServiceImpl implements IntervalService {
 
     @Override
     public void deleteIntervalById(long intervalId) {
-
+        this.intervalRestClient.deleteIntervalById(intervalId);
     }
 
     public Map<LocalDate, List<IntervalDto>> generateIntervalCalendarForMonth(YearMonth yearMonth) {
