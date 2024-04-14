@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment=".idea">
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added error messages">
       <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/update.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/appointments.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/appointments.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="AnnotationType" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -44,6 +45,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.CustomUserDetailsService.executor&quot;: &quot;Run&quot;,
     &quot;Maven.zhem-service [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.zhem-service [package].executor&quot;: &quot;Run&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
@@ -55,6 +57,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.ZhemClientApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ZhemServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -76,11 +79,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="ru.zhem.client" />
-      <recent name="ru.zhem.entity" />
-      <recent name="ru.zhem.exception" />
       <recent name="ru.zhem.service" />
-      <recent name="ru.zhem.dto.mapper" />
+      <recent name="ru.zhem.exception" />
+      <recent name="ru.zhem.entity.constraints" />
+      <recent name="ru.zhem.entity" />
+      <recent name="ru.zhem.client" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem\dto\request" />
@@ -95,10 +98,11 @@
       <recent name="ru.zhem.controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.zhem.controller" />
       <recent name="ru.zhem.exceptions" />
+      <recent name="ru.zhem.service" />
       <recent name="ru.zhem.dto.mapper" />
       <recent name="ru.zhem.entity" />
-      <recent name="ru.zhem.config" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -152,8 +156,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ZhemClientApplication" />
         <item itemvalue="Spring Boot.ZhemServiceApplication" />
+        <item itemvalue="Spring Boot.ZhemClientApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -183,295 +187,15 @@
       <workItem from="1712730975380" duration="10307000" />
       <workItem from="1712773638874" duration="7913000" />
       <workItem from="1712818136935" duration="40094000" />
-      <workItem from="1712903755479" duration="6426000" />
-    </task>
-    <task id="LOCAL-00027" summary="changed user payload to dto">
-      <option name="closed" value="true" />
-      <created>1712651000847</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1712651000847</updated>
-    </task>
-    <task id="LOCAL-00028" summary=".idea">
-      <option name="closed" value="true" />
-      <created>1712651032806</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1712651032806</updated>
-    </task>
-    <task id="LOCAL-00029" summary="added custom exceptions for BadRequest and NotFound, added controller advice for this exceptions">
-      <option name="closed" value="true" />
-      <created>1712672364730</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1712672364730</updated>
-    </task>
-    <task id="LOCAL-00030" summary="changed column status in intervals from status to varchar">
-      <option name="closed" value="true" />
-      <created>1712683562023</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1712683562023</updated>
-    </task>
-    <task id="LOCAL-00031" summary="optimize imports">
-      <option name="closed" value="true" />
-      <created>1712683668158</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1712683668158</updated>
-    </task>
-    <task id="LOCAL-00032" summary="added interval dto">
-      <option name="closed" value="true" />
-      <created>1712683702631</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1712683702631</updated>
-    </task>
-    <task id="LOCAL-00033" summary="added exceptions for intervals">
-      <option name="closed" value="true" />
-      <created>1712683723577</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1712683723577</updated>
-    </task>
-    <task id="LOCAL-00034" summary="added methods findAllBy and existsBy in repo for interval">
-      <option name="closed" value="true" />
-      <created>1712683812309</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1712683812309</updated>
-    </task>
-    <task id="LOCAL-00035" summary="added crud methods and findAllBy in service for interval">
-      <option name="closed" value="true" />
-      <created>1712683844304</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1712683844304</updated>
-    </task>
-    <task id="LOCAL-00036" summary="added crud methods and findAllBy in controller for interval">
-      <option name="closed" value="true" />
-      <created>1712683856035</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1712683856035</updated>
-    </task>
-    <task id="LOCAL-00037" summary=".idea">
-      <option name="closed" value="true" />
-      <created>1712683865037</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1712683865037</updated>
-    </task>
-    <task id="LOCAL-00038" summary="added scheduled cleanup old intervals">
-      <option name="closed" value="true" />
-      <created>1712732609373</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1712732609374</updated>
-    </task>
-    <task id="LOCAL-00039" summary="added scheduled cleanup old intervals">
-      <option name="closed" value="true" />
-      <created>1712733217191</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1712733217191</updated>
-    </task>
-    <task id="LOCAL-00040" summary="added scheduled cleanup old intervals">
-      <option name="closed" value="true" />
-      <created>1712733387844</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1712733387844</updated>
-    </task>
-    <task id="LOCAL-00041" summary="renamed findAllBy methods and added order by to sql queries">
-      <option name="closed" value="true" />
-      <created>1712733642508</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1712733642508</updated>
-    </task>
-    <task id="LOCAL-00042" summary="added default messages to valid fields">
-      <option name="closed" value="true" />
-      <created>1712733739653</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1712733739653</updated>
-    </task>
-    <task id="LOCAL-00043" summary="added appointment entity">
-      <option name="closed" value="true" />
-      <created>1712774426872</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774426872</updated>
-    </task>
-    <task id="LOCAL-00044" summary="added appointment dtos">
-      <option name="closed" value="true" />
-      <created>1712774442012</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774442012</updated>
-    </task>
-    <task id="LOCAL-00045" summary="added appointment not found exception">
-      <option name="closed" value="true" />
-      <created>1712774463218</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774463218</updated>
-    </task>
-    <task id="LOCAL-00046" summary="added appointment repository exception">
-      <option name="closed" value="true" />
-      <created>1712774514355</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774514355</updated>
-    </task>
-    <task id="LOCAL-00047" summary="added appointment repository">
-      <option name="closed" value="true" />
-      <created>1712774534553</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774534553</updated>
-    </task>
-    <task id="LOCAL-00048" summary="added appointment service and controller">
-      <option name="closed" value="true" />
-      <created>1712774545677</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774545677</updated>
-    </task>
-    <task id="LOCAL-00049" summary="removed default value for status">
-      <option name="closed" value="true" />
-      <created>1712774560368</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774560368</updated>
-    </task>
-    <task id="LOCAL-00050" summary="renamed IntervalCannotBeDeletedException to IntervalIsBookedException">
-      <option name="closed" value="true" />
-      <created>1712774608652</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774608653</updated>
-    </task>
-    <task id="LOCAL-00051" summary="renamed IntervalCannotBeDeletedException to IntervalIsBookedException">
-      <option name="closed" value="true" />
-      <created>1712774683667</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774683667</updated>
-    </task>
-    <task id="LOCAL-00052" summary=".idea">
-      <option name="closed" value="true" />
-      <created>1712774689542</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1712774689543</updated>
-    </task>
-    <task id="LOCAL-00053" summary="refactored dtos for appointment">
-      <option name="closed" value="true" />
-      <created>1712777219567</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1712777219567</updated>
-    </task>
-    <task id="LOCAL-00054" summary="fixed return body in findAllAppointments">
-      <option name="closed" value="true" />
-      <created>1712777262516</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1712777262516</updated>
-    </task>
-    <task id="LOCAL-00055" summary="refactored dtos for ZhemUser, added dto for auth">
-      <option name="closed" value="true" />
-      <created>1712777308105</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1712777308105</updated>
-    </task>
-    <task id="LOCAL-00056" summary="optimize imports">
-      <option name="closed" value="true" />
-      <created>1712777328562</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1712777328562</updated>
-    </task>
-    <task id="LOCAL-00057" summary=".idea">
-      <option name="closed" value="true" />
-      <created>1712777340057</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1712777340057</updated>
-    </task>
-    <task id="LOCAL-00058" summary="fixed deleteIntervalById">
-      <option name="closed" value="true" />
-      <created>1712778196322</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1712778196322</updated>
-    </task>
-    <task id="LOCAL-00059" summary=".idea">
-      <option name="closed" value="true" />
-      <created>1712778203074</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1712778203074</updated>
-    </task>
-    <task id="LOCAL-00060" summary="encoded password for security by bcrypt">
-      <option name="closed" value="true" />
-      <created>1712778335103</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1712778335103</updated>
-    </task>
-    <task id="LOCAL-00061" summary="fixed findAllUsers with blank String role">
-      <option name="closed" value="true" />
-      <created>1712825428807</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1712825428808</updated>
-    </task>
-    <task id="LOCAL-00062" summary="moved dtos to request/response folders">
-      <option name="closed" value="true" />
-      <created>1712844267669</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1712844267669</updated>
+      <workItem from="1712903755479" duration="15452000" />
+      <workItem from="1712928495633" duration="171000" />
+      <workItem from="1712946071881" duration="7619000" />
+      <workItem from="1712993089278" duration="4178000" />
+      <workItem from="1712997299021" duration="10320000" />
+      <workItem from="1713033230291" duration="4602000" />
+      <workItem from="1713037910141" duration="54000" />
+      <workItem from="1713037980105" duration="103000" />
+      <workItem from="1713080367587" duration="820000" />
     </task>
     <task id="LOCAL-00063" summary="fixed exception in findAllUsers">
       <option name="closed" value="true" />
@@ -577,38 +301,326 @@
       <option name="project" value="LOCAL" />
       <updated>1712868892532</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="changed the display of all intervals in the form of a calendar and changed add interval form">
+      <option name="closed" value="true" />
+      <created>1712911344785</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1712911344786</updated>
+    </task>
+    <task id="LOCAL-00077" summary="added controller and client for appointment">
+      <option name="closed" value="true" />
+      <created>1712946165126</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1712946165127</updated>
+    </task>
+    <task id="LOCAL-00078" summary="implemented findAllAvailableIntervals">
+      <option name="closed" value="true" />
+      <created>1712946196845</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1712946196845</updated>
+    </task>
+    <task id="LOCAL-00079" summary="added find user by phone">
+      <option name="closed" value="true" />
+      <created>1712953553656</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1712953553656</updated>
+    </task>
+    <task id="LOCAL-00080" summary="added find role by title">
+      <option name="closed" value="true" />
+      <created>1712953600360</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1712953600360</updated>
+    </task>
+    <task id="LOCAL-00081" summary="added find role by title">
+      <option name="closed" value="true" />
+      <created>1712953610114</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1712953610114</updated>
+    </task>
+    <task id="LOCAL-00082" summary="added find role by title">
+      <option name="closed" value="true" />
+      <created>1712953627681</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1712953627681</updated>
+    </task>
+    <task id="LOCAL-00083" summary="added find role by title">
+      <option name="closed" value="true" />
+      <created>1712953637591</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1712953637592</updated>
+    </task>
+    <task id="LOCAL-00084" summary="added login/logout for all users, added registration for clients">
+      <option name="closed" value="true" />
+      <created>1712953690992</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1712953690992</updated>
+    </task>
+    <task id="LOCAL-00085" summary="security">
+      <option name="closed" value="true" />
+      <created>1712953702735</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1712953702735</updated>
+    </task>
+    <task id="LOCAL-00086" summary="changed role to roleDto">
+      <option name="closed" value="true" />
+      <created>1713005853114</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1713005853115</updated>
+    </task>
+    <task id="LOCAL-00087" summary="changed role to roleDto">
+      <option name="closed" value="true" />
+      <created>1713005861862</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1713005861862</updated>
+    </task>
+    <task id="LOCAL-00088" summary="added errors handling in user client">
+      <option name="closed" value="true" />
+      <created>1713005948275</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1713005948275</updated>
+    </task>
+    <task id="LOCAL-00089" summary="added service for zhem user">
+      <option name="closed" value="true" />
+      <created>1713006018542</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1713006018542</updated>
+    </task>
+    <task id="LOCAL-00090" summary="fixed validation for user">
+      <option name="closed" value="true" />
+      <created>1713006061638</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1713006061638</updated>
+    </task>
+    <task id="LOCAL-00091" summary="fixed validation for appointment">
+      <option name="closed" value="true" />
+      <created>1713006071869</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1713006071869</updated>
+    </task>
+    <task id="LOCAL-00092" summary="fixed userDetailsService">
+      <option name="closed" value="true" />
+      <created>1713006199142</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1713006199142</updated>
+    </task>
+    <task id="LOCAL-00093" summary="added passay">
+      <option name="closed" value="true" />
+      <created>1713006223574</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1713006223574</updated>
+    </task>
+    <task id="LOCAL-00094" summary="added show error for passwords">
+      <option name="closed" value="true" />
+      <created>1713006256999</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1713006256999</updated>
+    </task>
+    <task id="LOCAL-00095" summary="added badRequest exception for invalid date">
+      <option name="closed" value="true" />
+      <created>1713006849603</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1713006849603</updated>
+    </task>
+    <task id="LOCAL-00096" summary="added BindException in catch exception">
+      <option name="closed" value="true" />
+      <created>1713007367017</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1713007367017</updated>
+    </task>
+    <task id="LOCAL-00097" summary="added exception handling for user client">
+      <option name="closed" value="true" />
+      <created>1713007388171</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1713007388172</updated>
+    </task>
+    <task id="LOCAL-00098" summary="added csrf token">
+      <option name="closed" value="true" />
+      <created>1713009668710</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1713009668710</updated>
+    </task>
+    <task id="LOCAL-00099" summary="added service for interval">
+      <option name="closed" value="true" />
+      <created>1713011278172</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1713011278172</updated>
+    </task>
+    <task id="LOCAL-00100" summary="added message for error">
+      <option name="closed" value="true" />
+      <created>1713011312587</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1713011312587</updated>
+    </task>
+    <task id="LOCAL-00101" summary="added handling errors">
+      <option name="closed" value="true" />
+      <created>1713034349735</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1713034349735</updated>
+    </task>
+    <task id="LOCAL-00102" summary="added handling IntervalIsBookedException">
+      <option name="closed" value="true" />
+      <created>1713037294935</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1713037294935</updated>
+    </task>
+    <task id="LOCAL-00103" summary="fixed nullPointerException getDetails">
+      <option name="closed" value="true" />
+      <created>1713037325423</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1713037325423</updated>
+    </task>
+    <task id="LOCAL-00104" summary="added CalendarService">
+      <option name="closed" value="true" />
+      <created>1713037375402</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1713037375402</updated>
+    </task>
+    <task id="LOCAL-00105" summary="implemented findIntervalById">
+      <option name="closed" value="true" />
+      <created>1713037401246</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1713037401246</updated>
+    </task>
+    <task id="LOCAL-00106" summary="added appointmentService">
+      <option name="closed" value="true" />
+      <created>1713037439373</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1713037439373</updated>
+    </task>
+    <task id="LOCAL-00107" summary="added NotFoundException and handler">
+      <option name="closed" value="true" />
+      <created>1713037456328</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1713037456328</updated>
+    </task>
+    <task id="LOCAL-00108" summary="fixed error handling">
+      <option name="closed" value="true" />
+      <created>1713037479635</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1713037479635</updated>
+    </task>
+    <task id="LOCAL-00109" summary="added error messages">
+      <option name="closed" value="true" />
+      <created>1713037692987</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1713037692987</updated>
+    </task>
+    <task id="LOCAL-00110" summary="added error messages">
+      <option name="closed" value="true" />
+      <created>1713080765173</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1713080765174</updated>
+    </task>
+    <task id="LOCAL-00111" summary="added error messages">
+      <option name="closed" value="true" />
+      <created>1713080818001</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1713080818001</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added appointment repository" />
-    <MESSAGE value="added appointment service and controller" />
-    <MESSAGE value="removed default value for status" />
-    <MESSAGE value="renamed IntervalCannotBeDeletedException to IntervalIsBookedException" />
-    <MESSAGE value="refactored dtos for appointment" />
-    <MESSAGE value="fixed return body in findAllAppointments" />
-    <MESSAGE value="refactored dtos for ZhemUser, added dto for auth" />
-    <MESSAGE value="optimize imports" />
-    <MESSAGE value="fixed deleteIntervalById" />
-    <MESSAGE value="encoded password for security by bcrypt" />
-    <MESSAGE value="fixed findAllUsers with blank String role" />
-    <MESSAGE value="moved dtos to request/response folders" />
-    <MESSAGE value="fixed exception in findAllUsers" />
-    <MESSAGE value="removed validation for details" />
-    <MESSAGE value="changed to abstract" />
-    <MESSAGE value="added findAllUsersByPage method" />
-    <MESSAGE value="init entity" />
-    <MESSAGE value="dto for appointment" />
-    <MESSAGE value="dto for interval" />
-    <MESSAGE value="dto for zhemUser" />
-    <MESSAGE value="dto for role" />
-    <MESSAGE value="init" />
-    <MESSAGE value="added exception for interval" />
-    <MESSAGE value="controllers and clients for zhemUser, interval and appointment" />
-    <MESSAGE value=".idea" />
-    <option name="LAST_COMMIT_MESSAGE" value=".idea" />
+    <MESSAGE value="added login/logout for all users, added registration for clients" />
+    <MESSAGE value="security" />
+    <MESSAGE value="changed role to roleDto" />
+    <MESSAGE value="added errors handling in user client" />
+    <MESSAGE value="added service for zhem user" />
+    <MESSAGE value="fixed validation for user" />
+    <MESSAGE value="fixed validation for appointment" />
+    <MESSAGE value="fixed userDetailsService" />
+    <MESSAGE value="added passay" />
+    <MESSAGE value="added show error for passwords" />
+    <MESSAGE value="added badRequest exception for invalid date" />
+    <MESSAGE value="added BindException in catch exception" />
+    <MESSAGE value="added exception handling for user client" />
+    <MESSAGE value="added csrf token" />
+    <MESSAGE value="added service for interval" />
+    <MESSAGE value="added message for error" />
+    <MESSAGE value="added handling errors" />
+    <MESSAGE value="added handling IntervalIsBookedException" />
+    <MESSAGE value="fixed nullPointerException getDetails" />
+    <MESSAGE value="added CalendarService" />
+    <MESSAGE value="implemented findIntervalById" />
+    <MESSAGE value="added appointmentService" />
+    <MESSAGE value="added NotFoundException and handler" />
+    <MESSAGE value="fixed error handling" />
+    <MESSAGE value="added error messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="added error messages" />
   </component>
 </project>
