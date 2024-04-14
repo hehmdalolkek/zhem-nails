@@ -71,11 +71,13 @@ public class AdminAppointmentController {
 
     @GetMapping("/create")
     public String initCreateAppointmentPage(@RequestParam("intervalId") long intervalId, Model model,
+                                            HttpServletRequest request,
                                             @RequestParam(name = "page", defaultValue = "0") int page,
                                             @RequestParam(name = "size", defaultValue = "7") int size) {
         try {
             IntervalDto interval = this.intervalService.findIntervalById(intervalId);
             PaginatedResponse<ZhemUserDto> users = this.zhemUserService.findAllUsersByPage(page, size);
+            model.addAttribute("referer", request.getHeader("Referer"));
             model.addAttribute("interval", interval);
             model.addAttribute("users", users);
             return "/admin/appointments/create";
