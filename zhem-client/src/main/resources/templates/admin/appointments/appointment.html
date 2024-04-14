@@ -33,6 +33,13 @@
             <p data-th-text="${appointment.getDetails() ?: 'Комментария нет.'}"></p>
             <h3>Дата оформления записи:</h3>
             <p data-th-text="${appointment.getCreatedAt().toLocalDate()}"></p>
+            <div>
+                <form method="post" data-th-action="@{/admin/appointments/delete}">
+                    <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+                    <input type="hidden" name="appointmentId" data-th-value="${appointment.getId()}">
+                    <input type="submit" value="Отменить запись">
+                </form>
+            </div>
         </div>
     </main>
 </body>

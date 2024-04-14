@@ -51,7 +51,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public void deleteAppointment(long appointmentId) {
-
+        this.appointmentRestClient.deleteAppointment(appointmentId);
     }
 
     @Override

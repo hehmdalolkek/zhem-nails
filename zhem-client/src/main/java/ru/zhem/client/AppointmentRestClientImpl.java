@@ -69,7 +69,14 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
 
     @Override
     public void deleteAppointment(long appointmentId) {
-
+        try {
+            this.restClient.delete()
+                    .uri("/service-api/v1/appointments/appointment/{appointmentId}", appointmentId)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (HttpClientErrorException exception) {
+            throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
+        }
     }
 
     @Override

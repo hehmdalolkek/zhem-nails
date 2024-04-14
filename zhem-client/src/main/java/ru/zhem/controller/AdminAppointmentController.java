@@ -112,4 +112,10 @@ public class AdminAppointmentController {
         }
     }
 
+    @PostMapping("/delete")
+    public String deleteAppointment(Long appointmentId, RedirectAttributes redirectAttributes) {
+        this.appointmentService.deleteAppointment(appointmentId);
+        redirectAttributes.addFlashAttribute("message", "Запись отменена");
+        return "redirect:/admin/intervals";
+    }
 }
