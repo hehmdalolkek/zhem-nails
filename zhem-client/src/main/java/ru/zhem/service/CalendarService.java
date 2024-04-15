@@ -27,6 +27,7 @@ public class CalendarService {
         YearMonth nextYearMonth = yearMonth.plusMonths(1);
         model.addAttribute("prevYearMonth", prevYearMonth);
         model.addAttribute("nextYearMonth", nextYearMonth);
+        model.addAttribute("yearMonth", yearMonth);
         return yearMonth;
     }
 

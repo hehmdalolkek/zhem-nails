@@ -34,7 +34,8 @@
                     <td>
                         <span class="current-time" data-th-text="${interval.getTime()}"></span>
                         <div class="update-time">
-                            <form method="post" data-th-action="@{/admin/intervals/update}">
+                            <form method="post"
+                                  data-th-action="@{/admin/intervals/update?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
                                 <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
                                 <input type="hidden" name="intervalId" data-th-value="${interval.getId()}">
                                 <label>
@@ -47,7 +48,7 @@
                         <button type="button" class="open-update-time-btn">Изменить время</button>
                     </td>
                     <td>
-                        <form method="post" data-th-action="@{/admin/intervals/delete}">
+                        <form method="post" data-th-action="@{/admin/intervals/delete?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
                             <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
                             <input type="hidden" name="intervalId" data-th-value="${interval.getId()}">
                             <input type="submit" value="Удалить">
