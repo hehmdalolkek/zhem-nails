@@ -1,6 +1,7 @@
 package ru.zhem.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,11 +16,13 @@ import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.ZhemUserCreationDto;
 import ru.zhem.dto.response.ZhemUserUpdateDto;
 import ru.zhem.entity.ZhemUser;
+import ru.zhem.exceptions.RoleNotFoundException;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Qualifier("zhemUserDetailsService")
 @Service
 @RequiredArgsConstructor
 public class ZhemUserDetailsService implements UserDetailsService, ZhemUserService {
@@ -67,10 +70,10 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
         RoleDto roleDto;
         if (isAdmin) {
             roleDto = this.roleRestClient.findRoleByTitle("ADMIN")
-                    .orElseThrow();
+                    .orElseThrow(() -> new RoleNotFoundException("Role not found"));
         } else {
             roleDto = this.roleRestClient.findRoleByTitle("CLIENT")
-                    .orElseThrow();
+                    .orElseThrow(() -> new RoleNotFoundException("Role not found"));
         }
         ZhemUserCreationDto userDto = ZhemUserCreationDto.builder()
                 .phone(user.getPhone())

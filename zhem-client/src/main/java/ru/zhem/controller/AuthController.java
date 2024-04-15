@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.exceptions.NotFoundException;
+import ru.zhem.exceptions.RoleNotFoundException;
 import ru.zhem.service.ZhemUserService;
 
 import java.util.HashMap;
@@ -81,6 +84,11 @@ public class AuthController {
                 model.addAttribute("enteredData", user);
                 model.addAttribute("errors", exception.getErrors());
                 return "/user/auth/registration";
+            } catch (RoleNotFoundException exception) {
+                ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                        HttpStatus.BAD_REQUEST, exception.getMessage()
+                );
+                throw new NotFoundException(problemDetail);
             }
         }
     }
