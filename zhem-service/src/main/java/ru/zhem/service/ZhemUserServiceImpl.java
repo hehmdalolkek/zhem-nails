@@ -73,18 +73,22 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     @Override
     @Transactional
     public ZhemUser createUser(ZhemUser user) {
-        boolean phoneIsExists = this.zhemUserRepository.existsByPhone(user.getPhone());
+        boolean phoneIsExists = this.zhemUserRepository.existsByPhone(user.getPhone().strip());
         if (phoneIsExists) {
             throw new ZhemUserWithDuplicatePhoneException("User with this phone is already exists");
         }
         if (Objects.nonNull(user.getEmail())) {
-            boolean emailIsExists = this.zhemUserRepository.existsByEmail(user.getEmail());
+            boolean emailIsExists = this.zhemUserRepository.existsByEmail(user.getEmail().strip());
             if (emailIsExists) {
                 throw new ZhemUserWithDuplicateEmailException("User with this email is already exists");
             }
         }
 
-        String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPhone(user.getPhone().strip());
+        user.setEmail(user.getEmail().strip());
+        user.setFirstName(user.getFirstName().strip());
+        user.setLastName(user.getLastName().strip());
+        String encodedPassword = this.passwordEncoder.encode(user.getPassword().strip());
         user.setPassword(encodedPassword);
 
         return this.zhemUserRepository.save(user);
@@ -100,30 +104,30 @@ public class ZhemUserServiceImpl implements ZhemUserService {
             if (phoneIsExists && !foundedUser.getPhone().equals(user.getPhone())) {
                 throw new ZhemUserWithDuplicatePhoneException("User with this phone is already exists");
             } else {
-                foundedUser.setPhone(user.getPhone());
+                foundedUser.setPhone(user.getPhone().strip());
             }
         }
         if (Objects.nonNull(user.getPassword())) {
-            String encodedPassword = this.passwordEncoder.encode(user.getPassword());
+            String encodedPassword = this.passwordEncoder.encode(user.getPassword().strip());
             foundedUser.setPassword(encodedPassword);
         }
         if (Objects.nonNull(user.getEmail())) {
-            boolean emailIsExists = this.zhemUserRepository.existsByEmail(user.getEmail());
+            boolean emailIsExists = this.zhemUserRepository.existsByEmail(user.getEmail().strip());
             if (emailIsExists) {
-                if (Objects.nonNull(foundedUser.getEmail()) && !foundedUser.getEmail().equals(user.getEmail())) {
+                if (Objects.nonNull(foundedUser.getEmail()) && !foundedUser.getEmail().equals(user.getEmail().strip())) {
                     throw new ZhemUserWithDuplicateEmailException("User with this email is already exists");
                 } else if (Objects.isNull(foundedUser.getEmail())) {
                     throw new ZhemUserWithDuplicateEmailException("User with this email is already exists");
                 }
             } else {
-                foundedUser.setEmail(user.getEmail());
+                foundedUser.setEmail(user.getEmail().strip());
             }
         }
         if (Objects.nonNull(user.getFirstName())) {
-            foundedUser.setFirstName(user.getFirstName());
+            foundedUser.setFirstName(user.getFirstName().strip());
         }
         if (Objects.nonNull(user.getLastName())) {
-            foundedUser.setLastName(user.getLastName());
+            foundedUser.setLastName(user.getLastName().strip());
         }
 
         return this.zhemUserRepository.save(foundedUser);
