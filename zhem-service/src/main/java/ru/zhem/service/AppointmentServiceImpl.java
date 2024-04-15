@@ -74,8 +74,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         if (Objects.nonNull(appointment.getDetails()) && appointment.getDetails().isBlank()) {
             appointment.setDetails(null);
-        } else {
-            appointment.setDetails(appointment.getDetails().strip());
         }
 
         return this.appointmentRepository.save(appointment);
@@ -103,7 +101,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             foundedAppointment.setInterval(foundedInterval);
         }
         if (Objects.nonNull(appointment.getDetails()) && !appointment.getDetails().isBlank()) {
-            foundedAppointment.setDetails(appointment.getDetails().strip());
+            foundedAppointment.setDetails(appointment.getDetails());
         }
 
         return this.appointmentRepository.save(foundedAppointment);

@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
             throw new RoleWithDuplicateTitleException("Role with this title is already exists");
         }
         return this.roleRepository.save(Role.builder()
-                .title(role.getTitle().strip().toUpperCase())
+                .title(role.getTitle().toUpperCase())
                 .build());
     }
 
