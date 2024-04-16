@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - все услуги</title>
+</head>
+<body>
+    <nav>
+        <a data-th-href="@{/admin/dashboard}"><- Назад</a>
+    </nav>
+    <main>
+        <h1>Услуги</h1>
+        <h2 data-th-text="${message}"></h2>
+        <span data-th-if="${errors?.containsKey('title')}" data-th-text="${errors.get('title')}"></span>
+        <form method="post" data-th-action="@{/admin/services/create}">
+            <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+            <label>Наименование услуги
+                <input type="text" name="title" data-th-value="${enteredData?.getTitle()}">
+            </label>
+            <input type="submit" value="Создать">
+        </form>
+        <ul>
+            <li data-th-each="service : ${services}">
+                <form method="post" data-th-action="@{/admin/services/delete}">
+                    <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+                    <input type="hidden" name="serviceId" data-th-value="${service.getId()}">
+                    <span data-th-text="${service.title}"></span>
+                    <input type="submit" value="Удалить">
+                </form>
+            </li>
+        </ul>
+    </main>
+</body>
+</html>

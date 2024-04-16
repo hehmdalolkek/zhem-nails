@@ -6,11 +6,14 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import ru.zhem.entity.constraints.NullOrNotBlank;
 
+import java.util.Set;
+
 @NamedEntityGraph(
         name = "appointment_entity-graph",
         attributeNodes = {
                 @NamedAttributeNode("user"),
-                @NamedAttributeNode("interval")
+                @NamedAttributeNode("interval"),
+                @NamedAttributeNode("services")
         }
 )
 
@@ -47,5 +50,14 @@ public class Appointment extends BaseEntity {
     @NullOrNotBlank
     @Column(name = "details")
     private String details;
+
+    @NotNull
+    @ManyToMany
+    @JoinTable(
+            schema = "zhem",
+            name = "appointments_services",
+            joinColumns = @JoinColumn(name = "appointment_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id"))
+    private Set<ZhemService> services;
 
 }

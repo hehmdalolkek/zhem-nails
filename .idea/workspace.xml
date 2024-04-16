@@ -4,36 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="changed create appointment as admin functionality">
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/AppointmentStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/AppointmentStatus.java" afterDir="false" />
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added status for appointment">
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemServiceRestClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemServiceRestClientImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminZhemServiceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/request/ZhemServiceDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/response/ZhemServiceCreationDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/ZhemService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemServiceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemServiceServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/services/services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemServiceRestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/ZhemServiceMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/request/ZhemServiceCreationDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/response/ZhemServiceDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/ZhemService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/exception/AppointmentCanceled.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/resources/db/migration/V0_0_3__Basic_schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/exception/ZhemServiceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/exception/ZhemServiceWithDuplicateTitleException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/ZhemServiceRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemServiceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemServiceServiceImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/zhem-service/src/main/resources/db/migration/V0_0_4__Basic_schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClientImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/request/AppointmentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/request/AppointmentDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/request/IntervalDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/request/IntervalDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/response/IntervalUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/response/IntervalUpdateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/Appointment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/Interval.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/Interval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/IntervalStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/AppointmentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/mapper/AppointmentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/request/IntervalUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/request/IntervalUpdateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/response/AppointmentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/response/AppointmentDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/response/IntervalDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/response/IntervalDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/config/ClientBeans.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/config/ClientBeans.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/common/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/common/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Appointment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Interval.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Interval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/entity/IntervalStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/AppointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/AppointmentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/IntervalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/IntervalRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/DatabaseCleanupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/DatabaseCleanupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/IntervalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/IntervalServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/RoleServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +41,8 @@
       <list>
         <option value="Enum" />
         <option value="AnnotationType" />
-        <option value="Interface" />
         <option value="JavaScript File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -80,8 +76,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ZhemClientApplication.executor": "Debug",
-    "Spring Boot.ZhemServiceApplication.executor": "Debug",
+    "Spring Boot.ZhemClientApplication.executor": "Run",
+    "Spring Boot.ZhemServiceApplication.executor": "Run",
     "extract.method.default.visibility": "private",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "21",
@@ -104,11 +100,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="ru.zhem.exception" />
       <recent name="ru.zhem.service" />
-      <recent name="ru.zhem.entity.constraints" />
-      <recent name="ru.zhem.entity" />
-      <recent name="ru.zhem.client" />
+      <recent name="ru.zhem.client.response" />
+      <recent name="ru.zhem.dto.request" />
+      <recent name="ru.zhem.exception" />
+      <recent name="ru.zhem.repository" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-service\src\main\resources\db\migration" />
@@ -129,11 +125,11 @@
       <recent name="ru.zhem.controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.zhem.client.response" />
+      <recent name="ru.zhem.dto.response" />
+      <recent name="ru.zhem.dto.request" />
       <recent name="ru.zhem.entity" />
-      <recent name="ru.zhem.exceptions" />
       <recent name="ru.zhem.controller" />
-      <recent name="ru.zhem.service" />
-      <recent name="ru.zhem.dto.mapper" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -143,7 +139,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ZhemServiceApplication">
+  <component name="RunManager" selected="Spring Boot.ZhemClientApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="zhem-nails" />
       <method v="2">
@@ -191,8 +187,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ZhemServiceApplication" />
         <item itemvalue="Spring Boot.ZhemClientApplication" />
+        <item itemvalue="Spring Boot.ZhemServiceApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -238,22 +234,6 @@
       <workItem from="1713191154900" duration="17260000" />
       <workItem from="1713251344117" duration="7592000" />
       <workItem from="1713262006866" duration="732000" />
-    </task>
-    <task id="LOCAL-00085" summary="security">
-      <option name="closed" value="true" />
-      <created>1712953702735</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1712953702735</updated>
-    </task>
-    <task id="LOCAL-00086" summary="changed role to roleDto">
-      <option name="closed" value="true" />
-      <created>1713005853114</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1713005853115</updated>
     </task>
     <task id="LOCAL-00087" summary="changed role to roleDto">
       <option name="closed" value="true" />
@@ -631,7 +611,23 @@
       <option name="project" value="LOCAL" />
       <updated>1713258407301</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="added status for appointment">
+      <option name="closed" value="true" />
+      <created>1713271481986</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1713271481986</updated>
+    </task>
+    <task id="LOCAL-00135" summary="added status for appointment">
+      <option name="closed" value="true" />
+      <created>1713271913981</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1713271913981</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -649,8 +645,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="implemented findIntervalById" />
-    <MESSAGE value="added appointmentService" />
     <MESSAGE value="added NotFoundException and handler" />
     <MESSAGE value="fixed error handling" />
     <MESSAGE value="added error messages" />
@@ -674,7 +668,9 @@
     <MESSAGE value="fixed IntervalIsBookedException" />
     <MESSAGE value="added update appointment functionality" />
     <MESSAGE value="changed create appointment as admin functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed create appointment as admin functionality" />
+    <MESSAGE value="deleted link to current appointment" />
+    <MESSAGE value="added status for appointment" />
+    <option name="LAST_COMMIT_MESSAGE" value="added status for appointment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
