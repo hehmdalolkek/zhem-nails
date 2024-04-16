@@ -18,6 +18,7 @@ import ru.zhem.dto.response.ZhemUserUpdateDto;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exceptions.RoleNotFoundException;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -67,13 +68,12 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
 
     @Override
     public void createUser(ZhemUser user, boolean isAdmin) {
-        RoleDto roleDto;
+        Set<RoleDto> roles = new HashSet<>();
+        roles.add(this.roleRestClient.findRoleByTitle("CLIENT")
+                .orElseThrow(() -> new RoleNotFoundException("Role not found")));
         if (isAdmin) {
-            roleDto = this.roleRestClient.findRoleByTitle("ADMIN")
-                    .orElseThrow(() -> new RoleNotFoundException("Role not found"));
-        } else {
-            roleDto = this.roleRestClient.findRoleByTitle("CLIENT")
-                    .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+            roles.add(this.roleRestClient.findRoleByTitle("ADMIN")
+                    .orElseThrow(() -> new RoleNotFoundException("Role not found")));
         }
         ZhemUserCreationDto userDto = ZhemUserCreationDto.builder()
                 .phone(user.getPhone())
@@ -81,7 +81,7 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName().isBlank() ? null : user.getLastName())
                 .password(user.getPassword())
-                .roles(Set.of(roleDto))
+                .roles(roles)
                 .build();
         this.zhemUserRestClient.createUser(userDto);
     }
@@ -99,5 +99,10 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     @Override
     public List<ZhemUserDto> findAllUsersBy(String firstName, String lastName, String phone, String email) {
         return this.zhemUserRestClient.findAllUsersBy(firstName, lastName, phone, email);
+    }
+
+    @Override
+    public boolean adminIsExists() {
+        return this.zhemUserRestClient.adminIsExists();
     }
 }

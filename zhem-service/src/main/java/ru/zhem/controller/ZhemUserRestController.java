@@ -150,4 +150,10 @@ public class ZhemUserRestController {
         }
     }
 
+    @GetMapping("/user/admin")
+    public ResponseEntity<?> adminIsExists() {
+        return ResponseEntity.ok()
+                .body(this.zhemUserService.adminIsExists());
+    }
+
 }

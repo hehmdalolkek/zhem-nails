@@ -25,4 +25,7 @@ public interface ZhemUserService {
     void deleteClient(long userId);
 
     List<ZhemUserDto> findAllUsersBy(String firstName, String lastName, String phone, String email);
+
+    boolean adminIsExists();
+
 }

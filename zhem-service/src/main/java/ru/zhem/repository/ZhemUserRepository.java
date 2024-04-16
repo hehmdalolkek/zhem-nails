@@ -38,4 +38,6 @@ public interface ZhemUserRepository extends JpaRepository<ZhemUser, Long> {
 
     @EntityGraph(value = "zhem-user_entity-graph")
     List<ZhemUser> findAllByFirstNameOrLastNameOrPhoneOrEmail(String firstName, String lastName, String phone, String email);
+
+    Boolean existsByRolesTitleContainingIgnoreCase(String role);
 }

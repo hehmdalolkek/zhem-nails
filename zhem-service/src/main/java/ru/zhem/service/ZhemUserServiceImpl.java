@@ -23,6 +23,7 @@ import java.util.Objects;
 public class ZhemUserServiceImpl implements ZhemUserService {
 
     private final ZhemUserRepository zhemUserRepository;
+
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -144,5 +145,11 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     @Transactional
     public List<ZhemUser> findAllUsersBy(String firstName, String lastName, String phone, String email) {
         return this.zhemUserRepository.findAllByFirstNameOrLastNameOrPhoneOrEmail(firstName, lastName, phone, email);
+    }
+
+    @Override
+    @Transactional
+    public Boolean adminIsExists() {
+        return this.zhemUserRepository.existsByRolesTitleContainingIgnoreCase("ADMIN");
     }
 }

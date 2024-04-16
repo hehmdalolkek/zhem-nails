@@ -44,6 +44,49 @@ public class AuthController {
         return "redirect:/admin/login?logout";
     }
 
+    @GetMapping("/admin/registration")
+    public String initRegistrationAdminPage() {
+        if (this.zhemUserService.adminIsExists()) {
+            return "redirect:/admin/login";
+        }
+        return "/admin/auth/registration";
+    }
+
+    @PostMapping("/admin/registration")
+    public String registrationAdmin(@Valid ZhemUser user, BindingResult bindingResult,
+                                   HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            model.addAttribute("enteredData", user);
+            model.addAttribute("errors", errors);
+            return "/admin/auth/registration";
+        } else {
+            try {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                if (auth != null) {
+                    new SecurityContextLogoutHandler().logout(request, response, auth);
+                }
+                this.zhemUserService.createUser(user, true);
+                return "redirect:/admin/login";
+            } catch (CustomBindException exception) {
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                model.addAttribute("enteredData", user);
+                model.addAttribute("errors", exception.getErrors());
+                return "/admin/auth/registration";
+            } catch (RoleNotFoundException exception) {
+                ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                        HttpStatus.BAD_REQUEST, exception.getMessage()
+                );
+                throw new NotFoundException(problemDetail);
+            }
+        }
+    }
+
+
     @GetMapping("/user/login")
     public String initLoginUserPage() {
         return "/user/auth/login";

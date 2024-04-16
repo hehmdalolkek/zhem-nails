@@ -115,4 +115,16 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
                 .retrieve()
                 .body(USER_TYPE_REFERENCE);
     }
+
+    @Override
+    public Boolean adminIsExists() {
+        try {
+            return this.restClient.get()
+                    .uri("/service-api/v1/users/user/admin")
+                    .retrieve()
+                    .body(Boolean.class);
+        } catch (HttpClientErrorException.BadRequest exception) {
+            throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
+        }
+    }
 }

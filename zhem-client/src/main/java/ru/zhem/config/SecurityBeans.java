@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import ru.zhem.client.ZhemUserRestClient;
@@ -31,6 +32,8 @@ public class SecurityBeans {
 
         private final ZhemUserRestClient zhemUserRestClient;
 
+        private final CheckAdminIsExistsFilter checkAdminIsExistsFilter;
+
         @Bean
         public UserDetailsService adminUserDetailsService() {
             return new AdminUserDetailsService(zhemUserRestClient);
@@ -46,7 +49,10 @@ public class SecurityBeans {
                                                             HandlerMappingIntrospector introspector) throws Exception {
             MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
             http.securityMatcher("/admin/**")
+                    .addFilterBefore(this.checkAdminIsExistsFilter, BasicAuthenticationFilter.class)
                     .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
+                            .requestMatchers(mvcMatcherBuilder.pattern("/admin/registration"))
+                            .permitAll()
                             .requestMatchers(mvcMatcherBuilder.pattern("/admin/**"))
                             .hasRole("ADMIN"))
                     .userDetailsService(this.adminUserDetailsService())
