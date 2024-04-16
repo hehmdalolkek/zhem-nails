@@ -238,6 +238,7 @@ public class AdminAppointmentController {
         } catch (CustomBindException exception) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("errors", exception.getErrors());
+            redirectAttributes.addFlashAttribute("message", "Интервал не изменен");
             return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
         }
     }
