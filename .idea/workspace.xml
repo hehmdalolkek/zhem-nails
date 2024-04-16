@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="fixed nullPointerException">
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-4.html" afterDir="false" />
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="optimized imports">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/create/create-step-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/create/create-step-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,22 +210,6 @@
       <workItem from="1713191154900" duration="17260000" />
       <workItem from="1713251344117" duration="7592000" />
       <workItem from="1713262006866" duration="732000" />
-    </task>
-    <task id="LOCAL-00093" summary="added passay">
-      <option name="closed" value="true" />
-      <created>1713006223574</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1713006223574</updated>
-    </task>
-    <task id="LOCAL-00094" summary="added show error for passwords">
-      <option name="closed" value="true" />
-      <created>1713006256999</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1713006256999</updated>
     </task>
     <task id="LOCAL-00095" summary="added badRequest exception for invalid date">
       <option name="closed" value="true" />
@@ -611,7 +587,23 @@
       <option name="project" value="LOCAL" />
       <updated>1713284056927</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="added create functionality for appointment with ZhemService">
+      <option name="closed" value="true" />
+      <created>1713284819728</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1713284819728</updated>
+    </task>
+    <task id="LOCAL-00143" summary="optimized imports">
+      <option name="closed" value="true" />
+      <created>1713284966006</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1713284966006</updated>
+    </task>
+    <option name="localTasksCounter" value="144" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -629,8 +621,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added update interval functionality" />
-    <MESSAGE value="added delete interval functionality" />
     <MESSAGE value="fixed update interval functionality" />
     <MESSAGE value="moved js to intervals.js" />
     <MESSAGE value="added delete appointment functionality" />
@@ -654,20 +644,13 @@
     <MESSAGE value="fixed messages in create/update methods" />
     <MESSAGE value="added ZhemService to create appointment functionality" />
     <MESSAGE value="fixed nullPointerException" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed nullPointerException" />
+    <MESSAGE value="added create functionality for appointment with ZhemService" />
+    <MESSAGE value="optimized imports" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimized imports" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentServiceImpl.java</url>
-          <line>41</line>
-          <properties class="ru.zhem.service.AppointmentServiceImpl" method="createAppointment">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java</url>
           <line>109</line>
