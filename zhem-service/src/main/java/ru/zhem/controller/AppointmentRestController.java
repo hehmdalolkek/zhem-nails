@@ -96,7 +96,7 @@ public class AppointmentRestController {
                         .createAppointment(this.appointmentMapper.fromCreationDto(appointmentDto));
                 return ResponseEntity.created(URI.create("/service-api/v1/appointments/appointment/" + createdAppointment.getId()))
                         .body(this.appointmentMapper.fromEntity(createdAppointment));
-            } catch (ZhemUserNotFoundException | IntervalNotFoundException exception) {
+            } catch (ZhemUserNotFoundException | IntervalNotFoundException | ZhemServiceNotFoundException exception) {
                 throw new BadRequestException(exception.getMessage());
             } catch (IntervalIsBookedException exception) {
                 bindingResult.addError(

@@ -3,7 +3,8 @@ package ru.zhem.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.entity.constraints.NullOrNotBlank;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -13,6 +14,8 @@ public class AppointmentUpdateDto {
     private Long userId;
 
     private Long intervalId;
+
+    private Set<Integer> services;
 
     private String details;
 

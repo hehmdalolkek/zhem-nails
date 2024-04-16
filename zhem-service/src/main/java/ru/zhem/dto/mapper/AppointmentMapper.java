@@ -13,18 +13,25 @@ import ru.zhem.entity.ZhemUser;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
 public class AppointmentMapper {
 
     private final UserMapper userMapper;
+
     private final IntervalMapper intervalMapper;
+
+    private final ZhemServiceMapper zhemServiceMapper;
 
     public Appointment fromUpdateDto(AppointmentUpdateDto appointmentDto) {
         return Appointment.builder()
                 .user(ZhemUser.builder().id(appointmentDto.getUserId()).build())
                 .interval(Interval.builder().id(appointmentDto.getIntervalId()).build())
+                .services(appointmentDto.getServices().stream()
+                        .map(this.zhemServiceMapper::fromId)
+                        .collect(Collectors.toSet()))
                 .details(appointmentDto.getDetails())
                 .build();
     }
@@ -33,6 +40,9 @@ public class AppointmentMapper {
         return Appointment.builder()
                 .user(ZhemUser.builder().id(appointmentDto.getUserId()).build())
                 .interval(Interval.builder().id(appointmentDto.getIntervalId()).build())
+                .services(appointmentDto.getServices().stream()
+                        .map(this.zhemServiceMapper::fromId)
+                        .collect(Collectors.toSet()))
                 .details(appointmentDto.getDetails())
                 .build();
     }
@@ -42,6 +52,9 @@ public class AppointmentMapper {
                 .id(appointment.getId())
                 .user(this.userMapper.fromEntity(appointment.getUser()))
                 .interval(this.intervalMapper.fromEntity(appointment.getInterval()))
+                .services(appointment.getServices().stream()
+                        .map(this.zhemServiceMapper::fromEntity)
+                        .collect(Collectors.toSet()))
                 .details(appointment.getDetails())
                 .status(appointment.getStatus())
                 .createdAt(appointment.getCreatedAt())

@@ -13,6 +13,9 @@
     </nav>
     <main>
         <h2>Запись клиента</h2>
+        <span data-th-if="${errors?.containsKey('services')}" data-th-text="${errors.get('services')}"></span>
+        <span data-th-if="${errors?.containsKey('userId')}" data-th-text="${errors.get('userId')}"></span>
+        <span data-th-if="${errors?.containsKey('intervalId')}" data-th-text="${errors.get('intervalId')}"></span>
         <h3 data-th-text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
         <form method="get">
             <input type="hidden" name="intervalId" data-th-value="${interval.getId()}">

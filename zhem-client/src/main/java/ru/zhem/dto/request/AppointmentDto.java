@@ -1,12 +1,12 @@
 package ru.zhem.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.zhem.entity.AppointmentStatus;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +18,8 @@ public class AppointmentDto {
     private ZhemUserDto user;
 
     private IntervalDto interval;
+
+    private Set<ZhemServiceDto> services;
 
     private String details;
 

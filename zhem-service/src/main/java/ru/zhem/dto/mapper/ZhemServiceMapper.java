@@ -21,4 +21,10 @@ public class ZhemServiceMapper {
                 .title(serviceDto.getTitle())
                 .build();
     }
+
+    public ZhemService fromId(Integer serviceId) {
+        return ZhemService.builder()
+                .id(serviceId)
+                .build();
+    }
 }

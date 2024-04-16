@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.dto.constraints.NullOrNotBlank;
+
+import java.util.Set;
 
 @Data
 @Builder
@@ -18,6 +19,9 @@ public class AppointmentCreationDto {
 
     @NotNull(message = "Поле должно быть заполнено")
     private Long intervalId;
+
+    @NotNull(message = "Должна быть выбрана хотя бы одна услуга")
+    private Set<Integer> services;
 
     private String details;
 

@@ -15,24 +15,19 @@
         <h2>Запись клиента</h2>
         <h3 data-th-text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
         <form method="post"
-              data-th-action="@{/admin/appointments/create/step3}"
+              data-th-action="@{/admin/appointments/create/step4}"
               data-th-object="${appointment}"
         >
-            <input type="hidden" data-th-field="*{intervalId}">
+            <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
             <input type="hidden" data-th-field="*{userId}">
-            <h3>Выберите услуги</h3>
-            <div style="height: 200px; overflow: auto">
-                <div data-th-each="service : ${services}">
-                    <label>
-                        <input type="checkbox"
-                               data-th-field="*{services}"
-                               data-th-value="${service.getId()}"
-                        >
-                        <span data-th-text="${service.getTitle()}"></span>
-                    </label>
-                </div>
-            </div>
-            <input type="submit" value="Далее">
+            <input type="hidden" data-th-field="*{intervalId}">
+            <input type="hidden" data-th-field="*{services}">
+            <h3>Напишите комментарий</h3>
+            <label data-th-for="details">
+                <textarea data-th-field="*{details}" id="details"></textarea>
+            </label>
+            <span data-th-text="${errors?.containsKey('details')} ? ${errors.get('details')}"></span>
+            <input type="submit" value="Записать">
         </form>
     </main>
 </body>

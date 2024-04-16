@@ -7,13 +7,11 @@ import ru.zhem.entity.*;
 import ru.zhem.exception.*;
 import ru.zhem.repository.AppointmentRepository;
 import ru.zhem.repository.IntervalRepository;
+import ru.zhem.repository.ZhemServiceRepository;
 import ru.zhem.repository.ZhemUserRepository;
 
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +23,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final ZhemUserRepository zhemUserRepository;
 
     private final IntervalRepository intervalRepository;
+
+    private final ZhemServiceRepository serviceRepository;
 
     @Override
     @Transactional
@@ -42,7 +42,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<Appointment> appointments = this.appointmentRepository.findAllByIntervalDate(year, month);
         return appointments.stream().collect(
                 Collectors.groupingBy(appointment -> appointment.getInterval().getDate(),
-                LinkedHashMap::new, Collectors.toList()));
+                        LinkedHashMap::new, Collectors.toList()));
     }
 
     @Override
@@ -62,6 +62,15 @@ public class AppointmentServiceImpl implements AppointmentService {
         if (foundedInterval.getStatus() == IntervalStatus.BOOKED) {
             throw new IntervalIsBookedException("Interval is already booked");
         }
+
+        List<ZhemService> services = this.serviceRepository.findAllById(appointment.getServices().stream()
+                .map(ZhemService::getId)
+                .collect(Collectors.toSet()));
+        if (appointment.getServices().size() != services.size()) {
+            throw new ZhemServiceNotFoundException("Service not found");
+        }
+        appointment.setServices(new HashSet<>(services));
+
         appointment.setUser(foundedUser);
         foundedInterval.setStatus(IntervalStatus.BOOKED);
         appointment.setInterval(foundedInterval);
@@ -99,6 +108,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             foundedInterval.setStatus(IntervalStatus.BOOKED);
             foundedAppointment.setInterval(foundedInterval);
         }
+        // TODO ДОБАВИТЬ ПРОВЕРКУ СУЩЕСТВОВАНИЯ ВСЕХ УСЛУГ!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // TODO ДОБАВИТЬ ПРОВЕРКУ СУЩЕСТВОВАНИЯ ВСЕХ УСЛУГ!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (Objects.nonNull(appointment.getDetails()) && !appointment.getDetails().isBlank()) {
             foundedAppointment.setDetails(appointment.getDetails());
         }

@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.IntervalDto;
+import ru.zhem.dto.request.ZhemServiceDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentUpdateDto;
 import ru.zhem.entity.AppointmentStatus;
 import ru.zhem.exceptions.*;
-import ru.zhem.service.AppointmentService;
-import ru.zhem.service.CalendarService;
-import ru.zhem.service.IntervalService;
-import ru.zhem.service.ZhemUserService;
+import ru.zhem.service.*;
 
 import java.time.DateTimeException;
 import java.time.YearMonth;
@@ -43,6 +41,8 @@ public class AdminAppointmentController {
     private final ZhemUserService zhemUserService;
 
     private final CalendarService calendarService;
+
+    private final ZhemServiceService zhemServiceService;
 
 
     @GetMapping
@@ -102,31 +102,32 @@ public class AdminAppointmentController {
     }
 
     @PostMapping("/create/step2")
-    public String createAppointmentProcessSecond(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
-                                                 BindingResult bindingResult, HttpServletResponse response,
-                                                 RedirectAttributes redirectAttributes, Model model) {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/admin/appointments/create/step1?intervalId=" + appointment.getIntervalId();
-        } else {
-            try {
-                IntervalDto interval = this.intervalService.findIntervalById( appointment.getIntervalId());
-                model.addAttribute("interval", interval);
-                return "/admin/appointments/create/create-step-2";
-            } catch (IntervalNotFoundException exception) {
-                throw new NotFoundException(
-                        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
-            }
-        }
+    public String createAppointmentProcessSecond(@ModelAttribute("appointment") AppointmentCreationDto appointment,
+                                                Model model) {
+        IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
+        model.addAttribute("interval", interval);
+        List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
+        model.addAttribute("services", services);
+        System.out.println(appointment);
+        return "/admin/appointments/create/create-step-2";
     }
 
     @PostMapping("/create/step3")
-    public String createAppointmentProcessThird(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
+    public String createAppointmentProcessThird(@ModelAttribute("appointment") AppointmentCreationDto appointment,
+                                                 Model model) {
+        try {
+            IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
+            model.addAttribute("interval", interval);
+            System.out.println(appointment);
+            return "/admin/appointments/create/create-step-3";
+        } catch (IntervalNotFoundException exception) {
+            throw new NotFoundException(
+                    ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
+        }
+    }
+
+    @PostMapping("/create/step4")
+    public String createAppointmentProcessFourth(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
                                                  BindingResult bindingResult, HttpServletResponse response,
                                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
