@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - изменить запись</title>
+</head>
+<body>
+    <nav>
+        <a data-th-href="@{${referer} ?: '/admin/intervals'}"><- Назад</a>
+    </nav>
+    <main>
+        <div>
+            <h1 data-th-text="'Изменение записи №' + ${appointmentId}"></h1>
+            <h2>Шаг 1 - Изменение клиента</h2>
+            <form method="get">
+                <label>Имя
+                    <input type="text" name="firstName" placeholder="Иван"/>
+                </label>
+                <label>Фамилия
+                    <input type="text" name="lastName" placeholder="Иванов"/>
+                </label>
+                <label>Номер телефона
+                    <input type="text" name="phone" placeholder="+7 (999) 999-99-99"/>
+                </label>
+                <label>Электронная почта
+                    <input type="email" name="email" placeholder="ivanov@email.com"/>
+                </label>
+                <input type="submit" value="Поиск">
+                <a data-th-href="@{/admin/appointments/update/__${appointmentId}__/step1}">Отмена</a>
+            </form>
+            <form method="post"
+                  data-th-action="@{/admin/appointments/update/__${appointmentId}__/step2}"
+                  data-th-object="${appointment}"
+            >
+                <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+                <input type="hidden" data-th-field="*{intervalId}">
+                <input type="hidden" data-th-field="*{details}">
+                <div style="height: 200px; overflow: auto">
+                    <div data-th-each="user : ${users}">
+                        <label>
+                            <input type="radio"
+                                   data-th-field="*{userId}"
+                                   data-th-value="${user.getId()}"
+                                   data-th-checked="${appointment.userId.equals(user.getId())}"
+                            >
+                            <span data-th-text="${user.getId()}"></span>
+                            <span data-th-text="${user.getFirstName()}"></span>
+                            <span data-th-text="${user.getLastName()}"></span>
+                            <span data-th-text="${user.getPhone()}"></span>
+                            <span data-th-text="${user.getEmail()}"></span>
+                        </label>
+                    </div>
+                </div>
+                <input type="submit" value="Далее">
+            </form>
+        </div>
+    </main>
+</body>
+</html>

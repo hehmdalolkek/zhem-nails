@@ -6,6 +6,7 @@ import ru.zhem.client.AppointmentRestClient;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
+import ru.zhem.dto.response.AppointmentUpdateDto;
 import ru.zhem.exceptions.AppointmentNotFoundException;
 
 import java.time.LocalDate;
@@ -33,7 +34,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentDto findAppointmentById(long appointmentId) {
-        return null;
+        return this.appointmentRestClient.findAppointmentById(appointmentId)
+                .orElseThrow(() -> new AppointmentNotFoundException("Appointment not found"));
     }
 
     @Override
@@ -45,8 +47,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void updateAppointment(long appointmentId, AppointmentCreationDto appointmentDto) {
-
+    public void updateAppointment(long appointmentId, AppointmentUpdateDto appointmentDto) {
+        if (appointmentDto.getDetails().isBlank()) {
+            appointmentDto.setDetails(null);
+        }
+        this.appointmentRestClient.updateAppointment(appointmentId, appointmentDto);
     }
 
     @Override

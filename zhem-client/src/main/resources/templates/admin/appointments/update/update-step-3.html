@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - изменить запись</title>
+</head>
+<body>
+<nav>
+    <a data-th-href="@{${referer} ?: '/admin/intervals'}"><- Назад</a>
+</nav>
+<main>
+    <div>
+        <h1 data-th-text="'Изменение записи №' + ${appointmentId}"></h1>
+        <h2>Шаг 3 - Изменение комментария</h2>
+        <form method="post"
+              data-th-action="@{/admin/appointments/update/__${appointmentId}__/step4}"
+              data-th-object="${appointment}"
+        >
+            <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+            <input type="hidden" data-th-field="*{userId}">
+            <input type="hidden" data-th-field="*{intervalId}">
+            <label>
+                <textarea data-th-field="*{details}"></textarea>
+            </label>
+            <input type="submit" value="Сохранить">
+        </form>
+    </div>
+</main>
+</body>
+</html>

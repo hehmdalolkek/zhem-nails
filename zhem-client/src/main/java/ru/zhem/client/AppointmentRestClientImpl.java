@@ -9,6 +9,7 @@ import org.springframework.web.client.RestClient;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
+import ru.zhem.dto.response.AppointmentUpdateDto;
 import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
 
@@ -40,7 +41,16 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
 
     @Override
     public Optional<AppointmentDto> findAppointmentById(long appointmentId) {
-        return Optional.empty();
+        try {
+            return Optional.ofNullable(
+                    this.restClient.get()
+                            .uri("/service-api/v1/appointments/appointment/{appointmentId}", appointmentId)
+                            .retrieve()
+                            .body(AppointmentDto.class)
+            );
+        } catch (HttpClientErrorException.NotFound exception) {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -63,8 +73,22 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
     }
 
     @Override
-    public void updateAppointment(long appointmentId, AppointmentCreationDto appointmentDto) {
-
+    public void updateAppointment(long appointmentId, AppointmentUpdateDto appointmentDto) {
+        try {
+            this.restClient.patch()
+                    .uri("/service-api/v1/appointments/appointment/{appointmentId}", appointmentId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(appointmentDto)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (HttpClientErrorException.BadRequest exception) {
+            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
+            if (problemDetail != null && problemDetail.getProperties().containsKey("errors")) {
+                throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+            } else {
+                throw new BadRequestException(problemDetail);
+            }
+        }
     }
 
     @Override

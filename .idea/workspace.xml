@@ -4,10 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added delete interval functionality">
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added redirect to back after delete/update interval">
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-3.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClientImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClientImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/appointment.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/appointment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/ZhemUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/ZhemUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +40,7 @@
         <option value="Enum" />
         <option value="AnnotationType" />
         <option value="Interface" />
+        <option value="JavaScript File" />
         <option value="Class" />
       </list>
     </option>
@@ -59,7 +80,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/projects/java/диплом/zhem-nails/zhem-client/src/main/java/ru/zhem/dto/request&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/projects/java/диплом/zhem-nails/zhem-client/src/main/resources/templates/admin/appointments/update&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -77,18 +98,23 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="ru.zhem.exception" />
       <recent name="ru.zhem.service" />
+      <recent name="ru.zhem.exception" />
       <recent name="ru.zhem.entity.constraints" />
       <recent name="ru.zhem.entity" />
       <recent name="ru.zhem.client" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\appointments\update" />
+      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\appointments" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem\dto\request" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem\dto\response" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem\dto" />
-      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem\entity" />
-      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\appointments\update" />
+      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\static\js" />
+      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\static" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ru.zhem.dto.response" />
@@ -96,8 +122,8 @@
       <recent name="ru.zhem.controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ru.zhem.controller" />
       <recent name="ru.zhem.exceptions" />
+      <recent name="ru.zhem.controller" />
       <recent name="ru.zhem.service" />
       <recent name="ru.zhem.dto.mapper" />
       <recent name="ru.zhem.entity" />
@@ -110,7 +136,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ZhemClientApplication">
+  <component name="RunManager" selected="Spring Boot.ZhemServiceApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="zhem-nails" />
       <method v="2">
@@ -194,79 +220,12 @@
       <workItem from="1713037910141" duration="54000" />
       <workItem from="1713037980105" duration="103000" />
       <workItem from="1713080367587" duration="9955000" />
-      <workItem from="1713093676124" duration="1904000" />
-    </task>
-    <task id="LOCAL-00069" summary="dto for interval">
-      <option name="closed" value="true" />
-      <created>1712868624145</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868624145</updated>
-    </task>
-    <task id="LOCAL-00070" summary="dto for zhemUser">
-      <option name="closed" value="true" />
-      <created>1712868681962</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868681962</updated>
-    </task>
-    <task id="LOCAL-00071" summary="dto for role">
-      <option name="closed" value="true" />
-      <created>1712868696587</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868696587</updated>
-    </task>
-    <task id="LOCAL-00072" summary="init">
-      <option name="closed" value="true" />
-      <created>1712868731959</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868731959</updated>
-    </task>
-    <task id="LOCAL-00073" summary="added exception for interval">
-      <option name="closed" value="true" />
-      <created>1712868821861</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868821861</updated>
-    </task>
-    <task id="LOCAL-00074" summary="controllers and clients for zhemUser, interval and appointment">
-      <option name="closed" value="true" />
-      <created>1712868885784</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868885784</updated>
-    </task>
-    <task id="LOCAL-00075" summary=".idea">
-      <option name="closed" value="true" />
-      <created>1712868892532</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1712868892532</updated>
-    </task>
-    <task id="LOCAL-00076" summary="changed the display of all intervals in the form of a calendar and changed add interval form">
-      <option name="closed" value="true" />
-      <created>1712911344785</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1712911344786</updated>
-    </task>
-    <task id="LOCAL-00077" summary="added controller and client for appointment">
-      <option name="closed" value="true" />
-      <created>1712946165126</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1712946165127</updated>
+      <workItem from="1713093676124" duration="2096000" />
+      <workItem from="1713119964653" duration="4761000" />
+      <workItem from="1713166773658" duration="3780000" />
+      <workItem from="1713170583666" duration="1685000" />
+      <workItem from="1713191154900" duration="17260000" />
+      <workItem from="1713251344117" duration="3410000" />
     </task>
     <task id="LOCAL-00078" summary="implemented findAllAvailableIntervals">
       <option name="closed" value="true" />
@@ -588,22 +547,96 @@
       <option name="project" value="LOCAL" />
       <updated>1713095464487</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="fixed update interval functionality">
+      <option name="closed" value="true" />
+      <created>1713097581201</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1713097581201</updated>
+    </task>
+    <task id="LOCAL-00119" summary="moved js to intervals.js">
+      <option name="closed" value="true" />
+      <created>1713120909355</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1713120909355</updated>
+    </task>
+    <task id="LOCAL-00120" summary="added delete appointment functionality">
+      <option name="closed" value="true" />
+      <created>1713122215415</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1713122215415</updated>
+    </task>
+    <task id="LOCAL-00121" summary="updated link &quot;back&quot;">
+      <option name="closed" value="true" />
+      <created>1713122501766</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1713122501767</updated>
+    </task>
+    <task id="LOCAL-00122" summary="added logout link">
+      <option name="closed" value="true" />
+      <created>1713124703542</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1713124703542</updated>
+    </task>
+    <task id="LOCAL-00123" summary="deleted update link">
+      <option name="closed" value="true" />
+      <created>1713124723511</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1713124723511</updated>
+    </task>
+    <task id="LOCAL-00124" summary="fixed userDetailsBean and registration">
+      <option name="closed" value="true" />
+      <created>1713168402268</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1713168402269</updated>
+    </task>
+    <task id="LOCAL-00125" summary="added strip() for create/update methods">
+      <option name="closed" value="true" />
+      <created>1713169003188</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1713169003188</updated>
+    </task>
+    <task id="LOCAL-00126" summary="added redirect to back after delete/update interval">
+      <option name="closed" value="true" />
+      <created>1713171200621</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1713171200621</updated>
+    </task>
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed validation for user" />
-    <MESSAGE value="fixed validation for appointment" />
-    <MESSAGE value="fixed userDetailsService" />
-    <MESSAGE value="added passay" />
-    <MESSAGE value="added show error for passwords" />
-    <MESSAGE value="added badRequest exception for invalid date" />
-    <MESSAGE value="added BindException in catch exception" />
-    <MESSAGE value="added exception handling for user client" />
-    <MESSAGE value="added csrf token" />
     <MESSAGE value="added service for interval" />
     <MESSAGE value="added message for error" />
     <MESSAGE value="added handling errors" />
@@ -620,6 +653,15 @@
     <MESSAGE value="added show appointment by interval" />
     <MESSAGE value="added update interval functionality" />
     <MESSAGE value="added delete interval functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="added delete interval functionality" />
+    <MESSAGE value="fixed update interval functionality" />
+    <MESSAGE value="moved js to intervals.js" />
+    <MESSAGE value="added delete appointment functionality" />
+    <MESSAGE value="updated link &quot;back&quot;" />
+    <MESSAGE value="added logout link" />
+    <MESSAGE value="deleted update link" />
+    <MESSAGE value="fixed userDetailsBean and registration" />
+    <MESSAGE value="added strip() for create/update methods" />
+    <MESSAGE value="added redirect to back after delete/update interval" />
+    <option name="LAST_COMMIT_MESSAGE" value="added redirect to back after delete/update interval" />
   </component>
 </project>

@@ -3,6 +3,7 @@ package ru.zhem.client;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
+import ru.zhem.dto.response.AppointmentUpdateDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,7 @@ public interface AppointmentRestClient {
 
     void createAppointment(AppointmentCreationDto appointmentDto);
 
-    void updateAppointment(long appointmentId, AppointmentCreationDto appointmentDto);
+    void updateAppointment(long appointmentId, AppointmentUpdateDto appointmentDto);
 
     void deleteAppointment(long appointmentId);
 

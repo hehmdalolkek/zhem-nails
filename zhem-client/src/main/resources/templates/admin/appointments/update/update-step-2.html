@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - изменить запись</title>
+</head>
+<body>
+    <nav>
+        <a data-th-href="@{${referer} ?: '/admin/intervals'}"><- Назад</a>
+    </nav>
+    <main>
+        <div>
+            <h1 data-th-text="'Изменение записи №' + ${appointmentId}"></h1>
+            <h2>Шаг 2 - Изменение интервала</h2>
+            <form method="post"
+                  data-th-action="@{/admin/appointments/update/__${appointmentId}__/step2}"
+                  data-th-object="${appointment}"
+            >
+                <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+                <input type="hidden" data-th-field="*{userId}">
+                <input type="hidden" data-th-field="*{intervalId}">
+                <input type="hidden" data-th-field="*{details}">
+                <label for="yearSelect">Введите год:
+                    <input id="yearSelect" type="text" name="year">
+                </label>
+                <label for="monthSelect">Выберите месяц:</label>
+                <select id="monthSelect" name="month">
+                    <option value="1">Январь</option>
+                    <option value="2">Февраль</option>
+                    <option value="3">Март</option>
+                    <option value="4">Апрель</option>
+                    <option value="5">Май</option>
+                    <option value="6">Июнь</option>
+                    <option value="7">Июль</option>
+                    <option value="8">Август</option>
+                    <option value="9">Сентябрь</option>
+                    <option value="10">Октябрь</option>
+                    <option value="11">Ноябрь</option>
+                    <option value="12">Декабрь</option>
+                </select>
+                <input type="submit" value="Выбрать"/>
+            </form>
+            <form method="post"
+                  data-th-action="@{/admin/appointments/update/__${appointmentId}__/step3}"
+                  data-th-object="${appointment}"
+            >
+                <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+                <input type="hidden" data-th-field="*{userId}">
+                <input type="hidden" data-th-field="*{details}">
+                <label>
+                    <input type="radio"
+                           data-th-field="*{intervalId}"
+                           data-th-value="*{intervalId}"
+                           checked
+                    >
+                    <span data-th-text="${interval.getDate()}"></span>
+                    <span data-th-text="${interval.getTime()}"></span>
+                </label>
+                <div id="intervalsDiv">
+                    <div data-th-each="entry : ${mapOfIntervals}">
+                        <h3 data-th-text="${entry.getKey()} + ':'"></h3>
+                        <div data-th-if="${entry.getValue().isEmpty()}">
+                            <p>Нет интервалов</p>
+                        </div>
+                        <div data-th-if="${!entry.getValue().isEmpty()}">
+                            <div data-th-each="interval : ${entry.getValue()}">
+                                <label>
+                                    <input type="radio"
+                                           data-th-field="*{intervalId}"
+                                           data-th-value="${interval.getId()}"
+                                    >
+                                    <span data-th-text="${interval.getTime()}"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Далее">
+            </form>
+        </div>
+    </main>
+</body>
+</html>

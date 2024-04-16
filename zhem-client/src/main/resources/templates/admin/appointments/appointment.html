@@ -9,11 +9,14 @@
 </head>
 <body>
     <nav>
-        <a data-th-href="@{${referer} ?: '/admin/dashboard'}"><- Назад</a>
+        <a data-th-href="@{/admin/intervals}"><- Назад</a>
     </nav>
     <main>
         <div>
+            <h2 data-th-text="${message}"></h2>
+            <span data-th-if="${errors?.containsKey('interval')}" data-th-text="${errors.get('interval')}"></span>
             <h1 data-th-text="'Запись №' + ${appointment.getId()}"></h1>
+            <a data-th-href="@{/admin/appointments/update/__${appointment.getId()}__/step1}">Изменить запись</a>
             <h2>Интервал:</h2>
             <ul>
                 <li data-th-text="'Дата: ' + ${appointment.getInterval().getDate()}"></li>
@@ -27,12 +30,14 @@
                     data-th-text="'Электронная почта: ' + ${appointment.getUser().getEmail()}"></li>
                 <li data-th-text="'Имя: ' + ${appointment.getUser().getFirstName()}"></li>
                 <li data-th-if="${appointment.getUser().getLastName()}"
-                    data-th-text="'Фамилия: ' + ${appointment.getUser().getLastName()()}"></li>
+                    data-th-text="'Фамилия: ' + ${appointment.getUser().getLastName()}"></li>
             </ul>
             <h2>Комментарий:</h2>
             <p data-th-text="${appointment.getDetails() ?: 'Комментария нет.'}"></p>
-            <h3>Дата оформления записи:</h3>
+            <h4>Дата оформления записи:</h4>
             <p data-th-text="${appointment.getCreatedAt().toLocalDate()}"></p>
+            <h4>Дата изменения записи:</h4>
+            <p data-th-text="${appointment.getUpdatedAt().toLocalDate()}"></p>
             <div>
                 <form method="post" data-th-action="@{/admin/appointments/delete}">
                     <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
