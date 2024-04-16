@@ -54,7 +54,8 @@ public class IntervalServiceImpl implements IntervalService {
         this.intervalRestClient.deleteIntervalById(intervalId);
     }
 
-    public Map<LocalDate, List<IntervalDto>> generateIntervalCalendarForMonth(YearMonth yearMonth) {
+    public Map<LocalDate, List<IntervalDto>> generateIntervalCalendarForMonth(YearMonth yearMonth,
+                                                                              boolean isAvailable) {
         Map<LocalDate, List<IntervalDto>> mapOfIntervals = new LinkedHashMap<>();
         LocalDate startOfMonth = yearMonth.atDay(1);
         LocalDate endOfMonth = yearMonth.atEndOfMonth();
@@ -63,8 +64,13 @@ public class IntervalServiceImpl implements IntervalService {
             mapOfIntervals.put(date, new ArrayList<>());
         }
 
-        List<DailyIntervalsDto> dailyIntervals =
-                this.intervalRestClient.findAllIntervals(yearMonth.getYear(), yearMonth.getMonthValue());
+        List<DailyIntervalsDto> dailyIntervals;
+        if (isAvailable) {
+            dailyIntervals = this.intervalRestClient.findAllAvailableIntervals(yearMonth.getYear(), yearMonth.getMonthValue());
+        } else {
+            dailyIntervals = this.intervalRestClient.findAllIntervals(yearMonth.getYear(), yearMonth.getMonthValue());
+        }
+
         for (DailyIntervalsDto dailyInterval : dailyIntervals) {
             mapOfIntervals.put(dailyInterval.getDate(), dailyInterval.getIntervals());
         }

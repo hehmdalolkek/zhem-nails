@@ -24,7 +24,7 @@ public interface IntervalService {
 
     void deleteIntervalById(long intervalId);
 
-    Map<LocalDate, List<IntervalDto>> generateIntervalCalendarForMonth(YearMonth yearMonth);
+    Map<LocalDate, List<IntervalDto>> generateIntervalCalendarForMonth(YearMonth yearMonth, boolean isAvailable);
 
 
 }

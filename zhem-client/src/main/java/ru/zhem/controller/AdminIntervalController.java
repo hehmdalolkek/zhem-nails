@@ -36,7 +36,7 @@ public class AdminIntervalController {
         YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
         model.addAttribute("statusAvailable", Status.AVAILABLE);
         model.addAttribute("mapOfIntervals",
-                this.intervalService.generateIntervalCalendarForMonth(yearMonth));
+                this.intervalService.generateIntervalCalendarForMonth(yearMonth, false));
 
         return "/admin/intervals/intervals";
     }
