@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav>
-        <a data-th-href="@{${referer} ?: '/admin/intervals'}"><- Назад</a>
+        <a data-th-href="@{/admin/appointments/interval/__${appointment.getIntervalId()}__}"><- Назад</a>
     </nav>
     <main>
         <div>
