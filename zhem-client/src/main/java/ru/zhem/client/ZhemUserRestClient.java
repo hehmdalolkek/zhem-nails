@@ -23,4 +23,6 @@ public interface ZhemUserRestClient {
     void updateClient(long userId, ZhemUserUpdateDto user);
 
     void deleteClient(long userId);
+
+    List<ZhemUserDto> findAllUsersBy(String firstName, String lastName, String phone, String email);
 }

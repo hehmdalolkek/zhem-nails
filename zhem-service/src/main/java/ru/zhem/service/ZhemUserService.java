@@ -24,4 +24,5 @@ public interface ZhemUserService {
 
     void deleteUserById(long userId);
 
+    List<ZhemUser> findAllUsersBy(String firstName, String lastName, String phone, String email);
 }

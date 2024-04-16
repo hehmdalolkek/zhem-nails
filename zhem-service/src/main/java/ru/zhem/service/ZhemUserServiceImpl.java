@@ -139,4 +139,10 @@ public class ZhemUserServiceImpl implements ZhemUserService {
             throw new ZhemUserNotFoundException("User not found");
         }
     }
+
+    @Override
+    @Transactional
+    public List<ZhemUser> findAllUsersBy(String firstName, String lastName, String phone, String email) {
+        return this.zhemUserRepository.findAllByFirstNameOrLastNameOrPhoneOrEmail(firstName, lastName, phone, email);
+    }
 }

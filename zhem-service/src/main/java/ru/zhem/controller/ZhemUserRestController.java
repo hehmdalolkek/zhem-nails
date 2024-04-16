@@ -19,6 +19,7 @@ import ru.zhem.service.ZhemUserService;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,18 +31,30 @@ public class ZhemUserRestController {
     private final UserMapper userMapper;
 
     @GetMapping
-    public ResponseEntity<?> findAllUsers(@RequestParam(value = "role", required = false) String role) {
-        try {
-            List<ZhemUser> allUsers = this.zhemUserService.findAllUsers(role);
-            List<ZhemUserDto> allUsersPayload = allUsers.stream()
+    public ResponseEntity<?> findAllUsers(@RequestParam(value = "role", required = false) String role,
+                                          @RequestParam(value = "firstName", required = false) String firstName,
+                                          @RequestParam(value = "lastName", required = false) String lastName,
+                                          @RequestParam(value = "phone", required = false) String phone,
+                                          @RequestParam(value = "email", required = false) String email) {
+        List<ZhemUserDto> allUsersPayload;
+        if (Objects.nonNull(firstName) || Objects.nonNull(lastName)
+                || Objects.nonNull(phone) || Objects.nonNull(email)) {
+            List<ZhemUser> allUsers = this.zhemUserService.findAllUsersBy(firstName, lastName, phone, email);
+            allUsersPayload = allUsers.stream()
                     .map(userMapper::fromEntity)
                     .toList();
-
-            return ResponseEntity.ok()
-                    .body(allUsersPayload);
-        } catch (RoleNotFoundException exception) {
-            throw new BadRequestException(exception.getMessage());
+        } else {
+            try {
+                List<ZhemUser> allUsers = this.zhemUserService.findAllUsers(role);
+                allUsersPayload = allUsers.stream()
+                        .map(userMapper::fromEntity)
+                        .toList();
+            } catch (RoleNotFoundException exception) {
+                throw new BadRequestException(exception.getMessage());
+            }
         }
+        return ResponseEntity.ok()
+                .body(allUsersPayload);
     }
 
     @GetMapping("/pageable")

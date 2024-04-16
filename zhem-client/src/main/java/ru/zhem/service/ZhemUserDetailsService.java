@@ -95,4 +95,9 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     public void deleteClient(long userId) {
 
     }
+
+    @Override
+    public List<ZhemUserDto> findAllUsersBy(String firstName, String lastName, String phone, String email) {
+        return this.zhemUserRestClient.findAllUsersBy(firstName, lastName, phone, email);
+    }
 }

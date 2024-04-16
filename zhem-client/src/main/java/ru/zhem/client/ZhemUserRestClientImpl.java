@@ -105,4 +105,14 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     public void deleteClient(long userId) {
 
     }
+
+    @Override
+    public List<ZhemUserDto> findAllUsersBy(String firstName, String lastName, String phone, String email) {
+        return this.restClient.get()
+                .uri("/service-api/v1/users?" +
+                        "firstName={firstName}&lastName={lastName}&phone={phone}&email={email}",
+                        firstName, lastName, phone, email)
+                .retrieve()
+                .body(USER_TYPE_REFERENCE);
+    }
 }
