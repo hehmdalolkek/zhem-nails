@@ -8,6 +8,7 @@ import ru.zhem.entity.Status;
 import ru.zhem.repository.IntervalRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class DatabaseCleanupService {
     @Scheduled(cron = "0 0 0 * * ?")
     public void cleanupIntervalsFromDatabase() {
         this.intervalRepository.deleteOldAvailableIntervals(LocalDate.now(), Status.AVAILABLE);
+        System.out.println(LocalDateTime.now() + " --- The database has been cleared of outdated data.");
     }
 
 }
