@@ -9,6 +9,6 @@ public class Interval extends BaseEntity {
 
     private LocalTime time;
 
-    private IntervalStatus status;
+    private Status status;
 
 }

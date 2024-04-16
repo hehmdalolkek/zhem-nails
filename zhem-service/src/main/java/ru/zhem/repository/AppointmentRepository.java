@@ -22,10 +22,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     @EntityGraph(value = "appointment_entity-graph")
     @Query("from Appointment i where extract(year from i.interval.date) = :year and extract(month from i.interval.date) = :month" +
-            " and i.status != 'CANCELED' order by i.interval.date, i.interval.time")
+            " order by i.interval.date, i.interval.time")
     List<Appointment> findAllByIntervalDate(@Param("year") Integer year, @Param("month") Integer month);
 
     @EntityGraph(value = "appointment_entity-graph")
-    @Query("from Appointment i where i.interval.id = :intervalId and i.status != 'CANCELED'")
-    Optional<Appointment> findByIntervalId(@Param("intervalId") long intervalId);
+    Optional<Appointment> findByIntervalId(long intervalId);
 }

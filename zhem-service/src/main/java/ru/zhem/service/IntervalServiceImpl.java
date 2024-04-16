@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.Interval;
-import ru.zhem.entity.IntervalStatus;
+import ru.zhem.entity.Status;
 import ru.zhem.exception.IntervalIsBookedException;
 import ru.zhem.exception.IntervalNotFoundException;
 import ru.zhem.exception.IntervalWithDuplicateDateTimeException;
@@ -44,7 +44,7 @@ public class IntervalServiceImpl implements IntervalService {
             throw new InvalidDateException("Invalid month");
         }
         List<Interval> intervals = this.intervalRepository
-                .findAllByDateAndStatusOrderByDateTime(year, month, IntervalStatus.AVAILABLE);
+                .findAllByDateAndStatusOrderByDateTime(year, month, Status.AVAILABLE);
         return intervals.stream()
                 .collect(Collectors.groupingBy(Interval::getDate,
                         LinkedHashMap::new, Collectors.toList()));
@@ -64,7 +64,7 @@ public class IntervalServiceImpl implements IntervalService {
         if (isExists) {
             throw new IntervalWithDuplicateDateTimeException("Interval with this date and time is already exists");
         }
-        interval.setStatus(IntervalStatus.AVAILABLE);
+        interval.setStatus(Status.AVAILABLE);
         return this.intervalRepository.save(interval);
     }
 
@@ -97,7 +97,7 @@ public class IntervalServiceImpl implements IntervalService {
     public void deleteIntervalById(long intervalId) {
         Interval foundedInterval = this.intervalRepository.findById(intervalId)
                 .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
-        if (foundedInterval.getStatus() == IntervalStatus.BOOKED) {
+        if (foundedInterval.getStatus() == Status.BOOKED) {
             throw new IntervalIsBookedException("Interval is booked");
         }
         this.intervalRepository.deleteById(intervalId);

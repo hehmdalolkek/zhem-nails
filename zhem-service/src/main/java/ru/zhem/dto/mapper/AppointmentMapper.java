@@ -56,7 +56,6 @@ public class AppointmentMapper {
                         .map(this.zhemServiceMapper::fromEntity)
                         .collect(Collectors.toSet()))
                 .details(appointment.getDetails())
-                .status(appointment.getStatus())
                 .createdAt(appointment.getCreatedAt())
                 .updatedAt(appointment.getUpdatedAt())
                 .build();

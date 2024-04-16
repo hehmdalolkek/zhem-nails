@@ -18,7 +18,6 @@ import ru.zhem.dto.request.ZhemServiceDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentUpdateDto;
-import ru.zhem.entity.AppointmentStatus;
 import ru.zhem.exceptions.*;
 import ru.zhem.service.*;
 
@@ -46,45 +45,32 @@ public class AdminAppointmentController {
 
 
     @GetMapping
-    public String showAllAppointments(@RequestParam(value = "year", required = false) Integer year,
-                                      @RequestParam(value = "month", required = false) Integer month, Model model) {
+    public String showAllAppointments(@RequestParam(value = "year", required = false) Integer year, @RequestParam(value = "month", required = false) Integer month, Model model) {
         YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
-        model.addAttribute("mapOfAppointments",
-                this.appointmentService.generateCalendarForMonth(yearMonth));
+        model.addAttribute("mapOfAppointments", this.appointmentService.generateCalendarForMonth(yearMonth));
 
         return "/admin/appointments/appointments";
     }
 
     @GetMapping("/interval/{intervalId:\\d+}")
-    public String showAppointmentByInterval(@PathVariable("intervalId") long intervalId, Model model,
-                                            HttpServletRequest request) {
+    public String showAppointmentByInterval(@PathVariable("intervalId") long intervalId, Model model) {
         try {
-            model.addAttribute("appointment",
-                    this.appointmentService.findAppointmentByIntervalId(intervalId));
+            model.addAttribute("appointment", this.appointmentService.findAppointmentByIntervalId(intervalId));
 
             return "/admin/appointments/appointment";
         } catch (AppointmentNotFoundException exception) {
-            throw new NotFoundException(
-                    ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
+            throw new NotFoundException(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
         }
     }
 
 
     @GetMapping("/create/step1")
-    public String initCreateAppointmentPageFirst(@RequestParam("intervalId") long intervalId,
-                                                 Model model, HttpServletRequest request,
-                                                 @RequestParam(value = "firstName", required = false) String firstName,
-                                                 @RequestParam(value = "lastName", required = false) String lastName,
-                                                 @RequestParam(value = "phone", required = false) String phone,
-                                                 @RequestParam(value = "email", required = false) String email) {
+    public String initCreateAppointmentPageFirst(@RequestParam("intervalId") long intervalId, Model model, HttpServletRequest request, @RequestParam(value = "firstName", required = false) String firstName, @RequestParam(value = "lastName", required = false) String lastName, @RequestParam(value = "phone", required = false) String phone, @RequestParam(value = "email", required = false) String email) {
         try {
             IntervalDto interval = this.intervalService.findIntervalById(intervalId);
-            AppointmentCreationDto appointment = AppointmentCreationDto.builder()
-                    .intervalId(intervalId)
-                    .build();
+            AppointmentCreationDto appointment = AppointmentCreationDto.builder().intervalId(intervalId).build();
             List<ZhemUserDto> users;
-            if (Objects.nonNull(firstName) || Objects.nonNull(lastName)
-                    || Objects.nonNull(phone) || Objects.nonNull(email)) {
+            if (Objects.nonNull(firstName) || Objects.nonNull(lastName) || Objects.nonNull(phone) || Objects.nonNull(email)) {
                 users = this.zhemUserService.findAllUsersBy(firstName, lastName, phone, email);
             } else {
                 users = this.zhemUserService.findAllUsers(null);
@@ -96,40 +82,32 @@ public class AdminAppointmentController {
             model.addAttribute("referer", request.getHeader("Referer"));
             return "/admin/appointments/create/create-step-1";
         } catch (IntervalNotFoundException exception) {
-            throw new NotFoundException(
-                    ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
+            throw new NotFoundException(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
         }
     }
 
     @PostMapping("/create/step2")
-    public String createAppointmentProcessSecond(@ModelAttribute("appointment") AppointmentCreationDto appointment,
-                                                Model model) {
+    public String createAppointmentProcessSecond(@ModelAttribute("appointment") AppointmentCreationDto appointment, Model model) {
         IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
         model.addAttribute("interval", interval);
         List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
         model.addAttribute("services", services);
-        System.out.println(appointment);
         return "/admin/appointments/create/create-step-2";
     }
 
     @PostMapping("/create/step3")
-    public String createAppointmentProcessThird(@ModelAttribute("appointment") AppointmentCreationDto appointment,
-                                                 Model model) {
+    public String createAppointmentProcessThird(@ModelAttribute("appointment") AppointmentCreationDto appointment, Model model) {
         try {
             IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
             model.addAttribute("interval", interval);
-            System.out.println(appointment);
             return "/admin/appointments/create/create-step-3";
         } catch (IntervalNotFoundException exception) {
-            throw new NotFoundException(
-                    ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
+            throw new NotFoundException(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
         }
     }
 
     @PostMapping("/create/step4")
-    public String createAppointmentProcessFourth(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
-                                                 BindingResult bindingResult, HttpServletResponse response,
-                                                 RedirectAttributes redirectAttributes) {
+    public String createAppointmentProcessFourth(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment, BindingResult bindingResult, HttpServletResponse response, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : bindingResult.getFieldErrors()) {
@@ -154,34 +132,17 @@ public class AdminAppointmentController {
     }
 
     @GetMapping("/update/{appointmentId:\\d+}/step1")
-    public String initUpdateAppointmentPageFirst(@PathVariable("appointmentId") long appointmentId,
-                                                 Model model, HttpServletRequest request,
-                                                 @RequestParam(value = "firstName", required = false) String firstName,
-                                                 @RequestParam(value = "lastName", required = false) String lastName,
-                                                 @RequestParam(value = "phone", required = false) String phone,
-                                                 @RequestParam(value = "email", required = false) String email) {
+    public String initUpdateAppointmentPageFirst(@PathVariable("appointmentId") long appointmentId, Model model, HttpServletRequest request, @RequestParam(value = "firstName", required = false) String firstName, @RequestParam(value = "lastName", required = false) String lastName, @RequestParam(value = "phone", required = false) String phone, @RequestParam(value = "email", required = false) String email) {
         try {
             AppointmentDto appointmentDto = this.appointmentService.findAppointmentById(appointmentId);
-            if (appointmentDto.getStatus() == AppointmentStatus.CANCELED) {
-                throw new BadRequestException(
-                        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Appointment is already canceled"));
-            }
-            AppointmentUpdateDto appointment = AppointmentUpdateDto.builder()
-                    .intervalId(appointmentDto.getInterval().getId())
-                    .userId(appointmentDto.getUser().getId())
-                    .details(appointmentDto.getDetails())
-                    .build();
+            AppointmentUpdateDto appointment = AppointmentUpdateDto.builder().intervalId(appointmentDto.getInterval().getId()).userId(appointmentDto.getUser().getId()).details(appointmentDto.getDetails()).build();
 
             List<ZhemUserDto> users;
-            if (Objects.nonNull(firstName) || Objects.nonNull(lastName)
-                    || Objects.nonNull(phone) || Objects.nonNull(email)) {
+            if (Objects.nonNull(firstName) || Objects.nonNull(lastName) || Objects.nonNull(phone) || Objects.nonNull(email)) {
                 users = this.zhemUserService.findAllUsersBy(firstName, lastName, phone, email);
             } else {
                 users = this.zhemUserService.findAllUsers(null);
-                ZhemUserDto user = users.stream()
-                        .filter(u -> u.getId().equals(appointmentDto.getUser().getId()))
-                        .findFirst()
-                        .orElse(null);
+                ZhemUserDto user = users.stream().filter(u -> u.getId().equals(appointmentDto.getUser().getId())).findFirst().orElse(null);
                 users.remove(user);
                 users.set(0, user);
             }
@@ -191,37 +152,28 @@ public class AdminAppointmentController {
             model.addAttribute("users", users);
             model.addAttribute("referer", request.getHeader("Referer"));
         } catch (AppointmentNotFoundException exception) {
-            throw new NotFoundException(
-                    ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
+            throw new NotFoundException(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
         }
         return "/admin/appointments/update/update-step-1";
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step2")
-    public String updateAppointmentProcessSecond(@PathVariable("appointmentId") long appointmentId,
-                                                 @RequestParam(value = "year", required = false) String year,
-                                                 @RequestParam(value = "month", required = false) Integer month,
-                                                 @ModelAttribute("appointment") AppointmentUpdateDto appointment,
-                                                 Model model, HttpServletRequest request) {
+    public String updateAppointmentProcessSecond(@PathVariable("appointmentId") long appointmentId, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "month", required = false) Integer month, @ModelAttribute("appointment") AppointmentUpdateDto appointment, Model model, HttpServletRequest request) {
         YearMonth yearMonth;
         try {
             yearMonth = YearMonth.of(Integer.parseInt(year), month);
         } catch (NumberFormatException | DateTimeException exception) {
             yearMonth = YearMonth.now();
         }
-        model.addAttribute("interval",
-                this.intervalService.findIntervalById(appointment.getIntervalId()));
-        model.addAttribute("mapOfIntervals",
-                this.intervalService.generateIntervalCalendarForMonth(yearMonth, true));
+        model.addAttribute("interval", this.intervalService.findIntervalById(appointment.getIntervalId()));
+        model.addAttribute("mapOfIntervals", this.intervalService.generateIntervalCalendarForMonth(yearMonth, true));
         model.addAttribute("appointmentId", appointmentId);
         model.addAttribute("referer", request.getHeader("Referer"));
         return "/admin/appointments/update/update-step-2";
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step3")
-    public String updateAppointmentProcessThird(@PathVariable("appointmentId") long appointmentId,
-                                                @ModelAttribute("appointment") AppointmentUpdateDto appointment,
-                                                Model model, HttpServletRequest request) {
+    public String updateAppointmentProcessThird(@PathVariable("appointmentId") long appointmentId, @ModelAttribute("appointment") AppointmentUpdateDto appointment, Model model, HttpServletRequest request) {
         model.addAttribute("services", this.zhemServiceService.findAllServices());
         model.addAttribute("appointmentId", appointmentId);
         model.addAttribute("referer", request.getHeader("Referer"));
@@ -229,19 +181,14 @@ public class AdminAppointmentController {
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step4")
-    public String updateAppointmentProcessFourth(@PathVariable("appointmentId") long appointmentId,
-                                                @ModelAttribute("appointment") AppointmentUpdateDto appointment,
-                                                Model model, HttpServletRequest request) {
+    public String updateAppointmentProcessFourth(@PathVariable("appointmentId") long appointmentId, @ModelAttribute("appointment") AppointmentUpdateDto appointment, Model model, HttpServletRequest request) {
         model.addAttribute("appointmentId", appointmentId);
         model.addAttribute("referer", request.getHeader("Referer"));
         return "/admin/appointments/update/update-step-4";
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step5")
-    public String updateAppointmentProcessFifth(@PathVariable("appointmentId") long appointmentId,
-                                                 @ModelAttribute("appointment") AppointmentUpdateDto appointment,
-                                                 RedirectAttributes redirectAttributes,
-                                                 HttpServletResponse response) {
+    public String updateAppointmentProcessFifth(@PathVariable("appointmentId") long appointmentId, @ModelAttribute("appointment") AppointmentUpdateDto appointment, RedirectAttributes redirectAttributes, HttpServletResponse response) {
         try {
             this.appointmentService.updateAppointment(appointmentId, appointment);
             redirectAttributes.addFlashAttribute("message", "Интервал успешно изменен");

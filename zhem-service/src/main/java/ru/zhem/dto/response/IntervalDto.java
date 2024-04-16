@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.entity.IntervalStatus;
+import ru.zhem.entity.Status;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class IntervalDto {
 
     private LocalTime time;
 
-    private IntervalStatus status;
+    private Status status;
 
     private LocalDateTime createdAt;
 

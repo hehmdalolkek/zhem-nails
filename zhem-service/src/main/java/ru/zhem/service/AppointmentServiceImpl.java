@@ -59,7 +59,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
         Interval foundedInterval = this.intervalRepository.findById(appointment.getInterval().getId())
                 .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
-        if (foundedInterval.getStatus() == IntervalStatus.BOOKED) {
+        if (foundedInterval.getStatus() == Status.BOOKED) {
             throw new IntervalIsBookedException("Interval is already booked");
         }
 
@@ -72,9 +72,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setServices(new HashSet<>(services));
 
         appointment.setUser(foundedUser);
-        foundedInterval.setStatus(IntervalStatus.BOOKED);
+        foundedInterval.setStatus(Status.BOOKED);
         appointment.setInterval(foundedInterval);
-        appointment.setStatus(AppointmentStatus.CONFIRMED);
 
         if (Objects.nonNull(appointment.getDetails()) && appointment.getDetails().isBlank()) {
             appointment.setDetails(null);
@@ -88,9 +87,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Appointment updateAppointment(long appointmentId, Appointment appointment) {
         Appointment foundedAppointment = this.appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException("Appointment not found"));
-        if (foundedAppointment.getStatus() == AppointmentStatus.CANCELED) {
-            throw new AppointmentCanceled("Appointment is already canceled");
-        }
 
         if (Objects.nonNull(appointment.getUser().getId())) {
             ZhemUser foundedUser = this.zhemUserRepository.findById(appointment.getUser().getId())
@@ -100,12 +96,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         if (Objects.nonNull(appointment.getInterval().getId())) {
             Interval foundedInterval = this.intervalRepository.findById(appointment.getInterval().getId())
                     .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
-            if (foundedInterval.getStatus() == IntervalStatus.BOOKED
+            if (foundedInterval.getStatus() == Status.BOOKED
                     && !Objects.equals(foundedAppointment.getInterval().getId(), foundedInterval.getId())) {
                 throw new IntervalIsBookedException("Interval is already booked");
             }
-            foundedAppointment.getInterval().setStatus(IntervalStatus.AVAILABLE);
-            foundedInterval.setStatus(IntervalStatus.BOOKED);
+            foundedAppointment.getInterval().setStatus(Status.AVAILABLE);
+            foundedInterval.setStatus(Status.BOOKED);
             foundedAppointment.setInterval(foundedInterval);
         }
 
@@ -131,11 +127,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void deleteAppointment(long appointmentId) {
         Appointment foundedAppointment = this.appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new AppointmentNotFoundException("Appointment not found"));
-        if (foundedAppointment.getStatus() == AppointmentStatus.CANCELED) {
-            throw new AppointmentCanceled("Appointment is already canceled");
-        }
-        foundedAppointment.getInterval().setStatus(IntervalStatus.AVAILABLE);
-        foundedAppointment.setStatus(AppointmentStatus.CANCELED);
+        foundedAppointment.getInterval().setStatus(Status.AVAILABLE);
+        this.appointmentRepository.deleteById(appointmentId);
     }
 
     @Override
