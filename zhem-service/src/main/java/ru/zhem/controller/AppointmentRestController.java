@@ -122,9 +122,12 @@ public class AppointmentRestController {
                         .updateAppointment(appointmentId,this.appointmentMapper.fromUpdateDto(appointmentDto));
                 return ResponseEntity.ok()
                         .body(this.appointmentMapper.fromEntity(updatedAppointment));
-            } catch (ZhemUserNotFoundException | IntervalNotFoundException
-                     | IntervalIsBookedException | AppointmentNotFoundException exception) {
+            } catch (ZhemUserNotFoundException | IntervalNotFoundException | AppointmentNotFoundException exception) {
                 throw new BadRequestException(exception.getMessage());
+            } catch (IntervalIsBookedException exception) {
+                bindingResult.addError(
+                        new FieldError("Appointment", "interval", "Выбранный интервал уже забронирован"));
+                throw new BindException(bindingResult);
             }
         }
     }
