@@ -4,30 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added redirect to back after delete/update interval">
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-3.html" afterDir="false" />
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added update appointment functionality">
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/create/create-step-1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/create/create-step-2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClientImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClientImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/IntervalServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/appointment.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/appointment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/ZhemUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/repository/ZhemUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/AppointmentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/create.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/intervals/intervals.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,40 +45,40 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CustomUserDetailsService.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.zhem-service [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.zhem-service [package].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ZhemClientApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ZhemServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/projects/java/диплом/zhem-nails/zhem-client/src/main/resources/templates/admin/appointments/update&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CustomUserDetailsService.executor": "Run",
+    "Maven.zhem-service [clean].executor": "Run",
+    "Maven.zhem-service [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ZhemClientApplication.executor": "Run",
+    "Spring Boot.ZhemServiceApplication.executor": "Run",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/projects/java/диплом/zhem-nails/zhem-client/src/main/resources/templates/admin/appointments/create",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;redis&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "redis",
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ru.zhem.service" />
@@ -105,13 +88,14 @@
       <recent name="ru.zhem.client" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\appointments\create" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\appointments\update" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\appointments" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem\dto\request" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem\dto\response" />
-      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\java\ru\zhem\dto" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\appointments\create" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\appointments\update" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\static\js" />
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\static" />
@@ -180,8 +164,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ZhemServiceApplication" />
         <item itemvalue="Spring Boot.ZhemClientApplication" />
+        <item itemvalue="Spring Boot.ZhemServiceApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -225,55 +209,7 @@
       <workItem from="1713166773658" duration="3780000" />
       <workItem from="1713170583666" duration="1685000" />
       <workItem from="1713191154900" duration="17260000" />
-      <workItem from="1713251344117" duration="3410000" />
-    </task>
-    <task id="LOCAL-00078" summary="implemented findAllAvailableIntervals">
-      <option name="closed" value="true" />
-      <created>1712946196845</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1712946196845</updated>
-    </task>
-    <task id="LOCAL-00079" summary="added find user by phone">
-      <option name="closed" value="true" />
-      <created>1712953553656</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1712953553656</updated>
-    </task>
-    <task id="LOCAL-00080" summary="added find role by title">
-      <option name="closed" value="true" />
-      <created>1712953600360</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1712953600360</updated>
-    </task>
-    <task id="LOCAL-00081" summary="added find role by title">
-      <option name="closed" value="true" />
-      <created>1712953610114</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1712953610114</updated>
-    </task>
-    <task id="LOCAL-00082" summary="added find role by title">
-      <option name="closed" value="true" />
-      <created>1712953627681</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1712953627681</updated>
-    </task>
-    <task id="LOCAL-00083" summary="added find role by title">
-      <option name="closed" value="true" />
-      <created>1712953637591</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1712953637592</updated>
+      <workItem from="1713251344117" duration="6746000" />
     </task>
     <task id="LOCAL-00084" summary="added login/logout for all users, added registration for clients">
       <option name="closed" value="true" />
@@ -619,7 +555,55 @@
       <option name="project" value="LOCAL" />
       <updated>1713171200621</updated>
     </task>
-    <option name="localTasksCounter" value="127" />
+    <task id="LOCAL-00127" summary="added findUserBy functionality">
+      <option name="closed" value="true" />
+      <created>1713254930718</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1713254930718</updated>
+    </task>
+    <task id="LOCAL-00128" summary="changed calendarForMonth functionality">
+      <option name="closed" value="true" />
+      <created>1713254974602</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1713254974602</updated>
+    </task>
+    <task id="LOCAL-00129" summary="changed calendarForMonth functionality">
+      <option name="closed" value="true" />
+      <created>1713254989729</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1713254989729</updated>
+    </task>
+    <task id="LOCAL-00130" summary="added handler for IntervalIsBookedException">
+      <option name="closed" value="true" />
+      <created>1713255056101</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1713255056101</updated>
+    </task>
+    <task id="LOCAL-00131" summary="fixed IntervalIsBookedException">
+      <option name="closed" value="true" />
+      <created>1713255074510</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1713255074510</updated>
+    </task>
+    <task id="LOCAL-00132" summary="added update appointment functionality">
+      <option name="closed" value="true" />
+      <created>1713255095398</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1713255095399</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -637,11 +621,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added service for interval" />
-    <MESSAGE value="added message for error" />
-    <MESSAGE value="added handling errors" />
-    <MESSAGE value="added handling IntervalIsBookedException" />
-    <MESSAGE value="fixed nullPointerException getDetails" />
     <MESSAGE value="added CalendarService" />
     <MESSAGE value="implemented findIntervalById" />
     <MESSAGE value="added appointmentService" />
@@ -662,6 +641,11 @@
     <MESSAGE value="fixed userDetailsBean and registration" />
     <MESSAGE value="added strip() for create/update methods" />
     <MESSAGE value="added redirect to back after delete/update interval" />
-    <option name="LAST_COMMIT_MESSAGE" value="added redirect to back after delete/update interval" />
+    <MESSAGE value="added findUserBy functionality" />
+    <MESSAGE value="changed calendarForMonth functionality" />
+    <MESSAGE value="added handler for IntervalIsBookedException" />
+    <MESSAGE value="fixed IntervalIsBookedException" />
+    <MESSAGE value="added update appointment functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="added update appointment functionality" />
   </component>
 </project>

@@ -12,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ru.zhem.client.response.PaginatedResponse;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.request.ZhemUserDto;
@@ -73,42 +72,77 @@ public class AdminAppointmentController {
     }
 
 
-    @GetMapping("/create")
-    public String initCreateAppointmentPage(@RequestParam("intervalId") long intervalId, Model model,
-                                            HttpServletRequest request,
-                                            @RequestParam(name = "page", defaultValue = "0") int page,
-                                            @RequestParam(name = "size", defaultValue = "7") int size) {
+    @GetMapping("/create/step1")
+    public String initCreateAppointmentPageFirst(@RequestParam("intervalId") long intervalId,
+                                                 Model model, HttpServletRequest request,
+                                                 @RequestParam(value = "firstName", required = false) String firstName,
+                                                 @RequestParam(value = "lastName", required = false) String lastName,
+                                                 @RequestParam(value = "phone", required = false) String phone,
+                                                 @RequestParam(value = "email", required = false) String email) {
         try {
             IntervalDto interval = this.intervalService.findIntervalById(intervalId);
-            PaginatedResponse<ZhemUserDto> users = this.zhemUserService.findAllUsersByPage(page, size);
-            model.addAttribute("referer", request.getHeader("Referer"));
+            AppointmentCreationDto appointment = AppointmentCreationDto.builder()
+                    .intervalId(intervalId)
+                    .build();
+            List<ZhemUserDto> users;
+            if (Objects.nonNull(firstName) || Objects.nonNull(lastName)
+                    || Objects.nonNull(phone) || Objects.nonNull(email)) {
+                users = this.zhemUserService.findAllUsersBy(firstName, lastName, phone, email);
+            } else {
+                users = this.zhemUserService.findAllUsers(null);
+            }
+
             model.addAttribute("interval", interval);
+            model.addAttribute("appointment", appointment);
             model.addAttribute("users", users);
-            return "/admin/appointments/create";
+            model.addAttribute("referer", request.getHeader("Referer"));
+            return "/admin/appointments/create/create-step-1";
         } catch (IntervalNotFoundException exception) {
             throw new NotFoundException(
                     ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
         }
     }
 
-    @PostMapping("/create")
-    public String createAppointment(@RequestParam("intervalId") long intervalId, @Valid AppointmentCreationDto appointmentDto,
-                                    BindingResult bindingResult, HttpServletResponse response,
-                                    RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("message", "Клиент не записан");
+    @PostMapping("/create/step2")
+    public String createAppointmentProcessSecond(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
+                                                 BindingResult bindingResult, HttpServletResponse response,
+                                                 RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : bindingResult.getFieldErrors()) {
                 errors.put(error.getField(), error.getDefaultMessage());
             }
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            redirectAttributes.addFlashAttribute("enteredData", appointmentDto);
             redirectAttributes.addFlashAttribute("errors", errors);
-            return "redirect:/admin/appointments/create?intervalId=" + intervalId;
+            return "redirect:/admin/appointments/create/step1?intervalId=" + appointment.getIntervalId();
         } else {
             try {
-                this.appointmentService.createAppointment(appointmentDto);
+                IntervalDto interval = this.intervalService.findIntervalById( appointment.getIntervalId());
+                model.addAttribute("interval", interval);
+                return "/admin/appointments/create/create-step-2";
+            } catch (IntervalNotFoundException exception) {
+                throw new NotFoundException(
+                        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
+            }
+        }
+    }
+
+    @PostMapping("/create/step3")
+    public String createAppointmentProcessThird(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
+                                                 BindingResult bindingResult, HttpServletResponse response,
+                                                 RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:/admin/appointments/create/step1?intervalId=" + appointment.getIntervalId();
+        } else {
+            try {
                 redirectAttributes.addFlashAttribute("message", "Клиент записан");
+                this.appointmentService.createAppointment(appointment);
                 return "redirect:/admin/intervals";
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());

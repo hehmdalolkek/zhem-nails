@@ -58,7 +58,7 @@
                         <a data-th-href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">Информация о записи</a>
                     </td>
                     <td data-th-if="${interval.getStatus() == statusAvailable}">
-                        <a data-th-href="@{/admin/appointments/create?intervalId=__${interval.getId()}__}">
+                        <a data-th-href="@{/admin/appointments/create/step1?intervalId=__${interval.getId()}__}">
                             Записать клиента
                         </a>
                     </td>

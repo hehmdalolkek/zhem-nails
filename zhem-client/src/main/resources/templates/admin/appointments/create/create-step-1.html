@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - запись клиента</title>
+</head>
+<body>
+    <nav>
+        <a data-th-href="@{${referer} ?: '/admin/dashboard'}"><- Назад</a>
+    </nav>
+    <main>
+        <h2>Запись клиента</h2>
+        <h3 data-th-text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
+        <form method="get">
+            <input type="hidden" name="intervalId" data-th-value="${interval.getId()}">
+            <label>Имя
+                <input type="text" name="firstName" placeholder="Иван"/>
+            </label>
+            <label>Фамилия
+                <input type="text" name="lastName" placeholder="Иванов"/>
+            </label>
+            <label>Номер телефона
+                <input type="text" name="phone" placeholder="+7 (999) 999-99-99"/>
+            </label>
+            <label>Электронная почта
+                <input type="email" name="email" placeholder="ivanov@email.com"/>
+            </label>
+            <input type="submit" value="Поиск">
+            <a data-th-href="@{/admin/appointments/create/step1?intervalId=__${interval.getId()}__}">Отмена</a>
+        </form>
+        <form method="post"
+              data-th-action="@{/admin/appointments/create/step2}"
+              data-th-object="${appointment}"
+        >
+            <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+            <input type="hidden" data-th-field="*{intervalId}">
+            <h3>Выберите клиента</h3>
+            <span data-th-text="${errors?.containsKey('userId')} ? ${errors.get('userId')}"></span>
+            <div style="height: 200px; overflow: auto">
+                <div data-th-each="user : ${users}">
+                    <label>
+                        <input type="radio"
+                               data-th-field="*{userId}"
+                               data-th-value="${user.getId()}"
+                        >
+                        <span data-th-text="${user.getId()}"></span>
+                        <span data-th-text="${user.getFirstName()}"></span>
+                        <span data-th-text="${user.getLastName()}"></span>
+                        <span data-th-text="${user.getPhone()}"></span>
+                        <span data-th-text="${user.getEmail()}"></span>
+                    </label>
+                </div>
+            </div>
+            <input type="submit" value="Далее">
+        </form>
+    </main>
+</body>
+</html>
