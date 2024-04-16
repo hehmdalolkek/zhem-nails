@@ -79,7 +79,6 @@ public class AdminAppointmentController {
             model.addAttribute("interval", interval);
             model.addAttribute("appointment", appointment);
             model.addAttribute("users", users);
-            model.addAttribute("referer", request.getHeader("Referer"));
             return "/admin/appointments/create/create-step-1";
         } catch (IntervalNotFoundException exception) {
             throw new NotFoundException(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
@@ -150,7 +149,6 @@ public class AdminAppointmentController {
             model.addAttribute("appointmentId", appointmentId);
             model.addAttribute("appointment", appointment);
             model.addAttribute("users", users);
-            model.addAttribute("referer", request.getHeader("Referer"));
         } catch (AppointmentNotFoundException exception) {
             throw new NotFoundException(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
         }
@@ -168,7 +166,6 @@ public class AdminAppointmentController {
         model.addAttribute("interval", this.intervalService.findIntervalById(appointment.getIntervalId()));
         model.addAttribute("mapOfIntervals", this.intervalService.generateIntervalCalendarForMonth(yearMonth, true));
         model.addAttribute("appointmentId", appointmentId);
-        model.addAttribute("referer", request.getHeader("Referer"));
         return "/admin/appointments/update/update-step-2";
     }
 
@@ -176,14 +173,12 @@ public class AdminAppointmentController {
     public String updateAppointmentProcessThird(@PathVariable("appointmentId") long appointmentId, @ModelAttribute("appointment") AppointmentUpdateDto appointment, Model model, HttpServletRequest request) {
         model.addAttribute("services", this.zhemServiceService.findAllServices());
         model.addAttribute("appointmentId", appointmentId);
-        model.addAttribute("referer", request.getHeader("Referer"));
         return "/admin/appointments/update/update-step-3";
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step4")
     public String updateAppointmentProcessFourth(@PathVariable("appointmentId") long appointmentId, @ModelAttribute("appointment") AppointmentUpdateDto appointment, Model model, HttpServletRequest request) {
         model.addAttribute("appointmentId", appointmentId);
-        model.addAttribute("referer", request.getHeader("Referer"));
         return "/admin/appointments/update/update-step-4";
     }
 
