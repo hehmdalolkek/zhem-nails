@@ -17,7 +17,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional
     public Role createRole(Role role) {
-        boolean isExists = this.roleRepository.existsByTitleIgnoreCase(role.getTitle());
+        boolean isExists = this.roleRepository.existsByTitleIgnoreCase(role.getTitle().strip());
         if (isExists) {
             throw new RoleWithDuplicateTitleException("Role with this title is already exists");
         }
