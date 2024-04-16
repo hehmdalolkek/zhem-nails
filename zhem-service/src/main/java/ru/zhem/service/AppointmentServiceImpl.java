@@ -93,7 +93,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         if (Objects.nonNull(appointment.getInterval().getId())) {
             Interval foundedInterval = this.intervalRepository.findById(appointment.getInterval().getId())
                     .orElseThrow(() -> new IntervalNotFoundException("Interval not found"));
-            if (foundedInterval.getStatus() == Status.BOOKED) {
+            if (foundedInterval.getStatus() == Status.BOOKED
+                    && !Objects.equals(foundedAppointment.getInterval().getId(), foundedInterval.getId())) {
                 throw new IntervalIsBookedException("Interval is already booked");
             }
             foundedAppointment.getInterval().setStatus(Status.AVAILABLE);
