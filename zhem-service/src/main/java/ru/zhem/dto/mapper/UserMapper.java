@@ -2,10 +2,10 @@ package ru.zhem.dto.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.zhem.dto.response.ZhemUserAuthDto;
 import ru.zhem.dto.request.ZhemUserCreationDto;
-import ru.zhem.dto.response.ZhemUserDto;
 import ru.zhem.dto.request.ZhemUserUpdateDto;
+import ru.zhem.dto.response.ZhemUserAuthDto;
+import ru.zhem.dto.response.ZhemUserDto;
 import ru.zhem.entity.ZhemUser;
 
 import java.util.stream.Collectors;

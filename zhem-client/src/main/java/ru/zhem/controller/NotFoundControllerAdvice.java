@@ -4,7 +4,6 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.NotFoundException;
 
 @ControllerAdvice

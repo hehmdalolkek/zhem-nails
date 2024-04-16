@@ -14,7 +14,9 @@ import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
 import ru.zhem.exceptions.NotFoundException;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class IntervalRestClientImpl implements IntervalRestClient {

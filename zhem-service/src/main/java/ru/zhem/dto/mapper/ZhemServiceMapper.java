@@ -5,8 +5,6 @@ import ru.zhem.dto.request.ZhemServiceCreationDto;
 import ru.zhem.dto.response.ZhemServiceDto;
 import ru.zhem.entity.ZhemService;
 
-import java.util.List;
-
 @Component
 public class ZhemServiceMapper {
     public ZhemServiceDto fromEntity(ZhemService service) {

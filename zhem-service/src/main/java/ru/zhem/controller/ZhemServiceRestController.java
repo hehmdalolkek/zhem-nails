@@ -8,14 +8,12 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import ru.zhem.dto.mapper.RoleMapper;
 import ru.zhem.dto.mapper.ZhemServiceMapper;
-import ru.zhem.dto.request.RoleCreationDto;
 import ru.zhem.dto.request.ZhemServiceCreationDto;
-import ru.zhem.entity.Role;
 import ru.zhem.entity.ZhemService;
-import ru.zhem.exception.*;
-import ru.zhem.service.RoleService;
+import ru.zhem.exception.NotFoundException;
+import ru.zhem.exception.ZhemServiceNotFoundException;
+import ru.zhem.exception.ZhemServiceWithDuplicateTitleException;
 import ru.zhem.service.ZhemServiceService;
 
 import java.util.List;
