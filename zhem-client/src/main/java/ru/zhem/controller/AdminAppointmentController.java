@@ -136,14 +136,16 @@ public class AdminAppointmentController {
             }
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("message", "Клиент не записан");
             return "redirect:/admin/appointments/create/step1?intervalId=" + appointment.getIntervalId();
         } else {
             try {
-                redirectAttributes.addFlashAttribute("message", "Клиент записан");
                 this.appointmentService.createAppointment(appointment);
+                redirectAttributes.addFlashAttribute("message", "Клиент записан");
                 return "redirect:/admin/intervals";
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
+                redirectAttributes.addFlashAttribute("message", "Клиент не записан");
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());
                 return "redirect:/admin/intervals";
             }
