@@ -30,11 +30,7 @@
                     <td data-th-text="${appointment.getUser().getPhone()}"></td>
                     <td data-th-text="${appointment.getUser().getFirstName()}"></td>
                     <td data-th-text="${appointment.getUser().getLastName()}"></td>
-                    <td>
-                        <a data-th-href="@{/admin/appointments/interval/{intervalId}(intervalId=${appointment.getInterval().getId()})}">
-                            Информация о записи
-                        </a>
-                    </td>
+                    <td data-th-text="${appointment.getDetails()}"></td>
                 </tr>
             </table>
         </div>
