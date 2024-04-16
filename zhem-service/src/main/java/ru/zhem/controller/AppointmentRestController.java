@@ -122,7 +122,8 @@ public class AppointmentRestController {
                         .updateAppointment(appointmentId,this.appointmentMapper.fromUpdateDto(appointmentDto));
                 return ResponseEntity.ok()
                         .body(this.appointmentMapper.fromEntity(updatedAppointment));
-            } catch (ZhemUserNotFoundException | IntervalNotFoundException | AppointmentNotFoundException exception) {
+            } catch (ZhemUserNotFoundException | IntervalNotFoundException | AppointmentNotFoundException
+                    | AppointmentCanceled exception) {
                 throw new BadRequestException(exception.getMessage());
             } catch (IntervalIsBookedException exception) {
                 bindingResult.addError(
@@ -138,7 +139,7 @@ public class AppointmentRestController {
             this.appointmentService.deleteAppointment(appointmentId);
             return ResponseEntity.ok()
                     .build();
-        } catch (AppointmentNotFoundException exception) {
+        } catch (AppointmentNotFoundException | AppointmentCanceled exception) {
             throw new NotFoundException(exception.getMessage());
         }
     }

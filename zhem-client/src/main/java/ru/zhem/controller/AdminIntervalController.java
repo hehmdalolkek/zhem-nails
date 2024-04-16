@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
-import ru.zhem.entity.Status;
+import ru.zhem.entity.IntervalStatus;
 import ru.zhem.exceptions.CustomBindException;
 import ru.zhem.service.CalendarService;
 import ru.zhem.service.IntervalService;
@@ -34,7 +34,7 @@ public class AdminIntervalController {
     public String showAllIntervals(@RequestParam(value = "year", required = false) Integer year,
                                    @RequestParam(value = "month", required = false) Integer month, Model model) {
         YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
-        model.addAttribute("statusAvailable", Status.AVAILABLE);
+        model.addAttribute("statusAvailable", IntervalStatus.AVAILABLE);
         model.addAttribute("mapOfIntervals",
                 this.intervalService.generateIntervalCalendarForMonth(yearMonth, false));
 

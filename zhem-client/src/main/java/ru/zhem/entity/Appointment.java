@@ -6,6 +6,8 @@ public class Appointment extends BaseEntity {
 
     private Interval interval;
 
+    private AppointmentStatus status;
+
     private String details;
 
 }

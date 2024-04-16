@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ru.zhem.entity.Status;
+import ru.zhem.entity.IntervalStatus;
 import ru.zhem.repository.IntervalRepository;
 
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ public class DatabaseCleanupService {
     @Transactional
     @Scheduled(cron = "0 0 0 * * ?")
     public void cleanupIntervalsFromDatabase() {
-        this.intervalRepository.deleteOldAvailableIntervals(LocalDate.now(), Status.AVAILABLE);
+        this.intervalRepository.deleteOldAvailableIntervals(LocalDate.now(), IntervalStatus.AVAILABLE);
     }
 
 }

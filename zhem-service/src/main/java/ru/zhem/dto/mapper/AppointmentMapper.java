@@ -43,6 +43,7 @@ public class AppointmentMapper {
                 .user(this.userMapper.fromEntity(appointment.getUser()))
                 .interval(this.intervalMapper.fromEntity(appointment.getInterval()))
                 .details(appointment.getDetails())
+                .status(appointment.getStatus())
                 .createdAt(appointment.getCreatedAt())
                 .updatedAt(appointment.getUpdatedAt())
                 .build();

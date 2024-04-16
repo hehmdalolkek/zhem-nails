@@ -3,7 +3,7 @@ package ru.zhem.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.entity.Status;
+import ru.zhem.entity.IntervalStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ public class IntervalDto {
 
     private LocalTime time;
 
-    private Status status;
+    private IntervalStatus status;
 
     private LocalDateTime createdAt;
 

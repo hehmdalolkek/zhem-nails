@@ -1,5 +1,5 @@
 package ru.zhem.entity;
 
-public enum Status {
+public enum IntervalStatus {
     AVAILABLE, BOOKED
 }

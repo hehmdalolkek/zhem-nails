@@ -83,7 +83,8 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
                     .toBodilessEntity();
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            if (problemDetail != null && problemDetail.getProperties().containsKey("errors")) {
+            if (problemDetail != null && problemDetail.getProperties() != null
+                    && problemDetail.getProperties().containsKey("errors")) {
                 throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
             } else {
                 throw new BadRequestException(problemDetail);

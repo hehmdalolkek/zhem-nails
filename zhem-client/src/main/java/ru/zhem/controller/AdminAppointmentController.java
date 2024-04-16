@@ -17,10 +17,8 @@ import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentUpdateDto;
-import ru.zhem.exceptions.AppointmentNotFoundException;
-import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.IntervalNotFoundException;
-import ru.zhem.exceptions.NotFoundException;
+import ru.zhem.entity.AppointmentStatus;
+import ru.zhem.exceptions.*;
 import ru.zhem.service.AppointmentService;
 import ru.zhem.service.CalendarService;
 import ru.zhem.service.IntervalService;
@@ -161,6 +159,10 @@ public class AdminAppointmentController {
                                                  @RequestParam(value = "email", required = false) String email) {
         try {
             AppointmentDto appointmentDto = this.appointmentService.findAppointmentById(appointmentId);
+            if (appointmentDto.getStatus() == AppointmentStatus.CANCELED) {
+                throw new BadRequestException(
+                        ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, "Appointment is already canceled"));
+            }
             AppointmentUpdateDto appointment = AppointmentUpdateDto.builder()
                     .intervalId(appointmentDto.getInterval().getId())
                     .userId(appointmentDto.getUser().getId())

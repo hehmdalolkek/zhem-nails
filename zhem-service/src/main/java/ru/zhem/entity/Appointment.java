@@ -38,6 +38,11 @@ public class Appointment extends BaseEntity {
     @JoinColumn(name = "interval_id", unique = true)
     private Interval interval;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private AppointmentStatus status;
+
     @Size(min = 2, max = 256)
     @NullOrNotBlank
     @Column(name = "details")

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.zhem.entity.Interval;
-import ru.zhem.entity.Status;
+import ru.zhem.entity.IntervalStatus;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,7 +23,7 @@ public interface IntervalRepository extends JpaRepository<Interval, Long> {
             " and i.status = :status order by i.date, i.time")
     List<Interval> findAllByDateAndStatusOrderByDateTime(@Param("year") Integer year,
                                                          @Param("month") Integer month,
-                                                         @Param("status") Status status);
+                                                         @Param("status") IntervalStatus status);
 
     boolean existsByDateAndTime(LocalDate date, LocalTime time);
 
@@ -32,5 +32,5 @@ public interface IntervalRepository extends JpaRepository<Interval, Long> {
     @Modifying
     @Query("delete from Interval i where i.date <= :date and i.status = :status")
     void deleteOldAvailableIntervals(@Param("date") LocalDate date,
-                                     @Param("status") Status status);
+                                     @Param("status") IntervalStatus status);
 }

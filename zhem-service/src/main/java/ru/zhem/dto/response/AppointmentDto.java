@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.zhem.entity.AppointmentStatus;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +21,8 @@ public class AppointmentDto {
     private IntervalDto interval;
 
     private String details;
+
+    private AppointmentStatus status;
 
     private LocalDateTime createdAt;
 

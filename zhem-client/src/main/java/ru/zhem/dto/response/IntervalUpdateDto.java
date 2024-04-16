@@ -1,11 +1,10 @@
 package ru.zhem.dto.response;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.entity.Status;
+import ru.zhem.entity.IntervalStatus;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +19,6 @@ public class IntervalUpdateDto {
 
     private LocalTime time;
 
-    private Status status;
+    private IntervalStatus status;
 
 }
