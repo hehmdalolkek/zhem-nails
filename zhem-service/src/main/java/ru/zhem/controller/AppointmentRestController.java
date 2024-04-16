@@ -123,7 +123,7 @@ public class AppointmentRestController {
                 return ResponseEntity.ok()
                         .body(this.appointmentMapper.fromEntity(updatedAppointment));
             } catch (ZhemUserNotFoundException | IntervalNotFoundException | AppointmentNotFoundException
-                    | AppointmentCanceled exception) {
+                    | AppointmentCanceled | ZhemServiceNotFoundException exception) {
                 throw new BadRequestException(exception.getMessage());
             } catch (IntervalIsBookedException exception) {
                 bindingResult.addError(

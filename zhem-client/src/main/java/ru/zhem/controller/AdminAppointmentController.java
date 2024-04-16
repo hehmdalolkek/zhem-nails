@@ -222,6 +222,7 @@ public class AdminAppointmentController {
     public String updateAppointmentProcessThird(@PathVariable("appointmentId") long appointmentId,
                                                 @ModelAttribute("appointment") AppointmentUpdateDto appointment,
                                                 Model model, HttpServletRequest request) {
+        model.addAttribute("services", this.zhemServiceService.findAllServices());
         model.addAttribute("appointmentId", appointmentId);
         model.addAttribute("referer", request.getHeader("Referer"));
         return "/admin/appointments/update/update-step-3";
@@ -229,6 +230,15 @@ public class AdminAppointmentController {
 
     @PostMapping("/update/{appointmentId:\\d+}/step4")
     public String updateAppointmentProcessFourth(@PathVariable("appointmentId") long appointmentId,
+                                                @ModelAttribute("appointment") AppointmentUpdateDto appointment,
+                                                Model model, HttpServletRequest request) {
+        model.addAttribute("appointmentId", appointmentId);
+        model.addAttribute("referer", request.getHeader("Referer"));
+        return "/admin/appointments/update/update-step-4";
+    }
+
+    @PostMapping("/update/{appointmentId:\\d+}/step5")
+    public String updateAppointmentProcessFifth(@PathVariable("appointmentId") long appointmentId,
                                                  @ModelAttribute("appointment") AppointmentUpdateDto appointment,
                                                  RedirectAttributes redirectAttributes,
                                                  HttpServletResponse response) {

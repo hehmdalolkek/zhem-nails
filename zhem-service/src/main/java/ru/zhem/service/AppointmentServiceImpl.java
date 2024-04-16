@@ -108,8 +108,17 @@ public class AppointmentServiceImpl implements AppointmentService {
             foundedInterval.setStatus(IntervalStatus.BOOKED);
             foundedAppointment.setInterval(foundedInterval);
         }
-        // TODO ДОБАВИТЬ ПРОВЕРКУ СУЩЕСТВОВАНИЯ ВСЕХ УСЛУГ!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // TODO ДОБАВИТЬ ПРОВЕРКУ СУЩЕСТВОВАНИЯ ВСЕХ УСЛУГ!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        if (!appointment.getServices().isEmpty()) {
+            List<ZhemService> services = this.serviceRepository.findAllById(appointment.getServices().stream()
+                    .map(ZhemService::getId)
+                    .collect(Collectors.toSet()));
+            if (appointment.getServices().size() != services.size()) {
+                throw new ZhemServiceNotFoundException("Service not found");
+            }
+            foundedAppointment.setServices(new HashSet<>(services));
+        }
+
         if (Objects.nonNull(appointment.getDetails()) && !appointment.getDetails().isBlank()) {
             foundedAppointment.setDetails(appointment.getDetails());
         }

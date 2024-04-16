@@ -8,26 +8,36 @@
     <title>Zhem-nails - изменить запись</title>
 </head>
 <body>
-<nav>
-    <a data-th-href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
-</nav>
-<main>
-    <div>
-        <h1 data-th-text="'Изменение записи №' + ${appointmentId}"></h1>
-        <h2>Шаг 3 - Изменение комментария</h2>
-        <form method="post"
-              data-th-action="@{/admin/appointments/update/__${appointmentId}__/step4}"
-              data-th-object="${appointment}"
-        >
-            <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
-            <input type="hidden" data-th-field="*{userId}">
-            <input type="hidden" data-th-field="*{intervalId}">
-            <label>
-                <textarea data-th-field="*{details}"></textarea>
-            </label>
-            <input type="submit" value="Сохранить">
-        </form>
-    </div>
-</main>
+    <nav>
+        <a data-th-href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
+    </nav>
+    <main>
+        <div>
+            <h1 data-th-text="'Изменение записи №' + ${appointmentId}"></h1>
+            <h2>Шаг 3 - Изменение услуг</h2>
+            <form method="post"
+                  data-th-action="@{/admin/appointments/update/__${appointmentId}__/step4}"
+                  data-th-object="${appointment}"
+            >
+                <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
+                <input type="hidden" data-th-field="*{intervalId}">
+                <input type="hidden" data-th-field="*{userId}">
+                <input type="hidden" data-th-field="*{details}">
+                <div style="height: 200px; overflow: auto">
+                    <div data-th-each="service : ${services}">
+                        <label>
+                            <input type="checkbox"
+                                   data-th-field="*{services}"
+                                   data-th-value="${service.getId()}"
+                                   data-th-checked="${services.contains(service)}"
+                            >
+                            <span data-th-text="${service.getTitle()}"></span>
+                        </label>
+                    </div>
+                </div>
+                <input type="submit" value="Далее">
+            </form>
+        </div>
+    </main>
 </body>
 </html>

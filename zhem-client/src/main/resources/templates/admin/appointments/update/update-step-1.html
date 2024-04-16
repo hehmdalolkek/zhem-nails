@@ -37,6 +37,7 @@
             >
                 <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
                 <input type="hidden" data-th-field="*{intervalId}">
+                <input type="hidden" data-th-field="*{services}">
                 <input type="hidden" data-th-field="*{details}">
                 <div style="height: 200px; overflow: auto">
                     <div data-th-each="user : ${users}">
