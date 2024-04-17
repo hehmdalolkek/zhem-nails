@@ -24,12 +24,12 @@
                 <input type="hidden" data-th-field="*{userId}">
                 <input type="hidden" data-th-field="*{details}">
                 <div style="height: 200px; overflow: auto">
-                    <div data-th-each="service : ${services}">
+                    <div data-th-each="service : ${allServices}">
                         <label>
                             <input type="checkbox"
                                    data-th-field="*{services}"
                                    data-th-value="${service.getId()}"
-                                   data-th-checked="${services.contains(service)}"
+                                   data-th-checked="${allServices.contains(service)}"
                             >
                             <span data-th-text="${service.getTitle()}"></span>
                         </label>

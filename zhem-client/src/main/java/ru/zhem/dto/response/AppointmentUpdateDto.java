@@ -1,5 +1,7 @@
 package ru.zhem.dto.response;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +19,8 @@ public class AppointmentUpdateDto {
 
     private Long intervalId;
 
+    @NotNull(message = "Должна быть выбрана хотя бы одна услуга")
+    @NotEmpty(message = "Должна быть выбрана хотя бы одна услуга")
     private Set<Integer> services;
 
     private String details;

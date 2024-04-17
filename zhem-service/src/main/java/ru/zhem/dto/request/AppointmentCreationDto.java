@@ -1,5 +1,6 @@
 package ru.zhem.dto.request;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class AppointmentCreationDto {
     private Long intervalId;
 
     @NotNull(message = "Должна быть выбрана хотя бы одна услуга")
+    @NotEmpty(message = "Должна быть выбрана хотя бы одна услуга")
     private Set<Integer> services;
 
     @NullOrNotBlank(message = "Поле должно содержать хотя бы 2 символа, либо быть полностью пустым")

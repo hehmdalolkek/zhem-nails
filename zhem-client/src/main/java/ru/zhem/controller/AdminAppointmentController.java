@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -131,21 +132,33 @@ public class AdminAppointmentController {
     }
 
     @GetMapping("/update/{appointmentId:\\d+}/step1")
-    public String initUpdateAppointmentPageFirst(@PathVariable("appointmentId") long appointmentId, Model model, HttpServletRequest request, @RequestParam(value = "firstName", required = false) String firstName, @RequestParam(value = "lastName", required = false) String lastName, @RequestParam(value = "phone", required = false) String phone, @RequestParam(value = "email", required = false) String email) {
+    public String initUpdateAppointmentPageFirst(@PathVariable("appointmentId") long appointmentId, Model model,
+                                                 @RequestParam(value = "firstName", required = false) String firstName,
+                                                 @RequestParam(value = "lastName", required = false) String lastName,
+                                                 @RequestParam(value = "phone", required = false) String phone,
+                                                 @RequestParam(value = "email", required = false) String email) {
         try {
             AppointmentDto appointmentDto = this.appointmentService.findAppointmentById(appointmentId);
-            AppointmentUpdateDto appointment = AppointmentUpdateDto.builder().intervalId(appointmentDto.getInterval().getId()).userId(appointmentDto.getUser().getId()).details(appointmentDto.getDetails()).build();
-
+            AppointmentUpdateDto appointment = AppointmentUpdateDto.builder()
+                    .intervalId(appointmentDto.getInterval().getId())
+                    .userId(appointmentDto.getUser().getId())
+                    .services(appointmentDto.getServices().stream()
+                            .map(ZhemServiceDto::getId)
+                            .collect(Collectors.toSet()))
+                    .details(appointmentDto.getDetails()).build();
             List<ZhemUserDto> users;
-            if (Objects.nonNull(firstName) || Objects.nonNull(lastName) || Objects.nonNull(phone) || Objects.nonNull(email)) {
+            if (Objects.nonNull(firstName) || Objects.nonNull(lastName)
+                    || Objects.nonNull(phone) || Objects.nonNull(email)) {
                 users = this.zhemUserService.findAllUsersBy(firstName, lastName, phone, email);
             } else {
                 users = this.zhemUserService.findAllUsers(null);
-                ZhemUserDto user = users.stream().filter(u -> u.getId().equals(appointmentDto.getUser().getId())).findFirst().orElse(null);
+                ZhemUserDto user = users.stream()
+                        .filter(u -> u.getId().equals(appointment.getUserId()))
+                        .findFirst()
+                        .orElse(null);
                 users.remove(user);
-                users.set(0, user);
+                users.addFirst(user);
             }
-
             model.addAttribute("appointmentId", appointmentId);
             model.addAttribute("appointment", appointment);
             model.addAttribute("users", users);
@@ -156,7 +169,10 @@ public class AdminAppointmentController {
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step2")
-    public String updateAppointmentProcessSecond(@PathVariable("appointmentId") long appointmentId, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "month", required = false) Integer month, @ModelAttribute("appointment") AppointmentUpdateDto appointment, Model model, HttpServletRequest request) {
+    public String updateAppointmentProcessSecond(@PathVariable("appointmentId") long appointmentId,
+                                                 @RequestParam(value = "year", required = false) String year,
+                                                 @RequestParam(value = "month", required = false) Integer month,
+                                                 @ModelAttribute("appointment") AppointmentUpdateDto appointment, Model model) {
         YearMonth yearMonth;
         try {
             yearMonth = YearMonth.of(Integer.parseInt(year), month);
@@ -170,8 +186,10 @@ public class AdminAppointmentController {
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step3")
-    public String updateAppointmentProcessThird(@PathVariable("appointmentId") long appointmentId, @ModelAttribute("appointment") AppointmentUpdateDto appointment, Model model, HttpServletRequest request) {
-        model.addAttribute("services", this.zhemServiceService.findAllServices());
+    public String updateAppointmentProcessThird(@PathVariable("appointmentId") long appointmentId,
+                                                @ModelAttribute("appointment") AppointmentUpdateDto appointment,
+                                                Model model) {
+        model.addAttribute("allServices", this.zhemServiceService.findAllServices());
         model.addAttribute("appointmentId", appointmentId);
         return "/admin/appointments/update/update-step-3";
     }
@@ -183,16 +201,30 @@ public class AdminAppointmentController {
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step5")
-    public String updateAppointmentProcessFifth(@PathVariable("appointmentId") long appointmentId, @ModelAttribute("appointment") AppointmentUpdateDto appointment, RedirectAttributes redirectAttributes, HttpServletResponse response) {
-        try {
-            this.appointmentService.updateAppointment(appointmentId, appointment);
-            redirectAttributes.addFlashAttribute("message", "Интервал успешно изменен");
-            return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
-        } catch (CustomBindException exception) {
+    public String updateAppointmentProcessFifth(@PathVariable("appointmentId") long appointmentId,
+                                                @Valid @ModelAttribute("appointment") AppointmentUpdateDto appointment,
+                                                BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                                                HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            redirectAttributes.addFlashAttribute("errors", exception.getErrors());
+            redirectAttributes.addFlashAttribute("errors", errors);
             redirectAttributes.addFlashAttribute("message", "Интервал не изменен");
             return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
+        } else {
+            try {
+                this.appointmentService.updateAppointment(appointmentId, appointment);
+                redirectAttributes.addFlashAttribute("message", "Интервал успешно изменен");
+                return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
+            } catch (CustomBindException exception) {
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                redirectAttributes.addFlashAttribute("errors", exception.getErrors());
+                redirectAttributes.addFlashAttribute("message", "Интервал не изменен");
+                return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
+            }
         }
     }
 

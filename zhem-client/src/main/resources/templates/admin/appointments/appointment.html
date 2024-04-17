@@ -15,6 +15,7 @@
         <div>
             <h2 data-th-text="${message}"></h2>
             <span data-th-if="${errors?.containsKey('interval')}" data-th-text="${errors.get('interval')}"></span>
+            <span data-th-if="${errors?.containsKey('services')}" data-th-text="${errors.get('services')}"></span>
             <h1 data-th-text="'Запись №' + ${appointment.getId()}"></h1>
             <a data-th-href="@{/admin/appointments/update/__${appointment.getId()}__/step1}">Изменить запись</a>
             <h2>Интервал:</h2>
