@@ -20,11 +20,13 @@ public interface ZhemUserRestClient {
 
     void createUser(ZhemUserCreationDto user);
 
-    void updateClient(long userId, ZhemUserUpdateDto user);
+    void updateUser(long userId, ZhemUserUpdateDto user);
 
     void deleteClient(long userId);
 
     List<ZhemUserDto> findAllClientsBy(String firstName, String lastName, String phone, String email);
 
     Boolean adminIsExists();
+
+    ZhemUserDto findUserByPhone(String phone);
 }

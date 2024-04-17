@@ -13,6 +13,7 @@ import ru.zhem.dto.response.ZhemUserCreationDto;
 import ru.zhem.dto.response.ZhemUserUpdateDto;
 import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Map;
@@ -92,8 +93,18 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     }
 
     @Override
-    public void updateClient(long userId, ZhemUserUpdateDto user) {
-
+    public void updateUser(long userId, ZhemUserUpdateDto user) {
+        try {
+            this.restClient.patch()
+                    .uri("/service-api/v1/users/user/{userId}", userId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(user)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (HttpClientErrorException.BadRequest exception) {
+            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
+            throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        }
     }
 
     @Override
@@ -120,6 +131,18 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
                     .body(Boolean.class);
         } catch (HttpClientErrorException.BadRequest exception) {
             throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
+        }
+    }
+
+    @Override
+    public ZhemUserDto findUserByPhone(String phone) {
+        try {
+            return this.restClient.get()
+                    .uri("/service-api/v1/users/user/phone/{phone}", phone)
+                    .retrieve()
+                    .body(ZhemUserDto.class);
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
         }
     }
 }

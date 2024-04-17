@@ -3,6 +3,8 @@ package ru.zhem.entity.constraints;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import ru.zhem.entity.ZhemUser;
+import ru.zhem.entity.ZhemUserUpdate;
+import ru.zhem.entity.ZhemUserUpdatePassword;
 
 public class PasswordMatcherValidator implements ConstraintValidator<PasswordMatcher, Object> {
 
@@ -16,8 +18,14 @@ public class PasswordMatcherValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        ZhemUser user = (ZhemUser) value;
-        boolean isValid = user.getPassword().equals(user.getConfirmPassword());
+        boolean isValid;
+
+        if (value instanceof ZhemUser user) {
+            isValid = user.getPassword().equals(user.getConfirmPassword());
+        } else {
+            ZhemUserUpdatePassword user = (ZhemUserUpdatePassword) value;
+            isValid = user.getPassword().equals(user.getConfirmPassword());
+        }
 
         if (!isValid) {
             context.disableDefaultConstraintViolation();

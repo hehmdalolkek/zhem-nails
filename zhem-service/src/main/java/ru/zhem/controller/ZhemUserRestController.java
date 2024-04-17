@@ -84,6 +84,17 @@ public class ZhemUserRestController {
         }
     }
 
+    @GetMapping("/user/phone/{phone}")
+    public ResponseEntity<?> findUserByPhone(@PathVariable("phone") String phone) {
+        try {
+            ZhemUser foundedUser = this.zhemUserService.findUserByPhone(phone, false);
+            return ResponseEntity.ok()
+                    .body(this.userMapper.fromEntity(foundedUser));
+        } catch (ZhemUserNotFoundException exception) {
+            throw new NotFoundException(exception.getMessage());
+        }
+    }
+
     @PostMapping()
     public ResponseEntity<?> createUser(@Valid @RequestBody ZhemUserCreationDto userDto,
                                         BindingResult bindingResult) throws BindException {

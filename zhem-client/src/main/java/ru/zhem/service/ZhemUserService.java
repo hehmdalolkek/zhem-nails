@@ -3,7 +3,6 @@ package ru.zhem.service;
 import ru.zhem.client.response.PaginatedResponse;
 import ru.zhem.dto.request.ZhemUserAuthDto;
 import ru.zhem.dto.request.ZhemUserDto;
-import ru.zhem.dto.response.ZhemUserUpdateDto;
 import ru.zhem.entity.ZhemUser;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public interface ZhemUserService {
 
     void createUser(ZhemUser user, boolean isAdmin);
 
-    void updateClient(long userId, ZhemUserUpdateDto user);
+    void updateUser(long userId, ZhemUser user);
 
     void deleteClient(long userId);
 
@@ -28,4 +27,5 @@ public interface ZhemUserService {
 
     boolean adminIsExists();
 
+    ZhemUserDto findUserByPhone(String phone);
 }

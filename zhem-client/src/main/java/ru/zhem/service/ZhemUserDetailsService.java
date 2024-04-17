@@ -77,9 +77,9 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
         }
         ZhemUserCreationDto userDto = ZhemUserCreationDto.builder()
                 .phone(user.getPhone())
-                .email(user.getEmail().isBlank() ? null : user.getEmail())
+                .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
                 .firstName(user.getFirstName())
-                .lastName(user.getLastName().isBlank() ? null : user.getLastName())
+                .lastName(user.getLastName() != null && user.getLastName().isBlank() ? null : user.getLastName())
                 .password(user.getPassword())
                 .roles(roles)
                 .build();
@@ -87,8 +87,15 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     }
 
     @Override
-    public void updateClient(long userId, ZhemUserUpdateDto user) {
-
+    public void updateUser(long userId, ZhemUser user) {
+        ZhemUserUpdateDto userDto = ZhemUserUpdateDto.builder()
+                .phone(user.getPhone())
+                .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName() != null && user.getLastName().isBlank() ? null : user.getLastName())
+                .password(user.getPassword())
+                .build();
+        this.zhemUserRestClient.updateUser(userId, userDto);
     }
 
     @Override
@@ -104,5 +111,10 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     @Override
     public boolean adminIsExists() {
         return this.zhemUserRestClient.adminIsExists();
+    }
+
+    @Override
+    public ZhemUserDto findUserByPhone(String phone) {
+        return this.zhemUserRestClient.findUserByPhone(phone);
     }
 }
