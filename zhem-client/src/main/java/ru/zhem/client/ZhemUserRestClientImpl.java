@@ -32,20 +32,15 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     private final RestClient restClient;
 
     @Override
-    public List<ZhemUserDto> findAllUsers(String role) {
-        try {
-            return restClient.get()
-                    .uri("/service-api/v1/users?role={role}", role)
-                    .retrieve()
-                    .body(USER_TYPE_REFERENCE);
-        } catch (HttpClientErrorException.BadRequest exception) {
-            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            throw new BadRequestException(problemDetail);
-        }
+    public List<ZhemUserDto> findAllClients() {
+        return restClient.get()
+                .uri("/service-api/v1/users")
+                .retrieve()
+                .body(USER_TYPE_REFERENCE);
     }
 
     @Override
-    public PaginatedResponse<ZhemUserDto> findAllUsersByPage(int page, int size) {
+    public PaginatedResponse<ZhemUserDto> findAllClientsByPage(int page, int size) {
         return this.restClient.get()
                 .uri("/service-api/v1/users/pageable?page={page}&size={size}",
                         page, size)
@@ -107,7 +102,7 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     }
 
     @Override
-    public List<ZhemUserDto> findAllUsersBy(String firstName, String lastName, String phone, String email) {
+    public List<ZhemUserDto> findAllClientsBy(String firstName, String lastName, String phone, String email) {
         return this.restClient.get()
                 .uri("/service-api/v1/users?" +
                         "firstName={firstName}&lastName={lastName}&phone={phone}&email={email}",

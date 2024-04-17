@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ZhemUserRestClient {
-    List<ZhemUserDto> findAllUsers(String role);
+    List<ZhemUserDto> findAllClients();
 
-    PaginatedResponse<ZhemUserDto> findAllUsersByPage(int page, int size);
+    PaginatedResponse<ZhemUserDto> findAllClientsByPage(int page, int size);
 
     Optional<ZhemUserDto> findUserById(Long id);
 
@@ -24,7 +24,7 @@ public interface ZhemUserRestClient {
 
     void deleteClient(long userId);
 
-    List<ZhemUserDto> findAllUsersBy(String firstName, String lastName, String phone, String email);
+    List<ZhemUserDto> findAllClientsBy(String firstName, String lastName, String phone, String email);
 
     Boolean adminIsExists();
 }

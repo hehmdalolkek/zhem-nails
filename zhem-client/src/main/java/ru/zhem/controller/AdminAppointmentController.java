@@ -72,9 +72,9 @@ public class AdminAppointmentController {
             AppointmentCreationDto appointment = AppointmentCreationDto.builder().intervalId(intervalId).build();
             List<ZhemUserDto> users;
             if (Objects.nonNull(firstName) || Objects.nonNull(lastName) || Objects.nonNull(phone) || Objects.nonNull(email)) {
-                users = this.zhemUserService.findAllUsersBy(firstName, lastName, phone, email);
+                users = this.zhemUserService.findAllClientsBy(firstName, lastName, phone, email);
             } else {
-                users = this.zhemUserService.findAllUsers(null);
+                users = this.zhemUserService.findAllClients();
             }
 
             model.addAttribute("interval", interval);
@@ -149,9 +149,9 @@ public class AdminAppointmentController {
             List<ZhemUserDto> users;
             if (Objects.nonNull(firstName) || Objects.nonNull(lastName)
                     || Objects.nonNull(phone) || Objects.nonNull(email)) {
-                users = this.zhemUserService.findAllUsersBy(firstName, lastName, phone, email);
+                users = this.zhemUserService.findAllClientsBy(firstName, lastName, phone, email);
             } else {
-                users = this.zhemUserService.findAllUsers(null);
+                users = this.zhemUserService.findAllClients();
                 ZhemUserDto user = users.stream()
                         .filter(u -> u.getId().equals(appointment.getUserId()))
                         .findFirst()

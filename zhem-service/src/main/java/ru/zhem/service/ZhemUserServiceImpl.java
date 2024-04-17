@@ -3,12 +3,11 @@ package ru.zhem.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.zhem.entity.Role;
 import ru.zhem.entity.ZhemUser;
-import ru.zhem.exception.RoleNotFoundException;
 import ru.zhem.exception.ZhemUserNotFoundException;
 import ru.zhem.exception.ZhemUserWithDuplicateEmailException;
 import ru.zhem.exception.ZhemUserWithDuplicatePhoneException;
@@ -24,25 +23,26 @@ public class ZhemUserServiceImpl implements ZhemUserService {
 
     private final ZhemUserRepository zhemUserRepository;
 
-    private final RoleRepository roleRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
-    public List<ZhemUser> findAllUsers(String role) {
-        if (Objects.nonNull(role) && !role.isBlank()) {
-            Role foundedRole = this.roleRepository.findByTitleIgnoreCase(role)
-                    .orElseThrow(() -> new RoleNotFoundException("Role not found"));
-            return this.zhemUserRepository.findAllByRolesContains(foundedRole);
-        } else {
-            return this.zhemUserRepository.findAll();
-        }
+    public List<ZhemUser> findAllClients() {
+        return this.zhemUserRepository.findAll().stream()
+                .filter(user -> user.getRoles().stream()
+                        .noneMatch(role -> role.getTitle().equals("ADMIN")))
+                .toList();
     }
 
     @Override
-    public Page<ZhemUser> findAllUsersByPage(Pageable pageable) {
-        return this.zhemUserRepository.findAll(pageable);
+    public Page<ZhemUser> findAllClientsByPage(Pageable pageable) {
+        Page<ZhemUser> allUsers = zhemUserRepository.findAll(pageable);
+        List<ZhemUser> filteredUsers = allUsers.getContent().stream()
+                .filter(user -> user.getRoles().stream()
+                        .noneMatch(role -> "ADMIN".equalsIgnoreCase(role.getTitle())))
+                .toList();
+
+        return new PageImpl<>(filteredUsers, pageable, filteredUsers.size());
     }
 
     @Override
@@ -143,8 +143,13 @@ public class ZhemUserServiceImpl implements ZhemUserService {
 
     @Override
     @Transactional
-    public List<ZhemUser> findAllUsersBy(String firstName, String lastName, String phone, String email) {
-        return this.zhemUserRepository.findAllByFirstNameOrLastNameOrPhoneOrEmail(firstName, lastName, phone, email);
+    public List<ZhemUser> findAllClientsBy(String firstName, String lastName, String phone, String email) {
+        return this.zhemUserRepository
+                .findAllByFirstNameOrLastNameOrPhoneOrEmail(firstName, lastName, phone, email)
+                .stream()
+                .filter(user -> user.getRoles().stream()
+                        .noneMatch(role -> role.getTitle().equals("ADMIN")))
+                .toList();
     }
 
     @Override

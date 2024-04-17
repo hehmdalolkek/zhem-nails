@@ -20,7 +20,7 @@ public class AdminZhemUserController {
     @GetMapping
     public String showAllClientsByPage(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
                                        @RequestParam(name = "size", defaultValue = "15") int size) {
-        PaginatedResponse<ZhemUserDto> users = this.zhemUserService.findAllUsersByPage(page, size);
+        PaginatedResponse<ZhemUserDto> users = this.zhemUserService.findAllClientsByPage(page, size);
         model.addAttribute("users", users);
         return "/admin/users/users";
     }

@@ -47,13 +47,13 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     }
 
     @Override
-    public List<ZhemUserDto> findAllUsers(String role) {
-        return this.zhemUserRestClient.findAllUsers(role);
+    public List<ZhemUserDto> findAllClients() {
+        return this.zhemUserRestClient.findAllClients();
     }
 
     @Override
-    public PaginatedResponse<ZhemUserDto> findAllUsersByPage(int page, int size) {
-        return this.zhemUserRestClient.findAllUsersByPage(page, size);
+    public PaginatedResponse<ZhemUserDto> findAllClientsByPage(int page, int size) {
+        return this.zhemUserRestClient.findAllClientsByPage(page, size);
     }
 
     @Override
@@ -97,8 +97,8 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     }
 
     @Override
-    public List<ZhemUserDto> findAllUsersBy(String firstName, String lastName, String phone, String email) {
-        return this.zhemUserRestClient.findAllUsersBy(firstName, lastName, phone, email);
+    public List<ZhemUserDto> findAllClientsBy(String firstName, String lastName, String phone, String email) {
+        return this.zhemUserRestClient.findAllClientsBy(firstName, lastName, phone, email);
     }
 
     @Override

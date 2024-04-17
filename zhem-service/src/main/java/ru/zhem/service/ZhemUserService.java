@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ZhemUserService {
 
-    List<ZhemUser> findAllUsers(String role);
+    List<ZhemUser> findAllClients();
 
-    Page<ZhemUser> findAllUsersByPage(Pageable pageable);
+    Page<ZhemUser> findAllClientsByPage(Pageable pageable);
 
     ZhemUser findUserById(long userId);
 
@@ -24,7 +24,7 @@ public interface ZhemUserService {
 
     void deleteUserById(long userId);
 
-    List<ZhemUser> findAllUsersBy(String firstName, String lastName, String phone, String email);
+    List<ZhemUser> findAllClientsBy(String firstName, String lastName, String phone, String email);
 
     Boolean adminIsExists();
 }

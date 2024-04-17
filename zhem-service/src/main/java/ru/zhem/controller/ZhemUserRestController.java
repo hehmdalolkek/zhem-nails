@@ -31,35 +31,30 @@ public class ZhemUserRestController {
     private final UserMapper userMapper;
 
     @GetMapping
-    public ResponseEntity<?> findAllUsers(@RequestParam(value = "role", required = false) String role,
-                                          @RequestParam(value = "firstName", required = false) String firstName,
+    public ResponseEntity<?> findAllUsers(@RequestParam(value = "firstName", required = false) String firstName,
                                           @RequestParam(value = "lastName", required = false) String lastName,
                                           @RequestParam(value = "phone", required = false) String phone,
                                           @RequestParam(value = "email", required = false) String email) {
         List<ZhemUserDto> allUsersPayload;
         if (Objects.nonNull(firstName) || Objects.nonNull(lastName)
                 || Objects.nonNull(phone) || Objects.nonNull(email)) {
-            List<ZhemUser> allUsers = this.zhemUserService.findAllUsersBy(firstName, lastName, phone, email);
+            List<ZhemUser> allUsers = this.zhemUserService.findAllClientsBy(firstName, lastName, phone, email);
             allUsersPayload = allUsers.stream()
                     .map(userMapper::fromEntity)
                     .toList();
         } else {
-            try {
-                List<ZhemUser> allUsers = this.zhemUserService.findAllUsers(role);
-                allUsersPayload = allUsers.stream()
-                        .map(userMapper::fromEntity)
-                        .toList();
-            } catch (RoleNotFoundException exception) {
-                throw new BadRequestException(exception.getMessage());
-            }
+            List<ZhemUser> allUsers = this.zhemUserService.findAllClients();
+            allUsersPayload = allUsers.stream()
+                    .map(userMapper::fromEntity)
+                    .toList();
         }
         return ResponseEntity.ok()
                 .body(allUsersPayload);
     }
 
     @GetMapping("/pageable")
-    public ResponseEntity<?> findAllUsersByPage(Pageable pageable) {
-        Page<ZhemUserDto> allUsers = this.zhemUserService.findAllUsersByPage(pageable)
+    public ResponseEntity<?> findAllClientsByPage(Pageable pageable) {
+        Page<ZhemUserDto> allUsers = this.zhemUserService.findAllClientsByPage(pageable)
                 .map(this.userMapper::fromEntity);
 
         return ResponseEntity.ok()

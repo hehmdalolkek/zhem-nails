@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="fixed security filter">
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="fixed save services and show users">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClientImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/response/AppointmentCreationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/response/AppointmentCreationDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/response/AppointmentUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/dto/response/AppointmentUpdateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/appointments/update/update-step-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/request/AppointmentCreationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/dto/request/AppointmentCreationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminZhemUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminZhemUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/service/ZhemUserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +124,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ZhemClientApplication">
+  <component name="RunManager" selected="Spring Boot.ZhemServiceApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="zhem-nails" />
       <method v="2">
@@ -216,14 +219,6 @@
       <workItem from="1713191154900" duration="17260000" />
       <workItem from="1713251344117" duration="7592000" />
       <workItem from="1713262006866" duration="732000" />
-    </task>
-    <task id="LOCAL-00100" summary="added message for error">
-      <option name="closed" value="true" />
-      <created>1713011312587</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1713011312587</updated>
     </task>
     <task id="LOCAL-00101" summary="added handling errors">
       <option name="closed" value="true" />
@@ -609,7 +604,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713339835240</updated>
     </task>
-    <option name="localTasksCounter" value="149" />
+    <task id="LOCAL-00149" summary="fixed save services and show users">
+      <option name="closed" value="true" />
+      <created>1713342392231</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1713342392231</updated>
+    </task>
+    <option name="localTasksCounter" value="150" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -627,7 +630,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="deleted update link" />
     <MESSAGE value="fixed userDetailsBean and registration" />
     <MESSAGE value="added strip() for create/update methods" />
     <MESSAGE value="added redirect to back after delete/update interval" />
@@ -652,7 +654,8 @@
     <MESSAGE value="revert commit &quot;added status for appointment&quot;" />
     <MESSAGE value="added auto creation of roles and cleanup database when starting the app" />
     <MESSAGE value="fixed security filter" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed security filter" />
+    <MESSAGE value="fixed save services and show users" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed save services and show users" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
