@@ -5,7 +5,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
@@ -24,10 +27,14 @@ public class CheckAdminIsExistsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         if (new AntPathRequestMatcher("/admin/**").matches(request)) {
-            boolean isExists = this.zhemUserService.adminIsExists();
-            if (!isExists && !request.getRequestURI().equals("/admin/registration")) {
-                response.sendRedirect("/admin/registration");
-                return;
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth == null || !auth.isAuthenticated()
+                    || !auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+                boolean isExists = this.zhemUserService.adminIsExists();
+                if (!isExists && !request.getRequestURI().equals("/admin/registration")) {
+                    response.sendRedirect("/admin/registration");
+                    return;
+                }
             }
         }
         filterChain.doFilter(request, response);
