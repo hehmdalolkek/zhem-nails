@@ -76,7 +76,7 @@ public class IntervalRestClientImpl implements IntervalRestClient {
                     .body(interval)
                     .retrieve()
                     .toBodilessEntity();
-        } catch (HttpClientErrorException.BadRequest exception) {
+        } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.Conflict exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
         }
@@ -91,9 +91,11 @@ public class IntervalRestClientImpl implements IntervalRestClient {
                     .body(interval)
                     .retrieve()
                     .toBodilessEntity();
-        } catch (HttpClientErrorException.BadRequest exception) {
+        } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.Conflict exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
         }
     }
 
@@ -104,11 +106,11 @@ public class IntervalRestClientImpl implements IntervalRestClient {
                     .uri("/service-api/v1/intervals/interval/{intervalId}", intervalId)
                     .retrieve()
                     .toBodilessEntity();
-        } catch (HttpClientErrorException.NotFound exception) {
-            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
-        } catch (HttpClientErrorException.BadRequest exception) {
+        } catch (HttpClientErrorException.Conflict exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
         }
     }
 }

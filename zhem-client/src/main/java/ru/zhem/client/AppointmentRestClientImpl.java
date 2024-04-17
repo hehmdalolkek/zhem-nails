@@ -10,8 +10,8 @@ import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentUpdateDto;
-import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Map;
@@ -62,14 +62,11 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
                     .body(appointmentDto)
                     .retrieve()
                     .toBodilessEntity();
-        } catch (HttpClientErrorException.BadRequest exception) {
+        } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.Conflict exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            if (problemDetail != null && problemDetail.getProperties() != null
-                    && problemDetail.getProperties().containsKey("errors")) {
-                throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
-            } else {
-                throw new BadRequestException(problemDetail);
-            }
+            throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
         }
     }
 
@@ -82,14 +79,11 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
                     .body(appointmentDto)
                     .retrieve()
                     .toBodilessEntity();
-        } catch (HttpClientErrorException.BadRequest exception) {
+        } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.Conflict exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            if (problemDetail != null && problemDetail.getProperties() != null
-                    && problemDetail.getProperties().containsKey("errors")) {
-                throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
-            } else {
-                throw new BadRequestException(problemDetail);
-            }
+            throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
         }
     }
 
@@ -100,8 +94,8 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
                     .uri("/service-api/v1/appointments/appointment/{appointmentId}", appointmentId)
                     .retrieve()
                     .toBodilessEntity();
-        } catch (HttpClientErrorException exception) {
-            throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
         }
     }
 

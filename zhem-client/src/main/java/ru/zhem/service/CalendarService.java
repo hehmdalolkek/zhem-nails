@@ -1,10 +1,8 @@
 package ru.zhem.service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import ru.zhem.exceptions.BadRequestException;
+import ru.zhem.exceptions.InvalidDateException;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -19,8 +17,7 @@ public class CalendarService {
             month = LocalDate.now().getMonthValue();
         }
         if (month < 1 || month > 12) {
-            throw new BadRequestException(
-                    ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Invalid date"));
+            throw new InvalidDateException("Invalid date");
         }
         YearMonth yearMonth = YearMonth.of(year, month);
         YearMonth prevYearMonth = yearMonth.minusMonths(1);

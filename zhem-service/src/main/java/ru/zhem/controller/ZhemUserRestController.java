@@ -31,23 +31,21 @@ public class ZhemUserRestController {
     private final UserMapper userMapper;
 
     @GetMapping
-    public ResponseEntity<?> findAllUsers(@RequestParam(value = "firstName", required = false) String firstName,
+    public ResponseEntity<?> findAllClients(@RequestParam(value = "firstName", required = false) String firstName,
                                           @RequestParam(value = "lastName", required = false) String lastName,
                                           @RequestParam(value = "phone", required = false) String phone,
                                           @RequestParam(value = "email", required = false) String email) {
         List<ZhemUserDto> allUsersPayload;
+        List<ZhemUser> allUsers;
         if (Objects.nonNull(firstName) || Objects.nonNull(lastName)
                 || Objects.nonNull(phone) || Objects.nonNull(email)) {
-            List<ZhemUser> allUsers = this.zhemUserService.findAllClientsBy(firstName, lastName, phone, email);
-            allUsersPayload = allUsers.stream()
-                    .map(userMapper::fromEntity)
-                    .toList();
+            allUsers = this.zhemUserService.findAllClientsBy(firstName, lastName, phone, email);
         } else {
-            List<ZhemUser> allUsers = this.zhemUserService.findAllClients();
-            allUsersPayload = allUsers.stream()
-                    .map(userMapper::fromEntity)
-                    .toList();
+            allUsers = this.zhemUserService.findAllClients();
         }
+        allUsersPayload = allUsers.stream()
+                .map(userMapper::fromEntity)
+                .toList();
         return ResponseEntity.ok()
                 .body(allUsersPayload);
     }
@@ -97,7 +95,7 @@ public class ZhemUserRestController {
 
     @PostMapping()
     public ResponseEntity<?> createUser(@Valid @RequestBody ZhemUserCreationDto userDto,
-                                        BindingResult bindingResult) throws BindException {
+                                        BindingResult bindingResult) throws BindException, ConflictException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -111,17 +109,17 @@ public class ZhemUserRestController {
                         .body(this.userMapper.fromEntity(createdUser));
             } catch (ZhemUserWithDuplicatePhoneException exception) {
                 bindingResult.addError(new FieldError("ZhemUser", "phone", "Номер телефона уже зарегистрирован"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             } catch (ZhemUserWithDuplicateEmailException exception) {
                 bindingResult.addError(new FieldError("ZhemUser", "email", "Электронная почта уже зарегистрирован"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             }
         }
     }
 
     @PatchMapping("/user/{userId:\\d+}")
     public ResponseEntity<?> updateUserById(@PathVariable("userId") long userId, @Valid @RequestBody ZhemUserUpdateDto userDto,
-                                            BindingResult bindingResult) throws BindException {
+                                            BindingResult bindingResult) throws BindException, ConflictException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -134,13 +132,13 @@ public class ZhemUserRestController {
                 return ResponseEntity.ok()
                         .body(this.userMapper.fromEntity(updatedUser));
             } catch (ZhemUserNotFoundException exception) {
-                throw new BadRequestException(exception.getMessage());
+                throw new NotFoundException(exception.getMessage());
             } catch (ZhemUserWithDuplicatePhoneException exception) {
                 bindingResult.addError(new FieldError("ZhemUser", "phone", "Номер телефона уже зарегистрирован"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             } catch (ZhemUserWithDuplicateEmailException exception) {
                 bindingResult.addError(new FieldError("ZhemUser", "email", "Электронная почта уже зарегистрирован"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             }
         }
     }
@@ -152,7 +150,7 @@ public class ZhemUserRestController {
             return ResponseEntity.ok()
                     .build();
         } catch (ZhemUserNotFoundException exception) {
-            throw new BadRequestException(exception.getMessage());
+            throw new NotFoundException(exception.getMessage());
         }
     }
 

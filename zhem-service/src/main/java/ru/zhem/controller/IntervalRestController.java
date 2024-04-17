@@ -74,7 +74,7 @@ public class IntervalRestController {
 
     @PostMapping
     public ResponseEntity<?> createInterval(@Valid @RequestBody IntervalCreationDto intervalDto,
-                                            BindingResult bindingResult) throws BindException {
+                                            BindingResult bindingResult) throws BindException, ConflictException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -90,7 +90,7 @@ public class IntervalRestController {
                         .body(this.intervalMapper.fromEntity(createdInterval));
             } catch (IntervalWithDuplicateDateTimeException exception) {
                 bindingResult.addError(new FieldError("Interval", "time", "Выбранное время уже занято"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             }
         }
     }
@@ -98,7 +98,7 @@ public class IntervalRestController {
     @PatchMapping("/interval/{intervalId:\\d+}")
     public ResponseEntity<?> updateInterval(@PathVariable("intervalId") long intervalId,
                                             @Valid @RequestBody IntervalUpdateDto intervalDto,
-                                            BindingResult bindingResult) throws BindException {
+                                            BindingResult bindingResult) throws BindException, ConflictException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -111,18 +111,18 @@ public class IntervalRestController {
                         .updateInterval(intervalId, this.intervalMapper.fromUpdateDto(intervalDto));
                 return ResponseEntity.ok()
                         .body(this.intervalMapper.fromEntity(updatedInterval));
-            } catch (NotFoundException exception) {
-                throw new BadRequestException(exception.getMessage());
+            } catch (IntervalNotFoundException exception) {
+                throw new NotFoundException(exception.getMessage());
             } catch (IntervalWithDuplicateDateTimeException exception) {
                 bindingResult.addError(new FieldError("Interval", "time", "Выбранное время уже занято"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             }
         }
     }
 
     @DeleteMapping("/interval/{intervalId:\\d+}")
     public ResponseEntity<?> deleteInterval(@PathVariable("intervalId") long intervalId)
-            throws BindException {
+            throws ConflictException {
         try {
             this.intervalService.deleteIntervalById(intervalId);
             return ResponseEntity.ok()
@@ -132,7 +132,7 @@ public class IntervalRestController {
         } catch (IntervalIsBookedException exception) {
             BindingResult bindingResult = new MapBindingResult(new HashMap<>(), "Interval");
             bindingResult.addError(new FieldError("Interval", "interval", "Интервал забронирован"));
-            throw new BindException(bindingResult);
+            throw new ConflictException(bindingResult);
         }
     }
 

@@ -86,7 +86,7 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
                     .body(user)
                     .retrieve()
                     .toBodilessEntity();
-        } catch (HttpClientErrorException.BadRequest exception) {
+        } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.Conflict exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
         }
@@ -101,9 +101,11 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
                     .body(user)
                     .retrieve()
                     .toBodilessEntity();
-        } catch (HttpClientErrorException.BadRequest exception) {
+        } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.Conflict exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
         }
     }
 
@@ -124,14 +126,10 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
 
     @Override
     public Boolean adminIsExists() {
-        try {
-            return this.restClient.get()
-                    .uri("/service-api/v1/users/user/admin")
-                    .retrieve()
-                    .body(Boolean.class);
-        } catch (HttpClientErrorException.BadRequest exception) {
-            throw new BadRequestException(exception.getResponseBodyAs(ProblemDetail.class));
-        }
+        return this.restClient.get()
+                .uri("/service-api/v1/users/user/admin")
+                .retrieve()
+                .body(Boolean.class);
     }
 
     @Override

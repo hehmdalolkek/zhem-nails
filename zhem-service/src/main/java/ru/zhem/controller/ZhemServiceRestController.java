@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.zhem.dto.mapper.ZhemServiceMapper;
 import ru.zhem.dto.request.ZhemServiceCreationDto;
 import ru.zhem.entity.ZhemService;
+import ru.zhem.exception.ConflictException;
 import ru.zhem.exception.NotFoundException;
 import ru.zhem.exception.ZhemServiceNotFoundException;
 import ru.zhem.exception.ZhemServiceWithDuplicateTitleException;
@@ -36,7 +37,7 @@ public class ZhemServiceRestController {
 
     @PostMapping
     public ResponseEntity<?> createService(@Valid @RequestBody ZhemServiceCreationDto serviceDto,
-                                        BindingResult bindingResult) throws BindException {
+                                        BindingResult bindingResult) throws BindException, ConflictException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -52,7 +53,7 @@ public class ZhemServiceRestController {
             } catch (ZhemServiceWithDuplicateTitleException exception) {
                 bindingResult.addError(new FieldError(
                         "ZhemService", "title", "Услуга с таким названием уже существует"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             }
         }
     }

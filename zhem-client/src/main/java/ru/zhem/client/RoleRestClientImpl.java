@@ -1,6 +1,7 @@
 package ru.zhem.client;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import ru.zhem.dto.request.RoleDto;
 
@@ -12,11 +13,15 @@ public class RoleRestClientImpl implements RoleRestClient {
 
     @Override
     public Optional<RoleDto> findRoleByTitle(String title) {
-        return Optional.ofNullable(
-                this.restClient.get()
-                        .uri("/service-api/v1/roles/role/{title}",title)
-                        .retrieve()
-                        .body(RoleDto.class)
-        );
+        try {
+            return Optional.ofNullable(
+                    this.restClient.get()
+                            .uri("/service-api/v1/roles/role/{title}",title)
+                            .retrieve()
+                            .body(RoleDto.class)
+            );
+        } catch (HttpClientErrorException.NotFound exception) {
+            return Optional.empty();
+        }
     }
 }

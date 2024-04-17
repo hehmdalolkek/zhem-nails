@@ -74,16 +74,14 @@ public class AppointmentRestController {
             Appointment foundedAppointment = this.appointmentService.findAppointmentByIntervalId(intervalId);
             return ResponseEntity.ok()
                     .body(this.appointmentMapper.fromEntity(foundedAppointment));
-        } catch (AppointmentNotFoundException exception) {
+        } catch (AppointmentNotFoundException | IntervalNotFoundException exception) {
             throw new NotFoundException(exception.getMessage());
-        } catch (IntervalNotFoundException exception) {
-            throw new BadRequestException(exception.getMessage());
         }
     }
 
     @PostMapping
     public ResponseEntity<?> createAppointment(@Valid @RequestBody AppointmentCreationDto appointmentDto,
-                                               BindingResult bindingResult) throws BindException {
+                                               BindingResult bindingResult) throws BindException, ConflictException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -97,11 +95,11 @@ public class AppointmentRestController {
                 return ResponseEntity.created(URI.create("/service-api/v1/appointments/appointment/" + createdAppointment.getId()))
                         .body(this.appointmentMapper.fromEntity(createdAppointment));
             } catch (ZhemUserNotFoundException | IntervalNotFoundException | ZhemServiceNotFoundException exception) {
-                throw new BadRequestException(exception.getMessage());
+                throw new NotFoundException(exception.getMessage());
             } catch (IntervalIsBookedException exception) {
                 bindingResult.addError(
                         new FieldError("Appointment", "interval", "Выбранный интервал уже забронирован"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             }
         }
     }
@@ -109,7 +107,7 @@ public class AppointmentRestController {
     @PatchMapping("/appointment/{appointmentId}")
     public ResponseEntity<?> updateAppointment(@PathVariable("appointmentId") long appointmentId,
                                                @Valid @RequestBody AppointmentUpdateDto appointmentDto,
-                                               BindingResult bindingResult) throws BindException {
+                                               BindingResult bindingResult) throws BindException, ConflictException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
                 throw exception;
@@ -124,11 +122,11 @@ public class AppointmentRestController {
                         .body(this.appointmentMapper.fromEntity(updatedAppointment));
             } catch (ZhemUserNotFoundException | IntervalNotFoundException | AppointmentNotFoundException
                      | ZhemServiceNotFoundException exception) {
-                throw new BadRequestException(exception.getMessage());
+                throw new NotFoundException(exception.getMessage());
             } catch (IntervalIsBookedException exception) {
                 bindingResult.addError(
                         new FieldError("Appointment", "interval", "Выбранный интервал уже забронирован"));
-                throw new BindException(bindingResult);
+                throw new ConflictException(bindingResult);
             }
         }
     }

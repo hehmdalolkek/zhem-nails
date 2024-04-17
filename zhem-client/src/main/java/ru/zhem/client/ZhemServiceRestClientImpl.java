@@ -40,7 +40,7 @@ public class ZhemServiceRestClientImpl implements ZhemServiceRestClient {
                     .body(service)
                     .retrieve()
                     .body(ZhemServiceDto.class);
-        } catch (HttpClientErrorException.BadRequest exception) {
+        } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.Conflict exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new CustomBindException((Map<String, String>) problemDetail.getProperties().get("errors"));
         }

@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
 import ru.zhem.entity.Status;
+import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.exceptions.InvalidDateException;
 import ru.zhem.service.CalendarService;
 import ru.zhem.service.IntervalService;
 
@@ -36,12 +39,18 @@ public class AdminIntervalController {
     @GetMapping
     public String showAllIntervals(@RequestParam(value = "year", required = false) Integer year,
                                    @RequestParam(value = "month", required = false) Integer month, Model model) {
-        YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
-        model.addAttribute("statusAvailable", Status.AVAILABLE);
-        model.addAttribute("mapOfIntervals",
-                this.intervalService.generateIntervalCalendarForMonth(yearMonth, false));
+        try {
+            YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
+            model.addAttribute("statusAvailable", Status.AVAILABLE);
+            model.addAttribute("mapOfIntervals",
+                    this.intervalService.generateIntervalCalendarForMonth(yearMonth, false));
 
-        return "/admin/intervals/intervals";
+            return "/admin/intervals/intervals";
+        } catch (InvalidDateException exception) {
+            throw new BadRequestException(ProblemDetail.forStatusAndDetail(
+                    HttpStatus.BAD_REQUEST, "Invalid date"
+            ));
+        }
     }
 
     @PostMapping

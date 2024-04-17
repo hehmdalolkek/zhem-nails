@@ -4,19 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="fixed admin login">
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminCommonController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/ZhemUserUpdate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/ZhemUserUpdatePassword.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/common/profile.html" afterDir="false" />
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added update user-admin data functionality">
+      <change afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/exceptions/InvalidDateException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/errors/ConflictControllerAdvice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/exception/ConflictException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/AppointmentRestClientImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/IntervalRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/IntervalRestClientImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/RoleRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/RoleRestClientImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemServiceRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemServiceRestClientImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClientImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/client/ZhemUserRestClientImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/ZhemUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/ZhemUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/constraints/PasswordMatcherValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/entity/constraints/PasswordMatcherValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/ZhemUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/common/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/common/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminAppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/AdminIntervalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/BadRequestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/errors/BadRequestControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/NotFoundControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/controller/errors/NotFoundControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/CalendarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/java/ru/zhem/service/CalendarService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/BadRequestControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/errors/BadRequestControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/IntervalRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/IntervalRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/NotFoundControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/errors/NotFoundControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/RoleRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/RoleRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemServiceRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemServiceRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/ZhemUserRestController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,11 +96,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ru.zhem.exception" />
       <recent name="ru.zhem.entity" />
       <recent name="ru.zhem.service" />
       <recent name="ru.zhem.client.response" />
       <recent name="ru.zhem.dto.request" />
-      <recent name="ru.zhem.exception" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\templates\admin\auth" />
@@ -108,16 +116,17 @@
       <recent name="D:\projects\java\диплом\zhem-nails\zhem-client\src\main\resources\static" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ru.zhem.controller.errors" />
       <recent name="ru.zhem.dto.response" />
       <recent name="ru.zhem.dto.request" />
       <recent name="ru.zhem.controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.zhem.exceptions" />
+      <recent name="ru.zhem.controller.errors" />
       <recent name="ru.zhem.entity" />
       <recent name="ru.zhem.client.response" />
       <recent name="ru.zhem.dto.response" />
-      <recent name="ru.zhem.dto.request" />
-      <recent name="ru.zhem.controller" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -222,22 +231,6 @@
       <workItem from="1713191154900" duration="17260000" />
       <workItem from="1713251344117" duration="7592000" />
       <workItem from="1713262006866" duration="732000" />
-    </task>
-    <task id="LOCAL-00103" summary="fixed nullPointerException getDetails">
-      <option name="closed" value="true" />
-      <created>1713037325423</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1713037325423</updated>
-    </task>
-    <task id="LOCAL-00104" summary="added CalendarService">
-      <option name="closed" value="true" />
-      <created>1713037375402</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1713037375402</updated>
     </task>
     <task id="LOCAL-00105" summary="implemented findIntervalById">
       <option name="closed" value="true" />
@@ -615,7 +608,23 @@
       <option name="project" value="LOCAL" />
       <updated>1713348185832</updated>
     </task>
-    <option name="localTasksCounter" value="152" />
+    <task id="LOCAL-00152" summary="deleted duplicate field id">
+      <option name="closed" value="true" />
+      <created>1713379453557</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1713379453557</updated>
+    </task>
+    <task id="LOCAL-00153" summary="added update user-admin data functionality">
+      <option name="closed" value="true" />
+      <created>1713379496425</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1713379496425</updated>
+    </task>
+    <option name="localTasksCounter" value="154" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -633,8 +642,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added redirect to back after delete/update interval" />
-    <MESSAGE value="added findUserBy functionality" />
     <MESSAGE value="changed calendarForMonth functionality" />
     <MESSAGE value="added handler for IntervalIsBookedException" />
     <MESSAGE value="fixed IntervalIsBookedException" />
@@ -658,21 +665,8 @@
     <MESSAGE value="fixed save services and show users" />
     <MESSAGE value="replaced search for users with search for clients" />
     <MESSAGE value="fixed admin login" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed admin login" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/zhem-service/src/main/java/ru/zhem/controller/AppointmentRestController.java</url>
-          <line>109</line>
-          <properties class="ru.zhem.controller.AppointmentRestController" method="updateAppointment">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="deleted duplicate field id" />
+    <MESSAGE value="added update user-admin data functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="added update user-admin data functionality" />
   </component>
 </project>

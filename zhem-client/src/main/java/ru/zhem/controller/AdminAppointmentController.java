@@ -47,8 +47,14 @@ public class AdminAppointmentController {
 
     @GetMapping
     public String showAllAppointments(@RequestParam(value = "year", required = false) Integer year, @RequestParam(value = "month", required = false) Integer month, Model model) {
-        YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
-        model.addAttribute("mapOfAppointments", this.appointmentService.generateCalendarForMonth(yearMonth));
+        try {
+            YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
+            model.addAttribute("mapOfAppointments", this.appointmentService.generateCalendarForMonth(yearMonth));
+        } catch (InvalidDateException exception) {
+            throw new BadRequestException(ProblemDetail.forStatusAndDetail(
+                    HttpStatus.BAD_REQUEST, "Invalid date"
+            ));
+        }
 
         return "/admin/appointments/appointments";
     }

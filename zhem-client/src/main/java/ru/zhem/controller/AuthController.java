@@ -79,7 +79,7 @@ public class AuthController {
                 return "/admin/auth/registration";
             } catch (RoleNotFoundException exception) {
                 ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                        HttpStatus.BAD_REQUEST, exception.getMessage()
+                        HttpStatus.NOT_FOUND, exception.getMessage()
                 );
                 throw new NotFoundException(problemDetail);
             }
@@ -129,7 +129,7 @@ public class AuthController {
                 return "/user/auth/registration";
             } catch (RoleNotFoundException exception) {
                 ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                        HttpStatus.BAD_REQUEST, exception.getMessage()
+                        HttpStatus.NOT_FOUND, exception.getMessage()
                 );
                 throw new NotFoundException(problemDetail);
             }
