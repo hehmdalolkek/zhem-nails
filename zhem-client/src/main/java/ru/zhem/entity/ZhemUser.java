@@ -18,8 +18,6 @@ import java.util.Set;
 @Builder
 public class ZhemUser extends BaseEntity {
 
-    private Long id;
-
     @CheckPhoneNumber(message = "Поле должно иметь международный формат номера телефона")
     private String phone;
 
@@ -36,7 +34,7 @@ public class ZhemUser extends BaseEntity {
     @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")
     private String firstName;
 
-    @Size(max = 32, message = "Поле должно быть до 32 символов")
+    @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")
     private String lastName;
 
     private Set<Role> roles;
