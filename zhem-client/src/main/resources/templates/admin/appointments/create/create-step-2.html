@@ -21,6 +21,7 @@
             <input type="hidden" data-th-field="*{intervalId}">
             <input type="hidden" data-th-field="*{userId}">
             <h3>Выберите услуги</h3>
+            <span data-th-if="${errors?.containsKey('services')}" data-th-text="${errors.get('services')}"></span>
             <div style="height: 200px; overflow: auto">
                 <div data-th-each="service : ${services}">
                     <label>
