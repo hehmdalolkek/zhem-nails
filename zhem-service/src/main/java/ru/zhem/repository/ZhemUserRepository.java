@@ -2,6 +2,8 @@ package ru.zhem.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.zhem.entity.Role;
 import ru.zhem.entity.ZhemUser;
@@ -22,8 +24,8 @@ public interface ZhemUserRepository extends JpaRepository<ZhemUser, Long> {
     @EntityGraph(value = "zhem-user_entity-graph")
     Optional<ZhemUser> findByPhone(String phone);
 
-    @EntityGraph(value = "zhem-user_entity-graph")
-    Optional<ZhemUser> findByPhoneAndRolesTitleContainsIgnoreCase(String phone, String role);
+    @Query("select u from ZhemUser u left join u.roles r where u.phone = :phone and r.title = :role")
+    Optional<ZhemUser> findByPhoneAndRole(@Param("phone") String phone, @Param("role") String role);
 
     @EntityGraph(value = "zhem-user_entity-graph")
     List<ZhemUser> findAllByRolesContains(Role role);
