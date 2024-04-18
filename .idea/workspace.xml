@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="added index page">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/common/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/zhem-client/src/main/resources/templates/admin/common/dashboard.html" afterDir="false" />
-    </list>
+    <list default="true" id="dee05cbf-80fb-4c13-b9b5-bc859d843c4c" name="Changes" comment="optimized imports" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -218,23 +215,7 @@
       <workItem from="1713262006866" duration="732000" />
       <workItem from="1713433584268" duration="6567000" />
       <workItem from="1713465610150" duration="5690000" />
-      <workItem from="1713472018473" duration="700000" />
-    </task>
-    <task id="LOCAL-00118" summary="fixed update interval functionality">
-      <option name="closed" value="true" />
-      <created>1713097581201</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1713097581201</updated>
-    </task>
-    <task id="LOCAL-00119" summary="moved js to intervals.js">
-      <option name="closed" value="true" />
-      <created>1713120909355</created>
-      <option name="number" value="00119" />
-      <option name="presentableId" value="LOCAL-00119" />
-      <option name="project" value="LOCAL" />
-      <updated>1713120909355</updated>
+      <workItem from="1713472018473" duration="797000" />
     </task>
     <task id="LOCAL-00120" summary="added delete appointment functionality">
       <option name="closed" value="true" />
@@ -612,7 +593,23 @@
       <option name="project" value="LOCAL" />
       <updated>1713470530582</updated>
     </task>
-    <option name="localTasksCounter" value="167" />
+    <task id="LOCAL-00167" summary="replaced data-th to th: in thymeleaf templates">
+      <option name="closed" value="true" />
+      <created>1713472779430</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1713472779431</updated>
+    </task>
+    <task id="LOCAL-00168" summary="optimized imports">
+      <option name="closed" value="true" />
+      <created>1713472801485</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1713472801486</updated>
+    </task>
+    <option name="localTasksCounter" value="169" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -630,8 +627,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added create functionality for appointment with ZhemService" />
-    <MESSAGE value="optimized imports" />
     <MESSAGE value="Revert &quot;added status for appointment&quot;&#10;&#10;This reverts commit 74c47d00" />
     <MESSAGE value=".idea" />
     <MESSAGE value="revert commit &quot;added status for appointment&quot;" />
@@ -655,7 +650,9 @@
     <MESSAGE value="replaced defaultSuccessUrl for users" />
     <MESSAGE value="added intervals for all users" />
     <MESSAGE value="added index page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added index page" />
+    <MESSAGE value="replaced data-th to th: in thymeleaf templates" />
+    <MESSAGE value="optimized imports" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimized imports" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
