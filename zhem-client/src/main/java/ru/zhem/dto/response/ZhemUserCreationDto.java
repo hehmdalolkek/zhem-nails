@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.zhem.dto.constraints.CheckPhoneNumber;
-import ru.zhem.dto.constraints.NullOrNotBlank;
 import ru.zhem.dto.request.RoleDto;
 
 import java.util.Set;

@@ -11,7 +11,6 @@ import ru.zhem.dto.request.ZhemUserAuthDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.ZhemUserCreationDto;
 import ru.zhem.dto.response.ZhemUserUpdateDto;
-import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
 import ru.zhem.exceptions.NotFoundException;
 

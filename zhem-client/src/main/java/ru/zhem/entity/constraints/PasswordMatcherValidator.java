@@ -3,7 +3,6 @@ package ru.zhem.entity.constraints;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import ru.zhem.entity.ZhemUser;
-import ru.zhem.entity.ZhemUserUpdate;
 import ru.zhem.entity.ZhemUserUpdatePassword;
 
 public class PasswordMatcherValidator implements ConstraintValidator<PasswordMatcher, Object> {

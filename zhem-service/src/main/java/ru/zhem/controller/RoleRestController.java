@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.zhem.dto.mapper.RoleMapper;
 import ru.zhem.dto.request.RoleCreationDto;
 import ru.zhem.entity.Role;
-import ru.zhem.exception.*;
+import ru.zhem.exception.ConflictException;
+import ru.zhem.exception.NotFoundException;
+import ru.zhem.exception.RoleNotFoundException;
+import ru.zhem.exception.RoleWithDuplicateTitleException;
 import ru.zhem.service.RoleService;
 
 @RestController

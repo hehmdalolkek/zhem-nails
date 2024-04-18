@@ -11,7 +11,6 @@ import ru.zhem.entity.ZhemUser;
 import ru.zhem.exception.ZhemUserNotFoundException;
 import ru.zhem.exception.ZhemUserWithDuplicateEmailException;
 import ru.zhem.exception.ZhemUserWithDuplicatePhoneException;
-import ru.zhem.repository.RoleRepository;
 import ru.zhem.repository.ZhemUserRepository;
 
 import java.util.List;
