@@ -104,7 +104,7 @@ public class SecurityBeans {
                             .loginPage("/user/login").permitAll()
                             .loginProcessingUrl("/user/login")
                             .failureUrl("/user/login?error=loginError")
-                            .defaultSuccessUrl("/", true))
+                            .defaultSuccessUrl("/", false))
                     .logout(logout -> logout
                             .logoutUrl("/user/logout")
                             .logoutSuccessUrl("/")
