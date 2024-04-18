@@ -79,7 +79,9 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
                 .phone(user.getPhone())
                 .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
                 .firstName(user.getFirstName())
-                .lastName(user.getLastName() != null && user.getLastName().isBlank() ? null : user.getLastName())
+                .lastName(user.getLastName() != null && user.getLastName().isBlank()
+                        && user.getLastName().length() < 2 ? null
+                        : user.getLastName())
                 .password(user.getPassword())
                 .roles(roles)
                 .build();
@@ -92,7 +94,9 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
                 .phone(user.getPhone())
                 .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
                 .firstName(user.getFirstName())
-                .lastName(user.getLastName() != null && user.getLastName().isBlank() ? null : user.getLastName())
+                .lastName(user.getLastName() != null && user.getLastName().isBlank()
+                        && user.getLastName().length() < 2 ? null
+                        : user.getLastName())
                 .password(user.getPassword())
                 .build();
         this.zhemUserRestClient.updateUser(userId, userDto);
