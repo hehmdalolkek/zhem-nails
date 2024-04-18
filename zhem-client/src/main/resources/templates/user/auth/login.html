@@ -5,21 +5,24 @@
     <title>Zhem-nails - авторизация</title>
 </head>
 <body>
-<h1>Please Log In</h1>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/user/login}" method="post">
-    <div>
-        <input type="text" name="username" placeholder="Username"/>
-    </div>
-    <div>
-        <input type="password" name="password" placeholder="Password"/>
-    </div>
-    <input type="submit" value="Log in" />
-</form>
+    <div data-th-replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
+    <main>
+        <h1>Please Log In</h1>
+        <div data-th-if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div data-th-if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form data-th-action="@{/user/login}" method="post">
+            <div>
+                <input type="text" name="username" placeholder="Username"/>
+            </div>
+            <div>
+                <input type="password" name="password" placeholder="Password"/>
+            </div>
+            <input type="submit" value="Log in" />
+        </form>
+    </main>
 </body>
 </html>
