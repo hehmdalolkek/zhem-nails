@@ -91,12 +91,14 @@ public class SecurityBeans {
         public SecurityFilterChain clientSecurityFilterChain(HttpSecurity http,
                                                              HandlerMappingIntrospector introspector) throws Exception {
             MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
-            http.securityMatcher("/user/**")
+            http.securityMatcher("/**")
                     .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                             .requestMatchers(mvcMatcherBuilder.pattern("/user/registration"))
                             .anonymous()
                             .requestMatchers(mvcMatcherBuilder.pattern("/user/**"))
-                            .hasRole("CLIENT"))
+                            .hasRole("CLIENT")
+                            .requestMatchers(mvcMatcherBuilder.pattern("/**"))
+                            .permitAll())
                     .userDetailsService(this.userDetailsService)
                     .formLogin(form -> form
                             .loginPage("/user/login").permitAll()
