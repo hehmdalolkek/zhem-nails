@@ -41,7 +41,7 @@ public class AuthController {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        return "redirect:/admin/login?logout";
+        return "redirect:/";
     }
 
     @GetMapping("/admin/registration")
@@ -98,7 +98,7 @@ public class AuthController {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        return "redirect:/user/login?logout";
+        return "redirect:/";
     }
 
     @GetMapping("/user/registration")

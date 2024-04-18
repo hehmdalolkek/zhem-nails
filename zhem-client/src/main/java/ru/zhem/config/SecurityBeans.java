@@ -63,7 +63,7 @@ public class SecurityBeans {
                             .defaultSuccessUrl("/admin/dashboard", true))
                     .logout(logout -> logout
                             .logoutUrl("/admin/logout")
-                            .logoutSuccessUrl("/admin/login")
+                            .logoutSuccessUrl("/")
                             .deleteCookies("JSESSIONID"));
 
             return http.build();
@@ -105,7 +105,7 @@ public class SecurityBeans {
                             .defaultSuccessUrl("/", true))
                     .logout(logout -> logout
                             .logoutUrl("/user/logout")
-                            .logoutSuccessUrl("/user/login")
+                            .logoutSuccessUrl("/")
                             .deleteCookies("JSESSIONID"));
 
             return http.build();
