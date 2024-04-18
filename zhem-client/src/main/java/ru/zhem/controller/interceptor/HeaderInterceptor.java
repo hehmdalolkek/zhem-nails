@@ -1,4 +1,4 @@
-package ru.zhem.controller.handler;
+package ru.zhem.controller.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ public class HeaderInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
                            Object handler, ModelAndView modelAndView) {
-        if (modelAndView != null && !modelAndView.getViewName().startsWith("redirect:")) {
+        if (modelAndView != null) {
             Principal principal = request.getUserPrincipal();
             if (principal != null) {
                 ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
