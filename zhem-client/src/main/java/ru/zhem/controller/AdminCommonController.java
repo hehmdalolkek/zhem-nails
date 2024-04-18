@@ -26,8 +26,8 @@ import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.entity.ZhemUserUpdate;
 import ru.zhem.entity.ZhemUserUpdatePassword;
-import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.exceptions.NotFoundException;
 import ru.zhem.service.ZhemUserService;
 
 import java.util.HashMap;
@@ -61,8 +61,8 @@ public class AdminCommonController {
             model.addAttribute("user", user);
             return "/admin/common/profile";
         } catch (UsernameNotFoundException exception) {
-            throw new BadRequestException(ProblemDetail.forStatusAndDetail(
-                    HttpStatus.BAD_REQUEST, exception.getMessage()
+            throw new NotFoundException(ProblemDetail.forStatusAndDetail(
+                    HttpStatus.NOT_FOUND, exception.getMessage()
             ));
         }
     }
