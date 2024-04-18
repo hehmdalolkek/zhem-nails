@@ -8,13 +8,13 @@
     <title>Zhem-nails - изменить запись</title>
 </head>
 <body>
-    <div data-th-replace="fragments/header :: #header_admin"></div>
+    <div th:replace="fragments/header :: #header_admin"></div>
     <nav>
-        <a data-th-href="@{/admin/appointments/interval/__${appointment.getIntervalId()}__}"><- Назад</a>
+        <a th:href="@{/admin/appointments/interval/__${appointment.getIntervalId()}__}"><- Назад</a>
     </nav>
     <main>
         <div>
-            <h1 data-th-text="'Изменение записи №' + ${appointmentId}"></h1>
+            <h1 th:text="'Изменение записи №' + ${appointmentId}"></h1>
             <h2>Шаг 1 - Изменение клиента</h2>
             <form method="get">
                 <label>Имя
@@ -30,29 +30,29 @@
                     <input type="email" name="email" placeholder="ivanov@email.com"/>
                 </label>
                 <input type="submit" value="Поиск">
-                <a data-th-href="@{/admin/appointments/update/__${appointmentId}__/step1}">Отмена</a>
+                <a th:href="@{/admin/appointments/update/__${appointmentId}__/step1}">Отмена</a>
             </form>
             <form method="post"
-                  data-th-action="@{/admin/appointments/update/__${appointmentId}__/step2}"
-                  data-th-object="${appointment}"
+                  th:action="@{/admin/appointments/update/__${appointmentId}__/step2}"
+                  th:object="${appointment}"
             >
-                <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
-                <input type="hidden" data-th-field="*{intervalId}">
-                <input type="hidden" data-th-field="*{services}">
-                <input type="hidden" data-th-field="*{details}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" th:field="*{intervalId}">
+                <input type="hidden" th:field="*{services}">
+                <input type="hidden" th:field="*{details}">
                 <div style="height: 200px; overflow: auto">
-                    <div data-th-each="user : ${users}">
+                    <div th:each="user : ${users}">
                         <label>
                             <input type="radio"
-                                   data-th-field="*{userId}"
-                                   data-th-value="${user.getId()}"
-                                   data-th-checked="${appointment.userId.equals(user.getId())}"
+                                   th:field="*{userId}"
+                                   th:value="${user.getId()}"
+                                   th:checked="${appointment.userId.equals(user.getId())}"
                             >
-                            <span data-th-text="${user.getId()}"></span>
-                            <span data-th-text="${user.getFirstName()}"></span>
-                            <span data-th-text="${user.getLastName()}"></span>
-                            <span data-th-text="${user.getPhone()}"></span>
-                            <span data-th-text="${user.getEmail()}"></span>
+                            <span th:text="${user.getId()}"></span>
+                            <span th:text="${user.getFirstName()}"></span>
+                            <span th:text="${user.getLastName()}"></span>
+                            <span th:text="${user.getPhone()}"></span>
+                            <span th:text="${user.getEmail()}"></span>
                         </label>
                     </div>
                 </div>

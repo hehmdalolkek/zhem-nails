@@ -8,29 +8,29 @@
     <title>Zhem-nails - интервалы для записи</title>
 </head>
 <body>
-    <div data-th-replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
+    <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main>
         <h1>Свободные интервалы для записи</h1>
         <div>
-            <a data-th-href="@{/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+            <a th:href="@{/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                 Предыдущий
             </a>
-            <a data-th-href="@{/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+            <a th:href="@{/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
                 Следующий
             </a>
         </div>
-        <div data-th-each="entry : ${mapOfIntervals}">
-            <h3 data-th-text="${entry.getKey()} + ':'"></h3>
-            <div data-th-if="${entry.getValue().isEmpty()}">
+        <div th:each="entry : ${mapOfIntervals}">
+            <h3 th:text="${entry.getKey()} + ':'"></h3>
+            <div th:if="${entry.getValue().isEmpty()}">
                 <p>Нет интервалов</p>
             </div>
-            <table data-th-if="${!entry.getValue().isEmpty()}">
-                <tr data-th-each="interval : ${entry.getValue()}">
+            <table th:if="${!entry.getValue().isEmpty()}">
+                <tr th:each="interval : ${entry.getValue()}">
                     <td>
-                        <span data-th-text="${interval.getTime()}"></span>
+                        <span th:text="${interval.getTime()}"></span>
                     </td>
                     <td>
-                        <a data-th-href="@{/user/appointments/create/step1?intervalId=__${interval.getId()}__}">
+                        <a th:href="@{/user/appointments/create/step1?intervalId=__${interval.getId()}__}">
                             Записаться
                         </a>
                     </td>

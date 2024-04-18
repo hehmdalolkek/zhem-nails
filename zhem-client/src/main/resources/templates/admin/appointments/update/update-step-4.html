@@ -8,24 +8,24 @@
     <title>Zhem-nails - изменить запись</title>
 </head>
 <body>
-    <div data-th-replace="fragments/header :: #header_admin"></div>
+    <div th:replace="fragments/header :: #header_admin"></div>
     <nav>
-        <a data-th-href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
+        <a th:href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
     </nav>
     <main>
         <div>
-            <h1 data-th-text="'Изменение записи №' + ${appointmentId}"></h1>
+            <h1 th:text="'Изменение записи №' + ${appointmentId}"></h1>
             <h2>Шаг 4 - Изменение комментария</h2>
             <form method="post"
-                  data-th-action="@{/admin/appointments/update/__${appointmentId}__/step5}"
-                  data-th-object="${appointment}"
+                  th:action="@{/admin/appointments/update/__${appointmentId}__/step5}"
+                  th:object="${appointment}"
             >
-                <input type="hidden" data-th-name="${_csrf.parameterName}" data-th-value="${_csrf.token}"/>
-                <input type="hidden" data-th-field="*{userId}">
-                <input type="hidden" data-th-field="*{intervalId}">
-                <input type="hidden" data-th-field="*{services}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" th:field="*{userId}">
+                <input type="hidden" th:field="*{intervalId}">
+                <input type="hidden" th:field="*{services}">
                 <label>
-                    <textarea data-th-field="*{details}"></textarea>
+                    <textarea th:field="*{details}"></textarea>
                 </label>
                 <input type="submit" value="Сохранить">
             </form>

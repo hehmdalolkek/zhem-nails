@@ -8,14 +8,14 @@
     <title>Zhem-nails - панель администратора</title>
 </head>
 <body>
-    <div data-th-replace="fragments/header :: #header_admin"></div>
+    <div th:replace="~{fragments/header :: #header_admin}"></div>
 
     <nav>
         <ul>
-            <li><a data-th-href="@{/admin/users}">Показать всех пользователей</a></li>
-            <li><a data-th-href="@{/admin/intervals}">Показать все рабочие интервалы</a></li>
-            <li><a data-th-href="@{/admin/appointments}">Показать все записи</a></li>
-            <li><a data-th-href="@{/admin/services}">Показать все услуги</a></li>
+            <li><a th:href="@{/admin/users}">Показать всех пользователей</a></li>
+            <li><a th:href="@{/admin/intervals}">Показать все рабочие интервалы</a></li>
+            <li><a th:href="@{/admin/appointments}">Показать все записи</a></li>
+            <li><a th:href="@{/admin/services}">Показать все услуги</a></li>
         </ul>
     </nav>
     <main>

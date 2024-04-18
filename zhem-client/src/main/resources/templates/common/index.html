@@ -8,11 +8,11 @@
     <title>Zhem-nails - панель администратора</title>
 </head>
 <body>
-    <div data-th-replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
+    <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
 
     <nav>
         <ul>
-            <li><a data-th-href="@{/intervals}">Показать все свободные интервалы</a></li>
+            <li><a th:href="@{/intervals}">Показать все свободные интервалы</a></li>
         </ul>
     </nav>
     <main>

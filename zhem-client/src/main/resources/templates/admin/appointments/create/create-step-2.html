@@ -8,29 +8,29 @@
     <title>Zhem-nails - запись клиента</title>
 </head>
 <body>
-    <div data-th-replace="fragments/header :: #header_admin"></div>
+    <div th:replace="fragments/header :: #header_admin"></div>
     <nav>
-        <a data-th-href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
+        <a th:href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
     </nav>
     <main>
         <h2>Запись клиента</h2>
-        <h3 data-th-text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
+        <h3 th:text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
         <form method="post"
-              data-th-action="@{/admin/appointments/create/step3}"
-              data-th-object="${appointment}"
+              th:action="@{/admin/appointments/create/step3}"
+              th:object="${appointment}"
         >
-            <input type="hidden" data-th-field="*{intervalId}">
-            <input type="hidden" data-th-field="*{userId}">
+            <input type="hidden" th:field="*{intervalId}">
+            <input type="hidden" th:field="*{userId}">
             <h3>Выберите услуги</h3>
-            <span data-th-if="${errors?.containsKey('services')}" data-th-text="${errors.get('services')}"></span>
+            <span th:if="${errors?.containsKey('services')}" th:text="${errors.get('services')}"></span>
             <div style="height: 200px; overflow: auto">
-                <div data-th-each="service : ${services}">
+                <div th:each="service : ${services}">
                     <label>
                         <input type="checkbox"
-                               data-th-field="*{services}"
-                               data-th-value="${service.getId()}"
+                               th:field="*{services}"
+                               th:value="${service.getId()}"
                         >
-                        <span data-th-text="${service.getTitle()}"></span>
+                        <span th:text="${service.getTitle()}"></span>
                     </label>
                 </div>
             </div>

@@ -8,7 +8,7 @@
     <title>Zhem-nails - ошибка</title>
 </head>
 <body>
-    <h1 data-th-text="${status} + ': ' + ${title}"></h1>
-    <h2 data-th-text="${detail}"></h2>
+    <h1 th:text="${status} + ': ' + ${title}"></h1>
+    <h2 th:text="${detail}"></h2>
 </body>
 </html>

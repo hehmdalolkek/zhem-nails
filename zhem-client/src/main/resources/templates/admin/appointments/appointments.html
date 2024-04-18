@@ -8,30 +8,30 @@
     <title>Zhem-nails - все записи</title>
 </head>
 <body>
-    <div data-th-replace="fragments/header :: #header_admin"></div>
+    <div th:replace="fragments/header :: #header_admin"></div>
     <nav>
-        <a data-th-href="@{/admin/dashboard}"><- Назад</a>
+        <a th:href="@{/admin/dashboard}"><- Назад</a>
     </nav>
     <main>
-        <h2 data-th-text="${message}"></h2>
+        <h2 th:text="${message}"></h2>
         <div>
-            <a data-th-href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+            <a th:href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                 Предыдущий
             </a>
-            <a data-th-href="@{/admin/appointments?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+            <a th:href="@{/admin/appointments?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
                 Следующий
             </a>
         </div>
-        <div data-th-each="entry : ${mapOfAppointments}">
-            <h3 data-th-text="${entry.getKey()} + ':'"></h3>
+        <div th:each="entry : ${mapOfAppointments}">
+            <h3 th:text="${entry.getKey()} + ':'"></h3>
             <table>
-                <tr data-th-each="appointment : ${entry.getValue()}">
-                    <td data-th-text="${appointment.getId()}"></td>
-                    <td data-th-text="${appointment.getInterval().getTime()}"></td>
-                    <td data-th-text="${appointment.getUser().getPhone()}"></td>
-                    <td data-th-text="${appointment.getUser().getFirstName()}"></td>
-                    <td data-th-text="${appointment.getUser().getLastName()}"></td>
-                    <td data-th-text="${appointment.getDetails()}"></td>
+                <tr th:each="appointment : ${entry.getValue()}">
+                    <td th:text="${appointment.getId()}"></td>
+                    <td th:text="${appointment.getInterval().getTime()}"></td>
+                    <td th:text="${appointment.getUser().getPhone()}"></td>
+                    <td th:text="${appointment.getUser().getFirstName()}"></td>
+                    <td th:text="${appointment.getUser().getLastName()}"></td>
+                    <td th:text="${appointment.getDetails()}"></td>
                 </tr>
             </table>
         </div>

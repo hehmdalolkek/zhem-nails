@@ -1,10 +1,10 @@
 <header id="header_admin">
     <ul>
         <li>
-            <a data-th-href="@{/admin/profile}"><span data-th-text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
+            <a th:href="@{/admin/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
         </li>
         <li>
-            <a data-th-href="@{/admin/logout}">Выйти</a>
+            <a th:href="@{/admin/logout}">Выйти</a>
         </li>
     </ul>
 </header>
@@ -12,17 +12,17 @@
 <header id="header_client">
     <ul>
         <li>
-            <a data-th-href="@{/user/profile}"><span data-th-text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
+            <a th:href="@{/user/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
         </li>
         <li>
-            <a data-th-href="@{/user/logout}">Выйти</a>
+            <a th:href="@{/user/logout}">Выйти</a>
         </li>
     </ul>
 </header>
 
 <header id="header_guest">
     <ul>
-        <li><a data-th-href="@{/user/login}">Войти</a></li>
-        <li><a data-th-href="@{/user/registration}">Зарегистрироваться</a></li>
+        <li><a th:href="@{/user/login}">Войти</a></li>
+        <li><a th:href="@{/user/registration}">Зарегистрироваться</a></li>
     </ul>
 </header>
