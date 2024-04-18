@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - панель администратора</title>
+</head>
+<body>
+    <div data-th-replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
+
+    <nav>
+        <ul>
+            <li><a data-th-href="@{/intervals}">Показать все свободные интервалы</a></li>
+        </ul>
+    </nav>
+    <main>
+
+    </main>
+</body>
+</html>
