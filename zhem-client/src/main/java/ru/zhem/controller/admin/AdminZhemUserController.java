@@ -1,4 +1,4 @@
-package ru.zhem.controller;
+package ru.zhem.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

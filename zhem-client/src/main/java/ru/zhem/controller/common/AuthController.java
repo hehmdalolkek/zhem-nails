@@ -1,4 +1,4 @@
-package ru.zhem.controller;
+package ru.zhem.controller.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
