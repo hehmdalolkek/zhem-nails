@@ -1,6 +1,8 @@
 package ru.zhem.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.zhem.client.AppointmentRestClient;
 import ru.zhem.dto.request.AppointmentDto;
@@ -23,8 +25,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRestClient appointmentRestClient;
 
     @Override
-    public List<DailyAppointmentDto> findAllAppointmentsByUser(long userId) {
-        return null;
+    public Page<AppointmentDto> findAllAppointmentsByUser(long userId, Pageable pageable) {
+        return this.appointmentRestClient.findAllAppointmentsByUser(userId, pageable);
     }
 
     @Override

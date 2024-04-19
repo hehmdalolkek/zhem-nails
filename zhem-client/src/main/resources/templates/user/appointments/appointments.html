@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nail - все записи</title>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: #header_client}"></div>
+    <main>
+        <h1>История записей</h1>
+        <div th:each="appointment : ${appointments.content}">
+            <h3 th:text="${appointment.getInterval().getDate} + ' - ' + ${appointment.getInterval().getTime()}"></h3>
+            <ul>
+                <li th:each="service : ${appointment.services}" th:text="${service.getTitle()}"></li>
+            </ul>
+            <p th:text="${appointment.getDetails() ?: 'Комментария нет'}"></p>
+            <p th:text="'Создано: ' + ${appointment.getCreatedAt().toLocalDate()}"></p>
+        </div>
+        <div class="pagination">
+            <ul>
+                <li th:if="${appointments.hasPrevious()}">
+                    <a th:href="@{'/user/appointments?page=' + ${appointments.number - 1}}">Previous</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, appointments.totalPages - 1)}">
+                    <a th:href="@{'/user/appointments?page=' + ${page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${appointments.hasNext()}">
+                    <a th:href="@{'/user/appointments?page=' + ${appointments.number + 1}}">Next</a>
+                </li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

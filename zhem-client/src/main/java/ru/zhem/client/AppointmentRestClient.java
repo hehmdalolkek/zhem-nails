@@ -1,5 +1,8 @@
 package ru.zhem.client;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import ru.zhem.client.response.PaginatedResponse;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
@@ -10,7 +13,7 @@ import java.util.Optional;
 
 public interface AppointmentRestClient {
 
-    List<DailyAppointmentDto> findAllAppointmentsByUser(long userId);
+    Page<AppointmentDto> findAllAppointmentsByUser(long userId, Pageable pageable);
 
     List<DailyAppointmentDto> findAllAppointments(int year, int month);
 

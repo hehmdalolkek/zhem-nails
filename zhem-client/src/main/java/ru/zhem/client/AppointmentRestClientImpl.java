@@ -2,10 +2,13 @@ package ru.zhem.client;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
+import ru.zhem.client.response.PaginatedResponse;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
@@ -23,12 +26,19 @@ public class AppointmentRestClientImpl implements AppointmentRestClient {
     private static final ParameterizedTypeReference<List<DailyAppointmentDto>> APPOINTMENT_TYPE_REFERENCE =
             new ParameterizedTypeReference<>() {
             };
+    private static final ParameterizedTypeReference<PaginatedResponse<AppointmentDto>> APPOINTMENT_PAGE_TYPE_REFERENCE =
+            new ParameterizedTypeReference<>() {
+            };
 
     private final RestClient restClient;
 
     @Override
-    public List<DailyAppointmentDto> findAllAppointmentsByUser(long userId) {
-        return null;
+    public Page<AppointmentDto> findAllAppointmentsByUser(long userId, Pageable pageable) {
+        return this.restClient.get()
+                .uri("/service-api/v1/appointments/user/{userId}?page={page}&size={size}",
+                        userId, pageable.getPageNumber(), pageable.getPageSize())
+                .retrieve()
+                .body(APPOINTMENT_PAGE_TYPE_REFERENCE);
     }
 
     @Override

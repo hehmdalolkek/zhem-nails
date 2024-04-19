@@ -12,6 +12,9 @@
 <header id="header_client">
     <ul>
         <li>
+            <a th:href="@{/user/appointments}">История записей</a>
+        </li>
+        <li>
             <a th:href="@{/user/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
         </li>
         <li>
