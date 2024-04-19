@@ -2,6 +2,7 @@ package ru.zhem.client;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.client.HttpClientErrorException;
@@ -40,7 +41,7 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     }
 
     @Override
-    public PaginatedResponse<ZhemUserDto> findAllClientsByPage(int page, int size) {
+    public Page<ZhemUserDto> findAllClientsByPage(int page, int size) {
         return this.restClient.get()
                 .uri("/service-api/v1/users/pageable?page={page}&size={size}",
                         page, size)

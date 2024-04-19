@@ -1,6 +1,6 @@
 package ru.zhem.client;
 
-import ru.zhem.client.response.PaginatedResponse;
+import org.springframework.data.domain.Page;
 import ru.zhem.dto.request.ZhemUserAuthDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.ZhemUserCreationDto;
@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ZhemUserRestClient {
     List<ZhemUserDto> findAllClients();
 
-    PaginatedResponse<ZhemUserDto> findAllClientsByPage(int page, int size);
+    Page<ZhemUserDto> findAllClientsByPage(int page, int size);
 
     Optional<ZhemUserDto> findUserById(Long id);
 

@@ -2,6 +2,7 @@ package ru.zhem.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.zhem.client.RoleRestClient;
 import ru.zhem.client.ZhemUserRestClient;
-import ru.zhem.client.response.PaginatedResponse;
 import ru.zhem.dto.request.RoleDto;
 import ru.zhem.dto.request.ZhemUserAuthDto;
 import ru.zhem.dto.request.ZhemUserDto;
@@ -52,7 +52,7 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     }
 
     @Override
-    public PaginatedResponse<ZhemUserDto> findAllClientsByPage(int page, int size) {
+    public Page<ZhemUserDto> findAllClientsByPage(int page, int size) {
         return this.zhemUserRestClient.findAllClientsByPage(page, size);
     }
 
