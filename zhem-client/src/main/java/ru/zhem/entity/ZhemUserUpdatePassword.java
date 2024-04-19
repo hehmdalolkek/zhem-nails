@@ -23,4 +23,14 @@ public class ZhemUserUpdatePassword {
 
     private String confirmPassword;
 
+    @Override
+    public String toString() {
+        return "ZhemUserUpdatePassword{" +
+                "id=" + id +
+                ", phone='" + phone + '\'' +
+                ", currentPassword='[PROTECTED]" + '\'' +
+                ", password='[PROTECTED]" + '\'' +
+                ", confirmPassword='[PROTECTED]" + '\'' +
+                '}';
+    }
 }

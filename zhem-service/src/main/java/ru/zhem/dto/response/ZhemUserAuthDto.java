@@ -1,9 +1,6 @@
 package ru.zhem.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -20,5 +17,10 @@ public class ZhemUserAuthDto {
     private String password;
 
     private Set<RoleDto> roles;
+
+    @ToString.Include(name = "password")
+    private String maskPassword() {
+        return "[PROTECTED]";
+    }
 
 }

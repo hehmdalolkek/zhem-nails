@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ru.zhem.dto.response.RoleDto;
 import ru.zhem.entity.constraints.CheckPhoneNumber;
 import ru.zhem.entity.constraints.NullOrNotBlank;
@@ -39,5 +40,10 @@ public class ZhemUserCreationDto {
 
     @NotNull(message = "Поле не должно быть пустым")
     private Set<RoleDto> roles;
+
+    @ToString.Include(name = "password")
+    private String maskPassword() {
+        return "[PROTECTED]";
+    }
 
 }

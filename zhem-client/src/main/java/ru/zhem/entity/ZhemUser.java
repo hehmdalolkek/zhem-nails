@@ -39,5 +39,17 @@ public class ZhemUser extends BaseEntity {
 
     private Set<Role> roles;
 
+    @Override
+    public String toString() {
+        return "ZhemUser{" +
+                "phone='" + phone + '\'' +
+                ", password='[PROTECTED]" + '\'' +
+                ", confirmPassword='[PROTECTED]" + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }
 

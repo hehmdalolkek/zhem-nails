@@ -2,10 +2,7 @@ package ru.zhem.dto.response;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.zhem.dto.constraints.CheckPhoneNumberOrNull;
 import ru.zhem.dto.constraints.NullOrNotBlank;
 
@@ -32,5 +29,10 @@ public class ZhemUserUpdateDto {
 
     @Size(max = 32, message = "Поле должно быть до 32 символов")
     private String lastName;
+
+    @ToString.Include(name = "password")
+    private String maskPassword() {
+        return "[PROTECTED]";
+    }
 
 }

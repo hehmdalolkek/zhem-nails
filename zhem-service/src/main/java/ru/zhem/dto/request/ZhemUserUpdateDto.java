@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ru.zhem.entity.constraints.CheckPhoneNumberOrNull;
 import ru.zhem.entity.constraints.NullOrNotBlank;
 
@@ -31,5 +32,10 @@ public class ZhemUserUpdateDto {
     @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")
     @NullOrNotBlank(message = "Поле должно содержать хотя бы 2 символа, либо быть полностью пустым")
     private String lastName;
+
+    @ToString.Include(name = "password")
+    private String maskPassword() {
+        return "[PROTECTED]";
+    }
 
 }

@@ -65,5 +65,10 @@ public class ZhemUser extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @ToString.Include(name = "password")
+    private String maskPassword() {
+        return "[PROTECTED]";
+    }
+
 }
 
