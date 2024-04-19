@@ -2,6 +2,7 @@ package ru.zhem.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +22,6 @@ import ru.zhem.exceptions.RoleNotFoundException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Qualifier("zhemUserDetailsService")
 @Service
@@ -36,13 +36,13 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
         ZhemUserAuthDto user = zhemUserRestClient.findUserAuthByPhone(phone, false)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-
+        List<SimpleGrantedAuthority> roles = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getTitle()))
+                .toList();
         return User.builder()
                 .username(user.getPhone())
                 .password(user.getPassword())
-                .roles(user.getRoles().stream()
-                        .map(RoleDto::getTitle)
-                        .collect(Collectors.joining()))
+                .authorities(roles)
                 .build();
     }
 
