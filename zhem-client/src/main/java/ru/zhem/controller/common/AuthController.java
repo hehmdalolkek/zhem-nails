@@ -35,15 +35,6 @@ public class AuthController {
         return "/admin/auth/login";
     }
 
-    @GetMapping("/admin/logout")
-    public String logoutAdmin(HttpServletRequest request, HttpServletResponse response) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
-            new SecurityContextLogoutHandler().logout(request, response, authentication);
-        }
-        return "redirect:/";
-    }
-
     @GetMapping("/admin/registration")
     public String initRegistrationAdminPage() {
         if (this.zhemUserService.adminIsExists()) {
@@ -90,15 +81,6 @@ public class AuthController {
     @GetMapping("/user/login")
     public String initLoginUserPage() {
         return "/user/auth/login";
-    }
-
-    @GetMapping("/user/logout")
-    public String logoutUser(HttpServletRequest request, HttpServletResponse response) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
-            new SecurityContextLogoutHandler().logout(request, response, authentication);
-        }
-        return "redirect:/";
     }
 
     @GetMapping("/user/registration")

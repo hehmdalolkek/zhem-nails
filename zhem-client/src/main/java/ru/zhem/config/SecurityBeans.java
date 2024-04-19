@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
@@ -45,7 +47,16 @@ public class SecurityBeans {
         }
 
         @Bean
+        RememberMeServices adminRememberMeServices(@Qualifier("adminUserDetailsService") UserDetailsService userDetailsService) {
+            TokenBasedRememberMeServices.RememberMeTokenAlgorithm encodingAlgorithm = TokenBasedRememberMeServices.RememberMeTokenAlgorithm.SHA256;
+            TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices("myKey", userDetailsService, encodingAlgorithm);
+            rememberMe.setMatchingAlgorithm(TokenBasedRememberMeServices.RememberMeTokenAlgorithm.MD5);
+            return rememberMe;
+        }
+
+        @Bean
         public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http,
+                                                            @Qualifier("adminRememberMeServices") RememberMeServices rememberMeServices,
                                                             HandlerMappingIntrospector introspector) throws Exception {
             MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
             http.securityMatcher("/admin/**")
@@ -61,10 +72,13 @@ public class SecurityBeans {
                             .loginProcessingUrl("/admin/login")
                             .failureUrl("/admin/login?error=loginError")
                             .defaultSuccessUrl("/admin/dashboard", true))
+                    .rememberMe(rememberMe -> rememberMe
+                            .rememberMeServices(rememberMeServices)
+                            .tokenValiditySeconds(7776000))
                     .logout(logout -> logout
                             .logoutUrl("/admin/logout")
                             .logoutSuccessUrl("/")
-                            .deleteCookies("JSESSIONID"));
+                            .deleteCookies("JSESSIONID", "remember-me"));
 
             return http.build();
         }
@@ -83,12 +97,21 @@ public class SecurityBeans {
         private final UserDetailsService userDetailsService;
 
         @Bean
+        RememberMeServices clientRememberMeServices(@Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService) {
+            TokenBasedRememberMeServices.RememberMeTokenAlgorithm encodingAlgorithm = TokenBasedRememberMeServices.RememberMeTokenAlgorithm.SHA256;
+            TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices("myKey", userDetailsService, encodingAlgorithm);
+            rememberMe.setMatchingAlgorithm(TokenBasedRememberMeServices.RememberMeTokenAlgorithm.MD5);
+            return rememberMe;
+        }
+
+        @Bean
         public AuthenticationEntryPoint clientAuthenticationEntryPoint() {
             return new LoginUrlAuthenticationEntryPoint("/user/login");
         }
 
         @Bean
         public SecurityFilterChain clientSecurityFilterChain(HttpSecurity http,
+                                                             @Qualifier("clientRememberMeServices") RememberMeServices rememberMeServices,
                                                              HandlerMappingIntrospector introspector) throws Exception {
             MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
             http.securityMatcher("/**")
@@ -107,10 +130,13 @@ public class SecurityBeans {
                             .loginProcessingUrl("/user/login")
                             .failureUrl("/user/login?error=loginError")
                             .defaultSuccessUrl("/", false))
+                    .rememberMe(rememberMe -> rememberMe
+                            .rememberMeServices(rememberMeServices)
+                            .tokenValiditySeconds(7776000))
                     .logout(logout -> logout
                             .logoutUrl("/user/logout")
                             .logoutSuccessUrl("/")
-                            .deleteCookies("JSESSIONID"));
+                            .deleteCookies("JSESSIONID", "remember-me"));
 
             return http.build();
         }

@@ -7,21 +7,28 @@
 <body>
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main>
-        <h1>Please Log In</h1>
+        <h1>Авторизация</h1>
         <div th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
+            Неверный номер телефона или пароль
         </div>
         <form th:action="@{/user/login}" method="post">
             <div>
-                <input type="text" name="username" placeholder="Username"/>
+                <label>Номер телефона
+                    <input type="text" name="username" placeholder="+7 (999) 999-99-99"/>
+                </label>
             </div>
             <div>
-                <input type="password" name="password" placeholder="Password"/>
+                <label>Пароль
+                    <input type="password" name="password" placeholder="Пароль"/>
+                </label>
             </div>
-            <input type="submit" value="Log in" />
+            <div>
+                <label>
+                    <input type="checkbox" name="remember-me" />
+                    Запомнить вход
+                </label>
+            </div>
+            <input type="submit" value="Войти" />
         </form>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>

@@ -4,7 +4,9 @@
             <a th:href="@{/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
         </li>
         <li>
-            <a th:href="@{/admin/logout}">Выйти</a>
+            <form method="post" th:action="@{/admin/logout}">
+                <input type="submit" value="Выйти">
+            </form>
         </li>
     </ul>
 </header>
@@ -18,7 +20,9 @@
             <a th:href="@{/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
         </li>
         <li>
-            <a th:href="@{/user/logout}">Выйти</a>
+            <form method="post" th:action="@{/admin/logout}">
+                <input type="submit" value="Выйти">
+            </form>
         </li>
     </ul>
 </header>
