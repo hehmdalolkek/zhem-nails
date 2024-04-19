@@ -11,6 +11,8 @@
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main>
         <h1>Свободные интервалы для записи</h1>
+        <h3 th:text="${message}"></h3>
+        <span th:if="${errors?.containsKey('interval')}" th:text="${errors.get('interval')}"></span>
         <div>
             <a th:href="@{/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                 Предыдущий
@@ -30,7 +32,7 @@
                         <span th:text="${interval.getTime()}"></span>
                     </td>
                     <td>
-                        <a th:href="@{/user/appointments/create/step1?intervalId=__${interval.getId()}__}">
+                        <a th:href="@{/user/appointments/create?intervalId=__${interval.getId()}__}">
                             Записаться
                         </a>
                     </td>
