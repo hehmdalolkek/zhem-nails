@@ -2,6 +2,8 @@ package ru.zhem.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -31,12 +33,13 @@ public class AppointmentRestController {
     private final AppointmentMapper appointmentMapper;
 
     @GetMapping("/user/{userId:\\d+}")
-    public ResponseEntity<?> findAllAppointmentsByUser(@PathVariable("userId") long userId) {
+    public ResponseEntity<?> findAllAppointmentsByUser(@PathVariable("userId") long userId,
+                                                       @RequestParam("page") int page,
+                                                       @RequestParam("size") int size) {
         try {
-            List<Appointment> foundedAppointments = this.appointmentService.findAllAppointmentsByUserId(userId);
-            List<AppointmentDto> appointmentDtos = foundedAppointments.stream()
-                    .map(this.appointmentMapper::fromEntity)
-                    .toList();
+            Page<Appointment> foundedAppointments =
+                    this.appointmentService.findAllAppointmentsByUserId(userId, PageRequest.of(page, size));
+            Page<AppointmentDto> appointmentDtos = foundedAppointments.map(this.appointmentMapper::fromEntity);
             return ResponseEntity.ok()
                     .body(appointmentDtos);
         } catch (ZhemUserNotFoundException exception) {

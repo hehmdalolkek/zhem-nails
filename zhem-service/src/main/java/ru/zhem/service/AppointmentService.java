@@ -1,5 +1,7 @@
 package ru.zhem.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.zhem.entity.Appointment;
 
 import java.time.LocalDate;
@@ -8,7 +10,7 @@ import java.util.Map;
 
 public interface AppointmentService {
 
-    List<Appointment> findAllAppointmentsByUserId(long userId);
+    Page<Appointment> findAllAppointmentsByUserId(long userId, Pageable pageable);
 
     Map<LocalDate, List<Appointment>> findAllAppointmentsByIntervalDate(Integer year, Integer month);
 

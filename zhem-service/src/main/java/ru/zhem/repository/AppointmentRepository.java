@@ -1,5 +1,7 @@
 package ru.zhem.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +20,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<Appointment> findById(Long appointmentId);
 
     @EntityGraph(value = "appointment_entity-graph")
-    List<Appointment> findAllByUserIdOrderByCreatedAtDesc(Long userId);
+    Page<Appointment> findAllByUserIdOrderByIntervalDateDescIntervalTimeDesc(Long userId, Pageable pageable);
 
     @EntityGraph(value = "appointment_entity-graph")
     @Query("from Appointment i where extract(year from i.interval.date) = :year and extract(month from i.interval.date) = :month" +

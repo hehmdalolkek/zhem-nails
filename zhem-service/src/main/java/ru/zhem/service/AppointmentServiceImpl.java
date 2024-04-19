@@ -2,6 +2,8 @@ package ru.zhem.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.*;
 import ru.zhem.exception.*;
@@ -28,12 +30,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     @Transactional
-    public List<Appointment> findAllAppointmentsByUserId(long userId) {
+    public Page<Appointment> findAllAppointmentsByUserId(long userId, Pageable pageable) {
         boolean isExists = this.zhemUserRepository.existsById(userId);
         if (!isExists) {
             throw new ZhemUserNotFoundException("User not found");
         }
-        return this.appointmentRepository.findAllByUserIdOrderByCreatedAtDesc(userId);
+        return this.appointmentRepository.findAllByUserIdOrderByIntervalDateDescIntervalTimeDesc(userId, pageable);
     }
 
     @Override
