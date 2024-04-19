@@ -11,6 +11,7 @@
     <div th:replace="~{fragments/header :: #header_client}"></div>
     <main>
         <h1>История записей</h1>
+        <h3 th:text="${message}"></h3>
         <div th:each="appointment : ${appointments.content}">
             <h3 th:text="${appointment.getInterval().getDate} + ' - ' + ${appointment.getInterval().getTime()}"></h3>
             <ul>
@@ -18,6 +19,13 @@
             </ul>
             <p th:text="${appointment.getDetails() ?: 'Комментария нет'}"></p>
             <p th:text="'Создано: ' + ${appointment.getCreatedAt().toLocalDate()}"></p>
+            <form
+                    th:if="${appointment.getInterval().getDate() >= dateNow}"
+                    method="post"
+                    th:action="@{/user/appointments/delete}">
+                <input type="hidden" name="appointmentId" th:value="${appointment.getId()}">
+                <input type="submit" value="Отменить запись">
+            </form>
         </div>
         <div class="pagination">
             <ul>

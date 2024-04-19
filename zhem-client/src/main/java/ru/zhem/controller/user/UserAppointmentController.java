@@ -1,4 +1,4 @@
-package ru.zhem.controller.client;
+package ru.zhem.controller.user;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +29,7 @@ import ru.zhem.service.ZhemServiceService;
 import ru.zhem.service.ZhemUserService;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,7 @@ public class UserAppointmentController {
             ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
             model.addAttribute("appointments",
                     this.appointmentService.findAllAppointmentsByUser(user.getId(), PageRequest.of(page, size)));
+            model.addAttribute("dateNow", LocalDate.now());
             return "user/appointments/appointments";
         } else {
             return "redirect:/user/logout";
@@ -101,6 +103,20 @@ public class UserAppointmentController {
                     return "redirect:/intervals";
                 }
             }
+    }
+
+    @PostMapping("/delete")
+    public String deleteAppointment(Long appointmentId, RedirectAttributes redirectAttributes,
+                                    HttpServletResponse response) {
+        try {
+            this.appointmentService.deleteAppointment(appointmentId);
+            redirectAttributes.addFlashAttribute("message", "Запись отменена");
+            return "redirect:/user/appointments";
+        } catch (NotFoundException exception) {
+            throw new NotFoundException(ProblemDetail.forStatusAndDetail(
+                    HttpStatus.NOT_FOUND, exception.getMessage()
+            ));
+        }
     }
 
 }
