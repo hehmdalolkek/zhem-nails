@@ -5,16 +5,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem-nails - редактирование профиля</title>
+    <title>Zhem-nails - профиль</title>
 </head>
 <body>
-    <div th:replace="~{fragments/header :: #header_admin}"></div>
+    <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <nav>
         <a th:href="@{/admin/dashboard}"><- Назад</a>
     </nav>
     <main>
         <div>
-            <form method="post" th:action="@{/admin/profile/update}" th:object="${user}">
+            <form method="post" th:action="@{/profile/update}" th:object="${user}">
                 <h2>Редактирование профиля</h2>
                 <h3 th:text="${message}"></h3>
                 <input type="hidden" th:field="*{id}">
@@ -36,7 +36,7 @@
                 </label><br>
                 <input type="submit" value="Сохранить">
             </form>
-            <form method="post" th:action="@{/admin/profile/update-password}" th:object="${user}">
+            <form method="post" th:action="@{profile/update-password}" th:object="${user}">
                 <h2>Изменение пароля</h2>
                 <h3 th:text="${messagePassword}"></h3>
                 <input type="hidden" th:field="*{id}">

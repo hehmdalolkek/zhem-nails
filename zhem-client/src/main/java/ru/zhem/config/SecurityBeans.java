@@ -97,6 +97,8 @@ public class SecurityBeans {
                             .anonymous()
                             .requestMatchers(mvcMatcherBuilder.pattern("/user/**"))
                             .hasRole("CLIENT")
+                            .requestMatchers(mvcMatcherBuilder.pattern("/profile/**"))
+                            .authenticated()
                             .requestMatchers(mvcMatcherBuilder.pattern("/**"))
                             .permitAll())
                     .userDetailsService(this.userDetailsService)

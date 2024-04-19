@@ -1,4 +1,4 @@
-package ru.zhem.controller.admin;
+package ru.zhem.controller.common;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -34,8 +34,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminCommonController {
+@RequestMapping("/profile")
+public class CommonProfileController {
 
     private final ZhemUserService zhemUserService;
 
@@ -44,14 +44,14 @@ public class AdminCommonController {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminCommonController(ZhemUserService zhemUserService, PasswordEncoder passwordEncoder,
-                                 @Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService) {
+    public CommonProfileController(ZhemUserService zhemUserService, PasswordEncoder passwordEncoder,
+                                   @Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService) {
         this.zhemUserService = zhemUserService;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/profile")
+    @GetMapping
     public String initProfilePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User principal = (User) authentication.getPrincipal();
@@ -59,7 +59,7 @@ public class AdminCommonController {
         try {
             ZhemUserDto user = zhemUserService.findUserByPhone(principal.getUsername());
             model.addAttribute("user", user);
-            return "/admin/common/profile";
+            return "/common/profile";
         } catch (UsernameNotFoundException exception) {
             throw new NotFoundException(ProblemDetail.forStatusAndDetail(
                     HttpStatus.NOT_FOUND, exception.getMessage()
@@ -67,7 +67,7 @@ public class AdminCommonController {
         }
     }
 
-    @PostMapping("/profile/update")
+    @PostMapping("/update")
     public String updateUser(@Valid @ModelAttribute("user") ZhemUserUpdate user, BindingResult bindingResult,
                              HttpServletResponse response, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("message", "Данные не изменены");
@@ -91,14 +91,14 @@ public class AdminCommonController {
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());
-                return "redirect:/admin/profile";
+                return "redirect:/profile";
             }
         }
 
-        return "redirect:/admin/profile";
+        return "redirect:/profile";
     }
 
-    @PostMapping("/profile/update-password")
+    @PostMapping("/update-password")
     public String updateUserPassword(@Valid @ModelAttribute("user") ZhemUserUpdatePassword user,
                                      BindingResult bindingResult, HttpServletResponse response,
                                      RedirectAttributes redirectAttributes) {
@@ -121,7 +121,7 @@ public class AdminCommonController {
             }
         }
 
-        return "redirect:/admin/profile";
+        return "redirect:/profile";
     }
 
 }
