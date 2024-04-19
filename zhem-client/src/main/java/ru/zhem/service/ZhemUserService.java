@@ -28,4 +28,6 @@ public interface ZhemUserService {
     boolean adminIsExists();
 
     ZhemUserDto findUserByPhone(String phone);
+
+    ZhemUserDto findAdmin();
 }

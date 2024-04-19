@@ -121,4 +121,9 @@ public class ZhemUserDetailsService implements UserDetailsService, ZhemUserServi
     public ZhemUserDto findUserByPhone(String phone) {
         return this.zhemUserRestClient.findUserByPhone(phone);
     }
+
+    @Override
+    public ZhemUserDto findAdmin() {
+        return this.zhemUserRestClient.findAdmin();
+    }
 }

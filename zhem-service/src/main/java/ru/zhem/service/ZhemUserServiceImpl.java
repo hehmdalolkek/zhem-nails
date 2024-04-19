@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.zhem.entity.Role;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exception.ZhemUserNotFoundException;
 import ru.zhem.exception.ZhemUserWithDuplicateEmailException;
@@ -155,5 +156,11 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     @Transactional
     public Boolean adminIsExists() {
         return this.zhemUserRepository.existsByRolesTitleContainingIgnoreCase("ADMIN");
+    }
+
+    @Override
+    public ZhemUser findAdmin() {
+        return this.zhemUserRepository.findByRolesTitleContainingIgnoreCase("ADMIN")
+                .orElseThrow(() -> new ZhemUserNotFoundException("User with role ADMIN not found"));
     }
 }

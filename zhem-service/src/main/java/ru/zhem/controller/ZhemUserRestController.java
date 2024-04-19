@@ -154,10 +154,21 @@ public class ZhemUserRestController {
         }
     }
 
-    @GetMapping("/user/admin")
+    @GetMapping("/user/check/admin")
     public ResponseEntity<?> adminIsExists() {
         return ResponseEntity.ok()
                 .body(this.zhemUserService.adminIsExists());
+    }
+
+    @GetMapping("/user/admin")
+    public ResponseEntity<?> findAdmin() {
+        try {
+            ZhemUser foundedAdmin = this.zhemUserService.findAdmin();
+            return ResponseEntity.ok()
+                    .body(this.userMapper.fromEntity(foundedAdmin));
+        } catch (ZhemUserNotFoundException exception) {
+            throw new NotFoundException(exception.getMessage());
+        }
     }
 
 }

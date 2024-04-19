@@ -127,7 +127,7 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     @Override
     public Boolean adminIsExists() {
         return this.restClient.get()
-                .uri("/service-api/v1/users/user/admin")
+                .uri("/service-api/v1/users/user/check/admin")
                 .retrieve()
                 .body(Boolean.class);
     }
@@ -137,6 +137,18 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
         try {
             return this.restClient.get()
                     .uri("/service-api/v1/users/user/phone/{phone}", phone)
+                    .retrieve()
+                    .body(ZhemUserDto.class);
+        } catch (HttpClientErrorException.NotFound exception) {
+            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
+        }
+    }
+
+    @Override
+    public ZhemUserDto findAdmin() {
+        try {
+            return this.restClient.get()
+                    .uri("/service-api/v1/users/user/admin")
                     .retrieve()
                     .body(ZhemUserDto.class);
         } catch (HttpClientErrorException.NotFound exception) {

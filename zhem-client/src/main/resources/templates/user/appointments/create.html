@@ -8,32 +8,33 @@
     <title>Zhem-nails - запись</title>
 </head>
 <body>
-<div th:replace="~{fragments/header :: #header_client}"></div>
-<nav>
-    <a th:href="@{/intervals}"><- Назад</a>
-</nav>
-<main>
-    <h2>Запись</h2>
-    <h3 th:text="${message}"></h3>
-    <h3 th:text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
-    <form method="post" th:object="${appointment}">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        <input type="hidden" th:field="*{intervalId}">
-        <input type="hidden" th:name="userId" th:value="${authUser.getId()}">
-        <h3>Выберите услуги</h3>
-        <span th:text="${errors?.containsKey('services')} ? ${errors.get('services')}"></span>
-        <ul>
-            <li th:each="service : ${services}">
-                <label>
-                    <input type="checkbox" th:field="*{services}" th:value="${service.getId()}">
-                    <span th:text="${service.getTitle()}"></span>
-                </label>
-            </li>
-        </ul>
-        <h3>Комментарий</h3>
-        <textarea th:field="*{details}"></textarea>
-        <input type="submit" value="Записаться">
-    </form>
-</main>
+    <div th:replace="~{fragments/header :: #header_client}"></div>
+    <nav>
+        <a th:href="@{/intervals}"><- Назад</a>
+    </nav>
+    <main>
+        <h2>Запись</h2>
+        <h3 th:text="${message}"></h3>
+        <h3 th:text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
+        <form method="post" th:object="${appointment}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" th:field="*{intervalId}">
+            <input type="hidden" th:name="userId" th:value="${authUser.getId()}">
+            <h3>Выберите услуги</h3>
+            <span th:text="${errors?.containsKey('services')} ? ${errors.get('services')}"></span>
+            <ul>
+                <li th:each="service : ${services}">
+                    <label>
+                        <input type="checkbox" th:field="*{services}" th:value="${service.getId()}">
+                        <span th:text="${service.getTitle()}"></span>
+                    </label>
+                </li>
+            </ul>
+            <h3>Комментарий</h3>
+            <textarea th:field="*{details}"></textarea>
+            <input type="submit" value="Записаться">
+        </form>
+    </main>
+    <div th:replace="~{fragments/footer :: #footer_user}"></div>
 </body>
 </html>
