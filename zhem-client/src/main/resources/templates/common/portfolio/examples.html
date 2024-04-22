@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - портфолио</title>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
+    <nav>
+        <a th:href="@{/}"><- Назад</a>
+    </nav>
+    <main>
+        <h1>Портфолио</h1>
+        <div th:each="example : ${examples.content}">
+            <p th:text="${example.getTitle()}"></p>
+            <img width="200px" th:src="@{/img/__${example.getFileName()}__}" th:alt="${example.getTitle()}">
+        </div>
+        <div class="pagination">
+            <ul>
+                <li th:if="${examples.hasPrevious()}">
+                    <a th:href="@{'portfolio?page=' + ${examples.number - 1}}">Previous</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, examples.totalPages - 1)}">
+                    <a th:href="@{'portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${examples.hasNext()}">
+                    <a th:href="@{'portfolio?page=' + ${examples.number + 1}}">Next</a>
+                </li>
+            </ul>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footer :: #footer_user}"></div>
+</body>
+</html>

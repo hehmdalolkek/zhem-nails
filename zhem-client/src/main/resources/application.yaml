@@ -6,3 +6,6 @@ zhem-nails:
       url: http://localhost:8081
       name: service
       password: service
+file:
+  storage:
+    path: D:\projects\java\диплом\zhem-nails\file-storage

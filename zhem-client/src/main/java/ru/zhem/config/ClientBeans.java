@@ -80,4 +80,18 @@ public class ClientBeans {
         );
     }
 
+    @Bean
+    public ExampleRestClientImpl exampleRestClient(
+            @Value("${zhem-nails.services.service.url:http://localhost:8081}") String serviceBaseUrl,
+            @Value("${zhem-nails.services.service.name}") String serviceUserName,
+            @Value("${zhem-nails.services.service.password}") String serviceUserPassword) {
+        return new ExampleRestClientImpl(
+                RestClient.builder()
+                        .baseUrl(serviceBaseUrl)
+                        .requestInterceptor(
+                                new BasicAuthenticationInterceptor(serviceUserName, serviceUserPassword))
+                        .build()
+        );
+    }
+
 }

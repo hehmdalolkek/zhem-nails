@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem-nails - портфолио</title>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
+    <nav>
+        <a th:href="@{/admin/dashboard}"><- Назад</a>
+    </nav>
+    <main>
+        <h1>Портфолио</h1>
+        <h2 th:text="${message}"></h2>
+        <div>
+            <form method="post" th:action="@{/admin/portfolio/create}" enctype="multipart/form-data">
+                <label>
+                    <input type="text" name="title" th:value="${enteredData?.title}">
+                    <span th:if="${errors?.containsKey('title')}" th:text="${errors.get('title')}"></span>
+                </label>
+                <label>
+                    <input type="file" accept="image/*" name="image">
+                    <span th:if="${errors?.containsKey('image')}" th:text="${errors.get('image')}"></span>
+                </label>
+                <input type="submit" value="Добавить">
+            </form>
+        </div>
+        <div th:each="example : ${examples.content}">
+            <p th:text="${example.getTitle()}"></p>
+            <img width="200px" th:src="@{/img/__${example.getFileName()}__}" th:alt="${example.getTitle()}">
+            <form method="post" th:action="@{/admin/portfolio/delete}">
+                <input type="hidden" name="exampleId" th:value="${example.getId()}">
+                <input type="submit" value="Удалить">
+            </form>
+        </div>
+        <div class="pagination">
+            <ul>
+                <li th:if="${examples.hasPrevious()}">
+                    <a th:href="@{'/admin/portfolio?page=' + ${examples.number - 1}}">Previous</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, examples.totalPages - 1)}">
+                    <a th:href="@{'/admin/portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${examples.hasNext()}">
+                    <a th:href="@{'/admin/portfolio?page=' + ${examples.number + 1}}">Next</a>
+                </li>
+            </ul>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footer :: #footer_user}"></div>
+</body>
+</html>
