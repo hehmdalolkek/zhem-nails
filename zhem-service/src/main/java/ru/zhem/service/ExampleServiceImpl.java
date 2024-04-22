@@ -10,10 +10,12 @@ import ru.zhem.dto.request.ExampleCreationDto;
 import ru.zhem.dto.request.ExampleUpdateDto;
 import ru.zhem.entity.Example;
 import ru.zhem.exception.ExampleNotFoundException;
+import ru.zhem.exception.FileInvalidType;
 import ru.zhem.repository.ExampleRepository;
 import ru.zhem.service.util.FileManager;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -29,6 +31,10 @@ public class ExampleServiceImpl implements ExampleService {
     @Override
     @Transactional(rollbackOn = IOException.class)
     public Example createExample(ExampleCreationDto exampleDto) throws IOException {
+        String contentType = exampleDto.getImage().getContentType();
+        if (contentType == null || !List.of("image/jpeg", "image/png").contains(contentType)) {
+            throw new FileInvalidType("File must be an image");
+        }
         String suffix = exampleDto.getImage()
                 .getOriginalFilename()
                 .substring(exampleDto.getImage().getOriginalFilename().lastIndexOf('.'));
@@ -61,6 +67,10 @@ public class ExampleServiceImpl implements ExampleService {
                 .orElseThrow(() -> new ExampleNotFoundException("Example not found"));
 
         if (exampleDto.getImage() != null) {
+            String contentType = exampleDto.getImage().getContentType();
+            if (contentType == null || !List.of("image/jpeg", "image/png").contains(contentType)) {
+                throw new FileInvalidType("File must be an image");
+            }
             String oldFileName = foundedExample.getFileName();
             String suffix = exampleDto.getImage()
                     .getOriginalFilename()
