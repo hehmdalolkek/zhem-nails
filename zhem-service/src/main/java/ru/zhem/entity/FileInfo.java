@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(schema = "zhem", name = "file_info")
+@Table(schema = "zhem", name = "files")
 public class FileInfo extends BaseEntity {
 
     @Id
