@@ -35,7 +35,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/profile")
-public class CommonProfileController {
+public class ProfileController {
 
     private final ZhemUserService zhemUserService;
 
@@ -44,8 +44,8 @@ public class CommonProfileController {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public CommonProfileController(ZhemUserService zhemUserService, PasswordEncoder passwordEncoder,
-                                   @Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService) {
+    public ProfileController(ZhemUserService zhemUserService, PasswordEncoder passwordEncoder,
+                             @Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService) {
         this.zhemUserService = zhemUserService;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;

@@ -16,7 +16,7 @@ import java.time.YearMonth;
 
 @RequiredArgsConstructor
 @Controller
-public class CommonIntervalController {
+public class IntervalController {
 
     private final IntervalService intervalService;
 
