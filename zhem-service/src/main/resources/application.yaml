@@ -18,6 +18,9 @@ spring:
       password: $2a$12$RoiWQYm/QrFzUnCifKrC5eCHt3IHj7PRHIaNdG7OwduR.Sltgt2ay
       roles:
         - SERVICE
+  servlet:
+    multipart:
+      max-file-size: 10MB
 file:
   storage:
     path: D:\projects\java\диплом\zhem-nails\file-storage

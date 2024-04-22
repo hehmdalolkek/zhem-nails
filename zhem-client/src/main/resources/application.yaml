@@ -9,3 +9,7 @@ zhem-nails:
 file:
   storage:
     path: D:\projects\java\диплом\zhem-nails\file-storage
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
