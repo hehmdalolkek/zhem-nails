@@ -19,7 +19,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Override
     Optional<Appointment> findById(Long appointmentId);
 
-    @EntityGraph(value = "appointment_entity-graph")
     Page<Appointment> findAllByUserIdOrderByIntervalDateDescIntervalTimeDesc(Long userId, Pageable pageable);
 
     @EntityGraph(value = "appointment_entity-graph")
