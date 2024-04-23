@@ -16,21 +16,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.entity.ZhemUserUpdate;
 import ru.zhem.entity.ZhemUserUpdatePassword;
 import ru.zhem.exceptions.CustomBindException;
 import ru.zhem.exceptions.NotFoundException;
-import ru.zhem.service.ZhemUserService;
+import ru.zhem.service.interfaces.ZhemUserService;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -43,12 +42,15 @@ public class ProfileController {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final ControllerUtil controllerUtil;
+
     @Autowired
     public ProfileController(ZhemUserService zhemUserService, PasswordEncoder passwordEncoder,
-                             @Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService) {
+                             @Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService, ControllerUtil controllerUtil) {
         this.zhemUserService = zhemUserService;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.controllerUtil = controllerUtil;
     }
 
     @GetMapping
@@ -72,10 +74,7 @@ public class ProfileController {
                              HttpServletResponse response, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("message", "Данные не изменены");
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("errors", errors);
         } else {
@@ -104,10 +103,7 @@ public class ProfileController {
                                      RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("messagePassword", "Пароль не изменен");
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("errors", errors);
         } else {

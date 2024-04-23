@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import ru.zhem.entity.constraints.CheckPhoneNumberOrNull;
-import ru.zhem.entity.constraints.NullOrNotBlank;
+import ru.zhem.dto.request.constraint.CheckPhoneNumberOrNull;
+import ru.zhem.dto.request.constraint.NullOrNotBlank;
 
 @Data
 @AllArgsConstructor

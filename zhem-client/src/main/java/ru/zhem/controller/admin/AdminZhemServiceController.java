@@ -7,17 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.request.ZhemServiceDto;
 import ru.zhem.dto.response.ZhemServiceCreationDto;
 import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.service.ZhemServiceService;
+import ru.zhem.service.interfaces.ZhemServiceService;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +26,8 @@ import java.util.Map;
 public class AdminZhemServiceController {
 
     private final ZhemServiceService zhemServiceService;
+
+    private final ControllerUtil controllerUtil;
 
     @GetMapping
     public String showAllServices(Model model) {
@@ -45,10 +46,7 @@ public class AdminZhemServiceController {
     public String createService(@Valid ZhemServiceCreationDto service, BindingResult bindingResult,
                                 HttpServletResponse response, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("enteredData", service);
             redirectAttributes.addFlashAttribute("errors", errors);

@@ -14,7 +14,7 @@ import ru.zhem.dto.request.IntervalUpdateDto;
 import ru.zhem.dto.response.DailyIntervalsDto;
 import ru.zhem.entity.Interval;
 import ru.zhem.exception.*;
-import ru.zhem.service.IntervalService;
+import ru.zhem.service.interfaces.IntervalService;
 
 import java.net.URI;
 import java.time.LocalDate;

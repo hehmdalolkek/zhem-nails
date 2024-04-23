@@ -15,7 +15,7 @@ import ru.zhem.dto.request.ZhemUserUpdateDto;
 import ru.zhem.dto.response.ZhemUserDto;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exception.*;
-import ru.zhem.service.ZhemUserService;
+import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.net.URI;
 import java.util.List;

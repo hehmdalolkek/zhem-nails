@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.zhem.service.ExampleService;
+import ru.zhem.service.interfaces.ExampleService;
 
 @RequiredArgsConstructor
 @Controller

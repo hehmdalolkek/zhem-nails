@@ -15,7 +15,7 @@ import ru.zhem.exception.ConflictException;
 import ru.zhem.exception.NotFoundException;
 import ru.zhem.exception.ZhemServiceNotFoundException;
 import ru.zhem.exception.ZhemServiceWithDuplicateTitleException;
-import ru.zhem.service.ZhemServiceService;
+import ru.zhem.service.interfaces.ZhemServiceService;
 
 import java.util.List;
 

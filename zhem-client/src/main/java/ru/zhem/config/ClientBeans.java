@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.RestClient;
-import ru.zhem.client.*;
+import ru.zhem.client.impl.*;
 
 @Configuration
 public class ClientBeans {

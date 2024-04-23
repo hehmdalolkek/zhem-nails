@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import ru.zhem.entity.constraints.CheckPhoneNumber;
-import ru.zhem.entity.constraints.NullOrNotBlank;
+import ru.zhem.entity.constraint.CheckPhoneNumber;
+import ru.zhem.entity.constraint.NullOrNotBlank;
 
 import java.util.Set;
 

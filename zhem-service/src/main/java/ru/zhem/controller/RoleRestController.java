@@ -15,7 +15,7 @@ import ru.zhem.exception.ConflictException;
 import ru.zhem.exception.NotFoundException;
 import ru.zhem.exception.RoleNotFoundException;
 import ru.zhem.exception.RoleWithDuplicateTitleException;
-import ru.zhem.service.RoleService;
+import ru.zhem.service.interfaces.RoleService;
 
 @RestController
 @RequiredArgsConstructor

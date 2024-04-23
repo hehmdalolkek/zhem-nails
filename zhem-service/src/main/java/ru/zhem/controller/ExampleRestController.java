@@ -18,7 +18,7 @@ import ru.zhem.exception.BadRequestException;
 import ru.zhem.exception.ExampleNotFoundException;
 import ru.zhem.exception.FileInvalidType;
 import ru.zhem.exception.NotFoundException;
-import ru.zhem.service.ExampleService;
+import ru.zhem.service.interfaces.ExampleService;
 
 import java.io.IOException;
 

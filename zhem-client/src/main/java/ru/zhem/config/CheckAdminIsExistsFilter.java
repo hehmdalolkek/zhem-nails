@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.zhem.service.ZhemUserService;
+import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.io.IOException;
 

@@ -16,7 +16,7 @@ import ru.zhem.dto.response.AppointmentDto;
 import ru.zhem.dto.response.DailyAppointmentDto;
 import ru.zhem.entity.Appointment;
 import ru.zhem.exception.*;
-import ru.zhem.service.AppointmentService;
+import ru.zhem.service.interfaces.AppointmentService;
 
 import java.net.URI;
 import java.time.LocalDate;

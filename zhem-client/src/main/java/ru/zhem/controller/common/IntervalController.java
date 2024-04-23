@@ -8,10 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.InvalidDateException;
-import ru.zhem.service.CalendarService;
-import ru.zhem.service.IntervalService;
+import ru.zhem.service.interfaces.IntervalService;
+import ru.zhem.service.util.CalendarUtil;
 
 import java.time.YearMonth;
 
@@ -20,17 +21,17 @@ import java.time.YearMonth;
 @RequestMapping("/intervals")
 public class IntervalController {
 
-    private final IntervalService intervalService;
+    private final ControllerUtil controllerUtil;
 
-    private final CalendarService calendarService;
+    private final CalendarUtil calendarUtil;
 
     @GetMapping
     public String initShowAvailableIntervals(@RequestParam(value = "year", required = false) Integer year,
                                              @RequestParam(value = "month", required = false) Integer month, Model model) {
         try {
-            YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
+            YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
             model.addAttribute("mapOfIntervals",
-                    this.intervalService.generateIntervalCalendarForMonth(yearMonth, true));
+                    this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, true));
             return "common/intervals/intervals";
         } catch (InvalidDateException exception) {
             throw new BadRequestException(ProblemDetail.forStatusAndDetail(

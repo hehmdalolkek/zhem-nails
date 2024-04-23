@@ -26,6 +26,7 @@
                 <input type="hidden" th:field="*{services}">
                 <label>
                     <textarea th:field="*{details}"></textarea>
+                    <span th:text="${errors?.containsKey('details')} ? ${errors.get('details')}"></span>
                 </label>
                 <input type="submit" value="Сохранить">
             </form>

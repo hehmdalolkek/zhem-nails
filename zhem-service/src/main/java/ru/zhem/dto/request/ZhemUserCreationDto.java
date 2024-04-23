@@ -8,9 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import ru.zhem.dto.request.constraint.CheckPhoneNumber;
+import ru.zhem.dto.request.constraint.NullOrNotBlank;
 import ru.zhem.dto.response.RoleDto;
-import ru.zhem.entity.constraints.CheckPhoneNumber;
-import ru.zhem.entity.constraints.NullOrNotBlank;
 
 import java.util.Set;
 

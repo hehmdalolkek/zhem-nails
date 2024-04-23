@@ -12,16 +12,15 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exceptions.CustomBindException;
 import ru.zhem.exceptions.NotFoundException;
 import ru.zhem.exceptions.RoleNotFoundException;
-import ru.zhem.service.ZhemUserService;
+import ru.zhem.service.interfaces.ZhemUserService;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -29,6 +28,8 @@ import java.util.Map;
 public class AuthController {
 
     private final ZhemUserService zhemUserService;
+
+    private final ControllerUtil controllerUtil;
 
     @GetMapping("/admin/login")
     public String initLoginAdminPage() {
@@ -47,10 +48,7 @@ public class AuthController {
     public String registrationAdmin(@Valid ZhemUser user, BindingResult bindingResult,
                                    HttpServletRequest request, HttpServletResponse response, Model model) {
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("enteredData", user);
             model.addAttribute("errors", errors);
@@ -92,10 +90,7 @@ public class AuthController {
     public String registrationUser(@Valid ZhemUser user, BindingResult bindingResult,
                                    HttpServletResponse response, Model model) {
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("enteredData", user);
             model.addAttribute("errors", errors);

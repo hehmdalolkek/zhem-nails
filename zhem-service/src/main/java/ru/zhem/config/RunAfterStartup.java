@@ -6,7 +6,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import ru.zhem.entity.Role;
 import ru.zhem.repository.RoleRepository;
-import ru.zhem.service.DatabaseCleanupService;
+import ru.zhem.service.shedule.DatabaseCleanupService;
 
 import java.time.LocalDateTime;
 

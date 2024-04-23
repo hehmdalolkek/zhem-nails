@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import ru.zhem.dto.constraints.CheckPhoneNumber;
+import ru.zhem.dto.constraint.CheckPhoneNumber;
 import ru.zhem.dto.request.RoleDto;
 
 import java.util.Set;

@@ -3,8 +3,8 @@ package ru.zhem.dto.response;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import ru.zhem.dto.constraints.CheckPhoneNumberOrNull;
-import ru.zhem.dto.constraints.NullOrNotBlank;
+import ru.zhem.dto.constraint.CheckPhoneNumberOrNull;
+import ru.zhem.dto.constraint.NullOrNotBlank;
 
 @Data
 @Builder

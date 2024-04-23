@@ -8,23 +8,22 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
 import ru.zhem.entity.Status;
 import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
 import ru.zhem.exceptions.InvalidDateException;
-import ru.zhem.service.CalendarService;
-import ru.zhem.service.IntervalService;
+import ru.zhem.service.interfaces.IntervalService;
+import ru.zhem.service.util.CalendarUtil;
 
 import java.time.YearMonth;
-import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -34,16 +33,18 @@ public class AdminIntervalController {
 
     private final IntervalService intervalService;
 
-    private final CalendarService calendarService;
+    private final CalendarUtil calendarUtil;
+
+    private final ControllerUtil controllerUtil;
 
     @GetMapping
     public String showAllIntervals(@RequestParam(value = "year", required = false) Integer year,
                                    @RequestParam(value = "month", required = false) Integer month, Model model) {
         try {
-            YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
+            YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
             model.addAttribute("statusAvailable", Status.AVAILABLE);
             model.addAttribute("mapOfIntervals",
-                    this.intervalService.generateIntervalCalendarForMonth(yearMonth, false));
+                    this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, false));
 
             return "/admin/intervals/intervals";
         } catch (InvalidDateException exception) {
@@ -63,10 +64,7 @@ public class AdminIntervalController {
                 : "redirect:/admin/intervals";
         redirectAttributes.addFlashAttribute("message", "Интервал не создан");
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("errors", errors);
         } else {
@@ -93,10 +91,7 @@ public class AdminIntervalController {
                 : "redirect:/admin/intervals";
         redirectAttributes.addFlashAttribute("message", "Интервал не изменен");
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("errors", errors);
         } else {

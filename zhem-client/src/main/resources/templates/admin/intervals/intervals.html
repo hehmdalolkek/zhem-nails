@@ -17,7 +17,6 @@
         <h2 th:text="${message}"></h2>
         <span th:if="${errors?.containsKey('time')}" th:text="${errors.get('time')}"></span>
         <span th:if="${errors?.containsKey('interval')}" th:text="${errors.get('interval')}"></span>
-        <span th:if="${errors?.containsKey('services')}" th:text="${errors.get('services')}"></span>
         <div>
             <a th:href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                 Предыдущий

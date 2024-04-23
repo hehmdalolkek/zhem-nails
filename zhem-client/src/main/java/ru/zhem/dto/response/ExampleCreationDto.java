@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
-import ru.zhem.dto.constraints.MultipartFileNotNull;
+import ru.zhem.dto.constraint.MultipartFileNotNull;
 
 @Data
 @AllArgsConstructor

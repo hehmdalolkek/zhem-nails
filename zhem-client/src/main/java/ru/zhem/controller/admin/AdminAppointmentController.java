@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.request.ZhemServiceDto;
@@ -18,7 +19,11 @@ import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentUpdateDto;
 import ru.zhem.exceptions.*;
-import ru.zhem.service.*;
+import ru.zhem.service.interfaces.AppointmentService;
+import ru.zhem.service.interfaces.IntervalService;
+import ru.zhem.service.interfaces.ZhemServiceService;
+import ru.zhem.service.interfaces.ZhemUserService;
+import ru.zhem.service.util.CalendarUtil;
 
 import java.time.DateTimeException;
 import java.time.YearMonth;
@@ -39,16 +44,19 @@ public class AdminAppointmentController {
 
     private final ZhemUserService zhemUserService;
 
-    private final CalendarService calendarService;
+    private final CalendarUtil calendarUtil;
+
+    private final ControllerUtil controllerUtil;
 
     private final ZhemServiceService zhemServiceService;
 
 
     @GetMapping
-    public String showAllAppointments(@RequestParam(value = "year", required = false) Integer year, @RequestParam(value = "month", required = false) Integer month, Model model) {
+    public String showAllAppointments(@RequestParam(value = "year", required = false) Integer year,
+                                      @RequestParam(value = "month", required = false) Integer month, Model model) {
         try {
-            YearMonth yearMonth = this.calendarService.calcPrevNextMonth(model, year, month);
-            model.addAttribute("mapOfAppointments", this.appointmentService.generateCalendarForMonth(yearMonth));
+            YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
+            model.addAttribute("mapOfAppointments", this.controllerUtil.generateAppointmentCalendarForMonth(yearMonth));
         } catch (InvalidDateException exception) {
             throw new BadRequestException(ProblemDetail.forStatusAndDetail(
                     HttpStatus.BAD_REQUEST, "Invalid date"
@@ -101,6 +109,7 @@ public class AdminAppointmentController {
                                                  HttpServletResponse response) {
         if (bindingResult.hasErrors() && (bindingResult.getFieldError("userId") != null
                 || bindingResult.getFieldError("intervalId") != null)) {
+
             Map<String, String> errors = new HashMap<>();
             FieldError userIdError = bindingResult.getFieldError("userId");
             if (userIdError != null) {
@@ -149,14 +158,13 @@ public class AdminAppointmentController {
     }
 
     @PostMapping("/create/step4")
-    public String createAppointmentProcessFourth(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment, BindingResult bindingResult, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+    public String createAppointmentProcessFourth(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
+                                                 BindingResult bindingResult, HttpServletResponse response,
+                                                 RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             redirectAttributes.addFlashAttribute("errors", errors);
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("message", "Клиент не записан");
             return "redirect:/admin/intervals";
         } else {
@@ -166,9 +174,17 @@ public class AdminAppointmentController {
                 return "redirect:/admin/intervals";
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
-                redirectAttributes.addFlashAttribute("message", "Клиент не записан");
-                redirectAttributes.addFlashAttribute("errors", exception.getErrors());
-                return "redirect:/admin/intervals";
+                Map<String, String> errors = exception.getErrors();
+                if (errors.containsKey("details")) {
+                    model.addAttribute("errors", errors);
+                    IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
+                    model.addAttribute("interval", interval);
+                    return "/admin/appointments/create/create-step-3";
+                } else {
+                    redirectAttributes.addFlashAttribute("message", "Клиент не записан");
+                    redirectAttributes.addFlashAttribute("errors", errors);
+                    return "redirect:/admin/intervals";
+                }
             }
         }
     }
@@ -228,7 +244,7 @@ public class AdminAppointmentController {
             }
             model.addAttribute("interval", this.intervalService.findIntervalById(appointment.getIntervalId()));
             model.addAttribute("mapOfIntervals",
-                    this.intervalService.generateIntervalCalendarForMonth(yearMonth, true));
+                    this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, true));
             model.addAttribute("appointmentId", appointmentId);
             return "/admin/appointments/update/update-step-2";
         }
@@ -254,11 +270,8 @@ public class AdminAppointmentController {
                                                  BindingResult bindingResult, Model model,
                                                  HttpServletResponse response) {
         if (bindingResult.hasErrors() && bindingResult.getFieldError("services") != null) {
-            FieldError servicesError = bindingResult.getFieldError("services");
-            if (servicesError != null) {
-                model.addAttribute("errors",
-                        Map.of(servicesError.getField(), servicesError.getDefaultMessage()));
-            }
+            Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
+            model.addAttribute("errors", errors);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("allServices", this.zhemServiceService.findAllServices());
             model.addAttribute("appointmentId", appointmentId);
@@ -273,7 +286,7 @@ public class AdminAppointmentController {
     public String updateAppointmentProcessFifth(@PathVariable("appointmentId") long appointmentId,
                                                 @Valid @ModelAttribute("appointment") AppointmentUpdateDto appointment,
                                                 BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                                                HttpServletResponse response) {
+                                                HttpServletResponse response, Model model) {
         if (bindingResult.hasErrors()) {
             return checkBindingResult(bindingResult, response, redirectAttributes, appointment.getIntervalId());
         } else {
@@ -283,23 +296,18 @@ public class AdminAppointmentController {
                 return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
-                redirectAttributes.addFlashAttribute("errors", exception.getErrors());
-                redirectAttributes.addFlashAttribute("message", "Интервал не изменен");
-                return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
+                Map<String, String> errors = exception.getErrors();
+                if (errors.containsKey("details")) {
+                    model.addAttribute("errors", errors);
+                    model.addAttribute("appointmentId", appointmentId);
+                    return "/admin/appointments/update/update-step-4";
+                } else {
+                    redirectAttributes.addFlashAttribute("message", "Клиент не записан");
+                    redirectAttributes.addFlashAttribute("errors", errors);
+                    return "redirect:/admin/intervals";
+                }
             }
         }
-    }
-
-    private String checkBindingResult(BindingResult bindingResult, HttpServletResponse response,
-                                      RedirectAttributes redirectAttributes, long intervalId) {
-        Map<String, String> errors = new HashMap<>();
-        for (FieldError error : bindingResult.getFieldErrors()) {
-            errors.put(error.getField(), error.getDefaultMessage());
-        }
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-        redirectAttributes.addFlashAttribute("errors", errors);
-        redirectAttributes.addFlashAttribute("message", "Интервал не изменен");
-        return "redirect:/admin/appointments/interval/" + intervalId;
     }
 
     @PostMapping("/delete")
@@ -307,5 +315,14 @@ public class AdminAppointmentController {
         this.appointmentService.deleteAppointment(appointmentId);
         redirectAttributes.addFlashAttribute("message", "Запись отменена");
         return "redirect:/admin/intervals";
+    }
+
+    private String checkBindingResult(BindingResult bindingResult, HttpServletResponse response,
+                                      RedirectAttributes redirectAttributes, long intervalId) {
+        Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        redirectAttributes.addFlashAttribute("errors", errors);
+        redirectAttributes.addFlashAttribute("message", "Запись не изменена");
+        return "redirect:/admin/appointments/interval/" + intervalId;
     }
 }

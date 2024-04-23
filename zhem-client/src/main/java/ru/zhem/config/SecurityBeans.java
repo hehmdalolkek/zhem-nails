@@ -19,8 +19,8 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
-import ru.zhem.client.ZhemUserRestClient;
-import ru.zhem.service.AdminUserDetailsService;
+import ru.zhem.client.interfaces.ZhemUserRestClient;
+import ru.zhem.service.impl.AdminUserDetailsService;
 
 @RequiredArgsConstructor
 @Configuration

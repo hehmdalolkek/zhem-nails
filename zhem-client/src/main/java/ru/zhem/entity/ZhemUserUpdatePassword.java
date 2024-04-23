@@ -2,9 +2,9 @@ package ru.zhem.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import ru.zhem.dto.constraints.CheckPhoneNumber;
-import ru.zhem.entity.constraints.Password;
-import ru.zhem.entity.constraints.PasswordMatcher;
+import ru.zhem.dto.constraint.CheckPhoneNumber;
+import ru.zhem.entity.constraint.Password;
+import ru.zhem.entity.constraint.PasswordMatcher;
 
 @PasswordMatcher(message = "Пароли не совпадают")
 @Data

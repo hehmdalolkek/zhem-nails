@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import ru.zhem.dto.request.ZhemUserDto;
-import ru.zhem.service.ZhemUserService;
+import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.security.Principal;
 
