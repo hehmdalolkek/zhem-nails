@@ -27,7 +27,7 @@
                 <input type="submit" value="Отменить запись">
             </form>
         </div>
-        <div class="pagination">
+        <div th:if="${appointments.hasContent()}" class="pagination">
             <ul>
                 <li th:if="${appointments.hasPrevious()}">
                     <a th:href="@{'/user/appointments?page=' + ${appointments.number - 1}}">Previous</a>

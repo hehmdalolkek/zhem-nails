@@ -18,7 +18,7 @@
             <p th:text="${example.getTitle()}"></p>
             <img width="200px" th:src="@{/img/__${example.getFileName()}__}" th:alt="${example.getTitle()}">
         </div>
-        <div class="pagination">
+        <div th:if="${examples.hasContent()}" class="pagination">
             <ul>
                 <li th:if="${examples.hasPrevious()}">
                     <a th:href="@{'portfolio?page=' + ${examples.number - 1}}">Previous</a>

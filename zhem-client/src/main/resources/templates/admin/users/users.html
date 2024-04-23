@@ -33,7 +33,7 @@
                 <td th:text="${user.getUpdatedAt().toLocalDate()}"></td>
             </tr>
         </table>
-        <div class="pagination">
+        <div th:if="${users.hasContent()}" class="pagination">
             <ul>
                 <li th:if="${users.hasPrevious()}">
                     <a th:href="@{'/admin/users?page=' + ${users.number - 1}}">Previous</a>
