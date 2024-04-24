@@ -51,8 +51,7 @@ public class UserAppointmentController {
     @GetMapping
     public String findAllAppointmentsByUser(@RequestParam(value = "size", defaultValue = "7") int size,
                                             @RequestParam(value = "page", defaultValue = "0") int page,
-                                            HttpServletRequest request, Model model) {
-        Principal principal = request.getUserPrincipal();
+                                            Principal principal, Model model) {
         if (principal != null) {
             ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
             model.addAttribute("appointments",

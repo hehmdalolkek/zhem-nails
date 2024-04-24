@@ -1,5 +1,6 @@
 package ru.zhem.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import ru.zhem.exceptions.CustomBindException;
 import ru.zhem.exceptions.NotFoundException;
 import ru.zhem.service.interfaces.ZhemUserService;
 
+import java.security.Principal;
 import java.util.Map;
 
 @Controller
@@ -54,12 +56,9 @@ public class ProfileController {
     }
 
     @GetMapping
-    public String initProfilePage(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User principal = (User) authentication.getPrincipal();
-
+    public String initProfilePage(Model model, Principal principal) {
         try {
-            ZhemUserDto user = zhemUserService.findUserByPhone(principal.getUsername());
+            ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
             model.addAttribute("user", user);
             return "/common/profile";
         } catch (UsernameNotFoundException exception) {
