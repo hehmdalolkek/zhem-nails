@@ -1,4 +1,4 @@
-package ru.zhem.controller.common;
+package ru.zhem.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
