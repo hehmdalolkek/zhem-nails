@@ -36,15 +36,9 @@ public class ExampleServiceImpl implements ExampleService {
         if (contentType == null || !List.of("image/jpeg", "image/png").contains(contentType)) {
             throw new FileInvalidType("File must be an image");
         }
-        String suffix = exampleDto.getImage()
-                .getOriginalFilename()
-                .substring(exampleDto.getImage().getOriginalFilename().lastIndexOf('.'));
-        String fileName = UUID.randomUUID() + suffix;
-        Example createdExample =
-                this.exampleRepository.save(this.exampleMapper.fromCreationDto(exampleDto, fileName));
-        this.fileManager.uploadFile(exampleDto.getImage(), fileName);
 
-        return createdExample;
+        String fileName = this.fileManager.uploadFile(exampleDto.getImage());
+        return this.exampleRepository.save(this.exampleMapper.fromCreationDto(exampleDto, fileName));
     }
 
     @Override
@@ -73,13 +67,9 @@ public class ExampleServiceImpl implements ExampleService {
                 throw new FileInvalidType("File must be an image");
             }
             String oldFileName = foundedExample.getFileName();
-            String suffix = exampleDto.getImage()
-                    .getOriginalFilename()
-                    .substring(exampleDto.getImage().getOriginalFilename().lastIndexOf('.'));
-            String newFileName = UUID.randomUUID() + suffix;
+            String newFileName = this.fileManager.uploadFile(exampleDto.getImage());
             foundedExample.setFileName(newFileName);
             this.fileManager.deleteFile(oldFileName);
-            this.fileManager.uploadFile(exampleDto.getImage(), newFileName);
         }
 
         if (exampleDto.getTitle() != null && !exampleDto.getTitle().isBlank()) {
