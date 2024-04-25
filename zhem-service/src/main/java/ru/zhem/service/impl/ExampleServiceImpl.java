@@ -16,7 +16,6 @@ import ru.zhem.service.interfaces.ExampleService;
 import ru.zhem.service.util.FileManager;
 
 import java.io.IOException;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -32,7 +31,7 @@ public class ExampleServiceImpl implements ExampleService {
     @Transactional(rollbackOn = IOException.class)
     public Example createExample(ExampleCreationDto exampleDto) throws IOException {
         String contentType = exampleDto.getImage().getContentType();
-        if (contentType == null || !List.of("image/jpeg", "image/png").contains(contentType)) {
+        if (contentType != null && contentType.startsWith("image/")) {
             throw new FileInvalidType("File must be an image");
         }
 
@@ -62,7 +61,7 @@ public class ExampleServiceImpl implements ExampleService {
 
         if (exampleDto.getImage() != null) {
             String contentType = exampleDto.getImage().getContentType();
-            if (contentType == null || !List.of("image/jpeg", "image/png").contains(contentType)) {
+            if (contentType != null && contentType.startsWith("image/")) {
                 throw new FileInvalidType("File must be an image");
             }
             String oldFileName = foundedExample.getFileName();
