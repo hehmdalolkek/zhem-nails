@@ -17,9 +17,7 @@ public class FileManager {
     private String storageDirectory;
 
     public String uploadFile(MultipartFile multipartFile) throws IOException {
-        String suffix = multipartFile
-                .getOriginalFilename()
-                .substring(multipartFile.getOriginalFilename().lastIndexOf('.'));
+        String suffix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf('.'));
         String fileName = UUID.randomUUID() + suffix;
 
         Path directoryPath = Paths.get(this.storageDirectory);

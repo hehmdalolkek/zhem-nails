@@ -17,7 +17,6 @@ import ru.zhem.service.util.FileManager;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
