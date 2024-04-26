@@ -25,6 +25,7 @@ public class HeaderInterceptor implements HandlerInterceptor {
             if (principal != null) {
                 ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
                 modelAndView.addObject("authUser", user);
+                modelAndView.addObject("isAdmin", request.isUserInRole("ADMIN"));
             }
             if (zhemUserService.adminIsExists()) {
                 ZhemUserDto admin = zhemUserService.findAdmin();
