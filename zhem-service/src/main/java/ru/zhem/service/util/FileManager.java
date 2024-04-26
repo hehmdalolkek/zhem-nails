@@ -3,6 +3,7 @@ package ru.zhem.service.util;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import ru.zhem.exception.EmptyFileException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +18,11 @@ public class FileManager {
     private String storageDirectory;
 
     public String uploadFile(MultipartFile multipartFile) throws IOException {
-        String suffix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf('.'));
+        if (multipartFile.isEmpty() || multipartFile.getOriginalFilename() == null) {
+            throw new EmptyFileException("File must be not empty");
+        }
+        String suffix = multipartFile.getOriginalFilename()
+                .substring(multipartFile.getOriginalFilename().lastIndexOf('.'));
         String fileName = UUID.randomUUID() + suffix;
 
         Path directoryPath = Paths.get(this.storageDirectory);
