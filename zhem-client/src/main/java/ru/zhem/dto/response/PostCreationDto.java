@@ -5,15 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+import ru.zhem.dto.constraint.MultipartFileNotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExampleUpdateDto {
+public class PostCreationDto {
 
-    @Size(max = 32, message = "Наименование должно быть до 32 символов")
-    private String title;
+    @Size(max = 256, message = "Поле должно быть от до 256 символов")
+    private String content;
 
+    @MultipartFileNotNull(message = "Вложите изображение")
     private MultipartFile image;
 
 }

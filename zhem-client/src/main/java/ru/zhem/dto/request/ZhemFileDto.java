@@ -4,23 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import ru.zhem.entity.FileType;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExampleDto {
+public class ZhemFileDto {
 
     private Long id;
 
-    private String title;
+    private String path;
 
-    private String fileName;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
+    private FileType type;
 
 }
