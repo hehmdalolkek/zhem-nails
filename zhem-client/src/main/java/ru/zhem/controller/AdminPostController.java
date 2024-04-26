@@ -4,60 +4,65 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.controller.util.ControllerUtil;
-import ru.zhem.dto.response.ExampleCreationDto;
+import ru.zhem.dto.response.PostCreationDto;
 import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.FileInvalidType;
-import ru.zhem.service.interfaces.ExampleService;
+import ru.zhem.exceptions.NotFoundException;
+import ru.zhem.exceptions.PostNotFoundException;
+import ru.zhem.service.interfaces.PostService;
 
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/admin/portfolio")
-public class AdminExampleController {
+public class AdminPostController {
 
-    private final ExampleService exampleService;
+    private final PostService postService;
 
     private final ControllerUtil controllerUtil;
 
     @GetMapping
     public String getPortfolio(@RequestParam(value = "size", defaultValue = "9") int size,
                                @RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        model.addAttribute("examples", this.exampleService.findAllExamples(size, page));
-        return "admin/portfolio/examples";
+        model.addAttribute("posts", this.postService.findAllPosts(size, page));
+        return "/admin/portfolio/posts";
+    }
+
+    @GetMapping("/{postId:\\d+}")
+    public String getPostById(@PathVariable("postId") long postId, Model model) {
+        try {
+            model.addAttribute("post", this.postService.findPostById(postId));
+            return "/admin/portfolio/post";
+        } catch (PostNotFoundException exception) {
+            throw new NotFoundException(ProblemDetail.forStatusAndDetail(
+                    HttpStatus.NOT_FOUND, exception.getMessage()));
+        }
     }
 
     @PostMapping("/create")
-    public String createExample(@Valid ExampleCreationDto exampleDto, BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes, HttpServletResponse response) {
+    public String createPost(@Valid PostCreationDto postDto, BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes, HttpServletResponse response) {
         redirectAttributes.addFlashAttribute("message", "Ошибка добавления");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("errors", errors);
-            redirectAttributes.addFlashAttribute("enteredData", exampleDto);
+            redirectAttributes.addFlashAttribute("enteredData", postDto);
         } else {
             try {
-                this.exampleService.createExample(exampleDto);
+                this.postService.createPost(postDto);
                 redirectAttributes.addFlashAttribute("message", "Успешно добавлено");
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());
-                redirectAttributes.addFlashAttribute("enteredData", exampleDto);
-                return "redirect:/admin/portfolio";
-            } catch (FileInvalidType exception) {
-                response.setStatus(HttpStatus.BAD_REQUEST.value());
-                redirectAttributes.addFlashAttribute("errors", Map.of("image", exception.getMessage()));
-                redirectAttributes.addFlashAttribute("enteredData", exampleDto);
+                redirectAttributes.addFlashAttribute("enteredData", postDto);
                 return "redirect:/admin/portfolio";
             }
         }
@@ -65,8 +70,8 @@ public class AdminExampleController {
     }
 
     @PostMapping("/delete")
-    public String deleteExample(long exampleId) {
-        this.exampleService.deleteById(exampleId);
+    public String deleteExample(long postId) {
+        this.postService.deleteById(postId);
         return "redirect:/admin/portfolio";
     }
 
