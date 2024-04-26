@@ -14,20 +14,22 @@
     </nav>
     <main>
         <h1>Портфолио</h1>
-        <div th:each="example : ${examples.content}">
-            <p th:text="${example.getTitle()}"></p>
-            <img width="200px" th:src="@{/img/__${example.getFileName()}__}" th:alt="${example.getTitle()}">
+        <div th:each="post : ${posts.content}">
+            <a th:href="@{/portfolio/__${post.getId()}__}">
+                <p th:text="${post.getContent()}"></p>
+                <img width="200px" th:src="@{/img/__${post.getImage().getPath()}__}" th:alt="${post.getContent()}">
+            </a>
         </div>
-        <div th:if="${examples.hasContent()}" class="pagination">
+        <div th:if="${posts.hasContent()}" class="pagination">
             <ul>
-                <li th:if="${examples.hasPrevious()}">
-                    <a th:href="@{'portfolio?page=' + ${examples.number - 1}}">Previous</a>
+                <li th:if="${posts.hasPrevious()}">
+                    <a th:href="@{'portfolio?page=' + ${posts.number - 1}}">Previous</a>
                 </li>
-                <li th:each="page : ${#numbers.sequence(0, examples.totalPages - 1)}">
+                <li th:each="page : ${#numbers.sequence(0, posts.totalPages - 1)}">
                     <a th:href="@{'portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
                 </li>
-                <li th:if="${examples.hasNext()}">
-                    <a th:href="@{'portfolio?page=' + ${examples.number + 1}}">Next</a>
+                <li th:if="${posts.hasNext()}">
+                    <a th:href="@{'portfolio?page=' + ${posts.number + 1}}">Next</a>
                 </li>
             </ul>
         </div>
