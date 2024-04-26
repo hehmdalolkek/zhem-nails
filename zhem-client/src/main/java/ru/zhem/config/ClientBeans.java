@@ -81,11 +81,11 @@ public class ClientBeans {
     }
 
     @Bean
-    public ExampleRestClientImpl exampleRestClient(
+    public PostRestClientImpl postRestClient(
             @Value("${zhem-nails.services.service.url:http://localhost:8081}") String serviceBaseUrl,
             @Value("${zhem-nails.services.service.name}") String serviceUserName,
             @Value("${zhem-nails.services.service.password}") String serviceUserPassword) {
-        return new ExampleRestClientImpl(
+        return new PostRestClientImpl(
                 RestClient.builder()
                         .baseUrl(serviceBaseUrl)
                         .requestInterceptor(
