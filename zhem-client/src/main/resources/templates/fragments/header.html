@@ -1,6 +1,9 @@
 <header id="header_admin">
     <ul>
         <li>
+            <a th:href="@{/admin/dashboard}">Панель управления</a>
+        </li>
+        <li>
             <a th:href="@{/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
         </li>
         <li>
@@ -20,7 +23,7 @@
             <a th:href="@{/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
         </li>
         <li>
-            <form method="post" th:action="@{/admin/logout}">
+            <form method="post" th:action="@{/user/logout}">
                 <input type="submit" value="Выйти">
             </form>
         </li>
