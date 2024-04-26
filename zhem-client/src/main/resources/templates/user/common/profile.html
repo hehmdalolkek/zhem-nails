@@ -14,7 +14,7 @@
     </nav>
     <main>
         <div>
-            <form method="post" th:action="@{/profile/update}" th:object="${user}">
+            <form method="post" th:action="@{/user/profile/update}" th:object="${user}">
                 <h2>Редактирование профиля</h2>
                 <h3 th:text="${message}"></h3>
                 <input type="hidden" th:field="*{id}">
@@ -36,7 +36,7 @@
                 </label><br>
                 <input type="submit" value="Сохранить">
             </form>
-            <form method="post" th:action="@{profile/update-password}" th:object="${user}">
+            <form method="post" th:action="@{/user/profile/update-password}" th:object="${user}">
                 <h2>Изменение пароля</h2>
                 <h3 th:text="${messagePassword}"></h3>
                 <input type="hidden" th:field="*{id}">

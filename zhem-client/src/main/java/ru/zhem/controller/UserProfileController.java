@@ -31,8 +31,8 @@ import java.security.Principal;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/profile")
-public class ProfileController {
+@RequestMapping("/user/profile")
+public class UserProfileController {
 
     private final ZhemUserService zhemUserService;
 
@@ -43,8 +43,8 @@ public class ProfileController {
     private final ControllerUtil controllerUtil;
 
     @Autowired
-    public ProfileController(ZhemUserService zhemUserService, PasswordEncoder passwordEncoder,
-                             @Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService, ControllerUtil controllerUtil) {
+    public UserProfileController(ZhemUserService zhemUserService, PasswordEncoder passwordEncoder,
+                                 @Qualifier("zhemUserDetailsService") UserDetailsService userDetailsService, ControllerUtil controllerUtil) {
         this.zhemUserService = zhemUserService;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
@@ -56,7 +56,7 @@ public class ProfileController {
         try {
             ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
             model.addAttribute("user", user);
-            return "/common/profile";
+            return "user/common/profile";
         } catch (UsernameNotFoundException exception) {
             throw new NotFoundException(ProblemDetail.forStatusAndDetail(
                     HttpStatus.NOT_FOUND, exception.getMessage()
@@ -85,11 +85,11 @@ public class ProfileController {
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());
-                return "redirect:/profile";
+                return "redirect:/user/profile";
             }
         }
 
-        return "redirect:/profile";
+        return "redirect:/user/profile";
     }
 
     @PostMapping("/update-password")
@@ -112,7 +112,7 @@ public class ProfileController {
             }
         }
 
-        return "redirect:/profile";
+        return "redirect:/user/profile";
     }
 
 }
