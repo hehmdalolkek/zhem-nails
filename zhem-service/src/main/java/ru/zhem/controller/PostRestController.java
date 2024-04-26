@@ -44,7 +44,7 @@ public class PostRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPost(@RequestPart MultipartFile image, @Valid PostCreationDto postDto,
+    public ResponseEntity<?> createPost(@Valid PostCreationDto postDto,
                                         BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
             if (bindingResult instanceof BindException exception) {
@@ -55,7 +55,7 @@ public class PostRestController {
         } else {
             try {
                 Post postToCreate = this.postMapper.fromCreationDto(postDto);
-                Post createdPost = this.postService.createPost(postToCreate, image);
+                Post createdPost = this.postService.createPost(postToCreate, postDto.getImage());
                 return ResponseEntity.created(URI.create("/service-api/v1/posts/post/" + createdPost.getId()))
                         .body(this.postMapper.fromEntity(createdPost));
             } catch (PostNotFoundException exception) {
