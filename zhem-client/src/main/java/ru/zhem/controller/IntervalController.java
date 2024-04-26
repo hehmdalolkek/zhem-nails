@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.InvalidDateException;
-import ru.zhem.service.interfaces.IntervalService;
 import ru.zhem.service.util.CalendarUtil;
 
 import java.time.YearMonth;

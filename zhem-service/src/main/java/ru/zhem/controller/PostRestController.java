@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.zhem.dto.mapper.PostMapper;
 import ru.zhem.dto.request.PostCreationDto;
 import ru.zhem.entity.Post;

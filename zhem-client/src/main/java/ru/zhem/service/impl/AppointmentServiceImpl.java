@@ -12,12 +12,7 @@ import ru.zhem.dto.response.AppointmentUpdateDto;
 import ru.zhem.exceptions.AppointmentNotFoundException;
 import ru.zhem.service.interfaces.AppointmentService;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
