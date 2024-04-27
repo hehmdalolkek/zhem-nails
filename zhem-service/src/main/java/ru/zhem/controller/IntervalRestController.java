@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.zhem.common.annotation.LoggingAnnotation;
 import ru.zhem.dto.mapper.IntervalMapper;
 import ru.zhem.dto.request.IntervalCreationDto;
 import ru.zhem.dto.request.IntervalUpdateDto;
@@ -31,6 +32,7 @@ public class IntervalRestController {
 
     private final IntervalMapper intervalMapper;
 
+    @LoggingAnnotation(module = "Interval", operation = "Get all intervals")
     @GetMapping
     public ResponseEntity<?> findAllIntervals(@RequestParam("year") Integer year,
                                               @RequestParam("month") Integer month) {
@@ -46,6 +48,7 @@ public class IntervalRestController {
         }
     }
 
+    @LoggingAnnotation(module = "Interval", operation = "Get all available intervals")
     @GetMapping("/available")
     public ResponseEntity<?> findAllAvailableIntervals(@RequestParam("year") Integer year,
                                                        @RequestParam("month") Integer month) {
@@ -61,6 +64,7 @@ public class IntervalRestController {
         }
     }
 
+    @LoggingAnnotation(module = "Interval", operation = "Get interval by id")
     @GetMapping("/interval/{intervalId:\\d+}")
     public ResponseEntity<?> findIntervalById(@PathVariable("intervalId") long intervalId) {
         try {
@@ -72,6 +76,7 @@ public class IntervalRestController {
         }
     }
 
+    @LoggingAnnotation(module = "Interval", operation = "Create new interval")
     @PostMapping
     public ResponseEntity<?> createInterval(@Valid @RequestBody IntervalCreationDto intervalDto,
                                             BindingResult bindingResult) throws BindException, ConflictException {
@@ -95,6 +100,7 @@ public class IntervalRestController {
         }
     }
 
+    @LoggingAnnotation(module = "Interval", operation = "Update interval by id")
     @PatchMapping("/interval/{intervalId:\\d+}")
     public ResponseEntity<?> updateInterval(@PathVariable("intervalId") long intervalId,
                                             @Valid @RequestBody IntervalUpdateDto intervalDto,
@@ -120,6 +126,7 @@ public class IntervalRestController {
         }
     }
 
+    @LoggingAnnotation(module = "Interval", operation = "Delete interval by id")
     @DeleteMapping("/interval/{intervalId:\\d+}")
     public ResponseEntity<?> deleteInterval(@PathVariable("intervalId") long intervalId)
             throws ConflictException {

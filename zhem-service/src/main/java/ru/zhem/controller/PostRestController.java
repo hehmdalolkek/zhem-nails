@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.zhem.common.annotation.LoggingAnnotation;
 import ru.zhem.dto.mapper.PostMapper;
 import ru.zhem.dto.request.PostCreationDto;
 import ru.zhem.entity.Post;
@@ -25,6 +26,7 @@ public class PostRestController {
 
     private final PostMapper postMapper;
 
+    @LoggingAnnotation(module = "Post", operation = "Get all posts")
     @GetMapping
     public ResponseEntity<?> findAllPosts(Pageable pageable) {
         return ResponseEntity.ok()
@@ -32,6 +34,7 @@ public class PostRestController {
                         .map(this.postMapper::fromEntity));
     }
 
+    @LoggingAnnotation(module = "Post", operation = "Get post by id")
     @GetMapping("/post/{postId:\\d+}")
     public ResponseEntity<?> findPostById(@PathVariable("postId") long postId) {
         try {
@@ -42,6 +45,7 @@ public class PostRestController {
         }
     }
 
+    @LoggingAnnotation(module = "Post", operation = "Create new post")
     @PostMapping
     public ResponseEntity<?> createPost(@Valid PostCreationDto postDto,
                                         BindingResult bindingResult) throws BindException {
@@ -66,6 +70,7 @@ public class PostRestController {
 
     }
 
+    @LoggingAnnotation(module = "Post", operation = "Delete post by id")
     @DeleteMapping("/post/{postId:\\d+}")
     public ResponseEntity<?> deletePostById(@PathVariable("postId") long postId) {
         try {

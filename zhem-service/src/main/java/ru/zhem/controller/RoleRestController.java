@@ -8,6 +8,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import ru.zhem.common.annotation.LoggingAnnotation;
 import ru.zhem.dto.mapper.RoleMapper;
 import ru.zhem.dto.request.RoleCreationDto;
 import ru.zhem.entity.Role;
@@ -26,6 +27,7 @@ public class RoleRestController {
 
     private final RoleMapper roleMapper;
 
+    @LoggingAnnotation(module = "Role", operation = "Create new role")
     @PostMapping
     public ResponseEntity<?> createRole(@Valid @RequestBody RoleCreationDto roleDto,
                                         BindingResult bindingResult) throws BindException, ConflictException {
@@ -48,6 +50,7 @@ public class RoleRestController {
         }
     }
 
+    @LoggingAnnotation(module = "Role", operation = "Get role by title")
     @GetMapping("/role/{title}")
     public ResponseEntity<?> findRoleByTitle(@PathVariable("title") String title) {
         try {

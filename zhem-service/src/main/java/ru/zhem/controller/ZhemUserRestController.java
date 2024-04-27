@@ -9,6 +9,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import ru.zhem.common.annotation.LoggingAnnotation;
 import ru.zhem.dto.mapper.UserMapper;
 import ru.zhem.dto.request.ZhemUserCreationDto;
 import ru.zhem.dto.request.ZhemUserUpdateDto;
@@ -30,6 +31,7 @@ public class ZhemUserRestController {
 
     private final UserMapper userMapper;
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Get all users with role CLIENT")
     @GetMapping
     public ResponseEntity<?> findAllClients(@RequestParam(value = "firstName", required = false) String firstName,
                                           @RequestParam(value = "lastName", required = false) String lastName,
@@ -50,6 +52,7 @@ public class ZhemUserRestController {
                 .body(allUsersPayload);
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Get all users with role CLIENT by page")
     @GetMapping("/pageable")
     public ResponseEntity<?> findAllClientsByPage(Pageable pageable) {
         Page<ZhemUserDto> allUsers = this.zhemUserService.findAllClientsByPage(pageable)
@@ -59,6 +62,7 @@ public class ZhemUserRestController {
                 .body(allUsers);
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Get user by id")
     @GetMapping("/user/{userId:\\d+}")
     public ResponseEntity<?> findUserById(@PathVariable("userId") long userId) {
         try {
@@ -70,6 +74,7 @@ public class ZhemUserRestController {
         }
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Get user for auth by phone")
     @GetMapping("/user/auth/{phone}")
     public ResponseEntity<?> findUserByPhone(@PathVariable("phone") String phone,
                                              @RequestParam(value = "admin", required = false) boolean isAdmin) {
@@ -82,6 +87,7 @@ public class ZhemUserRestController {
         }
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Get user by id")
     @GetMapping("/user/phone/{phone}")
     public ResponseEntity<?> findUserByPhone(@PathVariable("phone") String phone) {
         try {
@@ -93,6 +99,7 @@ public class ZhemUserRestController {
         }
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Create new user")
     @PostMapping()
     public ResponseEntity<?> createUser(@Valid @RequestBody ZhemUserCreationDto userDto,
                                         BindingResult bindingResult) throws BindException, ConflictException {
@@ -117,6 +124,7 @@ public class ZhemUserRestController {
         }
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Update user by id")
     @PatchMapping("/user/{userId:\\d+}")
     public ResponseEntity<?> updateUserById(@PathVariable("userId") long userId, @Valid @RequestBody ZhemUserUpdateDto userDto,
                                             BindingResult bindingResult) throws BindException, ConflictException {
@@ -143,6 +151,7 @@ public class ZhemUserRestController {
         }
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Delete user by id")
     @DeleteMapping("/user/{userId:\\d+}")
     public ResponseEntity<?> deleteUserById(@PathVariable("userId") long userId) {
         try {
@@ -154,12 +163,14 @@ public class ZhemUserRestController {
         }
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Check admin is exists")
     @GetMapping("/user/check/admin")
     public ResponseEntity<?> adminIsExists() {
         return ResponseEntity.ok()
                 .body(this.zhemUserService.adminIsExists());
     }
 
+    @LoggingAnnotation(module = "ZhemUser", operation = "Get admin")
     @GetMapping("/user/admin")
     public ResponseEntity<?> findAdmin() {
         try {
