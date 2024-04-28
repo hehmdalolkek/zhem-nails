@@ -8,7 +8,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import ru.zhem.common.annotation.LoggingAnnotation;
+import ru.zhem.common.annotation.LogAnnotation;
 import ru.zhem.dto.mapper.ZhemServiceMapper;
 import ru.zhem.dto.request.ZhemServiceCreationDto;
 import ru.zhem.entity.ZhemService;
@@ -29,7 +29,7 @@ public class ZhemServiceRestController {
 
     private final ZhemServiceService zhemServiceService;
 
-    @LoggingAnnotation(module = "ZhemService", operation = "Get all services")
+    @LogAnnotation(module = "ZhemService", operation = "Get all services")
     @GetMapping
     public ResponseEntity<?> findAllServices() {
         List<ZhemService> services = this.zhemServiceService.findAllServices();
@@ -37,7 +37,7 @@ public class ZhemServiceRestController {
                 .body(services.stream().map(this.zhemServiceMapper::fromEntity));
     }
 
-    @LoggingAnnotation(module = "ZhemService", operation = "Create new service")
+    @LogAnnotation(module = "ZhemService", operation = "Create new service")
     @PostMapping
     public ResponseEntity<?> createService(@Valid @RequestBody ZhemServiceCreationDto serviceDto,
                                         BindingResult bindingResult) throws BindException, ConflictException {
@@ -61,7 +61,7 @@ public class ZhemServiceRestController {
         }
     }
 
-    @LoggingAnnotation(module = "ZhemService", operation = "Delete service by id")
+    @LogAnnotation(module = "ZhemService", operation = "Delete service by id")
     @DeleteMapping("/service/{serviceId}")
     public ResponseEntity<?> deleteService(@PathVariable("serviceId") int serviceId) {
         try {

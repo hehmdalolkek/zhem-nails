@@ -9,7 +9,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import ru.zhem.common.annotation.LoggingAnnotation;
+import ru.zhem.common.annotation.LogAnnotation;
 import ru.zhem.dto.mapper.AppointmentMapper;
 import ru.zhem.dto.request.AppointmentCreationDto;
 import ru.zhem.dto.request.AppointmentUpdateDto;
@@ -33,7 +33,7 @@ public class AppointmentRestController {
 
     private final AppointmentMapper appointmentMapper;
 
-    @LoggingAnnotation(module = "Appointment", operation = "Get all appointments by user")
+    @LogAnnotation(module = "Appointment", operation = "Get all appointments by user")
     @GetMapping("/user/{userId:\\d+}")
     public ResponseEntity<?> findAllAppointmentsByUser(@PathVariable("userId") long userId,
                                                        @RequestParam("page") int page,
@@ -49,7 +49,7 @@ public class AppointmentRestController {
         }
     }
 
-    @LoggingAnnotation(module = "Appointment", operation = "Get all appointments")
+    @LogAnnotation(module = "Appointment", operation = "Get all appointments")
     @GetMapping
     public ResponseEntity<?> findAllAppointments(@RequestParam("year") Integer year,
                                                  @RequestParam("month") Integer month) {
@@ -63,7 +63,7 @@ public class AppointmentRestController {
                 .body(appointmentDtos);
     }
 
-    @LoggingAnnotation(module = "Appointment", operation = "Get appointment by id")
+    @LogAnnotation(module = "Appointment", operation = "Get appointment by id")
     @GetMapping("/appointment/{appointmentId:\\d+}")
     public ResponseEntity<?> findAppointmentById(@PathVariable("appointmentId") long appointmentId) {
         try {
@@ -75,7 +75,7 @@ public class AppointmentRestController {
         }
     }
 
-    @LoggingAnnotation(module = "Appointment", operation = "Get appointment by interval id")
+    @LogAnnotation(module = "Appointment", operation = "Get appointment by interval id")
     @GetMapping("/appointment/interval/{intervalId:\\d+}")
     public ResponseEntity<?> findAppointmentByInterval(@PathVariable("intervalId") long intervalId) {
         try {
@@ -87,7 +87,7 @@ public class AppointmentRestController {
         }
     }
 
-    @LoggingAnnotation(module = "Appointment", operation = "Create new appointment")
+    @LogAnnotation(module = "Appointment", operation = "Create new appointment")
     @PostMapping
     public ResponseEntity<?> createAppointment(@Valid @RequestBody AppointmentCreationDto appointmentDto,
                                                BindingResult bindingResult) throws BindException, ConflictException {
@@ -113,7 +113,7 @@ public class AppointmentRestController {
         }
     }
 
-    @LoggingAnnotation(module = "Appointment", operation = "Update appointment by id")
+    @LogAnnotation(module = "Appointment", operation = "Update appointment by id")
     @PatchMapping("/appointment/{appointmentId}")
     public ResponseEntity<?> updateAppointment(@PathVariable("appointmentId") long appointmentId,
                                                @Valid @RequestBody AppointmentUpdateDto appointmentDto,
@@ -141,7 +141,7 @@ public class AppointmentRestController {
         }
     }
 
-    @LoggingAnnotation(module = "Appointment", operation = "Delete appointment")
+    @LogAnnotation(module = "Appointment", operation = "Delete appointment")
     @DeleteMapping("/appointment/{appointmentId:\\d+}")
     public ResponseEntity<?> deleteAppointmentById(@PathVariable("appointmentId") long appointmentId) {
         try {

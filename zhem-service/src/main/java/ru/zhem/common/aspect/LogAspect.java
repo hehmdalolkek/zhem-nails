@@ -1,30 +1,25 @@
 package ru.zhem.common.aspect;
 
-import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import ru.zhem.common.annotation.LoggingAnnotation;
+import ru.zhem.common.annotation.LogAnnotation;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Aspect
 @Component
-public class LoggingAspect {
+@Slf4j
+public class LogAspect {
 
-    private final Logger log = LoggerFactory.getLogger(LoggingAspect.class);
-
-    @Pointcut("@annotation(ru.zhem.common.annotation.LoggingAnnotation)")
-    public void logPointCut(){
+    @Pointcut("@annotation(ru.zhem.common.annotation.LogAnnotation)")
+    public void logPointCut() {
     }
 
     @Around(value = "logPointCut()")
@@ -39,16 +34,16 @@ public class LoggingAspect {
     private void doLog(ProceedingJoinPoint joinPoint, long time) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        LoggingAnnotation loggingAnnotation = method.getAnnotation(LoggingAnnotation.class);
-        String module = loggingAnnotation.module();
-        String operation = loggingAnnotation.operation();
+        LogAnnotation logAnnotation = method.getAnnotation(LogAnnotation.class);
+        String module = logAnnotation.module();
+        String operation = logAnnotation.operation();
 
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = method.getName();
         List<String> methodArgs = Arrays.stream(joinPoint.getArgs())
                 .map(Object::toString)
                 .toList();
-        String methodArgsToString = String.join(", ",methodArgs);
+        String methodArgsToString = String.join(", ", methodArgs);
         String methodFullName = className + "." + methodName + "(" + methodArgsToString + ")";
 
         log.debug("In module {} completed method {} for operation '{}' in {} ms",
