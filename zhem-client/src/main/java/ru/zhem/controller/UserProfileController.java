@@ -5,10 +5,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +22,6 @@ import ru.zhem.entity.ZhemUser;
 import ru.zhem.entity.ZhemUserUpdate;
 import ru.zhem.entity.ZhemUserUpdatePassword;
 import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.NotFoundException;
 import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.security.Principal;
@@ -53,15 +50,9 @@ public class UserProfileController {
 
     @GetMapping
     public String initProfilePage(Model model, Principal principal) {
-        try {
-            ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
-            model.addAttribute("user", user);
-            return "user/common/profile";
-        } catch (UsernameNotFoundException exception) {
-            throw new NotFoundException(ProblemDetail.forStatusAndDetail(
-                    HttpStatus.NOT_FOUND, exception.getMessage()
-            ));
-        }
+        ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
+        model.addAttribute("user", user);
+        return "user/common/profile";
     }
 
     @PostMapping("/update")

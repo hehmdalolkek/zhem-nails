@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +16,7 @@ import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
 import ru.zhem.entity.Status;
-import ru.zhem.exceptions.BadRequestException;
 import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.InvalidDateException;
 import ru.zhem.service.interfaces.IntervalService;
 import ru.zhem.service.util.CalendarUtil;
 
@@ -40,18 +37,12 @@ public class AdminIntervalController {
     @GetMapping
     public String showAllIntervals(@RequestParam(value = "year", required = false) Integer year,
                                    @RequestParam(value = "month", required = false) Integer month, Model model) {
-        try {
-            YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
-            model.addAttribute("statusAvailable", Status.AVAILABLE);
-            model.addAttribute("mapOfIntervals",
-                    this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, false));
+        YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
+        model.addAttribute("statusAvailable", Status.AVAILABLE);
+        model.addAttribute("mapOfIntervals",
+                this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, false));
 
-            return "/admin/intervals/intervals";
-        } catch (InvalidDateException exception) {
-            throw new BadRequestException(ProblemDetail.forStatusAndDetail(
-                    HttpStatus.BAD_REQUEST, "Invalid date"
-            ));
-        }
+        return "/admin/intervals/intervals";
     }
 
     @PostMapping

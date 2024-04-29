@@ -134,26 +134,26 @@ public class ZhemUserRestClientImpl implements ZhemUserRestClient {
     }
 
     @Override
-    public ZhemUserDto findUserByPhone(String phone) {
+    public Optional<ZhemUserDto> findUserByPhone(String phone) {
         try {
-            return this.restClient.get()
+            return Optional.ofNullable(this.restClient.get()
                     .uri("/service-api/v1/users/user/phone/{phone}", phone)
                     .retrieve()
-                    .body(ZhemUserDto.class);
+                    .body(ZhemUserDto.class));
         } catch (HttpClientErrorException.NotFound exception) {
-            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
+            return Optional.empty();
         }
     }
 
     @Override
-    public ZhemUserDto findAdmin() {
+    public Optional<ZhemUserDto> findAdmin() {
         try {
-            return this.restClient.get()
+            return Optional.ofNullable(this.restClient.get()
                     .uri("/service-api/v1/users/user/admin")
                     .retrieve()
-                    .body(ZhemUserDto.class);
+                    .body(ZhemUserDto.class));
         } catch (HttpClientErrorException.NotFound exception) {
-            throw new NotFoundException(exception.getResponseBodyAs(ProblemDetail.class));
+            return Optional.empty();
         }
     }
 }

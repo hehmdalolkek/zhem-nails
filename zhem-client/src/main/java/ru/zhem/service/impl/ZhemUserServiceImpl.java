@@ -12,6 +12,7 @@ import ru.zhem.dto.response.ZhemUserCreationDto;
 import ru.zhem.dto.response.ZhemUserUpdateDto;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exceptions.RoleNotFoundException;
+import ru.zhem.exceptions.ZhemUserNotFoundException;
 import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.util.HashSet;
@@ -99,11 +100,13 @@ public class ZhemUserServiceImpl implements ZhemUserService {
 
     @Override
     public ZhemUserDto findUserByPhone(String phone) {
-        return this.zhemUserRestClient.findUserByPhone(phone);
+        return this.zhemUserRestClient.findUserByPhone(phone)
+                .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
     }
 
     @Override
     public ZhemUserDto findAdmin() {
-        return this.zhemUserRestClient.findAdmin();
+        return this.zhemUserRestClient.findAdmin()
+                .orElseThrow(() -> new ZhemUserNotFoundException("User not found"));
     }
 }

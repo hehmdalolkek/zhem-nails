@@ -28,7 +28,7 @@ public interface ZhemUserRestClient {
 
     Boolean adminIsExists();
 
-    ZhemUserDto findUserByPhone(String phone);
+    Optional<ZhemUserDto> findUserByPhone(String phone);
 
-    ZhemUserDto findAdmin();
+    Optional<ZhemUserDto> findAdmin();
 }

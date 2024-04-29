@@ -5,7 +5,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +19,6 @@ import ru.zhem.dto.request.ZhemServiceDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.IntervalNotFoundException;
-import ru.zhem.exceptions.NotFoundException;
 import ru.zhem.service.interfaces.AppointmentService;
 import ru.zhem.service.interfaces.IntervalService;
 import ru.zhem.service.interfaces.ZhemServiceService;
@@ -64,18 +61,14 @@ public class UserAppointmentController {
 
     @GetMapping("/create")
     public String initCreateAppointmentPageFirst(@RequestParam("intervalId") long intervalId, Model model) {
-        try {
-            IntervalDto interval = this.intervalService.findIntervalById(intervalId);
-            AppointmentCreationDto appointment = AppointmentCreationDto.builder().intervalId(intervalId).build();
-            List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
+        IntervalDto interval = this.intervalService.findIntervalById(intervalId);
+        AppointmentCreationDto appointment = AppointmentCreationDto.builder().intervalId(intervalId).build();
+        List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
 
-            model.addAttribute("interval", interval);
-            model.addAttribute("appointment", appointment);
-            model.addAttribute("services", services);
-            return "/user/appointments/create";
-        } catch (IntervalNotFoundException exception) {
-            throw new NotFoundException(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
-        }
+        model.addAttribute("interval", interval);
+        model.addAttribute("appointment", appointment);
+        model.addAttribute("services", services);
+        return "/user/appointments/create";
     }
 
     @PostMapping("/create")
@@ -104,15 +97,9 @@ public class UserAppointmentController {
     @PostMapping("/delete")
     public String deleteAppointment(Long appointmentId, RedirectAttributes redirectAttributes,
                                     HttpServletResponse response) {
-        try {
-            this.appointmentService.deleteAppointment(appointmentId);
-            redirectAttributes.addFlashAttribute("message", "Запись отменена");
-            return "redirect:/user/appointments";
-        } catch (NotFoundException exception) {
-            throw new NotFoundException(ProblemDetail.forStatusAndDetail(
-                    HttpStatus.NOT_FOUND, exception.getMessage()
-            ));
-        }
+        this.appointmentService.deleteAppointment(appointmentId);
+        redirectAttributes.addFlashAttribute("message", "Запись отменена");
+        return "redirect:/user/appointments";
     }
 
 }
