@@ -47,13 +47,4 @@ public class IntervalControllerAdvice {
                 .body(problemDetail);
     }
 
-    @ExceptionHandler(DateTimeException.class)
-    public ResponseEntity<?> handlerDateTimeException(DateTimeException exception) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.BAD_REQUEST, exception.getMessage()
-        );
-        return ResponseEntity.badRequest()
-                .body(problemDetail);
-    }
-
 }

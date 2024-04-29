@@ -1,7 +1,5 @@
 package ru.zhem.controller.advice;
 
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.time.DateTimeException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +25,15 @@ public class GlobalControllerAdvice {
             errors.put(error.getField(), error.getDefaultMessage());
         }
         problemDetail.setProperty("errors", errors);
+        return ResponseEntity.badRequest()
+                .body(problemDetail);
+    }
+
+    @ExceptionHandler(DateTimeException.class)
+    public ResponseEntity<?> handlerDateTimeException(DateTimeException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, exception.getMessage()
+        );
         return ResponseEntity.badRequest()
                 .body(problemDetail);
     }
