@@ -1,10 +1,12 @@
 package ru.zhem.service.impl;
 
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.ZhemUser;
@@ -14,6 +16,7 @@ import ru.zhem.common.exception.ZhemUserWithDuplicatePhoneException;
 import ru.zhem.repository.ZhemUserRepository;
 import ru.zhem.service.interfaces.ZhemUserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -144,8 +147,29 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     @Override
     @Transactional
     public List<ZhemUser> findAllClientsBy(String firstName, String lastName, String phone, String email) {
+        Specification<ZhemUser> specification = Specification.allOf(
+          (root, query, criteriaBuilder) -> {
+              List<Predicate> predicates = new ArrayList<>();
+
+              if (firstName != null && !firstName.isBlank()) {
+                  predicates.add(criteriaBuilder.equal(root.get("firstName"), firstName));
+              }
+              if (lastName != null && !lastName.isBlank()) {
+                  predicates.add(criteriaBuilder.equal(root.get("lastName"), lastName));
+              }
+              if (phone != null && !phone.isBlank()) {
+                  predicates.add(criteriaBuilder.equal(root.get("phone"), phone));
+              }
+              if (email != null && !email.isBlank()) {
+                  predicates.add(criteriaBuilder.equal(root.get("email"), email));
+              }
+
+              return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+          }
+        );
+
         return this.zhemUserRepository
-                .findAllByFirstNameOrLastNameOrPhoneOrEmail(firstName, lastName, phone, email)
+                .findAll(specification)
                 .stream()
                 .filter(user -> user.getRoles().stream()
                         .noneMatch(role -> role.getTitle().equals("ADMIN")))

@@ -1,5 +1,6 @@
 package ru.zhem.repository;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -39,7 +40,7 @@ public interface ZhemUserRepository extends JpaRepository<ZhemUser, Long> {
     List<ZhemUser> findAll();
 
     @EntityGraph(value = "zhem-user_entity-graph")
-    List<ZhemUser> findAllByFirstNameOrLastNameOrPhoneOrEmail(String firstName, String lastName, String phone, String email);
+    List<ZhemUser> findAll(Specification<ZhemUser> specification);
 
     Boolean existsByRolesTitleContainingIgnoreCase(String role);
 
