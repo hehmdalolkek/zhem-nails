@@ -8,7 +8,6 @@ import ru.zhem.entity.Status;
 import ru.zhem.exception.IntervalIsBookedException;
 import ru.zhem.exception.IntervalNotFoundException;
 import ru.zhem.exception.IntervalWithDuplicateDateTimeException;
-import ru.zhem.exception.InvalidDateException;
 import ru.zhem.repository.IntervalRepository;
 import ru.zhem.service.interfaces.IntervalService;
 
@@ -19,6 +18,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
+import static java.time.temporal.ChronoField.YEAR;
+
 @Service
 @RequiredArgsConstructor
 public class IntervalServiceImpl implements IntervalService {
@@ -28,9 +30,8 @@ public class IntervalServiceImpl implements IntervalService {
     @Override
     @Transactional
     public Map<LocalDate, List<Interval>> findAllIntervalsByYearAndMonth(Integer year, Integer month) {
-        if (month < 1 || month > 12) {
-            throw new InvalidDateException("Invalid month");
-        }
+        YEAR.checkValidValue(year);
+        MONTH_OF_YEAR.checkValidValue(month);
         List<Interval> intervals = this.intervalRepository
                 .findAllByDateOrderByDateTime(year, month);
         return intervals.stream()
@@ -41,9 +42,8 @@ public class IntervalServiceImpl implements IntervalService {
     @Override
     @Transactional
     public Map<LocalDate, List<Interval>> findAllAvailableIntervalsByYearAndMonth(Integer year, Integer month) {
-        if (month < 1 || month > 12) {
-            throw new InvalidDateException("Invalid month");
-        }
+        YEAR.checkValidValue(year);
+        MONTH_OF_YEAR.checkValidValue(month);
         List<Interval> intervals = this.intervalRepository
                 .findAllByDateAndStatusOrderByDateTime(year, month, Status.AVAILABLE);
         return intervals.stream()

@@ -17,6 +17,9 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
+import static java.time.temporal.ChronoField.YEAR;
+
 @Service
 @RequiredArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
@@ -42,6 +45,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @Transactional
     public Map<LocalDate, List<Appointment>> findAllAppointmentsByIntervalDate(Integer year, Integer month) {
+        YEAR.checkValidValue(year);
+        MONTH_OF_YEAR.checkValidValue(month);
         List<Appointment> appointments = this.appointmentRepository.findAllByIntervalDate(year, month);
         return appointments.stream().collect(
                 Collectors.groupingBy(appointment -> appointment.getInterval().getDate(),
@@ -77,10 +82,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setUser(foundedUser);
         foundedInterval.setStatus(Status.BOOKED);
         appointment.setInterval(foundedInterval);
-
-        if (Objects.nonNull(appointment.getDetails()) && appointment.getDetails().isBlank()) {
-            appointment.setDetails(null);
-        }
 
         return this.appointmentRepository.save(appointment);
     }
