@@ -24,3 +24,6 @@ spring:
 file:
   storage:
     path: D:\projects\java\диплом\zhem-nails\file-storage
+logging:
+  file:
+    name: logs\logs.txt
