@@ -32,6 +32,7 @@ public class IntervalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
+        problemDetail.setProperty("errors", Map.of("interval", exception.getMessage()));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }
