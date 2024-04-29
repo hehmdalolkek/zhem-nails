@@ -38,6 +38,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     }
 
     @Override
+    @Transactional
     public Page<ZhemUser> findAllClientsByPage(Pageable pageable) {
         Page<ZhemUser> allUsers = zhemUserRepository.findAll(pageable);
         List<ZhemUser> filteredUsers = allUsers.getContent().stream()
