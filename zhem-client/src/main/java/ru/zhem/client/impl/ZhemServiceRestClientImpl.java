@@ -9,8 +9,8 @@ import org.springframework.web.client.RestClient;
 import ru.zhem.client.interfaces.ZhemServiceRestClient;
 import ru.zhem.dto.request.ZhemServiceDto;
 import ru.zhem.dto.response.ZhemServiceCreationDto;
-import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.NotFoundException;
+import ru.zhem.common.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Map;

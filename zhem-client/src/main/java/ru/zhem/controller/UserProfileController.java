@@ -21,7 +21,7 @@ import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.entity.ZhemUserUpdate;
 import ru.zhem.entity.ZhemUserUpdatePassword;
-import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.CustomBindException;
 import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.security.Principal;

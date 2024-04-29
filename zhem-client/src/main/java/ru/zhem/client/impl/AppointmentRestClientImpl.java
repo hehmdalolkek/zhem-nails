@@ -14,8 +14,8 @@ import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentUpdateDto;
-import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.NotFoundException;
+import ru.zhem.common.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Map;

@@ -13,8 +13,8 @@ import ru.zhem.dto.request.ZhemUserAuthDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.ZhemUserCreationDto;
 import ru.zhem.dto.response.ZhemUserUpdateDto;
-import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.NotFoundException;
+import ru.zhem.common.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Map;

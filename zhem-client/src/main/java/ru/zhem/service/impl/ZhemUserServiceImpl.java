@@ -11,8 +11,8 @@ import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.ZhemUserCreationDto;
 import ru.zhem.dto.response.ZhemUserUpdateDto;
 import ru.zhem.entity.ZhemUser;
-import ru.zhem.exceptions.RoleNotFoundException;
-import ru.zhem.exceptions.ZhemUserNotFoundException;
+import ru.zhem.common.exceptions.RoleNotFoundException;
+import ru.zhem.common.exceptions.ZhemUserNotFoundException;
 import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.util.HashSet;

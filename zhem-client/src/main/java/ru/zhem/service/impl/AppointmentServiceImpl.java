@@ -9,7 +9,7 @@ import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentUpdateDto;
-import ru.zhem.exceptions.AppointmentNotFoundException;
+import ru.zhem.common.exceptions.AppointmentNotFoundException;
 import ru.zhem.service.interfaces.AppointmentService;
 
 import java.util.List;

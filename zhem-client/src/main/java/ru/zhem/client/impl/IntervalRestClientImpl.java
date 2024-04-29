@@ -11,9 +11,9 @@ import ru.zhem.dto.request.DailyIntervalsDto;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
-import ru.zhem.exceptions.BadRequestException;
-import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.NotFoundException;
+import ru.zhem.common.exceptions.BadRequestException;
+import ru.zhem.common.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Map;

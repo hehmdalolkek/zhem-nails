@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import ru.zhem.dto.constraint.CheckPhoneNumber;
+import ru.zhem.common.constraint.CheckPhoneNumber;
 
 @Data
 public class ZhemUserUpdate {

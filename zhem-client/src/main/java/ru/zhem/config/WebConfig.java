@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import ru.zhem.controller.interceptor.HeaderInterceptor;
+import ru.zhem.common.interceptor.HeaderInterceptor;
 
 @RequiredArgsConstructor
 @Configuration

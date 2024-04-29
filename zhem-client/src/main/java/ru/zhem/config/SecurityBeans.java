@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import ru.zhem.client.interfaces.ZhemUserRestClient;
+import ru.zhem.common.filter.CheckAdminIsExistsFilter;
 import ru.zhem.service.impl.AdminUserDetailsService;
 
 @RequiredArgsConstructor

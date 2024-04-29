@@ -17,7 +17,7 @@ import ru.zhem.dto.request.ZhemServiceDto;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.dto.response.AppointmentCreationDto;
 import ru.zhem.dto.response.AppointmentUpdateDto;
-import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.CustomBindException;
 import ru.zhem.service.interfaces.AppointmentService;
 import ru.zhem.service.interfaces.IntervalService;
 import ru.zhem.service.interfaces.ZhemServiceService;

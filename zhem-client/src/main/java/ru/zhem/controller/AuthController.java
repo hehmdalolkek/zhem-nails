@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.entity.ZhemUser;
-import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.CustomBindException;
 import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.util.Map;

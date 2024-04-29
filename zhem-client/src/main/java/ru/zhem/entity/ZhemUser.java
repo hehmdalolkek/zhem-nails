@@ -6,9 +6,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import ru.zhem.dto.constraint.CheckPhoneNumber;
-import ru.zhem.entity.constraint.Password;
-import ru.zhem.entity.constraint.PasswordMatcher;
+import ru.zhem.common.constraint.CheckPhoneNumber;
+import ru.zhem.common.constraint.Password;
+import ru.zhem.common.constraint.PasswordMatcher;
 
 import java.util.Set;
 

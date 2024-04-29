@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.zhem.client.interfaces.PostRestClient;
 import ru.zhem.dto.request.PostDto;
 import ru.zhem.dto.response.PostCreationDto;
-import ru.zhem.exceptions.PostNotFoundException;
+import ru.zhem.common.exceptions.PostNotFoundException;
 import ru.zhem.service.interfaces.PostService;
 
 @RequiredArgsConstructor

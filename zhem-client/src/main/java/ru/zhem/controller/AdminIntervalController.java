@@ -16,7 +16,7 @@ import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
 import ru.zhem.entity.Status;
-import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.CustomBindException;
 import ru.zhem.service.interfaces.IntervalService;
 import ru.zhem.service.util.CalendarUtil;
 

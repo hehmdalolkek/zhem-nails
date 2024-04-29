@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.response.PostCreationDto;
-import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.CustomBindException;
 import ru.zhem.service.interfaces.PostService;
 
 import java.util.Map;

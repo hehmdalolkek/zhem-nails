@@ -13,9 +13,9 @@ import ru.zhem.client.interfaces.PostRestClient;
 import ru.zhem.client.response.PaginatedResponse;
 import ru.zhem.dto.request.PostDto;
 import ru.zhem.dto.response.PostCreationDto;
-import ru.zhem.exceptions.BadRequestException;
-import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.NotFoundException;
+import ru.zhem.common.exceptions.BadRequestException;
+import ru.zhem.common.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.NotFoundException;
 
 import java.util.Map;
 import java.util.Optional;

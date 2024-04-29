@@ -7,7 +7,7 @@ import ru.zhem.dto.request.DailyIntervalsDto;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
-import ru.zhem.exceptions.IntervalNotFoundException;
+import ru.zhem.common.exceptions.IntervalNotFoundException;
 import ru.zhem.service.interfaces.IntervalService;
 
 import java.util.List;

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.request.ZhemServiceDto;
 import ru.zhem.dto.response.ZhemServiceCreationDto;
-import ru.zhem.exceptions.CustomBindException;
+import ru.zhem.common.exceptions.CustomBindException;
 import ru.zhem.service.interfaces.ZhemServiceService;
 
 import java.util.List;
