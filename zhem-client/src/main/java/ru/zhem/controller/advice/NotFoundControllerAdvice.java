@@ -1,6 +1,8 @@
 package ru.zhem.controller.advice;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.ui.Model;
@@ -10,10 +12,11 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import ru.zhem.exceptions.NotFoundException;
 
 @ControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class NotFoundControllerAdvice {
 
     @ExceptionHandler(NotFoundException.class)
-    public String handlerBadRequestException(NotFoundException exception, Model model,
+    public String handlerNotFoundException(NotFoundException exception, Model model,
                                              HttpServletResponse response) {
         ProblemDetail problemDetail = exception.getProblemDetail();
         model.addAttribute("status", problemDetail.getStatus());

@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.NotFoundException;
-import ru.zhem.exceptions.RoleNotFoundException;
 import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.util.Map;
@@ -46,7 +43,7 @@ public class AuthController {
 
     @PostMapping("/admin/registration")
     public String registrationAdmin(@Valid ZhemUser user, BindingResult bindingResult,
-                                   HttpServletRequest request, HttpServletResponse response, Model model) {
+                                    HttpServletRequest request, HttpServletResponse response, Model model) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -66,11 +63,6 @@ public class AuthController {
                 model.addAttribute("enteredData", user);
                 model.addAttribute("errors", exception.getErrors());
                 return "/admin/auth/registration";
-            } catch (RoleNotFoundException exception) {
-                ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                        HttpStatus.NOT_FOUND, exception.getMessage()
-                );
-                throw new NotFoundException(problemDetail);
             }
         }
     }
@@ -104,11 +96,6 @@ public class AuthController {
                 model.addAttribute("enteredData", user);
                 model.addAttribute("errors", exception.getErrors());
                 return "/user/auth/registration";
-            } catch (RoleNotFoundException exception) {
-                ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                        HttpStatus.NOT_FOUND, exception.getMessage()
-                );
-                throw new NotFoundException(problemDetail);
             }
         }
     }

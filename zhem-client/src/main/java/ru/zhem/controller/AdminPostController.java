@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,8 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.response.PostCreationDto;
 import ru.zhem.exceptions.CustomBindException;
-import ru.zhem.exceptions.NotFoundException;
-import ru.zhem.exceptions.PostNotFoundException;
 import ru.zhem.service.interfaces.PostService;
 
 import java.util.Map;
@@ -37,13 +34,8 @@ public class AdminPostController {
 
     @GetMapping("/{postId:\\d+}")
     public String getPostById(@PathVariable("postId") long postId, Model model) {
-        try {
-            model.addAttribute("post", this.postService.findPostById(postId));
-            return "/admin/portfolio/post";
-        } catch (PostNotFoundException exception) {
-            throw new NotFoundException(ProblemDetail.forStatusAndDetail(
-                    HttpStatus.NOT_FOUND, exception.getMessage()));
-        }
+        model.addAttribute("post", this.postService.findPostById(postId));
+        return "/admin/portfolio/post";
     }
 
     @PostMapping("/create")
@@ -70,7 +62,7 @@ public class AdminPostController {
     }
 
     @PostMapping("/delete")
-    public String deleteExample(long postId) {
+    public String deletePost(long postId) {
         this.postService.deleteById(postId);
         return "redirect:/admin/portfolio";
     }

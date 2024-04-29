@@ -1,6 +1,8 @@
 package ru.zhem.controller.advice;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.zhem.exceptions.BadRequestException;
 
 @ControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class BadRequestControllerAdvice {
 
     @ExceptionHandler(BadRequestException.class)

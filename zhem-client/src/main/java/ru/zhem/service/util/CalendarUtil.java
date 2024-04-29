@@ -2,11 +2,13 @@ package ru.zhem.service.util;
 
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
-import ru.zhem.exceptions.InvalidDateException;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Objects;
+
+import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
+import static java.time.temporal.ChronoField.YEAR;
 
 @Component
 public class CalendarUtil {
@@ -16,9 +18,8 @@ public class CalendarUtil {
             year = LocalDate.now().getYear();
             month = LocalDate.now().getMonthValue();
         }
-        if (month < 1 || month > 12) {
-            throw new InvalidDateException("Invalid date");
-        }
+        YEAR.checkValidValue(year);
+        MONTH_OF_YEAR.checkValidValue(month);
         YearMonth yearMonth = YearMonth.of(year, month);
         YearMonth prevYearMonth = yearMonth.minusMonths(1);
         YearMonth nextYearMonth = yearMonth.plusMonths(1);
