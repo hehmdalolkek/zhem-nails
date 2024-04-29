@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.zhem.exception.*;
 
+import java.util.Map;
+
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ZhemUserControllerAdvice {
@@ -27,6 +29,7 @@ public class ZhemUserControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
+        problemDetail.setProperty("errors", Map.of("email", exception.getMessage()));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }
@@ -36,6 +39,7 @@ public class ZhemUserControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
+        problemDetail.setProperty("errors", Map.of("email", exception.getMessage()));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }

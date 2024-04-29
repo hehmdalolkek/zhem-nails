@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.zhem.exception.RoleNotFoundException;
 import ru.zhem.exception.RoleWithDuplicateTitleException;
 
+import java.util.Map;
+
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RoleControllerAdvice {
@@ -28,6 +30,7 @@ public class RoleControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
+        problemDetail.setProperty("errors", Map.of("title", exception.getMessage()));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.zhem.exception.ZhemServiceNotFoundException;
 import ru.zhem.exception.ZhemServiceWithDuplicateTitleException;
 
+import java.util.Map;
+
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ZhemServiceControllerAdvice {
@@ -28,6 +30,7 @@ public class ZhemServiceControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
+        problemDetail.setProperty("errors", Map.of("title", exception.getMessage()));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }
