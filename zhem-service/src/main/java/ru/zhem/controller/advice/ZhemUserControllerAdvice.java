@@ -29,7 +29,7 @@ public class ZhemUserControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
-        problemDetail.setProperty("errors", Map.of("email", exception.getMessage()));
+        problemDetail.setProperty("errors", Map.of("email", "Пользователь с указанной электронной почтой уже существует"));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }
@@ -39,7 +39,7 @@ public class ZhemUserControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
-        problemDetail.setProperty("errors", Map.of("email", exception.getMessage()));
+        problemDetail.setProperty("errors", Map.of("phone", "Пользователь с указанным номером телефона уже существует"));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }

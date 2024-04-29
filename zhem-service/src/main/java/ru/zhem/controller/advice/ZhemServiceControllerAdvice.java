@@ -30,7 +30,7 @@ public class ZhemServiceControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
-        problemDetail.setProperty("errors", Map.of("title", exception.getMessage()));
+        problemDetail.setProperty("errors", Map.of("title", "Услуга с указанным именем уже существует"));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }

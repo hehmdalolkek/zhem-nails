@@ -32,7 +32,7 @@ public class IntervalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
-        problemDetail.setProperty("errors", Map.of("interval", exception.getMessage()));
+        problemDetail.setProperty("errors", Map.of("interval", "Интервал уже забронирован"));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }
@@ -42,7 +42,7 @@ public class IntervalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
-        problemDetail.setProperty("errors", Map.of("time", exception.getMessage()));
+        problemDetail.setProperty("errors", Map.of("time", "Интервал с заданным временем уже существует"));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
     }
