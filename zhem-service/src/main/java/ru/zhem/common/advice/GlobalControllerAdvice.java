@@ -1,5 +1,6 @@
 package ru.zhem.common.advice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -25,6 +27,7 @@ public class GlobalControllerAdvice {
             errors.put(error.getField(), error.getDefaultMessage());
         }
         problemDetail.setProperty("errors", errors);
+        log.warn("Exception caught [{}: {}]", exception.getClass().getName(), exception.getFieldErrors());
         return ResponseEntity.badRequest()
                 .body(problemDetail);
     }
@@ -34,6 +37,7 @@ public class GlobalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_REQUEST, exception.getMessage()
         );
+        log.warn("Exception caught [{}: {}]", exception.getClass().getName(), exception.getMessage());
         return ResponseEntity.badRequest()
                 .body(problemDetail);
     }
@@ -43,6 +47,7 @@ public class GlobalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage()
         );
+        log.warn("Exception caught [{}: {}]", exception.getClass().getName(), exception.getMessage());
         return ResponseEntity.internalServerError()
                 .body(problemDetail);
     }

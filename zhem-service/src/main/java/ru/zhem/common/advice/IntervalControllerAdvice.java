@@ -1,5 +1,6 @@
 package ru.zhem.common.advice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@Slf4j
 public class IntervalControllerAdvice {
 
     @ExceptionHandler(IntervalNotFoundException.class)
@@ -22,6 +24,7 @@ public class IntervalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.NOT_FOUND, exception.getMessage()
         );
+        log.warn("Exception caught [{}: {}]", exception.getClass().getName(), exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(problemDetail);
     }
@@ -31,6 +34,7 @@ public class IntervalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
+        log.warn("Exception caught [{}: {}]", exception.getClass().getName(), exception.getMessage());
         problemDetail.setProperty("errors", Map.of("interval", "Интервал уже забронирован"));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);
@@ -41,6 +45,7 @@ public class IntervalControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.CONFLICT, exception.getMessage()
         );
+        log.warn("Exception caught [{}: {}]", exception.getClass().getName(), exception.getMessage());
         problemDetail.setProperty("errors", Map.of("time", "Интервал с заданным временем уже существует"));
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problemDetail);

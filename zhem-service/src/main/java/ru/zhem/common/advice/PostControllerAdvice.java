@@ -1,5 +1,6 @@
 package ru.zhem.common.advice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import ru.zhem.common.exception.PostNotFoundException;
 
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@Slf4j
 public class PostControllerAdvice {
 
     @ExceptionHandler(PostNotFoundException.class)
@@ -29,6 +31,7 @@ public class PostControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_REQUEST, exception.getMessage()
         );
+        log.warn("Exception caught [{}: {}]", exception.getClass().getName(), exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(problemDetail);
     }
@@ -38,6 +41,7 @@ public class PostControllerAdvice {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_REQUEST, exception.getMessage()
         );
+        log.warn("Exception caught [{}: {}]", exception.getClass().getName(), exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(problemDetail);
     }
