@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 import ru.zhem.common.annotation.LogAnnotation;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Aspect
 @Component
@@ -40,11 +42,9 @@ public class LogAspect {
 
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = method.getName();
-        List<String> methodArgs = Arrays.stream(joinPoint.getArgs())
-                .map(Object::toString)
-                .toList();
-        String methodArgsToString = String.join(", ", methodArgs);
-        String methodFullName = className + "." + methodName + "(" + methodArgsToString + ")";
+        String args = Arrays.deepToString(joinPoint.getArgs());
+        String methodArgs = args.substring(1, args.length() - 1);
+        String methodFullName = className + "." + methodName + "(" + methodArgs + ")";
 
         log.debug("In module {} completed method {} for operation '{}' in {} ms",
                 module, methodFullName, operation, time);
