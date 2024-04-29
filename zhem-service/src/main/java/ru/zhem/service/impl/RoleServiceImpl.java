@@ -4,8 +4,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.Role;
-import ru.zhem.exception.RoleNotFoundException;
-import ru.zhem.exception.RoleWithDuplicateTitleException;
+import ru.zhem.common.exception.RoleNotFoundException;
+import ru.zhem.common.exception.RoleWithDuplicateTitleException;
 import ru.zhem.repository.RoleRepository;
 import ru.zhem.service.interfaces.RoleService;
 

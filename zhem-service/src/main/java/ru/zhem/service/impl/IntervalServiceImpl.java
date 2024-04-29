@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.Interval;
 import ru.zhem.entity.Status;
-import ru.zhem.exception.IntervalIsBookedException;
-import ru.zhem.exception.IntervalNotFoundException;
-import ru.zhem.exception.IntervalWithDuplicateDateTimeException;
+import ru.zhem.common.exception.IntervalIsBookedException;
+import ru.zhem.common.exception.IntervalNotFoundException;
+import ru.zhem.common.exception.IntervalWithDuplicateDateTimeException;
 import ru.zhem.repository.IntervalRepository;
 import ru.zhem.service.interfaces.IntervalService;
 

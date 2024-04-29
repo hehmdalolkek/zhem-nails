@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhem.dto.request.constraint.NullOrNotBlank;
+import ru.zhem.common.constraint.NullOrNotBlank;
 
 import java.util.Set;
 

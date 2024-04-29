@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.ZhemUser;
-import ru.zhem.exception.ZhemUserNotFoundException;
-import ru.zhem.exception.ZhemUserWithDuplicateEmailException;
-import ru.zhem.exception.ZhemUserWithDuplicatePhoneException;
+import ru.zhem.common.exception.ZhemUserNotFoundException;
+import ru.zhem.common.exception.ZhemUserWithDuplicateEmailException;
+import ru.zhem.common.exception.ZhemUserWithDuplicatePhoneException;
 import ru.zhem.repository.ZhemUserRepository;
 import ru.zhem.service.interfaces.ZhemUserService;
 

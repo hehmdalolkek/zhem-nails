@@ -3,8 +3,8 @@ package ru.zhem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.zhem.entity.ZhemService;
-import ru.zhem.exception.ZhemServiceNotFoundException;
-import ru.zhem.exception.ZhemServiceWithDuplicateTitleException;
+import ru.zhem.common.exception.ZhemServiceNotFoundException;
+import ru.zhem.common.exception.ZhemServiceWithDuplicateTitleException;
 import ru.zhem.repository.ZhemServiceRepository;
 import ru.zhem.service.interfaces.ZhemServiceService;
 

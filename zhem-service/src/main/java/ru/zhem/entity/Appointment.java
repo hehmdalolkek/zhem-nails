@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import ru.zhem.entity.constraint.NullOrNotBlank;
+import ru.zhem.common.constraint.NullOrNotBlank;
 
 import java.util.Set;
 

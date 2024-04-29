@@ -3,7 +3,7 @@ package ru.zhem.service.util;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import ru.zhem.exception.EmptyFileException;
+import ru.zhem.common.exception.EmptyFileException;
 
 import java.io.IOException;
 import java.nio.file.Files;

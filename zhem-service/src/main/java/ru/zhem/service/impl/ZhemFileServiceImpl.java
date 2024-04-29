@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.zhem.entity.FileType;
 import ru.zhem.entity.ZhemFile;
-import ru.zhem.exception.FileInvalidTypeException;
+import ru.zhem.common.exception.FileInvalidTypeException;
 import ru.zhem.repository.ZhemFileRepository;
 import ru.zhem.service.interfaces.ZhemFileService;
 import ru.zhem.service.util.FileManager;
