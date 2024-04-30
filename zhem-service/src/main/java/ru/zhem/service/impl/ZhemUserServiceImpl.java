@@ -153,16 +153,20 @@ public class ZhemUserServiceImpl implements ZhemUserService {
               List<Predicate> predicates = new ArrayList<>();
 
               if (firstName != null && !firstName.isBlank()) {
-                  predicates.add(criteriaBuilder.equal(root.get("firstName"), firstName));
+                  predicates.add(criteriaBuilder.like(criteriaBuilder.lower(
+                          root.get("firstName")), "%" + firstName.toLowerCase() + "%"));
               }
               if (lastName != null && !lastName.isBlank()) {
-                  predicates.add(criteriaBuilder.equal(root.get("lastName"), lastName));
+                  predicates.add(criteriaBuilder.like(criteriaBuilder.lower(
+                          root.get("lastName")), "%" + lastName.toLowerCase() + "%"));
               }
               if (phone != null && !phone.isBlank()) {
-                  predicates.add(criteriaBuilder.equal(root.get("phone"), phone));
+                  predicates.add(criteriaBuilder.like(criteriaBuilder.lower(
+                          root.get("phone")), "%" + phone.toLowerCase() + "%"));
               }
               if (email != null && !email.isBlank()) {
-                  predicates.add(criteriaBuilder.equal(root.get("email"), email));
+                  predicates.add(criteriaBuilder.like(criteriaBuilder.lower(
+                          root.get("email")), "%" + email.toLowerCase() + "%"));
               }
 
               return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
