@@ -27,3 +27,7 @@ file:
 logging:
   file:
     name: logs\logs.txt
+  level:
+    sql: info
+springdoc:
+  swagger-ui:
