@@ -10,7 +10,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import ru.zhem.client.interfaces.PostRestClient;
-import ru.zhem.client.response.PaginatedResponse;
+import ru.zhem.dto.response.PaginatedResponse;
 import ru.zhem.dto.request.PostDto;
 import ru.zhem.dto.response.PostCreationDto;
 import ru.zhem.common.exceptions.BadRequestException;

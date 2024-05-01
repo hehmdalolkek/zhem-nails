@@ -9,7 +9,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import ru.zhem.client.interfaces.AppointmentRestClient;
-import ru.zhem.client.response.PaginatedResponse;
+import ru.zhem.dto.response.PaginatedResponse;
 import ru.zhem.dto.request.AppointmentDto;
 import ru.zhem.dto.request.DailyAppointmentDto;
 import ru.zhem.dto.response.AppointmentCreationDto;

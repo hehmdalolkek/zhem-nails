@@ -1,4 +1,4 @@
-package ru.zhem.client.response;
+package ru.zhem.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
