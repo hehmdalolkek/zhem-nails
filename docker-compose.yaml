@@ -14,7 +14,7 @@ services:
     restart: always
 
   backend:
-    build: ./zhem-service/.
+    build: ${{ github.workspace }}/zhem-service/.
     container_name: zhem_service
     ports:
       - 8083:8081
@@ -30,7 +30,7 @@ services:
     restart: always
 
   client:
-    build: ./zhem-client/.
+    build: ${{ github.workspace }}/zhem-client/.
     container_name: zhem_client
     ports:
       - 8082:8080
