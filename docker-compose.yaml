@@ -1,0 +1,44 @@
+services:
+
+  db:
+    ports:
+      - 5433:5432
+    container_name: zhem_postgres
+    image: postgres:16
+    environment:
+      - POSTGRES_DB=zhem-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - D:\projects\java\диплом\postgres-data:/var/lib/postgresql/data
+    restart: always
+
+  backend:
+    build: ./zhem-service/.
+    container_name: zhem_service
+    ports:
+      - 8083:8081
+    environment:
+      - db-url=jdbc:postgresql://db:5432/zhem-db
+      - db-username=postgres
+      - db-password=root
+      - security-username=service
+      - security-password=$$2a$$12$$RoiWQYm/QrFzUnCifKrC5eCHt3IHj7PRHIaNdG7OwduR.Sltgt2ay
+      - file-storage-path=D:\projects\java\диплом\zhem-nails\file-storage
+    depends_on:
+      - db
+    restart: always
+
+  client:
+    build: ./zhem-client/.
+    container_name: zhem_client
+    ports:
+      - 8082:8080
+    environment:
+      - service-url=http://backend:8081
+      - service-security-name=service
+      - service-security-password=service
+      - file-storage-path=D:\projects\java\диплом\zhem-nails\file-storage
+    depends_on:
+      - backend
+    restart: always

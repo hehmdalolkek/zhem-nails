@@ -3,12 +3,12 @@ server:
 zhem-nails:
   services:
     service:
-      url: http://localhost:8081
-      name: service
-      password: service
+      url: ${service-url:http://localhost:8081}
+      name: ${service-security-name:service}
+      password: ${service-security-password:service}
 file:
   storage:
-    path: D:\projects\java\диплом\zhem-nails\file-storage
+    path: ${file-storage-path:D:\projects\java\диплом\zhem-nails\file-storage}
 spring:
   servlet:
     multipart:
