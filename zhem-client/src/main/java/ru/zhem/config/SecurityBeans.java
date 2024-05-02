@@ -16,11 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 import ru.zhem.client.interfaces.ZhemUserRestClient;
-import ru.zhem.common.filter.CheckAdminIsExistsFilter;
 import ru.zhem.service.impl.AdminUserDetailsService;
 
 @RequiredArgsConstructor
@@ -34,8 +32,6 @@ public class SecurityBeans {
     public static class AdminConfigurationAdapter {
 
         private final ZhemUserRestClient zhemUserRestClient;
-
-        private final CheckAdminIsExistsFilter checkAdminIsExistsFilter;
 
         @Bean
         public UserDetailsService adminUserDetailsService() {
@@ -61,7 +57,6 @@ public class SecurityBeans {
                                                             HandlerMappingIntrospector introspector) throws Exception {
             MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
             http.securityMatcher("/admin/**")
-                    .addFilterBefore(this.checkAdminIsExistsFilter, BasicAuthenticationFilter.class)
                     .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                             .requestMatchers(mvcMatcherBuilder.pattern("/admin/registration"))
                             .permitAll()

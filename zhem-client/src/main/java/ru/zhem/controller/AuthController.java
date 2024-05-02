@@ -30,6 +30,9 @@ public class AuthController {
 
     @GetMapping("/admin/login")
     public String initLoginAdminPage() {
+        if (!zhemUserService.adminIsExists()) {
+            return "redirect:/admin/registration";
+        }
         return "/admin/auth/login";
     }
 
