@@ -2,9 +2,9 @@ server:
   port: 8081
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/zhem-db
-    username: postgres
-    password: root
+    url: ${db-url:jdbc:postgresql://localhost:5432/zhem-db}
+    username: ${db-username:postgres}
+    password: ${db-password:root}
   flyway:
     schemas:
       - public
@@ -14,8 +14,8 @@ spring:
       ddl-auto: validate
   security:
     user:
-      name: service
-      password: $2a$12$RoiWQYm/QrFzUnCifKrC5eCHt3IHj7PRHIaNdG7OwduR.Sltgt2ay
+      name: ${security-username:service}
+      password: ${security-password:$2a$12$RoiWQYm/QrFzUnCifKrC5eCHt3IHj7PRHIaNdG7OwduR.Sltgt2ay}
       roles:
         - SERVICE
   servlet:
@@ -23,11 +23,7 @@ spring:
       max-file-size: 10MB
 file:
   storage:
-    path: D:\projects\java\диплом\zhem-nails\file-storage
+    path: ${file-storage-path:D:\projects\java\диплом\zhem-nails\file-storage}
 logging:
   file:
     name: logs\logs.txt
-  level:
-    sql: info
-springdoc:
-  swagger-ui:
