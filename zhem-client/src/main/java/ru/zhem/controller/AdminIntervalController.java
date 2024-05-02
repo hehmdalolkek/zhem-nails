@@ -42,7 +42,7 @@ public class AdminIntervalController {
         model.addAttribute("mapOfIntervals",
                 this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, false));
 
-        return "/admin/intervals/intervals";
+        return "admin/intervals/intervals";
     }
 
     @PostMapping

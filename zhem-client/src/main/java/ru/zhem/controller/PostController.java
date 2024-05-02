@@ -20,13 +20,13 @@ public class PostController {
     public String getPortfolio(@RequestParam(value = "size", defaultValue = "9") int size,
                                @RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         model.addAttribute("posts", this.postService.findAllPosts(size, page));
-        return "/common/portfolio/posts";
+        return "common/portfolio/posts";
     }
 
     @GetMapping("/{postId:\\d+}")
     public String getPostById(@PathVariable("postId") long postId, Model model) {
         model.addAttribute("post", this.postService.findPostById(postId));
-        return "/common/portfolio/post";
+        return "common/portfolio/post";
     }
 
 }

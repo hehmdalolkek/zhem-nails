@@ -68,7 +68,7 @@ public class UserAppointmentController {
         model.addAttribute("interval", interval);
         model.addAttribute("appointment", appointment);
         model.addAttribute("services", services);
-        return "/user/appointments/create";
+        return "user/appointments/create";
     }
 
     @PostMapping("/create")

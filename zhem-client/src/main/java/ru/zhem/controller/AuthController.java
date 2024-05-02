@@ -33,7 +33,7 @@ public class AuthController {
         if (!zhemUserService.adminIsExists()) {
             return "redirect:/admin/registration";
         }
-        return "/admin/auth/login";
+        return "admin/auth/login";
     }
 
     @GetMapping("/admin/registration")
@@ -41,7 +41,7 @@ public class AuthController {
         if (this.zhemUserService.adminIsExists()) {
             return "redirect:/admin/login";
         }
-        return "/admin/auth/registration";
+        return "admin/auth/registration";
     }
 
     @PostMapping("/admin/registration")
@@ -52,7 +52,7 @@ public class AuthController {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("enteredData", user);
             model.addAttribute("errors", errors);
-            return "/admin/auth/registration";
+            return "admin/auth/registration";
         } else {
             try {
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -65,7 +65,7 @@ public class AuthController {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 model.addAttribute("enteredData", user);
                 model.addAttribute("errors", exception.getErrors());
-                return "/admin/auth/registration";
+                return "admin/auth/registration";
             }
         }
     }
@@ -73,12 +73,12 @@ public class AuthController {
 
     @GetMapping("/user/login")
     public String initLoginUserPage() {
-        return "/user/auth/login";
+        return "user/auth/login";
     }
 
     @GetMapping("/user/registration")
     public String initRegistrationUserPage() {
-        return "/user/auth/registration";
+        return "user/auth/registration";
     }
 
     @PostMapping("/user/registration")
@@ -89,7 +89,7 @@ public class AuthController {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("enteredData", user);
             model.addAttribute("errors", errors);
-            return "/user/auth/registration";
+            return "user/auth/registration";
         } else {
             try {
                 this.zhemUserService.createUser(user, false);
@@ -98,7 +98,7 @@ public class AuthController {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 model.addAttribute("enteredData", user);
                 model.addAttribute("errors", exception.getErrors());
-                return "/user/auth/registration";
+                return "user/auth/registration";
             }
         }
     }

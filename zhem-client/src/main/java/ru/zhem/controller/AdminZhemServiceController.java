@@ -33,7 +33,7 @@ public class AdminZhemServiceController {
     public String showAllServices(Model model) {
         List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
         model.addAttribute("services", services);
-        return "/admin/services/services";
+        return "admin/services/services";
     }
 
     @PostMapping("/delete")

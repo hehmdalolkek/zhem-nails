@@ -56,14 +56,14 @@ public class AdminAppointmentController {
         YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
         model.addAttribute("mapOfAppointments", this.controllerUtil.generateAppointmentCalendarForMonth(yearMonth));
 
-        return "/admin/appointments/appointments";
+        return "admin/appointments/appointments";
     }
 
     @GetMapping("/interval/{intervalId:\\d+}")
     public String showAppointmentByInterval(@PathVariable("intervalId") long intervalId, Model model) {
         model.addAttribute("appointment", this.appointmentService.findAppointmentByIntervalId(intervalId));
 
-        return "/admin/appointments/appointment";
+        return "admin/appointments/appointment";
     }
 
 
@@ -85,7 +85,7 @@ public class AdminAppointmentController {
         model.addAttribute("interval", interval);
         model.addAttribute("appointment", appointment);
         model.addAttribute("users", users);
-        return "/admin/appointments/create/create-step-1";
+        return "admin/appointments/create/create-step-1";
     }
 
     @PostMapping("/create/step2")
@@ -113,7 +113,7 @@ public class AdminAppointmentController {
         model.addAttribute("interval", interval);
         List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
         model.addAttribute("services", services);
-        return "/admin/appointments/create/create-step-2";
+        return "admin/appointments/create/create-step-2";
     }
 
     @PostMapping("/create/step3")
@@ -131,11 +131,11 @@ public class AdminAppointmentController {
             model.addAttribute("interval", interval);
             List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
             model.addAttribute("services", services);
-            return "/admin/appointments/create/create-step-2";
+            return "admin/appointments/create/create-step-2";
         }
         IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
         model.addAttribute("interval", interval);
-        return "/admin/appointments/create/create-step-3";
+        return "admin/appointments/create/create-step-3";
     }
 
     @PostMapping("/create/step4")
@@ -160,7 +160,7 @@ public class AdminAppointmentController {
                     model.addAttribute("errors", errors);
                     IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
                     model.addAttribute("interval", interval);
-                    return "/admin/appointments/create/create-step-3";
+                    return "admin/appointments/create/create-step-3";
                 } else {
                     redirectAttributes.addFlashAttribute("message", "Клиент не записан");
                     redirectAttributes.addFlashAttribute("errors", errors);
@@ -200,7 +200,7 @@ public class AdminAppointmentController {
         model.addAttribute("appointmentId", appointmentId);
         model.addAttribute("appointment", appointment);
         model.addAttribute("users", users);
-        return "/admin/appointments/update/update-step-1";
+        return "admin/appointments/update/update-step-1";
     }
 
     @PostMapping("/update/{appointmentId:\\d+}/step2")
@@ -223,7 +223,7 @@ public class AdminAppointmentController {
             model.addAttribute("mapOfIntervals",
                     this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, true));
             model.addAttribute("appointmentId", appointmentId);
-            return "/admin/appointments/update/update-step-2";
+            return "admin/appointments/update/update-step-2";
         }
     }
 
@@ -237,7 +237,7 @@ public class AdminAppointmentController {
         } else {
             model.addAttribute("allServices", this.zhemServiceService.findAllServices());
             model.addAttribute("appointmentId", appointmentId);
-            return "/admin/appointments/update/update-step-3";
+            return "admin/appointments/update/update-step-3";
         }
     }
 
@@ -252,10 +252,10 @@ public class AdminAppointmentController {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             model.addAttribute("allServices", this.zhemServiceService.findAllServices());
             model.addAttribute("appointmentId", appointmentId);
-            return "/admin/appointments/update/update-step-3";
+            return "admin/appointments/update/update-step-3";
         } else {
             model.addAttribute("appointmentId", appointmentId);
-            return "/admin/appointments/update/update-step-4";
+            return "admin/appointments/update/update-step-4";
         }
     }
 
@@ -277,7 +277,7 @@ public class AdminAppointmentController {
                 if (errors.containsKey("details")) {
                     model.addAttribute("errors", errors);
                     model.addAttribute("appointmentId", appointmentId);
-                    return "/admin/appointments/update/update-step-4";
+                    return "admin/appointments/update/update-step-4";
                 } else {
                     redirectAttributes.addFlashAttribute("message", "Клиент не записан");
                     redirectAttributes.addFlashAttribute("errors", errors);

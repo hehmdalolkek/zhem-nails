@@ -22,7 +22,7 @@ public class AdminZhemUserController {
                                        @RequestParam(name = "size", defaultValue = "15") int size) {
         Page<ZhemUserDto> users = this.zhemUserService.findAllClientsByPage(page, size);
         model.addAttribute("users", users);
-        return "/admin/users/users";
+        return "admin/users/users";
     }
 
 }
