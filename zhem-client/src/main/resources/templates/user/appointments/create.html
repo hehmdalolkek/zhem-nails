@@ -15,7 +15,7 @@
     <nav>
         <a th:href="@{/intervals}"><- Назад</a>
     </nav>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h2>Запись</h2>
         <h3 th:text="${message}"></h3>
         <h3 th:text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>

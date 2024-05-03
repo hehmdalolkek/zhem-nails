@@ -15,7 +15,7 @@
     <nav>
         <a th:href="@{/}"><- Назад</a>
     </nav>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h1>Портфолио</h1>
         <div th:each="post : ${posts.content}">
             <a th:href="@{/portfolio/__${post.getId()}__}">

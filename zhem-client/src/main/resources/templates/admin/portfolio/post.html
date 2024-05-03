@@ -15,7 +15,7 @@
     <nav>
         <a th:href="@{/admin/dashboard}"><- Назад</a>
     </nav>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h1>Портфолио</h1>
         <div>
             <img width="200px" th:src="@{/img/__${post.getImage().getPath()}__}" th:alt="${post.getContent()}">

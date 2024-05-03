@@ -12,7 +12,7 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h1>Свободные интервалы для записи</h1>
         <h3 th:text="${message}"></h3>
         <span th:if="${errors?.containsKey('interval')}" th:text="${errors.get('interval')}"></span>

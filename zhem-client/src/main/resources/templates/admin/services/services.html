@@ -15,7 +15,7 @@
     <nav>
         <a th:href="@{/admin/dashboard}"><- Назад</a>
     </nav>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h1>Услуги</h1>
         <h2 th:text="${message}"></h2>
         <span th:if="${errors?.containsKey('title')}" th:text="${errors.get('title')}"></span>

@@ -15,7 +15,7 @@
     <nav>
         <a th:href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
     </nav>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h2>Запись клиента</h2>
         <h3 th:text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
         <form method="post"

@@ -15,7 +15,7 @@
     <nav>
         <a th:href="@{/admin/dashboard}"><- Назад</a>
     </nav>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <div>
             <form method="post" th:action="@{/user/profile/update}" th:object="${user}">
                 <h2>Редактирование профиля</h2>

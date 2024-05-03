@@ -9,7 +9,7 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h1>Авторизация</h1>
         <div th:if="${param.error}">
             Неверный номер телефона или пароль

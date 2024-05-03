@@ -12,7 +12,7 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_client}"></div>
-    <main>
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h1>История записей</h1>
         <h3 th:text="${message}"></h3>
         <div th:each="appointment : ${appointments.content}">

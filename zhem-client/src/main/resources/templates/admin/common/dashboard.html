@@ -9,10 +9,10 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="dashboard">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <main class="main container-xxl py-lg-5 py-4">
+    <main class="main container-xxl pb-lg-5 pb-4">
         <h1 class="title">Панель управления</h1>
         <div class="cards row">
             <div class="col-sm-3 mb-3 mb-sm-3">
@@ -46,7 +46,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Услуги</h5>
-                        <p class="card-text">Редактирование предоставляемых услуг</p>
+                        <p class="card-text">Редактирование доступных для записи услуг</p>
                         <a th:href="@{/admin/services}" class="btn btn-primary">Перейти</a>
                     </div>
                 </div>
