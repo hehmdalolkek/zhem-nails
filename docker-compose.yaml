@@ -10,7 +10,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
     volumes:
-      - D:\projects\java\диплом\postgres-data:/var/lib/postgresql/data
+      - ./postgres-data/:/var/lib/postgresql/data
     restart: always
 
   backend:
@@ -24,7 +24,9 @@ services:
       - db-password=root
       - security-username=service
       - security-password=$$2a$$12$$RoiWQYm/QrFzUnCifKrC5eCHt3IHj7PRHIaNdG7OwduR.Sltgt2ay
-      - file-storage-path=D:\projects\java\диплом\zhem-nails\file-storage
+      - file-storage-path=/var/lib/file-storage
+    volumes:
+      - ./file-storage/:/var/lib/file-storage
     depends_on:
       - db
     restart: always
@@ -38,7 +40,9 @@ services:
       - service-url=http://backend:8081
       - service-security-name=service
       - service-security-password=service
-      - file-storage-path=D:\projects\java\диплом\zhem-nails\file-storage
+      - file-storage-path=/var/lib/file-storage
+    volumes:
+      - ./file-storage/:/var/lib/file-storage
     depends_on:
       - backend
     restart: always
