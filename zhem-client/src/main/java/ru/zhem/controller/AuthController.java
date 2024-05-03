@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
+@Slf4j
 public class AuthController {
 
     private final ZhemUserService zhemUserService;
@@ -60,6 +62,7 @@ public class AuthController {
                     new SecurityContextLogoutHandler().logout(request, response, auth);
                 }
                 this.zhemUserService.createUser(user, true);
+                log.info("Admin registered successfully");
                 return "redirect:/admin/login";
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
