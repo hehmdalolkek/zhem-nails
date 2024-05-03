@@ -19,3 +19,15 @@ body {
     }
 }
 
+.cards {
+    .card {
+        position: relative;
+        height: 100%;
+        padding-bottom: 35px;
+        .btn {
+            position: absolute;
+            left: var(--bs-card-spacer-x);
+            bottom: var(--bs-card-spacer-y);
+        }
+    }
+}

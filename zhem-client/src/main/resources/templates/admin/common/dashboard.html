@@ -12,18 +12,55 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-
-    <nav>
-        <ul>
-            <li><a th:href="@{/admin/users}">Показать всех пользователей</a></li>
-            <li><a th:href="@{/admin/intervals}">Показать все рабочие интервалы</a></li>
-            <li><a th:href="@{/admin/appointments}">Показать все записи</a></li>
-            <li><a th:href="@{/admin/services}">Показать все услуги</a></li>
-            <li><a th:href="@{/admin/portfolio}">Показать портфолио</a></li>
-        </ul>
-    </nav>
-    <main>
-
+    <main class="main container-xxl py-lg-5 py-4">
+        <h1 class="title">Панель управления</h1>
+        <div class="cards row">
+            <div class="col-sm-3 mb-3 mb-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Клиенты</h5>
+                        <p class="card-text">Просмотр всех клиентов</p>
+                        <a th:href="@{/admin/users}" class="btn btn-primary">Перейти</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3 mb-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Календарь</h5>
+                        <p class="card-text">Редактирование рабочих интервалов и записей клиентов</p>
+                        <a th:href="@{/admin/intervals}" class="btn btn-primary">Перейти</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3 mb-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Записи</h5>
+                        <p class="card-text">Просмотр записей клиентов</p>
+                        <a th:href="@{/admin/appointments}" class="btn btn-primary">Перейти</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3 mb-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Услуги</h5>
+                        <p class="card-text">Редактирование предоставляемых услуг</p>
+                        <a th:href="@{/admin/services}" class="btn btn-primary">Перейти</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3 mb-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Портфолио</h5>
+                        <p class="card-text">Редактирование портфолио</p>
+                        <a th:href="@{/admin/portfolio}" class="btn btn-primary">Перейти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
