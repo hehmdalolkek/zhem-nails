@@ -2,6 +2,10 @@ package ru.zhem.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.zhem.client.interfaces.RoleRestClient;
 import ru.zhem.client.interfaces.ZhemUserRestClient;
@@ -17,6 +21,7 @@ import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -26,6 +31,8 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     private final ZhemUserRestClient zhemUserRestClient;
 
     private final RoleRestClient roleRestClient;
+
+    private final ZhemUserDetailsService zhemUserDetailsService;
 
     @Override
     public List<ZhemUserDto> findAllClients() {
@@ -57,7 +64,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
                     .orElseThrow(() -> new RoleNotFoundException("Role not found")));
         }
         ZhemUserCreationDto userDto = ZhemUserCreationDto.builder()
-                .phone(user.getPhone())
+                .phone(user.getPhone().replaceAll("\\D+", ""))
                 .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName() != null && user.getLastName().isBlank()
@@ -72,7 +79,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     @Override
     public void updateUser(long userId, ZhemUser user) {
         ZhemUserUpdateDto userDto = ZhemUserUpdateDto.builder()
-                .phone(user.getPhone())
+                .phone(user.getPhone().replaceAll("\\D+", ""))
                 .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName() != null && user.getLastName().isBlank()
@@ -81,6 +88,16 @@ public class ZhemUserServiceImpl implements ZhemUserService {
                 .password(user.getPassword())
                 .build();
         this.zhemUserRestClient.updateUser(userId, userDto);
+
+        if (Objects.nonNull(userDto.getPhone())) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null) {
+                UserDetails updatedUserDetails = zhemUserDetailsService.loadUserByUsername(userDto.getPhone());
+                Authentication newAuthentication = new UsernamePasswordAuthenticationToken(
+                        updatedUserDetails, authentication.getCredentials(), authentication.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+            }
+        }
     }
 
     @Override

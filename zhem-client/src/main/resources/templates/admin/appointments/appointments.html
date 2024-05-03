@@ -31,7 +31,7 @@
                 <tr th:each="appointment : ${entry.getValue()}">
                     <td th:text="${appointment.getId()}"></td>
                     <td th:text="${appointment.getInterval().getTime()}"></td>
-                    <td th:text="${appointment.getUser().getPhone()}"></td>
+                    <td th:text="${appointment.getUser().getFormattedPhone()}"></td>
                     <td th:text="${appointment.getUser().getFirstName()}"></td>
                     <td th:text="${appointment.getUser().getLastName()}"></td>
                     <td th:text="${appointment.getDetails()}"></td>

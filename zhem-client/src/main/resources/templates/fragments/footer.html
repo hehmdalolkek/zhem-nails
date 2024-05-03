@@ -4,7 +4,7 @@
             <h3>Контакты:</h3>
             <ul class="footer__list ps-0">
                 <li>Номер телефона:
-                    <a th:href="'tel:' + ${adminUser.getPhone()}" th:text="${adminUser.getPhone()}"></a>
+                    <a th:href="'tel:' + ${adminUser.getFormattedPhone()}" th:text="${adminUser.getFormattedPhone()}"></a>
                 </li>
                 <li th:if="${adminUser.getEmail()}">
                     Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}"
@@ -12,6 +12,7 @@
                 </li>
             </ul>
         </div>
+        <hr>
         <p class="text-center mb-0">&#169 Copyright</p>
     </div>
 </footer>
@@ -22,7 +23,7 @@
             <h3>Контакты:</h3>
             <ul class="footer__list ps-0">
                 <li>Номер телефона:
-                    <a th:href="'tel:' + ${adminUser.getPhone()}" th:text="${adminUser.getPhone()}"></a>
+                    <a th:href="'tel:' + ${adminUser.getFormattedPhone()}" th:text="${adminUser.getFormattedPhone()}"></a>
                 </li>
                 <li th:if="${adminUser.getEmail()}">
                     Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}"
@@ -30,6 +31,7 @@
                 </li>
             </ul>
         </div>
+        <hr>
         <p class="text-center mb-0">&#169 Copyright</p>
     </div>
 </footer>

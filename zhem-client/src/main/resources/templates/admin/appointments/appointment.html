@@ -30,7 +30,7 @@
             <h2>Клиент:</h2>
             <ul>
                 <li th:text="'ID: ' + ${appointment.getUser().getId()}"></li>
-                <li th:text="'Номер телефона: ' + ${appointment.getUser().getPhone()}"></li>
+                <li th:text="'Номер телефона: ' + ${appointment.getUser().getFormattedPhone()}"></li>
                 <li th:if="${appointment.getUser().getEmail()}"
                     th:text="'Электронная почта: ' + ${appointment.getUser().getEmail()}"></li>
                 <li th:text="'Имя: ' + ${appointment.getUser().getFirstName()}"></li>

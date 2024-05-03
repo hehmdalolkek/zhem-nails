@@ -18,7 +18,7 @@
             <div>
                 <label th:for="phone">Номер телефона
                     <input type="text" name="phone" id="phone" placeholder="+7 (999) 999-99-99"
-                           th:value="${enteredData?.getPhone()}"/>
+                           th:value="${enteredData?.getFormattedPhone()}"/>
                 </label>
                 <span th:text="${errors?.containsKey('phone')} ? ${errors.get('phone')}"></span>
             </div>

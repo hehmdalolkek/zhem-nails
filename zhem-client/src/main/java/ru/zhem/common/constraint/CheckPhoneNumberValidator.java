@@ -16,6 +16,8 @@ public class CheckPhoneNumberValidator implements ConstraintValidator<CheckPhone
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         return !Objects.isNull(value) &&
-                Pattern.matches("^79[0-9]{9}$", value);
+                Pattern.matches("^((7|\\+7)" +
+                        "[\\- ]?)?\\(?\\d{3,5}\\)?[\\- ]?\\d{1}[\\- ]?\\d{1}[\\- ]?\\d{1}[\\- ]?\\d{1}[\\- ]?\\d{1}" +
+                        "(([\\- ]?\\d{1})?[\\- ]?\\d{1})?$", value);
     }
 }
