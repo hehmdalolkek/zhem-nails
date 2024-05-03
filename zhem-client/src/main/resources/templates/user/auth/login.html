@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Zhem-nails - авторизация</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
