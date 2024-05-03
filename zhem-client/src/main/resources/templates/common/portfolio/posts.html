@@ -20,16 +20,28 @@
                 <img width="200px" th:src="@{/img/__${post.getImage().getPath()}__}" th:alt="${post.getContent()}">
             </a>
         </div>
-        <div th:if="${posts.hasContent()}" class="pagination">
-            <ul>
-                <li th:if="${posts.hasPrevious()}">
-                    <a th:href="@{'portfolio?page=' + ${posts.number - 1}}">Previous</a>
+        <div class="pagination">
+            <ul th:if="${posts.totalPages > 1}">
+                <li th:if="${posts.number > 0}">
+                    <a th:href="@{'/portfolio?page=' + ${posts.number - 1}}">Назад</a>
                 </li>
-                <li th:each="page : ${#numbers.sequence(0, posts.totalPages - 1)}">
-                    <a th:href="@{'portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
+                <li th:if="${posts.totalPages > 3}">
+                    <a th:href="@{/portfolio?page=0}">1</a>
                 </li>
-                <li th:if="${posts.hasNext()}">
-                    <a th:href="@{'portfolio?page=' + ${posts.number + 1}}">Next</a>
+                <li th:if="${posts.totalPages > 4}">
+                    <span>...</span>
+                </li>
+                <li th:each="page : ${#numbers.sequence(posts.number - 1 > 0 ? posts.number - 1 : 0, posts.number + 1 < posts.totalPages ? posts.number + 1 : posts.totalPages - 1)}">
+                    <a th:href="@{'/portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
+                </li>
+                <li th:if="${posts.totalPages > 4 && posts.number < posts.totalPages - 2}">
+                    <span>...</span>
+                </li>
+                <li th:if="${posts.totalPages > 3}">
+                    <a th:href="@{'/portfolio?page=' + ${posts.totalPages - 1}}" th:text="${posts.totalPages}"></a>
+                </li>
+                <li th:if="${posts.number < posts.totalPages - 1}">
+                    <a th:href="@{'/portfolio?page=' + ${posts.number + 1}}">Вперед</a>
                 </li>
             </ul>
         </div>

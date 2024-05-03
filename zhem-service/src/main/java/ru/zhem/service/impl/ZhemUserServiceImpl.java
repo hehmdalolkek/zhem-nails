@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.zhem.entity.Role;
 import ru.zhem.entity.ZhemUser;
 import ru.zhem.common.exception.ZhemUserNotFoundException;
 import ru.zhem.common.exception.ZhemUserWithDuplicateEmailException;
@@ -19,6 +20,7 @@ import ru.zhem.service.interfaces.ZhemUserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -33,20 +35,14 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     public List<ZhemUser> findAllClients() {
         return this.zhemUserRepository.findAll().stream()
                 .filter(user -> user.getRoles().stream()
-                        .noneMatch(role -> role.getTitle().equals("ADMIN")))
+                        .noneMatch(role -> role.getTitle().equalsIgnoreCase("ADMIN")))
                 .toList();
     }
 
     @Override
     @Transactional
     public Page<ZhemUser> findAllClientsByPage(Pageable pageable) {
-        Page<ZhemUser> allUsers = zhemUserRepository.findAll(pageable);
-        List<ZhemUser> filteredUsers = allUsers.getContent().stream()
-                .filter(user -> user.getRoles().stream()
-                        .noneMatch(role -> "ADMIN".equalsIgnoreCase(role.getTitle())))
-                .toList();
-
-        return new PageImpl<>(filteredUsers, pageable, filteredUsers.size());
+        return zhemUserRepository.findAllByRolesTitleNotContains(pageable, "ADMIN");
     }
 
     @Override

@@ -33,16 +33,28 @@
                 <td th:text="${user.getUpdatedAt().toLocalDate()}"></td>
             </tr>
         </table>
-        <div th:if="${users.hasContent()}" class="pagination">
-            <ul>
-                <li th:if="${users.hasPrevious()}">
-                    <a th:href="@{'/admin/users?page=' + ${users.number - 1}}">Previous</a>
+        <div class="pagination">
+            <ul th:if="${users.totalPages > 1}">
+                <li th:if="${users.number > 0}">
+                    <a th:href="@{'/admin/users?page=' + ${users.number - 1}}">Назад</a>
                 </li>
-                <li th:each="page : ${#numbers.sequence(0, users.totalPages - 1)}">
+                <li th:if="${users.totalPages > 3}">
+                    <a th:href="@{/admin/users?page=0}">1</a>
+                </li>
+                <li th:if="${users.totalPages > 4}">
+                    <span>...</span>
+                </li>
+                <li th:each="page : ${#numbers.sequence(users.number - 1 > 0 ? users.number - 1 : 0, users.number + 1 < users.totalPages ? users.number + 1 : users.totalPages - 1)}">
                     <a th:href="@{'/admin/users?page=' + ${page}}" th:text="${page + 1}"></a>
                 </li>
-                <li th:if="${users.hasNext()}">
-                    <a th:href="@{'/admin/users?page=' + ${users.number + 1}}">Next</a>
+                <li th:if="${users.totalPages > 4 && users.number < users.totalPages - 2}">
+                    <span>...</span>
+                </li>
+                <li th:if="${users.totalPages > 3}">
+                    <a th:href="@{'/admin/users?page=' + ${users.totalPages - 1}}" th:text="${users.totalPages}"></a>
+                </li>
+                <li th:if="${users.number < users.totalPages - 1}">
+                    <a th:href="@{'/admin/users?page=' + ${users.number + 1}}">Вперед</a>
                 </li>
             </ul>
         </div>

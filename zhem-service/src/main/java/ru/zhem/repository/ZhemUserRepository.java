@@ -1,5 +1,7 @@
 package ru.zhem.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,6 +40,9 @@ public interface ZhemUserRepository extends JpaRepository<ZhemUser, Long> {
     @EntityGraph(value = "zhem-user_entity-graph")
     @Override
     List<ZhemUser> findAll();
+
+    @Query("from ZhemUser u left join u.roles r where not exists (select 1 from u.roles r2 where r2.title = :role)")
+    Page<ZhemUser> findAllByRolesTitleNotContains(Pageable pageable, String role);
 
     @EntityGraph(value = "zhem-user_entity-graph")
     List<ZhemUser> findAll(Specification<ZhemUser> specification);
