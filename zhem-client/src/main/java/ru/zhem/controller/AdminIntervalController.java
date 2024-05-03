@@ -54,6 +54,7 @@ public class AdminIntervalController {
                 ? String.format("redirect:/admin/intervals?year=%s&month=%s", year, month)
                 : "redirect:/admin/intervals";
         redirectAttributes.addFlashAttribute("message", "Интервал не создан");
+        redirectAttributes.addFlashAttribute("messageType", "danger");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -62,6 +63,7 @@ public class AdminIntervalController {
             try {
                 this.intervalService.createInterval(intervalDto);
                 redirectAttributes.addFlashAttribute("message", "Интервал создан");
+                redirectAttributes.addFlashAttribute("messageType", "success");
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());
@@ -81,6 +83,7 @@ public class AdminIntervalController {
                 ? String.format("redirect:/admin/intervals?year=%s&month=%s", year, month)
                 : "redirect:/admin/intervals";
         redirectAttributes.addFlashAttribute("message", "Интервал не изменен");
+        redirectAttributes.addFlashAttribute("messageType", "danger");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -89,6 +92,7 @@ public class AdminIntervalController {
             try {
                 this.intervalService.updateInterval(intervalId, intervalDto);
                 redirectAttributes.addFlashAttribute("message", "Интервал изменен");
+                redirectAttributes.addFlashAttribute("messageType", "success");
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());
@@ -109,10 +113,12 @@ public class AdminIntervalController {
         try {
             this.intervalService.deleteIntervalById(intervalId);
             redirectAttributes.addFlashAttribute("message", "Интервал удален");
+            redirectAttributes.addFlashAttribute("messageType", "success");
             return uriToRedirect;
         } catch (CustomBindException exception) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("message", "Интервал не удален");
+            redirectAttributes.addFlashAttribute("messageType", "danger");
             redirectAttributes.addFlashAttribute("errors", exception.getErrors());
             return uriToRedirect;
         }

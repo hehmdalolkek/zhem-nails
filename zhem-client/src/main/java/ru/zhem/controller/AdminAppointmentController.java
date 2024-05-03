@@ -142,16 +142,18 @@ public class AdminAppointmentController {
     public String createAppointmentProcessFourth(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
                                                  BindingResult bindingResult, HttpServletResponse response,
                                                  RedirectAttributes redirectAttributes, Model model) {
+        redirectAttributes.addFlashAttribute("message", "Клиент не записан");
+        redirectAttributes.addFlashAttribute("messageType", "danger");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             redirectAttributes.addFlashAttribute("errors", errors);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            redirectAttributes.addFlashAttribute("message", "Клиент не записан");
             return "redirect:/admin/intervals";
         } else {
             try {
                 this.appointmentService.createAppointment(appointment);
                 redirectAttributes.addFlashAttribute("message", "Клиент записан");
+                redirectAttributes.addFlashAttribute("messageType", "success");
                 return "redirect:/admin/intervals";
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -162,7 +164,6 @@ public class AdminAppointmentController {
                     model.addAttribute("interval", interval);
                     return "admin/appointments/create/create-step-3";
                 } else {
-                    redirectAttributes.addFlashAttribute("message", "Клиент не записан");
                     redirectAttributes.addFlashAttribute("errors", errors);
                     return "redirect:/admin/intervals";
                 }
@@ -270,6 +271,7 @@ public class AdminAppointmentController {
             try {
                 this.appointmentService.updateAppointment(appointmentId, appointment);
                 redirectAttributes.addFlashAttribute("message", "Интервал успешно изменен");
+                redirectAttributes.addFlashAttribute("messageType", "success");
                 return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -280,6 +282,7 @@ public class AdminAppointmentController {
                     return "admin/appointments/update/update-step-4";
                 } else {
                     redirectAttributes.addFlashAttribute("message", "Клиент не записан");
+                    redirectAttributes.addFlashAttribute("messageType", "danger");
                     redirectAttributes.addFlashAttribute("errors", errors);
                     return "redirect:/admin/intervals";
                 }
@@ -291,6 +294,7 @@ public class AdminAppointmentController {
     public String deleteAppointment(Long appointmentId, RedirectAttributes redirectAttributes) {
         this.appointmentService.deleteAppointment(appointmentId);
         redirectAttributes.addFlashAttribute("message", "Запись отменена");
+        redirectAttributes.addFlashAttribute("messageType", "success");
         return "redirect:/admin/intervals";
     }
 
@@ -300,6 +304,7 @@ public class AdminAppointmentController {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         redirectAttributes.addFlashAttribute("errors", errors);
         redirectAttributes.addFlashAttribute("message", "Запись не изменена");
+        redirectAttributes.addFlashAttribute("messageType", "danger");
         return "redirect:/admin/appointments/interval/" + intervalId;
     }
 }

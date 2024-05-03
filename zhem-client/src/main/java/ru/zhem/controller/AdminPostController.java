@@ -42,6 +42,7 @@ public class AdminPostController {
     public String createPost(@Valid PostCreationDto postDto, BindingResult bindingResult,
                              RedirectAttributes redirectAttributes, HttpServletResponse response) {
         redirectAttributes.addFlashAttribute("message", "Ошибка добавления");
+        redirectAttributes.addFlashAttribute("messageType", "danger");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -51,6 +52,7 @@ public class AdminPostController {
             try {
                 this.postService.createPost(postDto);
                 redirectAttributes.addFlashAttribute("message", "Успешно добавлено");
+                redirectAttributes.addFlashAttribute("messageType", "success");
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());

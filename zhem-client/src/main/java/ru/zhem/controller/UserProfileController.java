@@ -59,6 +59,7 @@ public class UserProfileController {
     public String updateUser(@Valid @ModelAttribute("user") ZhemUserUpdate user, BindingResult bindingResult,
                              HttpServletResponse response, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("message", "Данные не изменены");
+        redirectAttributes.addFlashAttribute("messageType", "danger");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -73,6 +74,7 @@ public class UserProfileController {
                         .build();
                 zhemUserService.updateUser(user.getId(), zhemUser);
                 redirectAttributes.addFlashAttribute("message", "Данные изменены успешно");
+                redirectAttributes.addFlashAttribute("messageType", "success");
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());

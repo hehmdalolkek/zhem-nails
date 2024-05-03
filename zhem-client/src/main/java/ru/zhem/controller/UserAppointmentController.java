@@ -74,20 +74,21 @@ public class UserAppointmentController {
     @PostMapping("/create")
     public String createAppointmentProcess(@Valid AppointmentCreationDto appointmentDto, BindingResult bindingResult,
                                            RedirectAttributes redirectAttributes, HttpServletResponse response) {
-
+        redirectAttributes.addFlashAttribute("message", "Ошибка записи");
+        redirectAttributes.addFlashAttribute("messageType", "danger");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             redirectAttributes.addFlashAttribute("errors", errors);
-            redirectAttributes.addFlashAttribute("message", "Ошибка записи");
             return "redirect:/user/appointments/create?intervalId=" + appointmentDto.getIntervalId();
         } else {
             try {
                 this.appointmentService.createAppointment(appointmentDto);
+                redirectAttributes.addFlashAttribute("message", "Запись успешно оформлена");
+                redirectAttributes.addFlashAttribute("messageType", "success");
                 return "redirect:/intervals";
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
-                redirectAttributes.addFlashAttribute("message", "Ошибка записи");
                 redirectAttributes.addFlashAttribute("errors", exception.getErrors());
                 return "redirect:/intervals";
             }
@@ -99,6 +100,7 @@ public class UserAppointmentController {
                                     HttpServletResponse response) {
         this.appointmentService.deleteAppointment(appointmentId);
         redirectAttributes.addFlashAttribute("message", "Запись отменена");
+        redirectAttributes.addFlashAttribute("messageType", "success");
         return "redirect:/user/appointments";
     }
 
