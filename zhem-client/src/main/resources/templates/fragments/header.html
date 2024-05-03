@@ -22,7 +22,7 @@
         <li>
             <a th:href="@{/user/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
         </li>
-        <li th:if="${isAdmin == true}">
+        <li th:if="${authUser.getId() == adminUser.getId}">
             <a th:href="@{/admin/dashboard}">Панель управления</a>
         </li>
         <li>

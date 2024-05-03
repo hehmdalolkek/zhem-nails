@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.zhem.dto.request.ZhemUserDto;
 import ru.zhem.service.interfaces.ZhemUserService;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @RequiredArgsConstructor
@@ -19,17 +20,16 @@ public class HeaderInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
-                           Object handler, ModelAndView modelAndView) {
+                           Object handler, ModelAndView modelAndView) throws IOException {
         if (modelAndView != null) {
             Principal principal = request.getUserPrincipal();
-            if (principal != null) {
-                ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
-                modelAndView.addObject("authUser", user);
-                modelAndView.addObject("isAdmin", request.isUserInRole("ADMIN"));
-            }
             if (zhemUserService.adminIsExists()) {
                 ZhemUserDto admin = zhemUserService.findAdmin();
                 modelAndView.addObject("adminUser", admin);
+            }
+            if (principal != null) {
+                ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
+                modelAndView.addObject("authUser", user);
             }
         }
     }
