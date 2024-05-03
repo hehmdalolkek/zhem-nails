@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div id="wrap">
     <div th:replace="~{fragments/header :: #header_client}"></div>
     <nav>
         <a th:href="@{/intervals}"><- Назад</a>
@@ -39,5 +40,6 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</div>
 </body>
 </html>

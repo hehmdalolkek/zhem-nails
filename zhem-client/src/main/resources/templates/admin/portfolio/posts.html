@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
     <nav>
         <a th:href="@{/admin/dashboard}"><- Назад</a>
@@ -58,7 +59,8 @@
                     <span>...</span>
                 </li>
                 <li th:if="${posts.totalPages > 3}">
-                    <a th:href="@{'/admin/portfolio?page=' + ${posts.totalPages - 1}}" th:text="${posts.totalPages}"></a>
+                    <a th:href="@{'/admin/portfolio?page=' + ${posts.totalPages - 1}}"
+                       th:text="${posts.totalPages}"></a>
                 </li>
                 <li th:if="${posts.number < posts.totalPages - 1}">
                     <a th:href="@{'/admin/portfolio?page=' + ${posts.number + 1}}">Вперед</a>
@@ -68,5 +70,6 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</div>
 </body>
 </html>

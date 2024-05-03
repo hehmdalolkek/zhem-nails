@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main>
         <h1>Свободные интервалы для записи</h1>
@@ -44,5 +45,6 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</div>
 </body>
 </html>

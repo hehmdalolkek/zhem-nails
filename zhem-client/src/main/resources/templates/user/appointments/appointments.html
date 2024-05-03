@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div id="wrap">
     <div th:replace="~{fragments/header :: #header_client}"></div>
     <main>
         <h1>История записей</h1>
@@ -47,7 +48,8 @@
                     <span>...</span>
                 </li>
                 <li th:if="${appointments.totalPages > 3}">
-                    <a th:href="@{'/user/appointments?page=' + ${appointments.totalPages - 1}}" th:text="${appointments.totalPages}"></a>
+                    <a th:href="@{'/user/appointments?page=' + ${appointments.totalPages - 1}}"
+                       th:text="${appointments.totalPages}"></a>
                 </li>
                 <li th:if="${appointments.number < appointments.totalPages - 1}">
                     <a th:href="@{'/user/appointments?page=' + ${appointments.number + 1}}">Вперед</a>
@@ -57,5 +59,6 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</div>
 </body>
 </html>

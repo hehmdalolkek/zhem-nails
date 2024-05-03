@@ -10,31 +10,36 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main>
         <h1>Регистрация</h1>
         <form method="post" th:action="@{/admin/registration}">
             <div>
                 <label th:for="phone">Номер телефона
-                    <input type="text" name="phone" id="phone" placeholder="+7 (999) 999-99-99" th:value="${enteredData?.getPhone()}"/>
+                    <input type="text" name="phone" id="phone" placeholder="+7 (999) 999-99-99"
+                           th:value="${enteredData?.getPhone()}"/>
                 </label>
                 <span th:text="${errors?.containsKey('phone')} ? ${errors.get('phone')}"></span>
             </div>
             <div>
                 <label th:for="email">Электронная почта
-                    <input type="email" name="email" id="email" placeholder="email@email.com" th:value="${enteredData?.getEmail()}"/>
+                    <input type="email" name="email" id="email" placeholder="email@email.com"
+                           th:value="${enteredData?.getEmail()}"/>
                 </label>
                 <span th:text="${errors?.containsKey('email')} ? ${errors.get('email')}"></span>
             </div>
             <div>
                 <label th:for="firstName">Имя
-                    <input type="text" name="firstName" id="firstName" placeholder="Иван" th:value="${enteredData?.getFirstName()}"/>
+                    <input type="text" name="firstName" id="firstName" placeholder="Иван"
+                           th:value="${enteredData?.getFirstName()}"/>
                 </label>
                 <span th:text="${errors?.containsKey('firstName')} ? ${errors.get('firstName')}"></span>
             </div>
             <div>
                 <label th:for="lastName">Фамилия
-                    <input type="text" name="lastName" id="lastName" placeholder="Иванов" th:value="${enteredData?.getLastName()}"/>
+                    <input type="text" name="lastName" id="lastName" placeholder="Иванов"
+                           th:value="${enteredData?.getLastName()}"/>
                 </label>
                 <span th:text="${errors?.containsKey('lastName')} ? ${errors.get('lastName')}"></span>
             </div>
@@ -51,10 +56,11 @@
                 </label>
                 <span th:text="${errors?.containsKey('passwordMatchers')} ? ${errors.get('passwordMatchers')}"></span>
             </div>
-            <input type="submit" value="Зарегистрироваться" />
+            <input type="submit" value="Зарегистрироваться"/>
         </form>
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</div>
 </body>
 </html>

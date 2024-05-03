@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main>
         <h1>Авторизация</h1>
@@ -26,14 +27,15 @@
             </div>
             <div>
                 <label>
-                    <input type="checkbox" name="remember-me" />
+                    <input type="checkbox" name="remember-me"/>
                     Запомнить вход
                 </label>
             </div>
-            <input type="submit" value="Войти" />
+            <input type="submit" value="Войти"/>
         </form>
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</div>
 </body>
 </html>

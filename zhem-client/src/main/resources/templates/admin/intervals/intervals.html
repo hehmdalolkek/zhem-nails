@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
     <nav>
         <a th:href="@{/admin/dashboard}"><- Назад</a>
@@ -51,14 +52,16 @@
                         <button type="button" class="open-update-time-btn">Изменить время</button>
                     </td>
                     <td>
-                        <form method="post" th:action="@{/admin/intervals/delete?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
+                        <form method="post"
+                              th:action="@{/admin/intervals/delete?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             <input type="hidden" name="intervalId" th:value="${interval.getId()}">
                             <input type="submit" value="Удалить">
                         </form>
                     </td>
                     <td th:if="${interval.getStatus() != statusAvailable}">
-                        <a th:href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">Информация о записи</a>
+                        <a th:href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">Информация
+                            о записи</a>
                     </td>
                     <td th:if="${interval.getStatus() == statusAvailable}">
                         <a th:href="@{/admin/appointments/create/step1?intervalId=__${interval.getId()}__}">
@@ -84,5 +87,6 @@
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/js/intervals.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</div>
 </body>
 </html>
