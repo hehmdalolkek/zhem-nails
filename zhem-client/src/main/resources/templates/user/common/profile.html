@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Zhem-nails - профиль</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
 </head>
 <body>
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
@@ -59,5 +60,6 @@
         </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
