@@ -1,41 +1,110 @@
 <header id="header_admin">
-    <ul>
-        <li>
-            <a th:href="@{/user/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
-        </li>
-        <li>
-            <a th:href="@{/admin/dashboard}">Панель управления</a>
-        </li>
-        <li>
-            <form method="post" th:action="@{/admin/logout}">
-                <input type="submit" value="Выйти">
-            </form>
-        </li>
-    </ul>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-xxl">
+            <a class="navbar-brand" href="/">Zhem-nails</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/dashboard}">Панель управления</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <span th:text="'Профиль ' + ${authUser.getFirstName()}"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/user/profile}">Профиль</a>
+                            </li>
+                            <li>
+                                <form class="d-flex" method="post" th:action="@{/admin/logout}">
+                                    <input class="dropdown-item" type="submit" value="Выйти">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>
 
 <header id="header_client">
-    <ul>
-        <li>
-            <a th:href="@{/user/appointments}">История записей</a>
-        </li>
-        <li>
-            <a th:href="@{/user/profile}"><span th:text="'Профиль ' + ${authUser.getFirstName()}"></span></a>
-        </li>
-        <li th:if="${authUser.getId() == adminUser.getId}">
-            <a th:href="@{/admin/dashboard}">Панель управления</a>
-        </li>
-        <li>
-            <form method="post" th:action="@{/user/logout}">
-                <input type="submit" value="Выйти">
-            </form>
-        </li>
-    </ul>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-xxl">
+            <a class="navbar-brand" href="/">Zhem-nails</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent2"
+                    aria-controls="navbarSupportedContent2"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item" th:if="${authUser.getId() == adminUser.getId}">
+                        <a class="nav-link" th:href="@{/admin/dashboard}">Панель управления</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <span th:text="'Профиль ' + ${authUser.getFirstName()}"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/user/profile}">Профиль</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/user/appointments}">История записей</a>
+                            </li>
+                            <li>
+                                <form class="d-flex" method="post" th:action="@{/user/logout}">
+                                    <input class="dropdown-item" type="submit" value="Выйти">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
 </header>
 
 <header id="header_guest">
-    <ul>
-        <li><a th:href="@{/user/login}">Войти</a></li>
-        <li><a th:href="@{/user/registration}">Зарегистрироваться</a></li>
-    </ul>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-xxl">
+            <a class="navbar-brand" href="/">Zhem-nails</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent3"
+                    aria-controls="navbarSupportedContent3"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent3">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item me-3">
+                        <a class="nav-link" th:href="@{/user/login}">Войти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-dark" th:href="@{/user/registration}">Зарегистрироваться</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>

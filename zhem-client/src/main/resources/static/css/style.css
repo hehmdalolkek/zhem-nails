@@ -1,0 +1,21 @@
+html,
+body {
+    height: 100%;
+}
+
+#wrap {
+    position: relative;
+    min-height: 100%;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    .footer__list {
+        list-style-type: none;
+    }
+}
+

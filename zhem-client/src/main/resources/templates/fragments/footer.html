@@ -1,25 +1,35 @@
-<footer id="footer_admin">
-    <div th:if="${adminUser}">
-        <h3>Контакты:</h3>
-        <ul>
-            <li>Номер телефона: <a th:href="'tel:' + ${adminUser.getPhone()}" th:text="${adminUser.getPhone()}"></a></li>
-            <li th:if="${adminUser.getEmail()}">
-                Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}" th:text="${adminUser.getEmail()}"></a>
-            </li>
-        </ul>
+<footer class="footer py-4 bg-body-tertiary" id="footer_admin">
+    <div class="container-xxl">
+        <div th:if="${adminUser}">
+            <h3>Контакты:</h3>
+            <ul class="footer__list ps-0">
+                <li>Номер телефона:
+                    <a th:href="'tel:' + ${adminUser.getPhone()}" th:text="${adminUser.getPhone()}"></a>
+                </li>
+                <li th:if="${adminUser.getEmail()}">
+                    Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}"
+                                          th:text="${adminUser.getEmail()}"></a>
+                </li>
+            </ul>
+        </div>
+        <p class="text-center mb-0">&#169 Copyright</p>
     </div>
-    <p>&#169 Copyright</p>
 </footer>
 
-<footer id="footer_user">
-    <div th:if="${adminUser}">
-        <h3>Контакты:</h3>
-        <ul>
-            <li>Номер телефона: <a th:href="'tel:' + ${adminUser.getPhone()}" th:text="${adminUser.getPhone()}"></a></li>
-            <li th:if="${adminUser.getEmail()}">
-                Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}" th:text="${adminUser.getEmail()}"></a>
-            </li>
-        </ul>
+<footer class="footer py-4 bg-body-tertiary" id="footer_user">
+    <div class="container-xxl">
+        <div th:if="${adminUser}">
+            <h3>Контакты:</h3>
+            <ul class="footer__list ps-0">
+                <li>Номер телефона:
+                    <a th:href="'tel:' + ${adminUser.getPhone()}" th:text="${adminUser.getPhone()}"></a>
+                </li>
+                <li th:if="${adminUser.getEmail()}">
+                    Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}"
+                                          th:text="${adminUser.getEmail()}"></a>
+                </li>
+            </ul>
+        </div>
+        <p class="text-center mb-0">&#169 Copyright</p>
     </div>
-    <p>&#169 Copyright</p>
 </footer>
