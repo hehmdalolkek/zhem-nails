@@ -1,4 +1,4 @@
-<footer class="footer py-4 bg-body-tertiary" id="footer_admin">
+<footer class="footer border shadow-sm py-4 bg-body-tertiary" id="footer_admin">
     <div class="container-xxl">
         <div th:if="${adminUser}">
             <h3>Контакты:</h3>
@@ -11,13 +11,13 @@
                                           th:text="${adminUser.getEmail()}"></a>
                 </li>
             </ul>
+            <hr>
         </div>
-        <hr>
         <p class="text-center mb-0">&#169 Copyright</p>
     </div>
 </footer>
 
-<footer class="footer py-4 bg-body-tertiary" id="footer_user">
+<footer class="footer border shadow-sm py-4 bg-body-tertiary" id="footer_user">
     <div class="container-xxl">
         <div th:if="${adminUser}">
             <h3>Контакты:</h3>
@@ -30,8 +30,8 @@
                                           th:text="${adminUser.getEmail()}"></a>
                 </li>
             </ul>
+            <hr>
         </div>
-        <hr>
         <p class="text-center mb-0">&#169 Copyright</p>
     </div>
 </footer>

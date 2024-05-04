@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 import ru.zhem.common.constraint.CheckPhoneNumber;
 
 @Data
@@ -24,6 +25,21 @@ public class ZhemUserUpdate {
 
     @Size(max = 32, message = "Поле должно быть до 32 символов")
     private String lastName;
+
+    @ToString.Include(name = "phone")
+    public String getFormattedPhone() {
+        return this.phone == null || this.phone.isBlank() ? null
+                : "+" +
+                this.phone.charAt(0) +
+                "(" +
+                this.phone.substring(1, 4) +
+                ")" +
+                this.phone.substring(4, 7) +
+                "-" +
+                this.phone.substring(7, 9) +
+                "-" +
+                this.phone.substring(9, 11);
+    }
 
 }
 

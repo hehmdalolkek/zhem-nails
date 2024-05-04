@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem-nails</title>
+    <title>Zhem.nails</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/webjars/glightbox/3.2.0/dist/css/glightbox.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
@@ -48,7 +48,7 @@
             </button>
         </div>
     </article>
-    <main class="main container-xxl pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
         <section class="py-5" id="services">
             <h2 class="title">Предоставляемые услуги</h2>
             <h4>Добро пожаловать</h4>
@@ -103,7 +103,7 @@
         </section>
         <section class="py-5 bg-body-tertiary" id="portfolio">
             <h2 class="title">Портфолио</h2>
-            <div class="posts d-flex flex-wrap justify-content-between">
+            <div class="posts d-flex flex-wrap justify-content-between flex-md-row flex-column align-content-center align-items-center ">
                 <div class="post" th:each="post : ${posts}">
                     <div th:if="${post.getContent()} != null">
                         <a

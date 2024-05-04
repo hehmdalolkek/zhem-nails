@@ -5,14 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem-nails - ошибка</title>
+    <title>Zhem.nails - ошибка</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body id="error">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <main class="main container-xxl pb-lg-5 pb-4 text-center">
+    <main class="main container-xxl mx-auto pb-lg-5 pb-4 text-center">
         <div>
             <h1 th:text="${status} + ': ' + ${title}"></h1>
             <p class="mb-5" th:text="${detail}"></p>

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import ru.zhem.common.constraint.CheckPhoneNumber;
 import ru.zhem.common.constraint.Password;
 import ru.zhem.common.constraint.PasswordMatcher;
@@ -38,6 +39,21 @@ public class ZhemUser extends BaseEntity {
     private String lastName;
 
     private Set<Role> roles;
+
+    @ToString.Include(name = "phone")
+    public String getFormattedPhone() {
+        return this.phone == null || this.phone.isBlank() ? null
+                : "+" +
+                this.phone.charAt(0) +
+                "(" +
+                this.phone.substring(1, 4) +
+                ")" +
+                this.phone.substring(4, 7) +
+                "-" +
+                this.phone.substring(7, 9) +
+                "-" +
+                this.phone.substring(9, 11);
+    }
 
     @Override
     public String toString() {

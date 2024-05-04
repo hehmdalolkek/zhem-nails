@@ -3,6 +3,7 @@ package ru.zhem.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,8 +28,11 @@ public class ZhemUserDto {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+    
+    @ToString.Include(name = "phone")
     public String getFormattedPhone() {
-        return  "+" +
+        return this.phone == null || this.phone.isBlank() ? null
+                : "+" +
                 this.phone.charAt(0) +
                 "(" +
                 this.phone.substring(1, 4) +

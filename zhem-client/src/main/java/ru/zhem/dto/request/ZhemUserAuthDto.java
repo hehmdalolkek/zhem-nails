@@ -20,6 +20,21 @@ public class ZhemUserAuthDto {
 
     private Set<RoleDto> roles;
 
+    @ToString.Include(name = "phone")
+    public String getFormattedPhone() {
+        return this.phone == null || this.phone.isBlank() ? null
+                : "+" +
+                this.phone.charAt(0) +
+                "(" +
+                this.phone.substring(1, 4) +
+                ")" +
+                this.phone.substring(4, 7) +
+                "-" +
+                this.phone.substring(7, 9) +
+                "-" +
+                this.phone.substring(9, 11);
+    }
+
     @ToString.Include(name = "password")
     private String maskPassword() {
         return "[PROTECTED]";
