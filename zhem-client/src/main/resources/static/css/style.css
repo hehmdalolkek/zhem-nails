@@ -25,6 +25,14 @@ body {
     margin-bottom: 40px;
 }
 
+#error {
+    .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 #dashboard {
     .cards {
         .card {

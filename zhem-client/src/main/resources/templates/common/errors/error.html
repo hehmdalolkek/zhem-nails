@@ -9,10 +9,22 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
-<h1 th:text="${status} + ': ' + ${title}"></h1>
-<h2 th:text="${detail}"></h2>
-<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<body id="error">
+<div id="wrap">
+    <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
+    <main class="main container-xxl pb-lg-5 pb-4 text-center">
+        <div>
+            <h1 th:text="${status} + ': ' + ${title}"></h1>
+            <p class="mb-5" th:text="${detail}"></p>
+            <div>
+                <a class="btn btn-outline-dark fs-5" th:href="@{/}">На главную</a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer py-4 bg-body-tertiary" id="footer_user">
+        <p class="text-center mb-0">&#169 Copyright</p>
+    </footer>
 </div>
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
