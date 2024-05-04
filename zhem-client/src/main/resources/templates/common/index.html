@@ -9,18 +9,114 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="index">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-
-    <nav>
-        <ul>
-            <li><a th:href="@{/intervals}">Показать все свободные интервалы</a></li>
-            <li><a th:href="@{/portfolio}">Показать портфолио</a></li>
-        </ul>
-    </nav>
-    <main class="main container-xxl py-lg-5 py-4">
-
+    <article class="mb-5">
+        <div id="mainCarousel" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/images/photo1.jpg" class="d-block w-100" alt="Маникюр">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>zhem.nails</h1>
+                        <p>Откройте для себя безупречный уход за ногтями. Запишитесь прямо сейчас!</p>
+                        <a class="btn btn-outline-light fs-5" th:href="@{/intervals}">Записаться</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/images/photo2.jpg" class="d-block w-100" alt="Маникюр">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>zhem.nails</h1>
+                        <p>Откройте для себя безупречный уход за ногтями. Запишитесь прямо сейчас!</p>
+                        <a class="btn btn-outline-light fs-5" th:href="@{/intervals}">Записаться</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </article>
+    <main class="main container-xxl pb-lg-5 pb-4">
+        <section class="mb-5" id="services">
+            <h2 class="title">Предоставляемые услуги</h2>
+            <h4>Добро пожаловать</h4>
+            <p>Приветствую вас на странице <b>zhem.nails</b>! Меня зовут
+                Анастасия, и я рада приветствовать вас на своей странице. Я предлагаю широкий спектр профессиональных
+                услуг по маникюру и педикюру, чтобы помочь вам
+                выглядеть и чувствовать себя уверенно и прекрасно.</p>
+            <h4>Мой подход</h4>
+            <p>Я работаю индивидуально с каждым клиентом, обеспечивая высокое качество услуг и внимательный уход.
+                Я уделяю особое внимание качеству и безопасности проводимых процедур.
+                В моей работе я использую только профессиональные инструменты и продукты, чтобы гарантировать
+                безупречный результат и удовлетворение каждого клиента.</p>
+            <h4>О моих услугах</h4>
+            <h6>Маникюр:</h6>
+            <ul>
+                <li>
+                    Классический маникюр: Тщательная обработка ногтей, удаление кутикулы, формирование и полировка ногтевой пластины.
+                </li>
+                <li>
+                    Маникюр с покрытием лаком: Подбор цвета лака по вашему желанию и профессиональное нанесение.
+                </li>
+                <li>
+                    Маникюр с покрытием гель-лаком: Долговременное покрытие с высоким блеском, которое сохраняет свойства в течение нескольких недель.
+                </li>
+                <li>
+                    Дизайн ногтей: Индивидуальный подход к созданию уникальных дизайнов, от классического френча до акцентуированных арт-решений.
+                </li>
+            </ul>
+            <h6>Педикюр:</h6>
+            <ul class="mb-4">
+                <li>
+                    Классический педикюр: Очищение и обработка кожи стоп, удаление огрубевшей кожи и натоптышей, обрезка и формирование ногтей.
+                </li>
+                <li>
+                    Педикюр с покрытием лаком: Нанесение лака высокого качества, придавая вашим ногтям элегантный вид.
+                </li>
+                <li>
+                    Педикюр с покрытием гель-лаком: Долговременное покрытие, которое сохранит свой блеск и цвет на протяжении длительного времени.
+                </li>
+                <li>
+                    Парафиновая ванна: Расслабляющая процедура для увлажнения и смягчения кожи стоп.
+                </li>
+            </ul>
+            <div class="text-center">
+                <a class="btn btn-outline-dark fs-5" th:href="@{/intervals}">Записаться</a>
+            </div>
+        </section>
+        <section class="mb-5" id="portfolio">
+            <h2 class="title">Портфолио</h2>
+            <div class="posts d-flex flex-wrap justify-content-between">
+                <div class="post" th:each="post : ${posts}">
+                    <a th:href="@{/portfolio/__${post.getId()}__}">
+                        <img th:src="@{/img/__${post.getImage().getPath()}__}" alt="Фото работы">
+                    </a>
+                </div>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-outline-dark fs-5" th:href="@{/portfolio}">Показать ещё</a>
+            </div>
+        </section>
+        <section>
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p>Красота начинается с того момента, когда вы решаете быть себе верными.</p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Мэрилин Монро
+                </figcaption>
+            </figure>
+        </section>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>

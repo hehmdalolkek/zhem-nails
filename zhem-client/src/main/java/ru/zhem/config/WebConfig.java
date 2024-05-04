@@ -23,7 +23,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/admin/dashboard").setViewName("admin/common/dashboard");
-        registry.addViewController("/").setViewName("common/index");
     }
 
     @Override

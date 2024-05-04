@@ -25,15 +25,60 @@ body {
     margin-bottom: 40px;
 }
 
-.cards {
-    .card {
-        position: relative;
-        height: 100%;
-        padding-bottom: 35px;
-        .btn {
-            position: absolute;
-            left: var(--bs-card-spacer-x);
-            bottom: var(--bs-card-spacer-y);
+#dashboard {
+    .cards {
+        .card {
+            position: relative;
+            height: 100%;
+            padding-bottom: 35px;
+            .btn {
+                position: absolute;
+                left: var(--bs-card-spacer-x);
+                bottom: var(--bs-card-spacer-y);
+            }
         }
     }
 }
+
+#index {
+    header {
+        margin-bottom: 0 !important;
+    }
+    #mainCarousel {
+        img {
+            filter: brightness(70%);
+            height: 600px;
+            object-fit: cover;
+        }
+        .btn {
+            padding-inline: 50px;
+        }
+        .carousel-caption {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    #portfolio {
+        .post {
+            max-width: 400px;
+            text-align: center;
+            margin-bottom: 30px;
+            img {
+                max-width: 400px;
+                max-height: 370px;
+                object-fit: cover;
+            }
+        }
+        .btn {
+            padding-inline: 50px;
+        }
+    }
+    #services {
+        .btn {
+            padding-inline: 50px;
+        }
+    }
+}
+
+
