@@ -2,37 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Zhem-nails - авторизация</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zhem.nails - Авторизация</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="login">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <main class="main container-xxl pb-lg-5 pb-4">
-        <h1>Авторизация</h1>
-        <div th:if="${param.error}">
-            Неверный номер телефона или пароль
+    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Авторизация</li>
+            </ol>
+        </nav>
+        <div class="col-lg-6 col-sm-12 mx-auto border shadow-sm rounded py-5 px-4">
+            <h1 class="title">Авторизация</h1>
+            <div class="alert alert-danger text-center" th:if="${param.error}">
+                Неверный номер телефона или пароль
+            </div>
+            <form class="form" th:action="@{/user/login}" method="post">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="username" name="username"
+                           placeholder="+7(999)999-99-99">
+                    <label for="username">Номер телефона</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Пароль">
+                    <label for="password">Пароль</label>
+                </div>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" name="remember-me" type="checkbox" role="switch" checked
+                           id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Запомнить вход</label>
+                </div>
+                <input class="btn btn-outline-dark d-block px-5 mx-auto" type="submit" value="Войти"/>
+            </form>
         </div>
-        <form th:action="@{/user/login}" method="post">
-            <div>
-                <label>Номер телефона
-                    <input type="text" name="username" placeholder="+7 (999) 999-99-99"/>
-                </label>
-            </div>
-            <div>
-                <label>Пароль
-                    <input type="password" name="password" placeholder="Пароль"/>
-                </label>
-            </div>
-            <div>
-                <label>
-                    <input type="checkbox" name="remember-me"/>
-                    Запомнить вход
-                </label>
-            </div>
-            <input type="submit" value="Войти"/>
-        </form>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>

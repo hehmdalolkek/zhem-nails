@@ -12,52 +12,54 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <main class="main container-xxl pb-lg-5 pb-4">
-        <h1>Регистрация</h1>
-        <form method="post" th:action="@{/admin/registration}">
-            <div>
-                <label th:for="phone">Номер телефона
-                    <input type="text" name="phone" id="phone" placeholder="+7 (999) 999-99-99"
-                           th:value="${enteredData?.getFormattedPhone()}"/>
-                </label>
-                <span th:text="${errors?.containsKey('phone')} ? ${errors.get('phone')}"></span>
-            </div>
-            <div>
-                <label th:for="email">Электронная почта
-                    <input type="email" name="email" id="email" placeholder="email@email.com"
-                           th:value="${enteredData?.getEmail()}"/>
-                </label>
-                <span th:text="${errors?.containsKey('email')} ? ${errors.get('email')}"></span>
-            </div>
-            <div>
-                <label th:for="firstName">Имя
-                    <input type="text" name="firstName" id="firstName" placeholder="Иван"
-                           th:value="${enteredData?.getFirstName()}"/>
-                </label>
-                <span th:text="${errors?.containsKey('firstName')} ? ${errors.get('firstName')}"></span>
-            </div>
-            <div>
-                <label th:for="lastName">Фамилия
-                    <input type="text" name="lastName" id="lastName" placeholder="Иванов"
-                           th:value="${enteredData?.getLastName()}"/>
-                </label>
-                <span th:text="${errors?.containsKey('lastName')} ? ${errors.get('lastName')}"></span>
-            </div>
-            <div>
-                <label th:for="password">Пароль
-                    <input type="password" name="password" id="password"/>
-                </label>
-                <span th:text="${errors?.containsKey('password')} ? ${errors.get('password')}"></span>
-                <span th:text="${errors?.containsKey('passwordMatchers')} ? ${errors.get('passwordMatchers')}"></span>
-            </div>
-            <div>
-                <label th:for="confirmPassword">Подтвердите пароль
-                    <input type="password" name="confirmPassword" id="confirmPassword"/>
-                </label>
-                <span th:text="${errors?.containsKey('passwordMatchers')} ? ${errors.get('passwordMatchers')}"></span>
-            </div>
-            <input type="submit" value="Зарегистрироваться"/>
-        </form>
+    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Регистрация</li>
+            </ol>
+        </nav>
+        <div class="col-lg-6 col-sm-12 mx-auto border shadow-sm rounded py-5 px-4">
+            <h1 class="title">Регистрация</h1>
+            <form method="post" th:action="@{/admin/registration}">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="phone" name="phone"
+                           placeholder="+7(999)999-99-99" th:value="${enteredData?.getPhone()}">
+                    <label for="phone">Номер телефона</label>
+                    <span class="invalid-feedback" th:text="${errors?.get('phone')}"></span>
+                </div>
+                <div class="form-floating has-validation mb-3">
+                    <input type="email" class="form-control" id="email" name="email"
+                           placeholder="email@email.com" th:value="${enteredData?.getEmail()}">
+                    <label for="email">Электронная почта</label>
+                    <span class="invalid-feedback" th:text="${errors?.get('email')}"></span>
+                </div>
+                <div class="form-floating has-validation mb-3">
+                    <input type="text" class="form-control" id="firstName" name="firstName"
+                           placeholder="Иван" th:value="${enteredData?.getFirstName()}">
+                    <label for="firstName">Имя</label>
+                    <span class="invalid-feedback" th:text="${errors?.get('firstName')}"></span>
+                </div>
+                <div class="form-floating has-validation mb-3">
+                    <input type="text" class="form-control" id="lastName" name="lastName"
+                           placeholder="Иванов" th:value="${enteredData?.getLastName()}">
+                    <label for="lastName">Фамилия</label>
+                    <span class="invalid-feedback" th:text="${errors?.get('lastName')}"></span>
+                </div>
+                <div class="form-floating has-validation mb-3">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Пароль">
+                    <label for="password">Пароль</label>
+                    <span class="invalid-feedback" th:text="${errors?.get('password')}"></span>
+                </div>
+                <div class="form-floating has-validation mb-3">
+                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
+                           placeholder="Пароль">
+                    <label for="confirmPassword">Подтвердите пароль</label>
+                    <span class="invalid-feedback" th:text="${errors?.get('passwordMatchers')}"></span>
+                </div>
+                <input class="btn btn-outline-dark d-block px-5 mx-auto" type="submit" value="Зарегистрироваться"/>
+            </form>
+        </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
