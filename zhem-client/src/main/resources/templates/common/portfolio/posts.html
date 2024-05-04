@@ -5,52 +5,78 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem-nails - портфолио</title>
+    <title>Zhem-nails - Портфолио</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/glightbox/3.2.0/dist/css/glightbox.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="portfolio">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <nav>
-        <a th:href="@{/}"><- Назад</a>
-    </nav>
     <main class="main container-xxl pb-lg-5 pb-4">
-        <h1>Портфолио</h1>
-        <div th:each="post : ${posts.content}">
-            <a th:href="@{/portfolio/__${post.getId()}__}">
-                <p th:text="${post.getContent()}"></p>
-                <img width="200px" th:src="@{/img/__${post.getImage().getPath()}__}" th:alt="${post.getContent()}">
-            </a>
-        </div>
-        <div class="pagination">
-            <ul th:if="${posts.totalPages > 1}">
-                <li th:if="${posts.number > 0}">
-                    <a th:href="@{'/portfolio?page=' + ${posts.number - 1}}">Назад</a>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Портфолио</li>
+            </ol>
+        </nav>
+        <h1 class="title">Портфолио</h1>
+        <ul class="posts list-unstyled" th:if="${posts.numberOfElements} > 0">
+            <li class="post mb-4" th:each="post : ${posts.content}">
+                <div th:if="${post.getContent()} != null">
+                    <a
+                            th:href="@{/img/__${post.getImage().getPath()}__}"
+                            class="glightbox"
+                            th:data-glightbox="'title: Фото работы; description: .description' + ${post.getId()} +'; descPosition: right;'"
+                    >
+                        <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                             th:alt="${post.getContent()}">
+                    </a>
+                    <div th:class="'glightbox-desc description' + ${post.getId()}">
+                        <p th:text="${post.getContent()}"></p>
+                    </div>
+                </div>
+                <div th:if="${post.getContent()} == null">
+                    <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
+                        <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                             th:alt="${post.getContent()}">
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div th:if="${posts.numberOfElements} > 0">
+            <ul class="pagination justify-content-center" th:if="${posts.totalPages > 1}">
+                <li class="page-item" th:if="${posts.number > 0}">
+                    <a class="page-link" th:href="@{'/portfolio?page=' + ${posts.number - 1}}">Назад</a>
                 </li>
-                <li th:if="${posts.totalPages > 3}">
-                    <a th:href="@{/portfolio?page=0}">1</a>
+                <li class="page-item" th:if="${posts.totalPages > 3}">
+                    <a class="page-link" th:href="@{/portfolio?page=0}">1</a>
                 </li>
-                <li th:if="${posts.totalPages > 4}">
-                    <span>...</span>
+                <li class="page-item" th:if="${posts.totalPages > 4}">
+                    <span class="page-link disabled">...</span>
                 </li>
-                <li th:each="page : ${#numbers.sequence(posts.number - 1 > 0 ? posts.number - 1 : 0, posts.number + 1 < posts.totalPages ? posts.number + 1 : posts.totalPages - 1)}">
-                    <a th:href="@{'/portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
+                <li class="page-item" th:each="page : ${#numbers.sequence(posts.number - 1 > 0 ? posts.number - 1 : 0, posts.number + 1 < posts.totalPages ? posts.number + 1 : posts.totalPages - 1)}">
+                    <a class="page-link" th:href="@{'/portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
                 </li>
-                <li th:if="${posts.totalPages > 4 && posts.number < posts.totalPages - 2}">
-                    <span>...</span>
+                <li class="page-item" th:if="${posts.totalPages > 4 && posts.number < posts.totalPages - 2}">
+                    <span class="page-link disabled">...</span>
                 </li>
-                <li th:if="${posts.totalPages > 3}">
-                    <a th:href="@{'/portfolio?page=' + ${posts.totalPages - 1}}" th:text="${posts.totalPages}"></a>
+                <li class="page-item" th:if="${posts.totalPages > 3}">
+                    <a class="page-link" th:href="@{'/portfolio?page=' + ${posts.totalPages - 1}}" th:text="${posts.totalPages}"></a>
                 </li>
-                <li th:if="${posts.number < posts.totalPages - 1}">
-                    <a th:href="@{'/portfolio?page=' + ${posts.number + 1}}">Вперед</a>
+                <li class="page-item" th:if="${posts.number < posts.totalPages - 1}">
+                    <a class="page-link" th:href="@{'/portfolio?page=' + ${posts.number + 1}}">Вперед</a>
                 </li>
             </ul>
         </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/glightbox/3.2.0/dist/js/glightbox.js}"></script>
+    <script>
+        const lightbox = GLightbox({
+        });
+    </script>
 </div>
 </body>
 </html>

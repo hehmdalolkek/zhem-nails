@@ -12,7 +12,7 @@ import ru.zhem.common.constraint.MultipartFileNotNull;
 @NoArgsConstructor
 public class PostCreationDto {
 
-    @Size(max = 256, message = "Поле должно быть от до 256 символов")
+    @Size(max = 256, message = "Поле должно быть до 256 символов")
     private String content;
 
     @MultipartFileNotNull(message = "Вложите изображение")
