@@ -13,6 +13,12 @@
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main class="main container-xxl pb-lg-5 pb-4">
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Запись</li>
+            </ol>
+        </nav>
         <h1>Свободные интервалы для записи</h1>
         <h3 th:text="${message}"></h3>
         <span th:if="${errors?.containsKey('interval')}" th:text="${errors.get('interval')}"></span>
