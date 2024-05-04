@@ -7,15 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Zhem-nails</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/glightbox/3.2.0/dist/css/glightbox.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body id="index">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <article>
-        <div id="mainCarousel" class="carousel slide">
+        <div id="mainCarousel" class="carousel slide"  data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
             <div class="carousel-inner">
@@ -63,28 +65,33 @@
             <h6>Маникюр:</h6>
             <ul>
                 <li>
-                    Классический маникюр: Тщательная обработка ногтей, удаление кутикулы, формирование и полировка ногтевой пластины.
+                    Классический маникюр: Тщательная обработка ногтей, удаление кутикулы, формирование и полировка
+                    ногтевой пластины.
                 </li>
                 <li>
                     Маникюр с покрытием лаком: Подбор цвета лака по вашему желанию и профессиональное нанесение.
                 </li>
                 <li>
-                    Маникюр с покрытием гель-лаком: Долговременное покрытие с высоким блеском, которое сохраняет свойства в течение нескольких недель.
+                    Маникюр с покрытием гель-лаком: Долговременное покрытие с высоким блеском, которое сохраняет
+                    свойства в течение нескольких недель.
                 </li>
                 <li>
-                    Дизайн ногтей: Индивидуальный подход к созданию уникальных дизайнов, от классического френча до акцентуированных арт-решений.
+                    Дизайн ногтей: Индивидуальный подход к созданию уникальных дизайнов, от классического френча до
+                    акцентуированных арт-решений.
                 </li>
             </ul>
             <h6>Педикюр:</h6>
             <ul class="mb-4">
                 <li>
-                    Классический педикюр: Очищение и обработка кожи стоп, удаление огрубевшей кожи и натоптышей, обрезка и формирование ногтей.
+                    Классический педикюр: Очищение и обработка кожи стоп, удаление огрубевшей кожи и натоптышей, обрезка
+                    и формирование ногтей.
                 </li>
                 <li>
                     Педикюр с покрытием лаком: Нанесение лака высокого качества, придавая вашим ногтям элегантный вид.
                 </li>
                 <li>
-                    Педикюр с покрытием гель-лаком: Долговременное покрытие, которое сохранит свой блеск и цвет на протяжении длительного времени.
+                    Педикюр с покрытием гель-лаком: Долговременное покрытие, которое сохранит свой блеск и цвет на
+                    протяжении длительного времени.
                 </li>
                 <li>
                     Парафиновая ванна: Расслабляющая процедура для увлажнения и смягчения кожи стоп.
@@ -98,9 +105,25 @@
             <h2 class="title">Портфолио</h2>
             <div class="posts d-flex flex-wrap justify-content-between">
                 <div class="post" th:each="post : ${posts}">
-                    <a th:href="@{/portfolio/__${post.getId()}__}">
-                        <img th:src="@{/img/__${post.getImage().getPath()}__}" alt="Фото работы">
-                    </a>
+                    <div th:if="${post.getContent()} != null">
+                        <a
+                                th:href="@{/img/__${post.getImage().getPath()}__}"
+                                class="glightbox"
+                                th:data-glightbox="'title: Фото работы; description: .description' + ${post.getId()} +'; descPosition: right;'"
+                        >
+                            <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                 th:alt="${post.getContent()}">
+                        </a>
+                        <div th:class="'glightbox-desc description' + ${post.getId()}">
+                            <p th:text="${post.getContent()}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${post.getContent()} == null">
+                        <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
+                            <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                 th:alt="${post.getContent()}">
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="text-center">
@@ -120,6 +143,10 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/glightbox/3.2.0/dist/js/glightbox.js}"></script>
+    <script>
+        const lightbox = GLightbox({});
+    </script>
 </div>
 </body>
 </html>
