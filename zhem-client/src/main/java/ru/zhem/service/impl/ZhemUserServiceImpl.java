@@ -64,7 +64,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
                     .orElseThrow(() -> new RoleNotFoundException("Role not found")));
         }
         ZhemUserCreationDto userDto = ZhemUserCreationDto.builder()
-                .phone(user.getPhone().replaceAll("\\D+", ""))
+                .phone(user.getPhone().replaceAll("\\D+", "").replaceFirst("^8", "7"))
                 .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName() != null && user.getLastName().isBlank()
@@ -79,7 +79,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     @Override
     public void updateUser(long userId, ZhemUser user) {
         ZhemUserUpdateDto userDto = ZhemUserUpdateDto.builder()
-                .phone(user.getPhone().replaceAll("\\D+", ""))
+                .phone(user.getPhone().replaceAll("\\D+", "").replaceFirst("^8", "7"))
                 .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName() != null && user.getLastName().isBlank()

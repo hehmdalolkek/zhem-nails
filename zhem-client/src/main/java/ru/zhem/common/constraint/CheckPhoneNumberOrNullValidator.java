@@ -16,7 +16,7 @@ public class CheckPhoneNumberOrNullValidator implements ConstraintValidator<Chec
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         return Objects.isNull(value) ||
-                Pattern.matches("^((7|\\+7)" +
+                Pattern.matches("^((8|7|\\+7)" +
                         "[\\- ]?)?\\(?\\d{3,5}\\)?[\\- ]?\\d{1}[\\- ]?\\d{1}[\\- ]?\\d{1}[\\- ]?\\d{1}[\\- ]?\\d{1}" +
                         "(([\\- ]?\\d{1})?[\\- ]?\\d{1})?$", value);
     }

@@ -5,57 +5,60 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem-nails - профиль</title>
+    <title>Zhem.nails - профиль</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <nav>
-        <a th:href="@{/admin/dashboard}"><- Назад</a>
-    </nav>
-    <main class="main container-xxl pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Редактирование профиля</li>
+            </ol>
+        </nav>
         <div>
             <form method="post" th:action="@{/user/profile/update}" th:object="${user}">
-                <h2>Редактирование профиля</h2>
+                <h2 class="title">Редактирование профиля</h2>
                 <h3 th:text="${message}"></h3>
                 <input type="hidden" th:field="*{id}">
                 <label>Номер телефона
                     <input type="text" th:field="*{phone}">
-                    <span th:if="${errors?.containsKey('phone')}" th:text="${errors.get('phone')}"></span>
+                    <span th:text="${errors?.get('phone')}"></span>
                 </label><br>
                 <label>Электронная почта
                     <input type="text" th:field="*{email}">
-                    <span th:if="${errors?.containsKey('email')}" th:text="${errors.get('email')}"></span>
+                    <span th:text="${errors?.get('email')}"></span>
                 </label><br>
                 <label>Имя
                     <input type="text" th:field="*{firstName}">
-                    <span th:if="${errors?.containsKey('firstName')}" th:text="${errors.get('firstName')}"></span>
+                    <span th:text="${errors?.get('firstName')}"></span>
                 </label><br>
                 <label>Фамилия
                     <input type="text" th:field="*{lastName}">
-                    <span th:if="${errors?.containsKey('lastName')}" th:text="${errors.get('lastName')}"></span>
+                    <span th:text="${errors?.get('lastName')}"></span>
                 </label><br>
                 <input type="submit" value="Сохранить">
             </form>
             <form method="post" th:action="@{/user/profile/update-password}" th:object="${user}">
-                <h2>Изменение пароля</h2>
+                <h2 class="title">Изменение пароля</h2>
                 <h3 th:text="${messagePassword}"></h3>
                 <input type="hidden" th:field="*{id}">
                 <input type="hidden" th:field="*{phone}">
                 <label>Текущий пароль
                     <input type="password" name="currentPassword">
-                    <span th:text="${errors?.containsKey('currentPassword')} ? ${errors.get('currentPassword')}"></span>
+                    <span th:text="${errors?.get('currentPassword')}"></span>
                 </label><br>
                 <label>Новый пароль
                     <input type="password" name="password">
-                    <span th:text="${errors?.containsKey('password')} ? ${errors.get('password')}"></span>
-                    <span th:text="${errors?.containsKey('passwordMatchers')} ? ${errors.get('passwordMatchers')}"></span>
+                    <span th:text="${errors?.get('password')}"></span>
+                    <span th:text="${errors?.get('passwordMatchers')}"></span>
                 </label><br>
                 <label>Подтвердите новый пароль
                     <input type="password" name="confirmPassword">
-                    <span th:text="${errors?.containsKey('passwordMatchers')} ? ${errors.get('passwordMatchers')}"></span>
+                    <span th:text="${errors?.get('passwordMatchers')}"></span>
                 </label><br>
                 <input type="submit" value="Сохранить">
             </form>

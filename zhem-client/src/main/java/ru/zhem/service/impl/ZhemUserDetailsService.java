@@ -23,7 +23,10 @@ public class ZhemUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
         ZhemUserAuthDto user =
-                zhemUserRestClient.findUserAuthByPhone(phone.replaceAll("\\D+", ""), false)
+                zhemUserRestClient.findUserAuthByPhone(phone
+                                        .replaceAll("\\D+", "")
+                                        .replaceFirst("^8", "7"),
+                                false)
                         .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         List<SimpleGrantedAuthority> roles = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getTitle()))
