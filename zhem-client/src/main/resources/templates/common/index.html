@@ -5,14 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem-nails - панель администратора</title>
+    <title>Zhem-nails</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body id="index">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <article class="mb-5">
+    <article>
         <div id="mainCarousel" class="carousel slide">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -47,7 +47,7 @@
         </div>
     </article>
     <main class="main container-xxl pb-lg-5 pb-4">
-        <section class="mb-5" id="services">
+        <section class="py-5" id="services">
             <h2 class="title">Предоставляемые услуги</h2>
             <h4>Добро пожаловать</h4>
             <p>Приветствую вас на странице <b>zhem.nails</b>! Меня зовут
@@ -94,7 +94,7 @@
                 <a class="btn btn-outline-dark fs-5" th:href="@{/intervals}">Записаться</a>
             </div>
         </section>
-        <section class="mb-5" id="portfolio">
+        <section class="py-5 bg-body-tertiary" id="portfolio">
             <h2 class="title">Портфолио</h2>
             <div class="posts d-flex flex-wrap justify-content-between">
                 <div class="post" th:each="post : ${posts}">
@@ -107,12 +107,12 @@
                 <a class="btn btn-outline-dark fs-5" th:href="@{/portfolio}">Показать ещё</a>
             </div>
         </section>
-        <section>
-            <figure class="text-center">
+        <section class="pt-5">
+            <figure class="text-center mb-0">
                 <blockquote class="blockquote">
                     <p>Красота начинается с того момента, когда вы решаете быть себе верными.</p>
                 </blockquote>
-                <figcaption class="blockquote-footer">
+                <figcaption class="blockquote-footer mb-0">
                     Мэрилин Монро
                 </figcaption>
             </figure>
