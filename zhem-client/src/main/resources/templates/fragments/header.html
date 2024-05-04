@@ -12,6 +12,17 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/about}">О мастере</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/portfolio}">Портфолио</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/intervals}">Записаться</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/dashboard}">Панель управления</a>
@@ -52,6 +63,17 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/about}">О мастере</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/portfolio}">Портфолио</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/intervals}">Записаться</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item" th:if="${authUser.getId() == adminUser.getId}">
                         <a class="nav-link" th:href="@{/admin/dashboard}">Панель управления</a>
@@ -96,6 +118,17 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent3">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/about}">О мастере</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/portfolio}">Портфолио</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/intervals}">Записаться</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item me-3">
                         <a class="nav-link" th:href="@{/user/login}">Войти</a>
