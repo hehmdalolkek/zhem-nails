@@ -13,6 +13,12 @@
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main class="main container-xxl pb-lg-5 pb-4">
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">О мастере</li>
+            </ol>
+        </nav>
         <h2 class="title">О мастере</h2>
         <p>
             Приветствую вас на странице о мастере маникюра и педикюра! Меня зовут Анастасия, и я рада

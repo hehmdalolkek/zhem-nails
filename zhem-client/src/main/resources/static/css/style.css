@@ -25,6 +25,10 @@ body {
     margin-bottom: 40px;
 }
 
+.breadcrumbs {
+    --bs-breadcrumb-divider: url(/images/breadcrumb.svg);
+}
+
 #error {
     .main {
         display: flex;
