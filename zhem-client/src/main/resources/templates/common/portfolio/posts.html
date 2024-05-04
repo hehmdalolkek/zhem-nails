@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Zhem.nails - Портфолио</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/webjars/glightbox/3.2.0/dist/css/glightbox.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/glightbox/3.2.0/dist/css/glightbox.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body id="portfolio">
@@ -72,11 +72,8 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/webjars/glightbox/3.2.0/dist/js/glightbox.js}"></script>
-    <script>
-        const lightbox = GLightbox({
-        });
-    </script>
+    <script th:src="@{/webjars/glightbox/3.2.0/dist/js/glightbox.min.js}"></script>
+    <script>const lightbox = GLightbox({});</script>
 </div>
 </body>
 </html>
