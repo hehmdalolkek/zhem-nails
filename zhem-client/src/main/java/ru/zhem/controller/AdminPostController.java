@@ -32,12 +32,6 @@ public class AdminPostController {
         return "admin/portfolio/posts";
     }
 
-    @GetMapping("/{postId:\\d+}")
-    public String getPostById(@PathVariable("postId") long postId, Model model) {
-        model.addAttribute("post", this.postService.findPostById(postId));
-        return "admin/portfolio/post";
-    }
-
     @PostMapping("/create")
     public String createPost(@Valid PostCreationDto postDto, BindingResult bindingResult,
                              RedirectAttributes redirectAttributes, HttpServletResponse response) {
