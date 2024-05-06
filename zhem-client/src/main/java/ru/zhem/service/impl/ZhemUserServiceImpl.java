@@ -82,9 +82,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
                 .phone(user.getPhone().replaceAll("\\D+", "").replaceFirst("^8", "7"))
                 .email(user.getEmail() != null && user.getEmail().isBlank() ? null : user.getEmail())
                 .firstName(user.getFirstName())
-                .lastName(user.getLastName() != null && user.getLastName().isBlank()
-                        && user.getLastName().length() < 2 ? null
-                        : user.getLastName())
+                .lastName(user.getLastName() != null && user.getLastName().isBlank() ? null : user.getLastName())
                 .password(user.getPassword())
                 .build();
         this.zhemUserRestClient.updateUser(userId, userDto);

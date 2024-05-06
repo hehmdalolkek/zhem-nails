@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="profile">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
@@ -19,48 +19,64 @@
                 <li class="breadcrumb-item active" aria-current="page">Редактирование профиля</li>
             </ol>
         </nav>
-        <div>
-            <form method="post" th:action="@{/user/profile/update}" th:object="${user}">
-                <h2 class="title">Редактирование профиля</h2>
-                <h3 th:text="${message}"></h3>
+        <div class="shadow-sm border rounded p-5 mx-auto d-flex">
+            <form class="form px-5 flex-grow-1" method="post" th:action="@{/user/profile/update}" th:object="${user}">
+                <h2 class="title">Редактирование данных</h2>
+                <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null"
+                   th:text="${message}"></p>
                 <input type="hidden" th:field="*{id}">
-                <label>Номер телефона
-                    <input type="text" th:field="*{phone}">
-                    <span th:text="${errors?.get('phone')}"></span>
-                </label><br>
-                <label>Электронная почта
-                    <input type="text" th:field="*{email}">
-                    <span th:text="${errors?.get('email')}"></span>
-                </label><br>
-                <label>Имя
-                    <input type="text" th:field="*{firstName}">
-                    <span th:text="${errors?.get('firstName')}"></span>
-                </label><br>
-                <label>Фамилия
-                    <input type="text" th:field="*{lastName}">
-                    <span th:text="${errors?.get('lastName')}"></span>
-                </label><br>
-                <input type="submit" value="Сохранить">
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" placeholder="+7(999)999-99-99" id="phone"
+                           th:field="*{phone}">
+                    <span class="invalid-feedback" th:text="${errors?.get('phone')}"></span>
+                    <label for="phone">Номер телефона</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" th:field="*{email}" placeholder="email@email.com"
+                           id="email">
+                    <span class="invalid-feedback" th:text="${errors?.get('email')}"></span>
+                    <label for="email">Электронная почта</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" th:field="*{firstName}" placeholder="Иван" id="firstName">
+                    <span class="invalid-feedback" th:text="${errors?.get('firstName')}"></span>
+                    <label for="firstName">Имя</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" th:field="*{lastName}" placeholder="Иванов" id="lastName">
+                    <span class="invalid-feedback" th:text="${errors?.get('lastName')}"></span>
+                    <label for="lastName">Фамилия</label>
+                </div>
+                <div class="d-flex justify-content-end mb-4">
+                    <a class="btn btn-outline-dark me-2" th:href="@{/intervals}">Отменить</a>
+                    <input class="btn btn-outline-dark" type="submit" value="Сохранить">
+                </div>
             </form>
-            <form method="post" th:action="@{/user/profile/update-password}" th:object="${user}">
+            <form class="form flex-grow-1 px-5" method="post" th:action="@{/user/profile/update-password}" th:object="${user}">
                 <h2 class="title">Изменение пароля</h2>
-                <h3 th:text="${messagePassword}"></h3>
+                <p class="text-center alert alert-danger" th:if="${messagePassword} != null"
+                   th:text="${messagePassword}"></p>
                 <input type="hidden" th:field="*{id}">
                 <input type="hidden" th:field="*{phone}">
-                <label>Текущий пароль
-                    <input type="password" name="currentPassword">
-                    <span th:text="${errors?.get('currentPassword')}"></span>
-                </label><br>
-                <label>Новый пароль
-                    <input type="password" name="password">
-                    <span th:text="${errors?.get('password')}"></span>
-                    <span th:text="${errors?.get('passwordMatchers')}"></span>
-                </label><br>
-                <label>Подтвердите новый пароль
-                    <input type="password" name="confirmPassword">
-                    <span th:text="${errors?.get('passwordMatchers')}"></span>
-                </label><br>
-                <input type="submit" value="Сохранить">
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="password" name="currentPassword" id="currentPassword" placeholder="Текущий пароль">
+                    <span class="invalid-feedback" th:text="${errors?.get('currentPassword')}"></span>
+                    <label for="currentPassword">Текущий пароль</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="password" name="password" id="password" placeholder="Новый пароль">
+                    <span class="invalid-feedback" th:text="${errors?.get('password')}"></span>
+                    <label for="password">Новый пароль</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" placeholder="Подтвердите пароль">
+                    <span class="invalid-feedback" th:text="${errors?.get('passwordMatchers')}"></span>
+                    <label for="confirmPassword">Подтвердите новый пароль</label>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-outline-dark me-2" th:href="@{/intervals}">Отменить</a>
+                    <input class="btn btn-outline-dark" type="submit" value="Сохранить">
+                </div>
             </form>
         </div>
     </main>
