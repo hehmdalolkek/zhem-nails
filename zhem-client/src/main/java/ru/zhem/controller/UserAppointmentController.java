@@ -26,7 +26,9 @@ import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -60,7 +62,8 @@ public class UserAppointmentController {
     }
 
     @GetMapping("/create")
-    public String initCreateAppointmentPageFirst(@RequestParam("intervalId") long intervalId, Model model) {
+    public String initCreateAppointmentPageFirst(@RequestParam("intervalId") long intervalId, Model model,
+                                                 Locale locale) {
         IntervalDto interval = this.intervalService.findIntervalById(intervalId);
         AppointmentCreationDto appointment = AppointmentCreationDto.builder().intervalId(intervalId).build();
         List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
@@ -68,6 +71,10 @@ public class UserAppointmentController {
         model.addAttribute("interval", interval);
         model.addAttribute("appointment", appointment);
         model.addAttribute("services", services);
+        model.addAttribute("monthTitle",
+                interval.getDate().getMonth().getDisplayName(TextStyle.FULL, locale));
+        model.addAttribute("dayOfWeekTitle",
+                interval.getDate().getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, locale));
         return "user/appointments/create";
     }
 
