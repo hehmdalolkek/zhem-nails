@@ -3,13 +3,14 @@ package ru.zhem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.zhem.client.interfaces.IntervalRestClient;
+import ru.zhem.common.exceptions.IntervalNotFoundException;
 import ru.zhem.dto.request.DailyIntervalsDto;
 import ru.zhem.dto.request.IntervalDto;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
-import ru.zhem.common.exceptions.IntervalNotFoundException;
 import ru.zhem.service.interfaces.IntervalService;
 
+import java.time.YearMonth;
 import java.util.List;
 
 
@@ -26,7 +27,11 @@ public class IntervalServiceImpl implements IntervalService {
 
     @Override
     public List<DailyIntervalsDto> findAllAvailableIntervals(Integer year, Integer month) {
-        return null;
+        if (year == null || month == null) {
+            year = YearMonth.now().getYear();
+            month = YearMonth.now().getMonthValue();
+        }
+        return this.intervalRestClient.findAllAvailableIntervals(year, month);
     }
 
     @Override

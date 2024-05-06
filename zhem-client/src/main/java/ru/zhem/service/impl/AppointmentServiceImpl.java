@@ -27,7 +27,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<DailyAppointmentDto> findAllAppointments(int year, int month) {
-        return null;
+        return this.appointmentRestClient.findAllAppointments(year, month);
     }
 
     @Override
