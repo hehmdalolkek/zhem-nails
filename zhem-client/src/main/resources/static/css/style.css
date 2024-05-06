@@ -117,3 +117,50 @@ body {
         }
     }
 }
+
+#common-intervals {
+    .daysOfWeek {
+        ul {
+            gap: 8px;
+        }
+        li {
+            text-align: center;
+            flex-basis: calc(100% / 7.35);
+            max-width: calc(100% / 7.35);
+        }
+    }
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .card {
+            flex-basis: calc(100% / 7.35);
+            max-width: calc(100% / 7.35);
+            flex-direction: column;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            .card-header {
+                border-bottom: 1px solid var(--bs-border-color);
+            }
+            .btn {
+                padding-block: 8px;
+            }
+            .interval {
+                border-bottom: 1px solid var(--bs-border-color);
+            }
+        }
+    }
+}
+
+
+@media (max-width: 767px) {
+    #common-intervals {
+        .cards {
+            .card {
+                max-width: 200px;
+                width: 200px;
+                overflow-y: visible;
+            }
+        }
+    }
+}

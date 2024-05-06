@@ -5,48 +5,87 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem.nails - интервалы для записи</title>
+    <title>Zhem.nails - Слоты для записи</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="common-intervals">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Запись</li>
+                <li class="breadcrumb-item active" aria-current="page">Слоты для записи</li>
             </ol>
         </nav>
-        <h1>Свободные интервалы для записи</h1>
-        <h3 th:text="${message}"></h3>
-        <span th:if="${errors?.containsKey('interval')}" th:text="${errors.get('interval')}"></span>
-        <div>
-            <a th:href="@{/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
-                Предыдущий
-            </a>
-            <a th:href="@{/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
-                Следующий
-            </a>
-        </div>
-        <div th:each="entry : ${mapOfIntervals}">
-            <h3 th:text="${entry.getKey()} + ':'"></h3>
-            <div th:if="${entry.getValue().isEmpty()}">
-                <p>Нет интервалов</p>
+        <div class="shadow-sm border rounded mt-5 pt-5 pb-3 px-2">
+            <h1 class="title">Свободные слоты для записи</h1>
+            <div>
+                <nav class="d-flex justify-content-between align-items-center mb-4">
+                    <a class="btn ms-3"
+                       th:href="@{/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
+                    </a>
+                    <div class="d-flex">
+                        <h3>
+                            <span th:text="${monthTitle}"></span>
+                            <span th:text="${yearMonth.getYear()}"></span>
+                        </h3>
+                    </div>
+                    <a class="btn me-3"
+                       th:href="@{/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/next.svg" alt="arrow next"/>
+                    </a>
+                </nav>
+                <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null"
+                   th:text="${message} + ': ' + ${errors?.get('interval')}"></p>
+                <div class="daysOfWeek d-none d-md-block">
+                    <ul class="list-unstyled d-flex justify-content-between">
+                        <li>Понедельник</li>
+                        <li>Вторник</li>
+                        <li>Среда</li>
+                        <li>Четверг</li>
+                        <li>Пятница</li>
+                        <li>Суббота</li>
+                        <li>Воскресенье</li>
+                    </ul>
+                </div>
+                <div class="cards flex-column align-items-center flex-md-row align-items-md-stretch">
+                    <div th:if="${mapOfIntervalsIsEmpty}" class="d-md-none">
+                        <p>Нет свободных слотов для записи</p>
+                    </div>
+                    <div
+                            th:class="${entry.getKey().getMonthValue()} != ${yearMonth.getMonthValue()} ?
+                            'd-none d-md-flex card invisible'
+                            : 'card d-md-flex shadow-sm'"
+                            th:each="entry : ${mapOfIntervals}"
+                            th:hidden="${entry.getValue().isEmpty()} ? 'hidden'"
+                    >
+                        <h3 class="text-center card-header py-3" th:text="${entry.getKey().getDayOfMonth()}"></h3>
+                        <div th:if="${!entry.getValue().isEmpty()}">
+                            <div class="interval" th:each="interval : ${entry.getValue()}">
+                                <a
+                                        class="btn d-block rounded-0"
+                                        th:text="${interval.getTime()}"
+                                        th:href="@{/user/appointments/create?intervalId=__${interval.getId()}__}"
+                                >
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nav th:if="${!mapOfIntervalsIsEmpty}" class="d-flex justify-content-between align-items-center mt-3">
+                    <a class="btn ms-3"
+                       th:href="@{/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
+                    </a>
+                    <a class="btn me-3"
+                       th:href="@{/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/next.svg" alt="arrow next"/>
+                    </a>
+                </nav>
             </div>
-            <table th:if="${!entry.getValue().isEmpty()}">
-                <tr th:each="interval : ${entry.getValue()}">
-                    <td>
-                        <span th:text="${interval.getTime()}"></span>
-                    </td>
-                    <td>
-                        <a th:href="@{/user/appointments/create?intervalId=__${interval.getId()}__}">
-                            Записаться
-                        </a>
-                    </td>
-                </tr>
-            </table>
         </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
