@@ -14,7 +14,7 @@
     <div th:replace="~{fragments/header :: #header_client}"></div>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
         <h1>История записей</h1>
-        <h3 th:text="${message}"></h3>
+        <h3  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h3>
         <div th:each="appointment : ${appointments.content}">
             <h3 th:text="${appointment.getInterval().getDate} + ' - ' + ${appointment.getInterval().getTime()}"></h3>
             <ul>

@@ -17,7 +17,7 @@
     </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
         <h1>Портфолио</h1>
-        <h2 th:text="${message}"></h2>
+        <h2  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h2>
         <div>
             <form method="post" th:action="@{/admin/portfolio/create}" enctype="multipart/form-data">
                 <label>

@@ -25,11 +25,10 @@ public class GlobalControllerAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public String handlerOtherExceptions(Exception exception, Model model,
+    public String handlerOtherExceptions(Model model,
                                          HttpServletResponse response) {
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         model.addAttribute("title", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
-        model.addAttribute("detail", exception.getMessage());
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         return "common/errors/error";
     }

@@ -19,7 +19,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Редактирование профиля</li>
             </ol>
         </nav>
-        <div class="shadow-sm border rounded p-5 mx-auto d-flex">
+        <div class="shadow-sm border rounded py-5 px-0 px-md-5 mx-auto d-flex flex-md-row flex-column">
             <form class="form px-5 flex-grow-1" method="post" th:action="@{/user/profile/update}" th:object="${user}">
                 <h2 class="title">Редактирование данных</h2>
                 <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null"
@@ -47,7 +47,7 @@
                     <span class="invalid-feedback" th:text="${errors?.get('lastName')}"></span>
                     <label for="lastName">Фамилия</label>
                 </div>
-                <div class="d-flex justify-content-end mb-4">
+                <div class="d-flex justify-content-end mb-5 mb-md-4">
                     <a class="btn btn-outline-dark me-2" th:href="@{/intervals}">Отменить</a>
                     <input class="btn btn-outline-dark" type="submit" value="Сохранить">
                 </div>

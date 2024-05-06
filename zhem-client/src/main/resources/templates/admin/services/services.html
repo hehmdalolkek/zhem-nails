@@ -17,7 +17,7 @@
     </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
         <h1>Услуги</h1>
-        <h2 th:text="${message}"></h2>
+        <h2  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h2>
         <span th:if="${errors?.containsKey('title')}" th:text="${errors.get('title')}"></span>
         <form method="post" th:action="@{/admin/services/create}">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>

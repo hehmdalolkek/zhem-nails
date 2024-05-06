@@ -27,7 +27,7 @@
                     <a
                             th:href="@{/img/__${post.getImage().getPath()}__}"
                             class="glightbox"
-                            th:data-glightbox="'title: Фото работы; description: .description' + ${post.getId()} +'; descPosition: right;'"
+                            th:data-glightbox="'description: .description' + ${post.getId()} +'; descPosition: right;'"
                     >
                         <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
                              th:alt="${post.getContent()}">

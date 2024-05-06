@@ -20,7 +20,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Запись</li>
             </ol>
         </nav>
-        <div class="shadow-sm border rounded py-5 px-4 mt-5 col-sm-8 mx-auto">
+        <div class="shadow-sm border rounded py-5 px-4 col-sm-8 mx-auto">
             <h1 class="text-center mb-3">Запись</h1>
             <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null"
                th:text="${message} + ': ' + ${errors?.get('services')}"></p>

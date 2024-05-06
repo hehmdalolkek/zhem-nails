@@ -17,7 +17,7 @@
     </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
         <div>
-            <h2 th:text="${message}"></h2>
+            <h2  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h2>
             <span th:if="${errors?.containsKey('interval')}" th:text="${errors.get('interval')}"></span>
             <span th:if="${errors?.containsKey('services')}" th:text="${errors.get('services')}"></span>
             <h1 th:text="'Запись №' + ${appointment.getId()}"></h1>

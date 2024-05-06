@@ -19,7 +19,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Слоты для записи</li>
             </ol>
         </nav>
-        <div class="shadow-sm border rounded mt-5 pt-5 pb-3 px-2">
+        <div class="shadow-sm border rounded pt-5 pb-3 px-2">
             <h1 class="title">Свободные слоты для записи</h1>
             <div>
                 <nav class="d-flex justify-content-between align-items-center mb-4">
@@ -38,8 +38,9 @@
                         <img width="50px" src="/images/next.svg" alt="arrow next"/>
                     </a>
                 </nav>
-                <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null"
-                   th:text="${message} + ': ' + ${errors?.get('interval')}"></p>
+                <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null">
+                    <span th:text="${message}"></span><span th:if="${errors?.containsKey('interval')}" th:text="': ' + ${errors?.get('interval')}"></span>
+                </p>
                 <div class="daysOfWeek d-none d-md-block">
                     <ul class="list-unstyled d-flex justify-content-between">
                         <li>Понедельник</li>
