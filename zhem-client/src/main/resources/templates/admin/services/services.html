@@ -12,30 +12,50 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <nav>
-        <a th:href="@{/admin/dashboard}"><- Назад</a>
-    </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <h1>Услуги</h1>
-        <h2  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h2>
-        <span th:if="${errors?.containsKey('title')}" th:text="${errors.get('title')}"></span>
-        <form method="post" th:action="@{/admin/services/create}">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <label>Наименование услуги
-                <input type="text" name="title" th:value="${enteredData?.getTitle()}">
-            </label>
-            <input type="submit" value="Создать">
-        </form>
-        <ul>
-            <li th:each="service : ${services}">
-                <form method="post" th:action="@{/admin/services/delete}">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <input type="hidden" name="serviceId" th:value="${service.getId()}">
-                    <span th:text="${service.title}"></span>
-                    <input type="submit" value="Удалить">
-                </form>
-            </li>
-        </ul>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/dashboard">Панель управления</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Услуги</li>
+            </ol>
+        </nav>
+        <div class="shadow-sm border rounded p-5 pb-4">
+            <h1 class="title">Услуги</h1>
+            <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null">
+                <span th:text="${message}"></span><span th:if="${errors?.containsKey('title')}"
+                                                        th:text="': ' + ${errors.get('title')}"></span>
+            </p>
+            <div class="d-flex flex-md-row flex-column">
+                <div class="px-2 px-md-5 flex-grow-1">
+                    <form class="form text-center mb-md-0 mb-4" method="post" th:action="@{/admin/services/create}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <h5 class="mb-3">Добавление услуги</h5>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="text" name="title" id="title"
+                                   th:value="${enteredData?.getTitle()}" placeholder="Наименование услуги">
+                            <label for="title">Наименование услуги</label></div>
+                        <input class="btn btn-outline-dark px-5" type="submit" value="Добавить">
+                    </form>
+                </div>
+                <div class="px-2 px-md-5 flex-grow-1">
+                    <h5 class="mb-3 text-center">Текущие услуги</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2" th:each="service : ${services}">
+                            <div class="border py-2 px-3 rounded d-flex">
+                                <span class="p-2 ps-3 flex-grow-1" th:text="${service.title}"></span>
+                                <form method="post" th:action="@{/admin/services/delete}">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <input type="hidden" name="serviceId" th:value="${service.getId()}">
+                                    <button class="btn">
+                                        <img src="/images/trash.svg" alt="Trash" width="25px">
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>

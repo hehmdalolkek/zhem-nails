@@ -37,14 +37,18 @@ public class AdminZhemServiceController {
     }
 
     @PostMapping("/delete")
-    public String deleteService(Integer serviceId) {
+    public String deleteService(Integer serviceId, RedirectAttributes redirectAttributes) {
         this.zhemServiceService.deleteServiceById(serviceId);
+        redirectAttributes.addFlashAttribute("message", "Услуга удалена");
+        redirectAttributes.addFlashAttribute("messageType", "success");
         return "redirect:/admin/services";
     }
 
     @PostMapping("/create")
     public String createService(@Valid ZhemServiceCreationDto service, BindingResult bindingResult,
                                 HttpServletResponse response, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("message", "Ошибка добавления");
+        redirectAttributes.addFlashAttribute("messageType", "danger");
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = this.controllerUtil.getErrors(bindingResult);
             response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -54,6 +58,9 @@ public class AdminZhemServiceController {
         } else {
             try {
                 this.zhemServiceService.createService(service);
+                redirectAttributes.addFlashAttribute("message", "Услуга добавлена");
+                redirectAttributes.addFlashAttribute("messageType", "success");
+
                 return "redirect:/admin/services";
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
