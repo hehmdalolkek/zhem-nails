@@ -115,8 +115,13 @@ textarea {
         flex-wrap: wrap;
 
         .post {
+            overflow: hidden;
             img {
                 max-height: 400px;
+                transition: transform 0.5s ease;
+            }
+            img:hover {
+                transform: scale(1.15);
             }
         }
     }

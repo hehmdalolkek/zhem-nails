@@ -21,9 +21,10 @@
             </ol>
         </nav>
         <div class="shadow-sm border rounded p-md-5 p-3 col-md-7 mx-auto mb-4">
-            <h1 class="text-center mb-3">Портфолио</h1>
+            <h1 class="text-center mb-4">Портфолио</h1>
             <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></p>
             <form class="form d-flex flex-column align-items-center" method="post" th:action="@{/admin/portfolio/create}" enctype="multipart/form-data">
+                <h5 class="text-center mb-3">Добавление фото</h5>
                 <div class="form-floating mb-3 w-100">
                     <textarea class="form-control" placeholder="Описание"  name="content" id="content"
                               th:text="${enteredData?.content}"></textarea>
