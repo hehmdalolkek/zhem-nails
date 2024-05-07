@@ -30,9 +30,10 @@
                         <h5 th:text="${appointment.getInterval().getFormattedDate()} + ' - ' + ${appointment.getInterval().getTime()}"></h5>
                     </div>
                     <h5>Выбранные услуги:</h5>
-                    <ul>
+                    <ul th:if="${!appointment.services.isEmpty()}">
                         <li th:each="service : ${appointment.services}" th:text="${service.getTitle()}"></li>
                     </ul>
+                    <p th:if="${appointment.services.isEmpty()}">Нет доступных услуг</p>
                     <h5>Комментарий:</h5>
                     <p th:text="${appointment.getDetails() ?: 'Комментария нет'}"></p>
                 </div>
