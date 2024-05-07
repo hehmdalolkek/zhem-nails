@@ -17,7 +17,7 @@ public class MainController {
     @GetMapping
     public String getIndexPage(Model model) {
         model.addAttribute("posts", this.postService.findAllPosts(4, 0));
-        return "common/index";
+        return "common/common/index";
     }
 
 }
