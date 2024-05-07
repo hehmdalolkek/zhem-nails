@@ -12,52 +12,62 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <nav>
-        <a th:href="@{/admin/dashboard}"><- Назад</a>
-    </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Created</th>
-                <th>Updated</th>
-            </tr>
-            <tr th:each="user : ${users.content}">
-                <td th:text="${user.getId()}"></td>
-                <td th:text="${user.getFormattedPhone()}"></td>
-                <td th:text="${user.getEmail()}"></td>
-                <td th:text="${user.getFirstName()}"></td>
-                <td th:text="${user.getLastName()}"></td>
-                <td th:text="${user.getCreatedAt().toLocalDate()}"></td>
-                <td th:text="${user.getUpdatedAt().toLocalDate()}"></td>
-            </tr>
-        </table>
-        <div class="pagination">
-            <ul th:if="${users.totalPages > 1}">
-                <li th:if="${users.number > 0}">
-                    <a th:href="@{'/admin/users?page=' + ${users.number - 1}}">Назад</a>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/dashboard">Панель управления</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Клиенты</li>
+            </ol>
+        </nav>
+        <h2 class="title">Клиенты</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered mb-4 text-center">
+                <caption>Всего: <span th:text="${users.getTotalElements()}"></span> клиентов</caption>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Номер телефона</th>
+                    <th>Электронная почта</th>
+                    <th>Зарегистрирован</th>
+                </tr>
+                <tr th:each="user : ${users.content}">
+                    <td>
+                        <span th:text="${user.getLastName()}"></span>
+                        <span th:text="${user.getFirstName()}"></span>
+                    </td>
+                    <td>
+                        <a th:href="'tel:' + ${user.getFormattedPhone()}" th:text="${user.getFormattedPhone()}"></a>
+                    </td>
+                    <td>
+                        <a th:if="${user.getEmail()} != null" th:href="'mailto:' + ${user.getEmail()}" th:text="${user.getEmail()}"></a>
+                        <span th:if="${user.getEmail()} == null">Не указана</span>
+                    </td>
+                    <td th:text="${user.getFormattedCreatedAt()}"></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <ul class="pagination justify-content-center" th:if="${users.totalPages > 1}">
+                <li class="page-item" th:if="${users.number > 0}">
+                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.number - 1}}">Назад</a>
                 </li>
-                <li th:if="${users.totalPages > 3}">
-                    <a th:href="@{/admin/users?page=0}">1</a>
+                <li class="page-item" th:if="${users.totalPages > 3}">
+                    <a class="page-link" th:href="@{/admin/users?page=0}">1</a>
                 </li>
-                <li th:if="${users.totalPages > 4}">
-                    <span>...</span>
+                <li class="page-item" th:if="${users.totalPages > 4}">
+                    <span class="page-link disabled">...</span>
                 </li>
-                <li th:each="page : ${#numbers.sequence(users.number - 1 > 0 ? users.number - 1 : 0, users.number + 1 < users.totalPages ? users.number + 1 : users.totalPages - 1)}">
-                    <a th:href="@{'/admin/users?page=' + ${page}}" th:text="${page + 1}"></a>
+                <li class="page-item" th:each="page : ${#numbers.sequence(users.number - 1 > 0 ? users.number - 1 : 0,
+                 users.number + 1 < users.totalPages ? users.number + 1 : users.totalPages - 1)}">
+                    <a class="page-link" th:href="@{'/admin/users?page=' + ${page}}" th:text="${page + 1}"></a>
                 </li>
-                <li th:if="${users.totalPages > 4 && users.number < users.totalPages - 2}">
-                    <span>...</span>
+                <li class="page-item" th:if="${users.totalPages > 4 && users.number < users.totalPages - 2}">
+                    <span class="page-link disabled">...</span>
                 </li>
-                <li th:if="${users.totalPages > 3}">
-                    <a th:href="@{'/admin/users?page=' + ${users.totalPages - 1}}" th:text="${users.totalPages}"></a>
+                <li class="page-item" th:if="${users.totalPages > 3}">
+                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.totalPages - 1}}" th:text="${users.totalPages}"></a>
                 </li>
-                <li th:if="${users.number < users.totalPages - 1}">
-                    <a th:href="@{'/admin/users?page=' + ${users.number + 1}}">Вперед</a>
+                <li class="page-item" th:if="${users.number < users.totalPages - 1}">
+                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.number + 1}}">Вперед</a>
                 </li>
             </ul>
         </div>

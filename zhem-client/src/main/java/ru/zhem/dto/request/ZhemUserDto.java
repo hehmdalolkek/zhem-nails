@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +43,10 @@ public class ZhemUserDto {
                 this.phone.substring(7, 9) +
                 "-" +
                 this.phone.substring(9, 11);
+    }
+
+    public String getFormattedCreatedAt() {
+        return this.createdAt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
 }

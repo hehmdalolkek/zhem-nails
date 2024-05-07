@@ -19,7 +19,7 @@ public class AdminZhemUserController {
 
     @GetMapping
     public String showAllClientsByPage(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
-                                       @RequestParam(name = "size", defaultValue = "15") int size) {
+                                       @RequestParam(name = "size", defaultValue = "7") int size) {
         Page<ZhemUserDto> users = this.zhemUserService.findAllClientsByPage(page, size);
         model.addAttribute("users", users);
         return "admin/users/users";
