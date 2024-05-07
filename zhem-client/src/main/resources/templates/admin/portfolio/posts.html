@@ -7,69 +7,96 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Zhem.nails - портфолио</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/glightbox/3.2.0/dist/css/glightbox.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="admin-portfolio">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <nav>
-        <a th:href="@{/admin/dashboard}"><- Назад</a>
-    </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <h1>Портфолио</h1>
-        <h2  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h2>
-        <div>
-            <form method="post" th:action="@{/admin/portfolio/create}" enctype="multipart/form-data">
-                <label>
-                    <textarea name="content" th:text="${enteredData?.content}"></textarea>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/dashboard">Панель управления</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Портфолио</li>
+            </ol>
+        </nav>
+        <div class="shadow-sm border rounded p-md-5 p-3 col-md-7 mx-auto mb-4">
+            <h1 class="text-center mb-3">Портфолио</h1>
+            <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></p>
+            <form class="form d-flex flex-column align-items-center" method="post" th:action="@{/admin/portfolio/create}" enctype="multipart/form-data">
+                <div class="form-floating mb-3 w-100">
+                    <textarea class="form-control" placeholder="Описание"  name="content" id="content"
+                              th:text="${enteredData?.content}"></textarea>
+                    <label for="content">Описание</label>
                     <span th:if="${errors?.containsKey('content')}" th:text="${errors.get('content')}"></span>
-                </label>
-                <label>
-                    <input type="file" accept="image/*" name="image">
+                </div>
+                <div class="mb-3 w-100">
+                    <input class="form-control" type="file" id="image" accept="image/*" name="image">
                     <span th:if="${errors?.containsKey('image')}" th:text="${errors.get('image')}"></span>
-                </label>
-                <input type="submit" value="Добавить">
+                </div>
+                <input class="px-5 btn btn-outline-dark" type="submit" value="Добавить">
             </form>
         </div>
-        <div th:each="post : ${posts.content}">
-            <a th:href="@{/admin/portfolio/__${post.getId()}__}">
-                <p th:text="${post.getContent()}"></p>
-                <img width="200px" th:src="@{/img/__${post.getImage().getPath()}__}" th:alt="${post.getContent()}">
-            </a>
-            <form method="post" th:action="@{/admin/portfolio/delete}">
-                <input type="hidden" name="postId" th:value="${post.getId()}">
-                <input type="submit" value="Удалить">
-            </form>
-        </div>
-        <div class="pagination">
-            <ul th:if="${posts.totalPages > 1}">
-                <li th:if="${posts.number > 0}">
-                    <a th:href="@{'/admin/portfolio?page=' + ${posts.number - 1}}">Назад</a>
+        <ul class="posts flex-md-row flex-column align-content-center align-items-center list-unstyled" th:if="${posts.numberOfElements} > 0">
+            <li class="post shadow-sm border mb-4" th:each="post : ${posts.content}">
+                <div class="content">
+                    <div th:if="${post.getContent()} != null">
+                        <a
+                                th:href="@{/img/__${post.getImage().getPath()}__}"
+                                class="glightbox"
+                                th:data-glightbox="'description: .description' + ${post.getId()} +'; descPosition: right;'"
+                        >
+                            <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                 th:alt="${post.getContent()}">
+                        </a>
+                        <div th:class="'glightbox-desc description' + ${post.getId()}">
+                            <p th:text="${post.getContent()}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${post.getContent()} == null">
+                        <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
+                            <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                 th:alt="${post.getContent()}">
+                        </a>
+                    </div>
+                </div>
+                <form class="form" method="post" th:action="@{/admin/portfolio/delete}">
+                    <input type="hidden" name="postId" th:value="${post.getId()}">
+                    <input class="btn btn-outline-dark w-100" type="submit" value="Удалить">
+                </form>
+            </li>
+        </ul>
+        <div>
+            <ul class="pagination justify-content-center" th:if="${posts.totalPages > 1}">
+                <li class="page-item" th:if="${posts.number > 0}">
+                    <a class="page-link" th:href="@{'/admin/portfolio?page=' + ${posts.number - 1}}">Назад</a>
                 </li>
-                <li th:if="${posts.totalPages > 3}">
-                    <a th:href="@{/admin/portfolio?page=0}">1</a>
+                <li class="page-item" th:if="${posts.totalPages > 3}">
+                    <a class="page-link" th:href="@{/admin/portfolio?page=0}">1</a>
                 </li>
-                <li th:if="${posts.totalPages > 4}">
-                    <span>...</span>
+                <li class="page-item" th:if="${posts.totalPages > 4}">
+                    <span class="page-link">...</span>
                 </li>
-                <li th:each="page : ${#numbers.sequence(posts.number - 1 > 0 ? posts.number - 1 : 0, posts.number + 1 < posts.totalPages ? posts.number + 1 : posts.totalPages - 1)}">
-                    <a th:href="@{'/admin/portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
+                <li class="page-item" th:each="page : ${#numbers.sequence(posts.number - 1 > 0 ? posts.number - 1 : 0, posts.number + 1 < posts.totalPages ? posts.number + 1 : posts.totalPages - 1)}">
+                    <a class="page-link" th:href="@{'/admin/portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
                 </li>
-                <li th:if="${posts.totalPages > 4 && posts.number < posts.totalPages - 2}">
-                    <span>...</span>
+                <li class="page-item" th:if="${posts.totalPages > 4 && posts.number < posts.totalPages - 2}">
+                    <span class="page-link">...</span>
                 </li>
-                <li th:if="${posts.totalPages > 3}">
-                    <a th:href="@{'/admin/portfolio?page=' + ${posts.totalPages - 1}}"
+                <li class="page-item" th:if="${posts.totalPages > 3}">
+                    <a class="page-link" th:href="@{'/admin/portfolio?page=' + ${posts.totalPages - 1}}"
                        th:text="${posts.totalPages}"></a>
                 </li>
-                <li th:if="${posts.number < posts.totalPages - 1}">
-                    <a th:href="@{'/admin/portfolio?page=' + ${posts.number + 1}}">Вперед</a>
+                <li class="page-item" th:if="${posts.number < posts.totalPages - 1}">
+                    <a class="page-link" th:href="@{'/admin/portfolio?page=' + ${posts.number + 1}}">Вперед</a>
                 </li>
             </ul>
         </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/glightbox/3.2.0/dist/js/glightbox.min.js}"></script>
+    <script>const lightbox = GLightbox({});</script>
 </div>
 </body>
 </html>

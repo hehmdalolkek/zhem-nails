@@ -26,7 +26,7 @@ public class AdminPostController {
     private final ControllerUtil controllerUtil;
 
     @GetMapping
-    public String getPortfolio(@RequestParam(value = "size", defaultValue = "9") int size,
+    public String getPortfolio(@RequestParam(value = "size", defaultValue = "12") int size,
                                @RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         model.addAttribute("posts", this.postService.findAllPosts(size, page));
         return "admin/portfolio/posts";
