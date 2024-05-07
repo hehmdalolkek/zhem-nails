@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @Data
@@ -25,5 +26,9 @@ public class AppointmentDto {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    public String getFormattedCreatedAt() {
+        return this.createdAt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
 
 }

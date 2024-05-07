@@ -26,6 +26,7 @@ import ru.zhem.service.interfaces.ZhemUserService;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
@@ -47,18 +48,14 @@ public class UserAppointmentController {
     private final ControllerUtil controllerUtil;
 
     @GetMapping
-    public String findAllAppointmentsByUser(@RequestParam(value = "size", defaultValue = "7") int size,
+    public String findAllAppointmentsByUser(@RequestParam(value = "size", defaultValue = "6") int size,
                                             @RequestParam(value = "page", defaultValue = "0") int page,
                                             Principal principal, Model model) {
-        if (principal != null) {
             ZhemUserDto user = zhemUserService.findUserByPhone(principal.getName());
             model.addAttribute("appointments",
                     this.appointmentService.findAllAppointmentsByUser(user.getId(), PageRequest.of(page, size)));
             model.addAttribute("dateNow", LocalDate.now());
             return "user/appointments/appointments";
-        } else {
-            return "redirect:/user/logout";
-        }
     }
 
     @GetMapping("/create")

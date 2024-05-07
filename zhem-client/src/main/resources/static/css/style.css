@@ -164,14 +164,45 @@ textarea {
     }
 }
 
+#user-appointments {
+    .cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 40px;
+        .card {
+            width: calc(50% - 20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            row-gap: 10px;
+        }
+    }
+}
+
 
 @media (max-width: 767px) {
+    .title {
+        margin-bottom: 25px;
+    }
+
     #common-intervals {
         .cards {
             .card {
                 max-width: 200px;
                 width: 200px;
                 overflow-y: visible;
+            }
+        }
+    }
+
+    #user-appointments {
+        .cards {
+            flex-direction: column;
+            flex-wrap: nowrap;
+            gap: 20px;
+            .card {
+                width: 100%;
             }
         }
     }

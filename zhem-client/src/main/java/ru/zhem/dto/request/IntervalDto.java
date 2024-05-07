@@ -8,6 +8,7 @@ import ru.zhem.entity.Status;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -25,5 +26,9 @@ public class IntervalDto {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    public String getFormattedDate() {
+        return this.date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
 
 }

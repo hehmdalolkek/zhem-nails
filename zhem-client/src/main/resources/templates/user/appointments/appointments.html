@@ -5,54 +5,78 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem-nail - все записи</title>
+    <title>Zhem-nails - История записей</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="user-appointments">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_client}"></div>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <h1>История записей</h1>
-        <h3  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h3>
-        <div th:each="appointment : ${appointments.content}">
-            <h3 th:text="${appointment.getInterval().getDate} + ' - ' + ${appointment.getInterval().getTime()}"></h3>
-            <ul>
-                <li th:each="service : ${appointment.services}" th:text="${service.getTitle()}"></li>
-            </ul>
-            <p th:text="${appointment.getDetails() ?: 'Комментария нет'}"></p>
-            <p th:text="'Создано: ' + ${appointment.getCreatedAt().toLocalDate()}"></p>
-            <form
-                    th:if="${appointment.getInterval().getDate() >= dateNow}"
-                    method="post"
-                    th:action="@{/user/appointments/delete}">
-                <input type="hidden" name="appointmentId" th:value="${appointment.getId()}">
-                <input type="submit" value="Отменить запись">
-            </form>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">История записей</li>
+            </ol>
+        </nav>
+        <h1 class="title">История записей</h1>
+        <p th:class="'col-md-10 mx-auto text-center alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></p>
+        <div class="cards col-md-10 mx-auto mb-5">
+            <div class="card p-4"
+                 th:each="appointment : ${appointments.content}">
+                <div>
+                    <div class="mb-2 mb-lg-4 d-flex justify-content-lg-between align-items-lg-end flex-lg-row flex-column align-items-center">
+                        <h3 th:text="'Запись №' + ${appointment.getId()}"></h3>
+                        <h5 th:text="${appointment.getInterval().getFormattedDate()} + ' - ' + ${appointment.getInterval().getTime()}"></h5>
+                    </div>
+                    <h5>Выбранные услуги:</h5>
+                    <ul>
+                        <li th:each="service : ${appointment.services}" th:text="${service.getTitle()}"></li>
+                    </ul>
+                    <h5>Комментарий:</h5>
+                    <p th:text="${appointment.getDetails() ?: 'Комментария нет'}"></p>
+                </div>
+                <div class="d-flex justify-content-lg-between align-items-lg-end flex-lg-row flex-column align-items-center">
+                    <p class="mb-lg-0 mb-2" th:text="'Создано: ' + ${appointment.getFormattedCreatedAt()}"></p>
+                    <form class="form"
+                          th:if="${appointment.getInterval().getDate() >= dateNow}"
+                          method="post"
+                          th:action="@{/user/appointments/delete}">
+                        <input type="hidden" name="appointmentId" th:value="${appointment.getId()}">
+                        <input class="btn btn-outline-dark" type="submit" value="Отменить запись">
+                    </form>
+                    <button
+                            class="btn btn-outline-dark disabled"
+                            th:if="${appointment.getInterval().getDate() < dateNow}"
+                    >Запись завершена</button>
+                </div>
+            </div>
         </div>
-        <div class="pagination">
-            <ul th:if="${appointments.totalPages > 1}">
-                <li th:if="${appointments.number > 0}">
-                    <a th:href="@{'/user/appointments?page=' + ${appointments.number - 1}}">Назад</a>
+        <div>
+            <ul class="pagination justify-content-center" th:if="${appointments.totalPages > 1}">
+                <li class="page-item" th:if="${appointments.number > 0}">
+                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.number - 1}}">Назад</a>
                 </li>
-                <li th:if="${appointments.totalPages > 3}">
-                    <a th:href="@{/user/appointments?page=0}">1</a>
+                <li class="page-item" th:if="${appointments.totalPages > 3}">
+                    <a class="page-link" th:href="@{/user/appointments?page=0}">1</a>
                 </li>
-                <li th:if="${appointments.totalPages > 4}">
-                    <span>...</span>
+                <li class="page-item" th:if="${appointments.totalPages > 4}">
+                    <span class="page-link disabled">...</span>
                 </li>
-                <li th:each="page : ${#numbers.sequence(appointments.number - 1 > 0 ? appointments.number - 1 : 0, appointments.number + 1 < appointments.totalPages ? appointments.number + 1 : appointments.totalPages - 1)}">
-                    <a th:href="@{'/user/appointments?page=' + ${page}}" th:text="${page + 1}"></a>
+                <li class="page-item"
+                    th:each="page : ${#numbers.sequence(appointments.number - 1 > 0 ? appointments.number - 1 : 0, appointments.number + 1 < appointments.totalPages ? appointments.number + 1 : appointments.totalPages - 1)}">
+                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${page}}" th:text="${page + 1}"></a>
                 </li>
-                <li th:if="${appointments.totalPages > 4 && appointments.number < appointments.totalPages - 2}">
-                    <span>...</span>
+                <li class="page-item"
+                    th:if="${appointments.totalPages > 4 && appointments.number < appointments.totalPages - 2}">
+                    <span class="page-link disabled">...</span>
                 </li>
-                <li th:if="${appointments.totalPages > 3}">
-                    <a th:href="@{'/user/appointments?page=' + ${appointments.totalPages - 1}}"
+                <li class="page-item" th:if="${appointments.totalPages > 3}">
+                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.totalPages - 1}}"
                        th:text="${appointments.totalPages}"></a>
                 </li>
-                <li th:if="${appointments.number < appointments.totalPages - 1}">
-                    <a th:href="@{'/user/appointments?page=' + ${appointments.number + 1}}">Вперед</a>
+                <li class="page-item" th:if="${appointments.number < appointments.totalPages - 1}">
+                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.number + 1}}">Вперед</a>
                 </li>
             </ul>
         </div>
