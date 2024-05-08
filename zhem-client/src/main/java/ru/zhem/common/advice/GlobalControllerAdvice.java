@@ -2,11 +2,9 @@ package ru.zhem.common.advice;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import ru.zhem.common.exceptions.BadRequestException;
 
 import java.time.DateTimeException;
 
@@ -14,12 +12,11 @@ import java.time.DateTimeException;
 public class GlobalControllerAdvice {
 
     @ExceptionHandler(DateTimeException.class)
-    public String handlerDateTimeException(BadRequestException exception, Model model,
+    public String handlerDateTimeException(DateTimeException exception, Model model,
                                            HttpServletResponse response) {
-        ProblemDetail problemDetail = exception.getProblemDetail();
-        model.addAttribute("status", problemDetail.getStatus());
-        model.addAttribute("title", problemDetail.getTitle());
-        model.addAttribute("detail", problemDetail.getDetail());
+        model.addAttribute("status", HttpStatus.BAD_REQUEST.value());
+        model.addAttribute("title", HttpStatus.BAD_REQUEST.getReasonPhrase());
+        model.addAttribute("detail", "Invalid date");
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         return "common/errors/error";
     }
