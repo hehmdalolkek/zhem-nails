@@ -38,7 +38,7 @@
                         <img width="50px" src="/images/next.svg" alt="arrow next"/>
                     </a>
                 </nav>
-                <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null">
+                <p th:class="'text-center alert alert-' + ${messa1geType}" th:if="${message} != null">
                     <span th:text="${message}"></span><span th:if="${errors?.containsKey('interval')}" th:text="': ' + ${errors?.get('interval')}"></span>
                 </p>
                 <div class="daysOfWeek d-none d-md-block">
@@ -57,11 +57,10 @@
                         <p>Нет свободных слотов для записи</p>
                     </div>
                     <div
-                            th:class="${entry.getKey().getMonthValue()} != ${yearMonth.getMonthValue()} ?
-                            'd-none d-md-flex card invisible'
-                            : 'card d-md-flex shadow-sm'"
+                            th:class="(${entry.getKey().getMonthValue()} != ${yearMonth.getMonthValue()} ?
+                            'd-none d-md-flex card invisible' : 'card d-md-flex shadow-sm')
+                            + (${entry.getValue().isEmpty()} ? ' d-none' : '')"
                             th:each="entry : ${mapOfIntervals}"
-                            th:hidden="${entry.getValue().isEmpty()} ? 'hidden'"
                     >
                         <h3 class="text-center card-header py-3" th:text="${entry.getKey().getDayOfMonth()}"></h3>
                         <div th:if="${!entry.getValue().isEmpty()}">
