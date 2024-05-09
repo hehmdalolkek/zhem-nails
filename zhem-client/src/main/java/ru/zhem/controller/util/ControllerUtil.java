@@ -36,6 +36,12 @@ public class ControllerUtil {
         LocalDate startOfMonth = yearMonth.atDay(1);
         LocalDate endOfMonth = yearMonth.atEndOfMonth();
 
+        int firstDayOfWeek = startOfMonth.getDayOfWeek().getValue();
+        YearMonth prevMonth = yearMonth.minusMonths(1);
+        for (int i = firstDayOfWeek - 2; i >= 0; i--) {
+            mapOfAppointments.put(prevMonth.atDay(prevMonth.lengthOfMonth() - i), new ArrayList<>());
+        }
+
         for (LocalDate date = startOfMonth; !date.isAfter(endOfMonth); date = date.plusDays(1)) {
             mapOfAppointments.put(date, new ArrayList<>());
         }
@@ -44,6 +50,12 @@ public class ControllerUtil {
                 this.appointmentService.findAllAppointments(yearMonth.getYear(), yearMonth.getMonthValue());
         for (DailyAppointmentDto dailyAppointment : dailyAppointments) {
             mapOfAppointments.put(dailyAppointment.getDate(), dailyAppointment.getAppointments());
+        }
+
+        int lastDayOfWeek = endOfMonth.getDayOfWeek().getValue();
+        YearMonth nextMonth = yearMonth.plusMonths(1);
+        for (int i = 1; i <= 7 - lastDayOfWeek; i++) {
+            mapOfAppointments.put(nextMonth.atDay(i), new ArrayList<>());
         }
 
         return mapOfAppointments;

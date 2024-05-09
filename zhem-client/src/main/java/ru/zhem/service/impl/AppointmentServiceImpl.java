@@ -12,6 +12,7 @@ import ru.zhem.dto.response.AppointmentUpdateDto;
 import ru.zhem.common.exceptions.AppointmentNotFoundException;
 import ru.zhem.service.interfaces.AppointmentService;
 
+import java.time.YearMonth;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,7 +27,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<DailyAppointmentDto> findAllAppointments(int year, int month) {
+    public List<DailyAppointmentDto> findAllAppointments(Integer year, Integer month) {
+        if (year == null || month == null) {
+            year = YearMonth.now().getYear();
+            month = YearMonth.now().getMonthValue();
+        }
         return this.appointmentRestClient.findAllAppointments(year, month);
     }
 

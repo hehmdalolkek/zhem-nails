@@ -127,7 +127,8 @@ textarea {
     }
 }
 
-#common-intervals {
+#common-intervals,
+#admin-appointments {
     .daysOfWeek {
         ul {
             gap: 8px;
@@ -217,17 +218,30 @@ textarea {
     }
 }
 
+#admin-appointments {
+    .accordion {
+        .accordion-body {
+            .details {
+                p {
+                    max-height: 20px;
+                }
+            }
+        }
+    }
+}
 
-@media (max-width: 767px) {
+
+@media (max-width: 991px) {
     .title {
         margin-bottom: 25px;
     }
 
-    #common-intervals {
+    #common-intervals,
+    #admin-appointments {
         .cards {
             .card {
-                max-width: 200px;
-                width: 200px;
+                max-width: 300px;
+                width: 100%;
                 overflow-y: visible;
             }
         }

@@ -26,10 +26,8 @@ import ru.zhem.service.util.CalendarUtil;
 
 import java.time.DateTimeException;
 import java.time.YearMonth;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.time.format.TextStyle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -52,10 +50,15 @@ public class AdminAppointmentController {
 
     @GetMapping
     public String showAllAppointments(@RequestParam(value = "year", required = false) Integer year,
-                                      @RequestParam(value = "month", required = false) Integer month, Model model) {
+                                      @RequestParam(value = "month", required = false) Integer month, Model model,
+                                      Locale locale) {
         YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
         model.addAttribute("mapOfAppointments", this.controllerUtil.generateAppointmentCalendarForMonth(yearMonth));
-
+        model.addAttribute("mapOfAppointmentsIsEmpty",
+                this.appointmentService.findAllAppointments(year, month).isEmpty());
+        String monthTitle = yearMonth.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, locale);
+        monthTitle = monthTitle.replaceFirst(monthTitle.substring(0, 1), monthTitle.substring(0, 1).toUpperCase());
+        model.addAttribute("monthTitle", monthTitle);
         return "admin/appointments/appointments";
     }
 

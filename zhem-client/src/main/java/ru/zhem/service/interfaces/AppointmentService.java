@@ -13,7 +13,7 @@ public interface AppointmentService {
 
     Page<AppointmentDto> findAllAppointmentsByUser(long userId, Pageable pageable);
 
-    List<DailyAppointmentDto> findAllAppointments(int year, int month);
+    List<DailyAppointmentDto> findAllAppointments(Integer year, Integer month);
 
     AppointmentDto findAppointmentById(long appointmentId);
 

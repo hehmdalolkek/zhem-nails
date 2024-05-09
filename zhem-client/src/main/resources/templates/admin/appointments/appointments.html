@@ -5,38 +5,123 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Zhem.nails - все записи</title>
+    <title>Zhem.nails - Записи</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="admin-appointments">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <nav>
-        <a th:href="@{/admin/dashboard}"><- Назад</a>
-    </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <h2  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h2>
-        <div>
-            <a th:href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
-                Предыдущий
-            </a>
-            <a th:href="@{/admin/appointments?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
-                Следующий
-            </a>
-        </div>
-        <div th:each="entry : ${mapOfAppointments}">
-            <h3 th:text="${entry.getKey()} + ':'"></h3>
-            <table>
-                <tr th:each="appointment : ${entry.getValue()}">
-                    <td th:text="${appointment.getId()}"></td>
-                    <td th:text="${appointment.getInterval().getTime()}"></td>
-                    <td th:text="${appointment.getUser().getFormattedPhone()}"></td>
-                    <td th:text="${appointment.getUser().getFirstName()}"></td>
-                    <td th:text="${appointment.getUser().getLastName()}"></td>
-                    <td th:text="${appointment.getDetails()}"></td>
-                </tr>
-            </table>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Записи</li>
+            </ol>
+        </nav>
+        <div class="shadow-sm border rounded pt-5 pb-3 px-2">
+            <h1 class="title">Записи</h1>
+            <div>
+                <nav class="d-flex justify-content-between align-items-center mb-4">
+                    <a class="btn ms-3"
+                       th:href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
+                    </a>
+                    <div class="d-flex">
+                        <h3>
+                            <span th:text="${monthTitle}"></span>
+                            <span th:text="${yearMonth.getYear()}"></span>
+                        </h3>
+                    </div>
+                    <a class="btn me-3"
+                       th:href="@{/admin/appointments?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/next.svg" alt="arrow next"/>
+                    </a>
+                </nav>
+                <div class="daysOfWeek d-none d-lg-block">
+                    <ul class="list-unstyled d-flex justify-content-between">
+                        <li>Понедельник</li>
+                        <li>Вторник</li>
+                        <li>Среда</li>
+                        <li>Четверг</li>
+                        <li>Пятница</li>
+                        <li>Суббота</li>
+                        <li>Воскресенье</li>
+                    </ul>
+                </div>
+                <div class="cards flex-column align-items-center flex-lg-row align-items-lg-stretch">
+                    <div th:if="${mapOfAppointmentsIsEmpty}" class="d-lg-none">
+                        <p>Нет записей</p>
+                    </div>
+                    <div
+                            th:class="(${entry.getKey().getMonthValue()} != ${yearMonth.getMonthValue()} ?
+                            'd-none d-lg-flex card invisible' : 'card d-lg-flex shadow-sm')
+                            + (${entry.getValue().isEmpty()} ? ' d-none' : '')"
+                            th:each="entry : ${mapOfAppointments}"
+                    >
+                        <h3 class="text-center card-header py-3" th:text="${entry.getKey().getDayOfMonth()}"></h3>
+                        <div th:if="${!entry.getValue().isEmpty()}">
+                            <div class="accordion accordion-flush" th:id="'accordion' + ${entry.getKey()}">
+                                <div class="interval" th:each="appointment : ${entry.getValue()}">
+                                    <div class="accordion-item rounded-0 border-0">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed rounded-0 p-2" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    th:data-bs-target="'#flush-collapse' + ${appointment.getId()}"
+                                                    aria-expanded="false"
+                                                    th:aria-controls="'flush-collapse' + ${appointment.getId()}">
+                                                <span th:text="${appointment.getInterval().getTime()}"></span>
+                                            </button>
+                                        </h2>
+                                        <div th:id="'flush-collapse' + ${appointment.getId()}"
+                                             class="accordion-collapse collapse"
+                                             th:data-bs-parent="'#accordion' + ${entry.getKey()}">
+                                            <div class="accordion-body p-2">
+                                                <ul class="list-unstyled mb-0">
+                                                    <li>
+                                                        <h5 class="fs-6 mb-1">Клиент:</h5>
+                                                        <p class="mb-0">
+                                                            <a th:href="@{tel:__${appointment.getUser().getFormattedPhone()}__}"
+                                                               th:text="${appointment.getUser().getFormattedPhone()}"></a>
+                                                        </p>
+                                                        <p class="mb-0">
+                                                            <span th:if="${appointment.getUser().getLastName()}"
+                                                                  th:text="${appointment.getUser().getLastName()}"></span>
+                                                            <span th:text="${appointment.getUser().getFirstName()}"></span>
+                                                        </p>
+                                                    </li>
+                                                    <li class="mt-2" th:if="${!appointment.getServices().isEmpty()}">
+                                                        <h5 class="fs-6 mb-1">Выбранные услуги:</h5>
+                                                        <ul>
+                                                            <li th:each="service : ${appointment.getServices()}"
+                                                                th:text="${service.getTitle()}"></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="mt-2 details" th:if="${appointment.getDetails() != null}">
+                                                        <h5 class="fs-6 mb-1">Комментарий:</h5>
+                                                        <p class="overflow-hidden mb-1" th:text="${appointment.getDetails()}"></p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nav th:if="${!mapOfAppointmentsIsEmpty}"
+                     class="d-flex justify-content-between align-items-center mt-3">
+                    <a class="btn ms-3"
+                       th:href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
+                    </a>
+                    <a class="btn me-3"
+                       th:href="@{/admin/appointments?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/next.svg" alt="arrow next"/>
+                    </a>
+                </nav>
+            </div>
         </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
