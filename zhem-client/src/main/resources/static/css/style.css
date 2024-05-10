@@ -277,6 +277,14 @@ textarea {
     }
 }
 
+#create-appointment-3 {
+    .form {
+        textarea {
+            height: 100px;
+        }
+    }
+}
+
 
 @media (max-width: 991px) {
     .title {

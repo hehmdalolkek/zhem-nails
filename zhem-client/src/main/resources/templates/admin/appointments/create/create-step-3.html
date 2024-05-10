@@ -9,30 +9,49 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="create-appointment-3">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <nav>
-        <a th:href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
-    </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <h2>Запись клиента</h2>
-        <h3 th:text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
-        <form method="post"
-              th:action="@{/admin/appointments/create/step4}"
-              th:object="${appointment}"
-        >
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <input type="hidden" th:field="*{userId}">
-            <input type="hidden" th:field="*{intervalId}">
-            <input type="hidden" th:field="*{services}">
-            <h3>Напишите комментарий</h3>
-            <label th:for="details">
-                <textarea th:field="*{details}" id="details"></textarea>
-            </label>
-            <span th:text="${errors?.containsKey('details')} ? ${errors.get('details')}"></span>
-            <input type="submit" value="Записать">
-        </form>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/admin/intervals}">Рабочий календарь</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Запись клиента</li>
+            </ol>
+        </nav>
+        <div class="col-lg-10 mx-auto rounded border p-lg-5 p-3 pb-4">
+            <h2 class="text-center">Запись клиента</h2>
+            <div class="mb-lg-4 mb-2">
+                <h4 class="text-center">
+                    <span th:text="${interval.getDate().getDayOfMonth()}"></span>
+                    <span th:text="${monthTitle}"></span>
+                    <span th:text="${interval.getDate().getYear()}"></span>
+                </h4>
+                <h5 class="text-center">
+                    <span th:text="${interval.getTime()}"></span>
+                </h5>
+            </div>
+            <h3 class="mb-3 text-center">Напишите комментарий</h3>
+            <p class="text-center alert alert-danger" th:if="${errors?.containsKey('details')}">
+                <span th:text="${errors?.get('details')}"></span>
+            </p>
+            <form class="form col-md-6 mx-auto"
+                    method="post"
+                  th:action="@{/admin/appointments/create/step4}"
+                  th:object="${appointment}"
+            >
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" th:field="*{userId}">
+                <input type="hidden" th:field="*{intervalId}">
+                <input type="hidden" th:field="*{services}">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" th:field="*{details}" id="details" placeholder="Комментарий"></textarea>
+                    <label th:for="details">Комментарий</label>
+                </div>
+                <input class="btn btn-outline-dark px-5 d-block mx-auto" type="submit" value="Записать">
+            </form>
+        </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
