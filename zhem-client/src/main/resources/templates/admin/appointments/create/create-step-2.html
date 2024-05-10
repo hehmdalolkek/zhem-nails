@@ -12,33 +12,51 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <nav>
-        <a th:href="@{/admin/intervals}"><- Вернуться к рабочему календарю</a>
-    </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <h2>Запись клиента</h2>
-        <h3 th:text="${interval.getDate()} + ' - ' + ${interval.getTime()}"></h3>
-        <form method="post"
-              th:action="@{/admin/appointments/create/step3}"
-              th:object="${appointment}"
-        >
-            <input type="hidden" th:field="*{intervalId}">
-            <input type="hidden" th:field="*{userId}">
-            <h3>Выберите услуги</h3>
-            <span th:if="${errors?.containsKey('services')}" th:text="${errors.get('services')}"></span>
-            <div style="height: 200px; overflow: auto">
-                <div th:each="service : ${services}">
-                    <label>
-                        <input type="checkbox"
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/admin/intervals}">Рабочий календарь</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Запись клиента</li>
+            </ol>
+        </nav>
+        <div class="col-lg-10 mx-auto rounded border p-lg-5 p-3 pb-4">
+            <h2 class="text-center">Запись клиента</h2>
+            <div class="mb-lg-4 mb-2">
+                <h4 class="text-center">
+                    <span th:text="${interval.getDate().getDayOfMonth()}"></span>
+                    <span th:text="${monthTitle}"></span>
+                    <span th:text="${interval.getDate().getYear()}"></span>
+                </h4>
+                <h5 class="text-center">
+                    <span th:text="${interval.getTime()}"></span>
+                </h5>
+            </div>
+            <h3 class="mb-3 text-center">Выберите услуги</h3>
+            <p class="text-center alert alert-danger" th:if="${errors?.containsKey('services')}">
+                <span th:text="${errors?.get('services')}"></span>
+            </p>
+            <form class="d-flex flex-column align-items-center"
+                  method="post"
+                  th:action="@{/admin/appointments/create/step3}"
+                  th:object="${appointment}"
+            >
+                <input type="hidden" th:field="*{intervalId}">
+                <input type="hidden" th:field="*{userId}">
+                <div class="services mb-3">
+                    <div class="form-check" th:each="service : ${services}">
+                        <input class="form-check-input"
+                               type="checkbox"
                                th:field="*{services}"
                                th:value="${service.getId()}"
                         >
-                        <span th:text="${service.getTitle()}"></span>
-                    </label>
+                        <label th:for="${#ids.prev('services')}" class="form-check-label"
+                               th:text="${service.getTitle()}"></label>
+                    </div>
                 </div>
-            </div>
-            <input type="submit" value="Далее">
-        </form>
+                <input class="btn btn-outline-dark px-5 align-self-end" type="submit" value="Далее">
+            </form>
+        </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>

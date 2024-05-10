@@ -99,7 +99,7 @@ public class AdminAppointmentController {
     @PostMapping("/create/step2")
     public String createAppointmentProcessSecond(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
                                                  BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                                                 HttpServletResponse response) {
+                                                 HttpServletResponse response, Locale locale) {
         if (bindingResult.hasErrors() && (bindingResult.getFieldError("userId") != null
                 || bindingResult.getFieldError("intervalId") != null)) {
 
@@ -121,13 +121,15 @@ public class AdminAppointmentController {
         model.addAttribute("interval", interval);
         List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
         model.addAttribute("services", services);
+        model.addAttribute("monthTitle",
+                interval.getDate().getMonth().getDisplayName(TextStyle.FULL, locale));
         return "admin/appointments/create/create-step-2";
     }
 
     @PostMapping("/create/step3")
     public String createAppointmentProcessThird(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
                                                 BindingResult bindingResult, Model model,
-                                                HttpServletResponse response) {
+                                                HttpServletResponse response, Locale locale) {
         if (bindingResult.hasErrors() && bindingResult.getFieldError("services") != null) {
             FieldError servicesError = bindingResult.getFieldError("services");
             if (servicesError != null) {
@@ -139,17 +141,21 @@ public class AdminAppointmentController {
             model.addAttribute("interval", interval);
             List<ZhemServiceDto> services = this.zhemServiceService.findAllServices();
             model.addAttribute("services", services);
+            model.addAttribute("monthTitle",
+                    interval.getDate().getMonth().getDisplayName(TextStyle.FULL, locale));
             return "admin/appointments/create/create-step-2";
         }
         IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
         model.addAttribute("interval", interval);
+        model.addAttribute("monthTitle",
+                interval.getDate().getMonth().getDisplayName(TextStyle.FULL, locale));
         return "admin/appointments/create/create-step-3";
     }
 
     @PostMapping("/create/step4")
     public String createAppointmentProcessFourth(@Valid @ModelAttribute("appointment") AppointmentCreationDto appointment,
                                                  BindingResult bindingResult, HttpServletResponse response,
-                                                 RedirectAttributes redirectAttributes, Model model) {
+                                                 RedirectAttributes redirectAttributes, Model model, Locale locale) {
         redirectAttributes.addFlashAttribute("message", "Клиент не записан");
         redirectAttributes.addFlashAttribute("messageType", "danger");
         if (bindingResult.hasErrors()) {
@@ -170,6 +176,8 @@ public class AdminAppointmentController {
                     model.addAttribute("errors", errors);
                     IntervalDto interval = this.intervalService.findIntervalById(appointment.getIntervalId());
                     model.addAttribute("interval", interval);
+                    model.addAttribute("monthTitle",
+                            interval.getDate().getMonth().getDisplayName(TextStyle.FULL, locale));
                     return "admin/appointments/create/create-step-3";
                 } else {
                     redirectAttributes.addFlashAttribute("errors", errors);
