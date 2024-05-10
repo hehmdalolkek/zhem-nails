@@ -63,9 +63,11 @@ public class AdminAppointmentController {
     }
 
     @GetMapping("/interval/{intervalId:\\d+}")
-    public String showAppointmentByInterval(@PathVariable("intervalId") long intervalId, Model model) {
-        model.addAttribute("appointment", this.appointmentService.findAppointmentByIntervalId(intervalId));
-
+    public String showAppointmentByInterval(@PathVariable("intervalId") long intervalId, Model model, Locale locale) {
+        AppointmentDto appointment = this.appointmentService.findAppointmentByIntervalId(intervalId);
+        model.addAttribute("appointment", appointment);
+        model.addAttribute("monthTitle",
+                appointment.getInterval().getDate().getMonth().getDisplayName(TextStyle.FULL, locale));
         return "admin/appointments/appointment";
     }
 

@@ -31,4 +31,8 @@ public class AppointmentDto {
         return this.createdAt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
+    public String getFormattedUpdatedAt() {
+        return this.updatedAt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
 }

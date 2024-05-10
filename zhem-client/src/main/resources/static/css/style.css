@@ -30,6 +30,10 @@ body {
     --bs-breadcrumb-divider: url(/images/breadcrumb.svg);
 }
 
+.btn:active {
+    border: none !important;
+}
+
 .invalid-feedback {
     display: inline;
 }

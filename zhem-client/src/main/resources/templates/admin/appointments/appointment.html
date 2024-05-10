@@ -12,49 +12,87 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <nav>
-        <a th:href="@{/admin/intervals}"><- Назад</a>
-    </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <div>
-            <h2  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h2>
-            <span th:if="${errors?.containsKey('interval')}" th:text="${errors.get('interval')}"></span>
-            <span th:if="${errors?.containsKey('services')}" th:text="${errors.get('services')}"></span>
-            <h1 th:text="'Запись №' + ${appointment.getId()}"></h1>
-            <a th:href="@{/admin/appointments/update/__${appointment.getId()}__/step1}">Изменить запись</a>
-            <h2>Интервал:</h2>
-            <ul>
-                <li th:text="'Дата: ' + ${appointment.getInterval().getDate()}"></li>
-                <li th:text="'Время: ' + ${appointment.getInterval().getTime()}"></li>
-            </ul>
-            <h2>Клиент:</h2>
-            <ul>
-                <li th:text="'ID: ' + ${appointment.getUser().getId()}"></li>
-                <li th:text="'Номер телефона: ' + ${appointment.getUser().getFormattedPhone()}"></li>
-                <li th:if="${appointment.getUser().getEmail()}"
-                    th:text="'Электронная почта: ' + ${appointment.getUser().getEmail()}"></li>
-                <li th:text="'Имя: ' + ${appointment.getUser().getFirstName()}"></li>
-                <li th:if="${appointment.getUser().getLastName()}"
-                    th:text="'Фамилия: ' + ${appointment.getUser().getLastName()}"></li>
-            </ul>
-            <h2>Услуги:</h2>
-            <ul>
-                <li th:each="service : ${appointment.getServices()}">
-                    <span th:text="${service.getTitle()}"></span>
-                </li>
-            </ul>
-            <h2>Комментарий:</h2>
-            <p th:text="${appointment.getDetails() ?: 'Комментария нет.'}"></p>
-            <h4>Дата оформления записи:</h4>
-            <p th:text="${appointment.getCreatedAt().toLocalDate()}"></p>
-            <h4>Дата изменения записи:</h4>
-            <p th:text="${appointment.getUpdatedAt().toLocalDate()}"></p>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/admin/intervals}">Рабочий календарь</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Просмотр записи</li>
+            </ol>
+        </nav>
+        <div class="shadow-sm border rounded p-lg-5 p-3 pb-4 col-lg-6 mx-auto">
+            <div class="row align-items-center mb-4">
+                <span class="col-3"></span>
+                <h2 class="text-center col-6" th:text="'Запись №' + ${appointment.getId()}"></h2>
+                <div class="col-3 text-end">
+                    <a class="btn" th:href="@{/admin/appointments/update/__${appointment.getId()}__/step1}">
+                        <img src="/images/edit.svg" alt="edit" width="40px"/>
+                    </a>
+                </div>
+            </div>
+            <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null">
+                <span th:text="${message}"></span><span th:if="${errors?.containsKey('interval')}"
+                                                        th:text="${errors.get('interval')}"></span>
+            </p>
             <div>
+                <h4 class="text-center">
+                    <span th:text="${appointment.getInterval().getDate().getDayOfMonth()}"></span>
+                    <span th:text="${monthTitle}"></span>
+                    <span th:text="${appointment.getInterval().getDate().getYear()}"></span>
+                </h4>
+                <h5 class="text-center">
+                    <span th:text="${appointment.getInterval().getTime()}"></span>
+                </h5>
+            </div>
+            <div>
+                <h4>Клиент:</h4>
+                <ul class="list-unstyled">
+                    <li>
+                        <span>Номер телефона:</span>
+                        <a th:text="${appointment.getUser().getFormattedPhone()}"
+                           th:href="@{'tel:' + ${appointment.getUser().getFormattedPhone()}}"></a>
+                    </li>
+                    <li th:if="${appointment.getUser().getEmail()}">
+                        <span>Электронная почта:</span>
+                        <a th:text="${appointment.getUser().getEmail()}"
+                           th:href="@{'mailto:' + ${appointment.getUser().getEmail()}}"></a>
+                    </li>
+                    <li>
+                        <span>ФИО:</span>
+                        <span th:text="${appointment.getUser().getFirstName()}"></span>
+                        <span th:if="${appointment.getUser().getLastName()}"
+                              th:text="${appointment.getUser().getLastName()}"></span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4>Выбранные услуги:</h4>
+                <ul th:if="${!appointment.getServices().isEmpty()}">
+                    <li th:each="service : ${appointment.getServices()}">
+                        <span th:text="${service.getTitle()}"></span>
+                    </li>
+                </ul>
+                <p th:if="${appointment.getServices().isEmpty()}">
+                    Нет доступных услуг
+                </p>
+            </div>
+            <div class="mb-4">
+                <h4>Комментарий:</h4>
+                <p th:if="${appointment.getDetails() != null}" th:text="${appointment.getDetails()}"></p>
+                <p th:if="${appointment.getDetails() == null}">
+                    Комментария нет
+                </p>
+            </div>
+            <div class="d-flex justify-content-between align-items-end">
                 <form method="post" th:action="@{/admin/appointments/delete}">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <input type="hidden" name="appointmentId" th:value="${appointment.getId()}">
-                    <input type="submit" value="Отменить запись">
+                    <input class="btn btn-outline-dark" type="submit" value="Отменить запись">
                 </form>
+                <div class="figure-caption text-end">
+                    <p class="mb-0" th:text="'Создано: ' + ${appointment.getFormattedCreatedAt()}"></p>
+                    <p class="mb-0" th:text="'Изменено: ' + ${appointment.getFormattedUpdatedAt()}"></p>
+                </div>
             </div>
         </div>
     </main>
