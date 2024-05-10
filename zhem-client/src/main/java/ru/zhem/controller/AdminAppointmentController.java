@@ -77,7 +77,8 @@ public class AdminAppointmentController {
                                                  @RequestParam(value = "firstName", required = false) String firstName,
                                                  @RequestParam(value = "lastName", required = false) String lastName,
                                                  @RequestParam(value = "phone", required = false) String phone,
-                                                 @RequestParam(value = "email", required = false) String email) {
+                                                 @RequestParam(value = "email", required = false) String email,
+                                                 Locale locale) {
         IntervalDto interval = this.intervalService.findIntervalById(intervalId);
         AppointmentCreationDto appointment = AppointmentCreationDto.builder().intervalId(intervalId).build();
         List<ZhemUserDto> users;
@@ -90,6 +91,8 @@ public class AdminAppointmentController {
         model.addAttribute("interval", interval);
         model.addAttribute("appointment", appointment);
         model.addAttribute("users", users);
+        model.addAttribute("monthTitle",
+                interval.getDate().getMonth().getDisplayName(TextStyle.FULL, locale));
         return "admin/appointments/create/create-step-1";
     }
 

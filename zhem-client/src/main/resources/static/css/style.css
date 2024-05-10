@@ -258,6 +258,25 @@ textarea {
     }
 }
 
+#create-appointment-1 {
+    .search {
+        display: flex;
+        flex-wrap: wrap;
+        input {
+            width: 25%
+        }
+    }
+    .users {
+        max-height: 250px;
+        overflow-y: auto;
+        .user {
+            label {
+                padding-block: 10px;
+            }
+        }
+    }
+}
+
 
 @media (max-width: 991px) {
     .title {
@@ -294,6 +313,14 @@ textarea {
                 .btn {
                     padding-inline: 10px;
                 }
+            }
+        }
+    }
+
+    #create-appointment-1 {
+        .search {
+            input {
+                width: 50%
             }
         }
     }

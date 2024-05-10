@@ -33,10 +33,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
     @Override
     @Transactional
     public List<ZhemUser> findAllClients() {
-        return this.zhemUserRepository.findAll().stream()
-                .filter(user -> user.getRoles().stream()
-                        .noneMatch(role -> role.getTitle().equalsIgnoreCase("ADMIN")))
-                .toList();
+        return this.zhemUserRepository.findAll();
     }
 
     @Override
@@ -169,12 +166,7 @@ public class ZhemUserServiceImpl implements ZhemUserService {
           }
         );
 
-        return this.zhemUserRepository
-                .findAll(specification)
-                .stream()
-                .filter(user -> user.getRoles().stream()
-                        .noneMatch(role -> role.getTitle().equals("ADMIN")))
-                .toList();
+        return this.zhemUserRepository.findAll(specification);
     }
 
     @Override
