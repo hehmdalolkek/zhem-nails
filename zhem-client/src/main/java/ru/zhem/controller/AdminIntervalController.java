@@ -12,15 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.zhem.common.exceptions.CustomBindException;
 import ru.zhem.controller.util.ControllerUtil;
 import ru.zhem.dto.response.IntervalCreationDto;
 import ru.zhem.dto.response.IntervalUpdateDto;
 import ru.zhem.entity.Status;
-import ru.zhem.common.exceptions.CustomBindException;
 import ru.zhem.service.interfaces.IntervalService;
 import ru.zhem.service.util.CalendarUtil;
 
 import java.time.YearMonth;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -36,11 +38,15 @@ public class AdminIntervalController {
 
     @GetMapping
     public String showAllIntervals(@RequestParam(value = "year", required = false) Integer year,
-                                   @RequestParam(value = "month", required = false) Integer month, Model model) {
+                                   @RequestParam(value = "month", required = false) Integer month, Model model,
+                                   Locale locale) {
         YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
         model.addAttribute("statusAvailable", Status.AVAILABLE);
         model.addAttribute("mapOfIntervals",
                 this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, false));
+        String monthTitle = yearMonth.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, locale);
+        monthTitle = monthTitle.replaceFirst(monthTitle.substring(0, 1), monthTitle.substring(0, 1).toUpperCase());
+        model.addAttribute("monthTitle", monthTitle);
 
         return "admin/intervals/intervals";
     }

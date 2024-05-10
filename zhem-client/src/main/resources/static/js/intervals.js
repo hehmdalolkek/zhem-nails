@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openTimeButtons = document.querySelectorAll('.open-time-btn');
     openTimeButtons.forEach(button => {
         button.addEventListener('click', (e) => {
-            const target = e.target;
+            const target = e.target.parentElement;
             const timeInput = target.parentElement.querySelector('.time-input');
             const openTimeBtn = target.parentElement.querySelector('.open-time-btn');
             const closeTimeBtn = target.parentElement.querySelector('.close-time-btn');
@@ -30,9 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const openUpdateTimeButtons = document.querySelectorAll('.open-update-time-btn');
     openUpdateTimeButtons.forEach(button => {
         button.addEventListener('click', (e) => {
-            const target = e.target;
+            const target = e.target.parentElement;
             const updateTime = target.parentElement.querySelector('.update-time');
             const currentTime = target.parentElement.querySelector('.current-time');
+            const deleteTime = target.parentElement.querySelector('.delete-time');
             const openUpdateTimeBtn = target.parentElement.querySelector('.open-update-time-btn');
             const closeUpdateTimeBtn = target.parentElement.querySelector('.close-update-time-btn');
 
@@ -40,9 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             closeAllTimeInputs();
 
             currentTime.style.display = 'none';
+            if (deleteTime != null) {
+                deleteTime.style.display = 'none';
+            }
             updateTime.style.display = 'block';
             openUpdateTimeBtn.style.display = 'none'
-            closeUpdateTimeBtn.style.display = 'inline';
+            closeUpdateTimeBtn.style.display = 'block';
         });
     });
 
@@ -73,10 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
             button.style.display = 'none';
         });
         document.querySelectorAll('.open-update-time-btn').forEach(button => {
-            button.style.display = 'inline';
+            button.style.display = 'block';
         });
         document.querySelectorAll('.current-time').forEach(button => {
-            button.style.display = 'inline';
+            button.style.display = 'block';
+        });
+        document.querySelectorAll('.delete-time').forEach(button => {
+            button.style.display = 'block';
         });
     }
 });

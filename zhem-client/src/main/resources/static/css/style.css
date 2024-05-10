@@ -116,10 +116,12 @@ textarea {
 
         .post {
             overflow: hidden;
+
             img {
                 max-height: 400px;
                 transition: transform 0.5s ease;
             }
+
             img:hover {
                 transform: scale(1.15);
             }
@@ -128,33 +130,40 @@ textarea {
 }
 
 #common-intervals,
-#admin-appointments {
+#admin-appointments,
+#admin-intervals {
     .daysOfWeek {
         ul {
             gap: 8px;
         }
+
         li {
             text-align: center;
             flex-basis: calc(100% / 7.35);
             max-width: calc(100% / 7.35);
         }
     }
+
     .cards {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+
         .card {
             flex-basis: calc(100% / 7.35);
             max-width: calc(100% / 7.35);
             flex-direction: column;
             overflow-y: auto;
             margin-bottom: 10px;
+
             .card-header {
                 border-bottom: 1px solid var(--bs-border-color);
             }
+
             .btn {
                 padding-block: 8px;
             }
+
             .interval {
                 border-bottom: 1px solid var(--bs-border-color);
             }
@@ -176,6 +185,7 @@ textarea {
         flex-direction: row;
         flex-wrap: wrap;
         gap: 40px;
+
         .card {
             width: calc(50% - 20px);
             display: flex;
@@ -192,6 +202,7 @@ textarea {
             height: 100px;
         }
     }
+
     .posts {
         display: flex;
         justify-content: space-between;
@@ -200,14 +211,17 @@ textarea {
         .post {
             .content {
                 overflow: hidden;
+
                 img {
                     max-height: 400px;
                     transition: transform 0.5s ease;
                 }
+
                 img:hover {
                     transform: scale(1.15);
                 }
             }
+
             .form {
                 .btn {
                     border-radius: 0;
@@ -230,6 +244,16 @@ textarea {
     }
 }
 
+#admin-intervals {
+    .cards {
+        .card {
+            .current-time {
+                min-height: 58px;
+            }
+        }
+    }
+}
+
 
 @media (max-width: 991px) {
     .title {
@@ -237,7 +261,8 @@ textarea {
     }
 
     #common-intervals,
-    #admin-appointments {
+    #admin-appointments,
+    #admin-intervals {
         .cards {
             .card {
                 max-width: 300px;
@@ -252,8 +277,19 @@ textarea {
             flex-direction: column;
             flex-wrap: nowrap;
             gap: 20px;
+
             .card {
                 width: 100%;
+            }
+        }
+    }
+
+    #admin-intervals {
+        .cards {
+            .card {
+                .btn {
+                    padding-inline: 10px;
+                }
             }
         }
     }

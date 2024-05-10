@@ -9,84 +9,143 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body id="admin-intervals">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <nav>
-        <a th:href="@{/admin/dashboard}"><- Назад</a>
-    </nav>
     <main class="main container-xxl mx-auto pb-lg-5 pb-4">
-        <h1>Рабочий календарь</h1>
-        <h2  th:class="'alert alert-' + ${messageType}" th:if="${message} != null" th:text="${message}"></h2>
-        <span th:if="${errors?.containsKey('time')}" th:text="${errors.get('time')}"></span>
-        <span th:if="${errors?.containsKey('interval')}" th:text="${errors.get('interval')}"></span>
-        <div>
-            <a th:href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
-                Предыдущий
-            </a>
-            <a th:href="@{/admin/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
-                Следующий
-            </a>
-        </div>
-        <div th:each="entry : ${mapOfIntervals}">
-            <h3 th:text="${entry.getKey()} + ':'"></h3>
-            <div th:if="${entry.getValue().isEmpty()}">
-                <p>Нет интервалов</p>
-            </div>
-            <table th:if="${!entry.getValue().isEmpty()}">
-                <tr th:each="interval : ${entry.getValue()}">
-                    <td>
-                        <span class="current-time" th:text="${interval.getTime()}"></span>
-                        <div class="update-time">
-                            <form method="post"
-                                  th:action="@{/admin/intervals/update?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                                <input type="hidden" name="intervalId" th:value="${interval.getId()}">
-                                <label>
-                                    <input type="time" name="time" th:value="${interval.getTime()}">
-                                </label>
-                                <input type="submit" value="✓">
-                                <button type="button" class="close-update-time-btn">Отмена</button>
-                            </form>
-                        </div>
-                        <button type="button" class="open-update-time-btn">Изменить время</button>
-                    </td>
-                    <td>
-                        <form method="post"
-                              th:action="@{/admin/intervals/delete?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                            <input type="hidden" name="intervalId" th:value="${interval.getId()}">
-                            <input type="submit" value="Удалить">
-                        </form>
-                    </td>
-                    <td th:if="${interval.getStatus() != statusAvailable}">
-                        <a th:href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">Информация
-                            о записи</a>
-                    </td>
-                    <td th:if="${interval.getStatus() == statusAvailable}">
-                        <a th:href="@{/admin/appointments/create/step1?intervalId=__${interval.getId()}__}">
-                            Записать клиента
-                        </a>
-                    </td>
-                </tr>
-            </table>
-            <form method="post">
-                <button type="button" class="open-time-btn">+ Добавить время</button>
-                <button type="button" class="close-time-btn">- Добавить время</button>
-                <div class="time-input">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <input type="hidden" name="date" th:value="${entry.getKey()}">
-                    <label th:for="time">Время
-                        <input type="time" name="time">
-                    </label>
-                    <input type="submit" value="Добавить">
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Записи</li>
+            </ol>
+        </nav>
+        <div class="shadow-sm border rounded pt-5 pb-3 px-2">
+            <h1 class="title">Рабочий календарь</h1>
+            <div>
+                <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null">
+                    <span th:text="${message}"></span><span th:if="${errors?.containsKey('time')}"
+                                                            th:text="': ' + ${errors?.get('time')}"></span>
+                </p>
+                <nav class="d-flex justify-content-between align-items-center mb-4">
+                    <a class="btn ms-3"
+                       th:href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
+                    </a>
+                    <div class="d-flex">
+                        <h3>
+                            <span th:text="${monthTitle}"></span>
+                            <span th:text="${yearMonth.getYear()}"></span>
+                        </h3>
+                    </div>
+                    <a class="btn me-3"
+                       th:href="@{/admin/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/next.svg" alt="arrow next"/>
+                    </a>
+                </nav>
+                <div class="daysOfWeek d-none d-lg-block">
+                    <ul class="list-unstyled d-flex justify-content-between">
+                        <li>Понедельник</li>
+                        <li>Вторник</li>
+                        <li>Среда</li>
+                        <li>Четверг</li>
+                        <li>Пятница</li>
+                        <li>Суббота</li>
+                        <li>Воскресенье</li>
+                    </ul>
                 </div>
-            </form>
+                <div class="cards flex-column align-items-center flex-lg-row align-items-lg-stretch">
+                    <div th:class="(${entry.getKey().getMonthValue()} != ${yearMonth.getMonthValue()} ?
+                            'd-none d-lg-flex card invisible' : 'card d-lg-flex shadow-sm')"
+                         th:each="entry : ${mapOfIntervals}">
+                        <h3 class="text-center card-header py-3" th:text="${entry.getKey().getDayOfMonth()}"></h3>
+                        <div th:if="${!entry.getValue().isEmpty()}">
+                            <div class="interval" th:each="interval : ${entry.getValue()}">
+                                <div class="d-flex pe-2">
+                                    <div class="current-time w-100">
+                                        <a class="btn text-start w-100 py-3"
+                                           th:if="${interval.getStatus() != statusAvailable}"
+                                           th:href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">
+                                            <span th:text="${interval.getTime()}"></span>
+                                            <span class="badge rounded-pill text-bg-secondary ">Бронь</span>
+                                        </a>
+                                        <a class="btn text-start w-100 py-3"
+                                           th:if="${interval.getStatus() == statusAvailable}"
+                                           th:href="@{/admin/appointments/create/step1?intervalId=__${interval.getId()}__}">
+                                            <span th:text="${interval.getTime()}"></span>
+                                        </a>
+                                    </div>
+                                    <div class="update-time w-100">
+                                        <form
+                                                class="d-flex"
+                                                method="post"
+                                                th:action="@{/admin/intervals/update?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
+                                            <div class="w-100">
+                                                <input type="hidden" th:name="${_csrf.parameterName}"
+                                                       th:value="${_csrf.token}"/>
+                                                <input type="hidden" name="intervalId" th:value="${interval.getId()}">
+                                                <div class="form-floating">
+                                                    <input class="form-control border-0 rounded-0" id="time" type="time"
+                                                           name="time" th:value="${interval.getTime()}">
+                                                    <label for="time">Время</label>
+                                                </div>
+                                            </div>
+                                            <button class="btn px-lg-1 px-2" type="submit">
+                                                <img src="/images/ok.svg" alt="ok" width="25px"/>
+                                            </button>
+                                            <button class="close-update-time-btn btn px-lg-1 px-2" type="button">
+                                                <img src="/images/cancel.svg" alt="cancel" height="25px"/>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <button type="button" class="open-update-time-btn btn px-lg-1 px-2">
+                                        <img src="/images/edit.svg" alt="edit" width="25px"/>
+                                    </button>
+                                    <div class="delete-time" th:if="${interval.getStatus() == statusAvailable}">
+                                        <form class="h-100" method="post"
+                                              th:action="@{/admin/intervals/delete?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
+                                            <input type="hidden" name="intervalId" th:value="${interval.getId()}">
+                                            <button class="btn h-100 px-lg-1 px-2" type="submit">
+                                                <img src="/images/trash.svg" alt="trash" width="25px"/>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <form method="post">
+                            <button type="button" class="btn w-100 open-time-btn border-bottom rounded-bottom">Добавить время</button>
+                            <div class="border-bottom rounded-bottom time-input">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <input type="hidden" name="date" th:value="${entry.getKey()}">
+                                <div class="form-floating">
+                                    <input class="form-control border-0 border-bottom rounded-0" id="time" type="time"
+                                           name="time">
+                                    <label for="time">Время</label>
+                                </div>
+                                <div class="d-flex">
+                                    <button type="button" class="close-time-btn btn w-100">Отмена</button>
+                                    <input class="btn w-100 rounded-start-0 border-start" type="submit" value="ОК">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <nav class="d-flex justify-content-between align-items-center mt-3">
+                    <a class="btn ms-3"
+                       th:href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
+                    </a>
+                    <a class="btn me-3"
+                       th:href="@{/admin/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                        <img width="50px" src="/images/next.svg" alt="arrow next"/>
+                    </a>
+                </nav>
+            </div>
         </div>
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
-    <script th:src="@{/js/intervals.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/intervals.js}"></script>
 </div>
 </body>
 </html>
