@@ -61,7 +61,7 @@
                         </a>
                     </div>
                 </div>
-                <form class="form" method="post" th:action="@{/admin/portfolio/delete}">
+                <form data-form-confirm class="form" method="post" th:action="@{/admin/portfolio/delete}">
                     <input type="hidden" name="postId" th:value="${post.getId()}">
                     <input class="btn btn-outline-dark w-100" type="submit" value="Удалить">
                 </form>
@@ -96,6 +96,7 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/webjars/glightbox/3.2.0/dist/js/glightbox.min.js}"></script>
     <script>const lightbox = GLightbox({});</script>
 </div>

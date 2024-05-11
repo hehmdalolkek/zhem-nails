@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -101,7 +101,7 @@
                                         <img src="/images/edit.svg" alt="edit" width="25px"/>
                                     </button>
                                     <div class="delete-time" th:if="${interval.getStatus() == statusAvailable}">
-                                        <form class="h-100" method="post"
+                                        <form data-form-confirm class="h-100" method="post"
                                               th:action="@{/admin/intervals/delete?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
                                             <input type="hidden" name="intervalId" th:value="${interval.getId()}">
                                             <button class="btn h-100 px-lg-1 px-2" type="submit">
@@ -113,9 +113,11 @@
                             </div>
                         </div>
                         <form method="post">
-                            <button type="button" class="btn w-100 open-time-btn border-bottom rounded-bottom">Добавить время</button>
+                            <button type="button" class="btn w-100 open-time-btn border-bottom rounded-bottom">Добавить
+                                время
+                            </button>
                             <div class="border-bottom rounded-bottom time-input">
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
                                 <input type="hidden" name="date" th:value="${entry.getKey()}">
                                 <div class="form-floating">
                                     <input class="form-control border-0 border-bottom rounded-0" id="time" type="time"
@@ -145,6 +147,7 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/intervals.js}"></script>
 </div>
 </body>

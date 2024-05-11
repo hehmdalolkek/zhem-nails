@@ -22,7 +22,11 @@
         <h2 class="title">Клиенты</h2>
         <div class="table-responsive">
             <table class="table table-hover table-bordered mb-4 text-center">
-                <caption>Всего: <span th:text="${users.getTotalElements()}"></span> клиентов</caption>
+                <caption>
+                    <span>Всего:</span>
+                    <span th:text="${users.getTotalElements()}"></span>
+                    <span>клиентов</span>
+                </caption>
                 <tr>
                     <th>ФИО</th>
                     <th>Номер телефона</th>
@@ -74,6 +78,7 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_admin}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
 </div>
 </body>
 </html>

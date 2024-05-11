@@ -30,7 +30,7 @@
                 <span th:text="${interval.getTime()}"></span>
             </h3>
             <form class="form col-sm-6 mx-auto" method="post" th:object="${appointment}">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
                 <input type="hidden" th:field="*{intervalId}">
                 <input type="hidden" th:name="userId" th:value="${authUser.getId()}">
                 <div>
@@ -65,6 +65,7 @@
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
 </div>
 </body>
 </html>
