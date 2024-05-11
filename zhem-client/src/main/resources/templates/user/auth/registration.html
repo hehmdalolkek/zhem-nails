@@ -25,7 +25,7 @@
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="phone" name="phone"
                            placeholder="+7(999)999-99-99" th:value="${enteredData?.getPhone()}">
-                    <label for="phone">Номер телефона</label>
+                    <label for="phone">Номер телефона*</label>
                     <span class="invalid-feedback" th:text="${errors?.get('phone')}"></span>
                 </div>
                 <div class="form-floating has-validation mb-3">
@@ -37,7 +37,7 @@
                 <div class="form-floating has-validation mb-3">
                     <input type="text" class="form-control" id="firstName" name="firstName"
                            placeholder="Иван" th:value="${enteredData?.getFirstName()}">
-                    <label for="firstName">Имя</label>
+                    <label for="firstName">Имя*</label>
                     <span class="invalid-feedback" th:text="${errors?.get('firstName')}"></span>
                 </div>
                 <div class="form-floating has-validation mb-3">
@@ -48,12 +48,12 @@
                 </div>
                 <div class="form-floating has-validation mb-3">
                     <input type="password" name="password" class="form-control" id="password" placeholder="Пароль">
-                    <label for="password">Пароль</label>
+                    <label for="password">Пароль*</label>
                     <span class="invalid-feedback" th:text="${errors?.get('password')}"></span>
                 </div>
                 <div class="form-floating has-validation mb-3">
                     <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Пароль">
-                    <label for="confirmPassword">Подтвердите пароль</label>
+                    <label for="confirmPassword">Подтвердите пароль*</label>
                     <span class="invalid-feedback" th:text="${errors?.get('passwordMatchers')}"></span>
                 </div>
                 <input class="btn btn-outline-dark d-block px-5 mx-auto" type="submit" value="Зарегистрироваться"/>
