@@ -14,7 +14,7 @@
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
     <article>
-        <div id="mainCarousel" class="carousel slide"  data-bs-ride="carousel">
+        <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1"></button>
@@ -48,97 +48,106 @@
             </button>
         </div>
     </article>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main pb-lg-5 pb-4">
         <section class="py-5" id="services">
-            <h2 class="title">Предоставляемые услуги</h2>
-            <h4>Добро пожаловать</h4>
-            <p>Приветствую вас на странице <b>zhem.nails</b>! Меня зовут
-                Анастасия, и я рада приветствовать вас на своей странице. Я предлагаю широкий спектр профессиональных
-                услуг по маникюру и педикюру, чтобы помочь вам
-                выглядеть и чувствовать себя уверенно и прекрасно.</p>
-            <h4>Мой подход</h4>
-            <p>Я работаю индивидуально с каждым клиентом, обеспечивая высокое качество услуг и внимательный уход.
-                Я уделяю особое внимание качеству и безопасности проводимых процедур.
-                В моей работе я использую только профессиональные инструменты и продукты, чтобы гарантировать
-                безупречный результат и удовлетворение каждого клиента.</p>
-            <h4>О моих услугах</h4>
-            <h6>Маникюр:</h6>
-            <ul>
-                <li>
-                    Классический маникюр: Тщательная обработка ногтей, удаление кутикулы, формирование и полировка
-                    ногтевой пластины.
-                </li>
-                <li>
-                    Маникюр с покрытием лаком: Подбор цвета лака по вашему желанию и профессиональное нанесение.
-                </li>
-                <li>
-                    Маникюр с покрытием гель-лаком: Долговременное покрытие с высоким блеском, которое сохраняет
-                    свойства в течение нескольких недель.
-                </li>
-                <li>
-                    Дизайн ногтей: Индивидуальный подход к созданию уникальных дизайнов, от классического френча до
-                    акцентуированных арт-решений.
-                </li>
-            </ul>
-            <h6>Педикюр:</h6>
-            <ul class="mb-4">
-                <li>
-                    Классический педикюр: Очищение и обработка кожи стоп, удаление огрубевшей кожи и натоптышей, обрезка
-                    и формирование ногтей.
-                </li>
-                <li>
-                    Педикюр с покрытием лаком: Нанесение лака высокого качества, придавая вашим ногтям элегантный вид.
-                </li>
-                <li>
-                    Педикюр с покрытием гель-лаком: Долговременное покрытие, которое сохранит свой блеск и цвет на
-                    протяжении длительного времени.
-                </li>
-                <li>
-                    Парафиновая ванна: Расслабляющая процедура для увлажнения и смягчения кожи стоп.
-                </li>
-            </ul>
-            <div class="text-center">
-                <a class="btn btn-outline-dark fs-5" th:href="@{/intervals}">Записаться</a>
-            </div>
-        </section>
-        <section class="py-5" id="portfolio">
-            <h2 class="title">Портфолио</h2>
-            <div class="posts d-flex flex-wrap justify-content-between flex-md-row flex-column align-content-center align-items-center ">
-                <div class="post" th:each="post : ${posts}">
-                    <div th:if="${post.getContent()} != null">
-                        <a
-                                th:href="@{/img/__${post.getImage().getPath()}__}"
-                                class="glightbox"
-                                th:data-glightbox="'title: Фото работы; description: .description' + ${post.getId()} +'; descPosition: right;'"
-                        >
-                            <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
-                                 th:alt="${post.getContent()}">
-                        </a>
-                        <div th:class="'glightbox-desc description' + ${post.getId()}">
-                            <p th:text="${post.getContent()}"></p>
-                        </div>
-                    </div>
-                    <div th:if="${post.getContent()} == null">
-                        <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
-                            <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
-                                 th:alt="${post.getContent()}">
-                        </a>
-                    </div>
+            <div class="container-xxl">
+                <h2 class="title">Предоставляемые услуги</h2>
+                <h4>Добро пожаловать</h4>
+                <p>Приветствую вас на странице <b>zhem.nails</b>! Меня зовут
+                    Анастасия, и я рада приветствовать вас на своей странице. Я предлагаю широкий спектр
+                    профессиональных
+                    услуг по маникюру и педикюру, чтобы помочь вам
+                    выглядеть и чувствовать себя уверенно и прекрасно.</p>
+                <h4>Мой подход</h4>
+                <p>Я работаю индивидуально с каждым клиентом, обеспечивая высокое качество услуг и внимательный уход.
+                    Я уделяю особое внимание качеству и безопасности проводимых процедур.
+                    В моей работе я использую только профессиональные инструменты и продукты, чтобы гарантировать
+                    безупречный результат и удовлетворение каждого клиента.</p>
+                <h4>О моих услугах</h4>
+                <h6>Маникюр:</h6>
+                <ul>
+                    <li>
+                        Классический маникюр: Тщательная обработка ногтей, удаление кутикулы, формирование и полировка
+                        ногтевой пластины.
+                    </li>
+                    <li>
+                        Маникюр с покрытием лаком: Подбор цвета лака по вашему желанию и профессиональное нанесение.
+                    </li>
+                    <li>
+                        Маникюр с покрытием гель-лаком: Долговременное покрытие с высоким блеском, которое сохраняет
+                        свойства в течение нескольких недель.
+                    </li>
+                    <li>
+                        Дизайн ногтей: Индивидуальный подход к созданию уникальных дизайнов, от классического френча до
+                        акцентуированных арт-решений.
+                    </li>
+                </ul>
+                <h6>Педикюр:</h6>
+                <ul class="mb-4">
+                    <li>
+                        Классический педикюр: Очищение и обработка кожи стоп, удаление огрубевшей кожи и натоптышей,
+                        обрезка
+                        и формирование ногтей.
+                    </li>
+                    <li>
+                        Педикюр с покрытием лаком: Нанесение лака высокого качества, придавая вашим ногтям элегантный
+                        вид.
+                    </li>
+                    <li>
+                        Педикюр с покрытием гель-лаком: Долговременное покрытие, которое сохранит свой блеск и цвет на
+                        протяжении длительного времени.
+                    </li>
+                    <li>
+                        Парафиновая ванна: Расслабляющая процедура для увлажнения и смягчения кожи стоп.
+                    </li>
+                </ul>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark fs-5" th:href="@{/intervals}">Записаться</a>
                 </div>
             </div>
-            <div class="text-center">
-                <a class="btn btn-outline-dark fs-5" th:href="@{/portfolio}">Показать ещё</a>
+        </section>
+        <section class="py-5 bg-body-tertiary" id="portfolio">
+            <div class="container-xxl">
+                <h2 class="title">Портфолио</h2>
+                <div class="posts d-flex flex-wrap justify-content-between flex-md-row flex-column align-content-center align-items-center ">
+                    <div class="post" th:each="post : ${posts}">
+                        <div th:if="${post.getContent()} != null">
+                            <a
+                                    th:href="@{/img/__${post.getImage().getPath()}__}"
+                                    class="glightbox"
+                                    th:data-glightbox="'title: Фото работы; description: .description' + ${post.getId()} +'; descPosition: right;'"
+                            >
+                                <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                     th:alt="${post.getContent()}">
+                            </a>
+                            <div th:class="'glightbox-desc description' + ${post.getId()}">
+                                <p th:text="${post.getContent()}"></p>
+                            </div>
+                        </div>
+                        <div th:if="${post.getContent()} == null">
+                            <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
+                                <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                     th:alt="${post.getContent()}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark fs-5" th:href="@{/portfolio}">Показать ещё</a>
+                </div>
             </div>
         </section>
         <section class="pt-5 pb-4 pb-lg-0">
-            <figure class="text-center mb-0">
-                <blockquote class="blockquote">
-                    <p>Красота начинается с того момента, когда вы решаете быть себе верными.</p>
-                </blockquote>
-                <figcaption class="blockquote-footer mb-0">
-                    Мэрилин Монро
-                </figcaption>
-            </figure>
+            <div class="container-xxl">
+                <figure class="text-center mb-0">
+                    <blockquote class="blockquote">
+                        <p>Красота начинается с того момента, когда вы решаете быть себе верными.</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer mb-0">
+                        Мэрилин Монро
+                    </figcaption>
+                </figure>
+            </div>
         </section>
     </main>
     <div th:replace="~{fragments/footer :: #footer_user}"></div>

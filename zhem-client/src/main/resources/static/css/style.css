@@ -42,10 +42,6 @@ textarea {
     resize: none;
 }
 
-img {
-    max-width: 100%
-}
-
 #error {
     .main {
         display: flex;
