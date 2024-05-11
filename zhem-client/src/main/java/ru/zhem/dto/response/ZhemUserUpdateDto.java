@@ -12,22 +12,23 @@ import ru.zhem.common.constraint.NullOrNotBlank;
 @NoArgsConstructor
 public class ZhemUserUpdateDto {
 
-    @CheckPhoneNumberOrNull(message = "Поле должно иметь международный формат номера телефона или быть пустым")
+    @CheckPhoneNumberOrNull(message = "Необходимо корректно ввести российский номер телефона в международном" +
+            " формате или оставить поле пустым")
     private String phone;
 
-    @Size(max = 256, message = "Поле должно быть не больше 256 символов")
-    @NullOrNotBlank(message = "Поле должно содержать хотя бы 2 символа, либо быть полностью пустым")
+    @Size(max = 256, message = "Пароль должен содержать не больше 256 символов")
+    @NullOrNotBlank(message = "Пароль должен содержать хотя бы 2 символа, либо быть полностью пустым")
     private String password;
 
-    @Email(message = "Поле должно иметь формат электронной почты")
-    @Size(max = 256, message = "Поле должно быть не больше 256 символов")
+    @Email(message = "Электронная почта должна иметь формат электронной почты")
+    @Size(max = 256, message = "Электронная почта должна содержать не больше 256 символов")
     private String email;
 
-    @Size(min = 2, max = 32, message = "Поле должно быть до 32 символов")
-    @NullOrNotBlank(message = "Поле должно содержать хотя бы 2 символа, либо быть полностью пустым")
+    @Size(min = 2, max = 32, message = "Имя должно содержать до 32 символов")
+    @NullOrNotBlank(message = "Имя должно содержать хотя бы 2 символа, либо быть полностью пустым")
     private String firstName;
 
-    @Size(max = 32, message = "Поле должно быть до 32 символов")
+    @Size(max = 32, message = "Фамилия должна содержать до 32 символов")
     private String lastName;
 
     @ToString.Include(name = "password")

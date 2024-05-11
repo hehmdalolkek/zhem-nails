@@ -15,18 +15,18 @@ import java.util.Set;
 @NoArgsConstructor
 public class AppointmentCreationDto {
 
-    @NotNull(message = "Поле должно быть заполнено")
+    @NotNull(message = "ID пользователя должно быть указано")
     private Long userId;
 
-    @NotNull(message = "Поле должно быть заполнено")
+    @NotNull(message = "ID интервала должно быть указано")
     private Long intervalId;
 
     @NotNull(message = "Должна быть выбрана хотя бы одна услуга")
     @NotEmpty(message = "Должна быть выбрана хотя бы одна услуга")
     private Set<Integer> services;
 
-    @NullOrNotBlank(message = "Поле должно содержать хотя бы 2 символа, либо быть полностью пустым")
-    @Size(min = 2, max = 256, message = "Размер поля должен быть в диапазоне от 2 до 256 символов")
+    @NullOrNotBlank(message = "Комментарий должен содержать хотя бы 2 символа, либо быть полностью пустым")
+    @Size(min = 2, max = 256, message = "Размер комментария должен быть в диапазоне от 2 до 256 символов")
     private String details;
 
 }

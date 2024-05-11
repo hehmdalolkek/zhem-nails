@@ -15,10 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class AppointmentCreationDto {
 
-    @NotNull(message = "Поле должно быть заполнено")
+    @NotNull(message = "ID пользователя должно быть указано")
     private Long userId;
 
-    @NotNull(message = "Поле должно быть заполнено")
+    @NotNull(message = "ID интервала должно быть указано")
     private Long intervalId;
 
     @NotNull(message = "Должна быть выбрана хотя бы одна услуга")

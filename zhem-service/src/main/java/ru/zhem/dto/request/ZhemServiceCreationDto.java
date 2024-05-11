@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ZhemServiceCreationDto {
 
-    @NotBlank(message = "Поле должно быть заполнено")
-    @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")
+    @NotBlank(message = "Наименование должно быть заполнено")
+    @Size(min = 2, max = 32, message = "Наименование должно содержать от 2 до 32 символов")
     private String title;
 
 }

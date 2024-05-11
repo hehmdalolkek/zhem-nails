@@ -19,26 +19,26 @@ import java.util.Set;
 @NoArgsConstructor
 public class ZhemUserCreationDto {
 
-    @CheckPhoneNumber(message = "Поле должно иметь международный формат номера телефона")
+    @CheckPhoneNumber(message = "Необходимо корректно ввести российский номер телефона в международном формате")
     private String phone;
 
-    @NotBlank(message = "Поле не должно быть пустым и должно содержать хотя бы один символ")
-    @Size(max = 256, message = "Поле должно быть не больше 256 символов")
+    @NotBlank(message = "Пароль должен быть заполнен")
+    @Size(max = 256, message = "Пароль должен содержать не больше 256 символов")
     private String password;
 
-    @Email(message = "Поле должно иметь формат электронной почты")
-    @Size(max = 256, message = "Поле должно быть не больше 256 символов")
+    @Email(message = "Электронная почта должна иметь формат электронной почты")
+    @Size(max = 256, message = "Электронная почта должна содержать не больше 256 символов")
     private String email;
 
-    @NotBlank(message = "Поле не должно быть пустым и должно содержать хотя бы 2 символа")
-    @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")
+    @NotBlank(message = "Имя должно содержать хотя бы 2 символа, либо быть полностью пустым")
+    @Size(min = 2, max = 32, message = "Имя должно содержать от 2 до 32 символов")
     private String firstName;
 
-    @Size(min = 2, max = 32, message = "Поле должно быть от 2 до 32 символов")
-    @NullOrNotBlank(message = "Поле должно содержать хотя бы 2 символа, либо быть полностью пустым")
+    @Size(min = 2, max = 32, message = "Фамилия должна содержать от 2 до 32 символов")
+    @NullOrNotBlank(message = "Фамилия должна содержать хотя бы 2 символа, либо быть полностью пустым")
     private String lastName;
 
-    @NotNull(message = "Поле не должно быть пустым")
+    @NotNull(message = "Роли должны быть указаны")
     private Set<RoleDto> roles;
 
     @ToString.Include(name = "password")

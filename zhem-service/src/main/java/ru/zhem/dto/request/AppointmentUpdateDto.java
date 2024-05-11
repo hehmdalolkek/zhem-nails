@@ -18,7 +18,7 @@ public class AppointmentUpdateDto {
 
     private Set<Integer> services;
 
-    @Size(min = 2, max = 256, message = "Размер поля должен быть в диапазоне от 2 до 256 символов")
+    @Size(min = 2, max = 256, message = "Размер комментария должен быть в диапазоне от 2 до 256 символов")
     private String details;
 
 }
