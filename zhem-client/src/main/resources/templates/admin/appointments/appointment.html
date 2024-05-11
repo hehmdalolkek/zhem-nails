@@ -59,9 +59,9 @@
                     </li>
                     <li>
                         <span>ФИО:</span>
-                        <span th:text="${appointment.getUser().getFirstName()}"></span>
                         <span th:if="${appointment.getUser().getLastName()}"
                               th:text="${appointment.getUser().getLastName()}"></span>
+                        <span th:text="${appointment.getUser().getFirstName()}"></span>
                     </li>
                 </ul>
             </div>

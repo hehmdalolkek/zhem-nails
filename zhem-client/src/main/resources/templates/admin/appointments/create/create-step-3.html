@@ -37,16 +37,16 @@
                 <span th:text="${errors?.get('details')}"></span>
             </p>
             <form class="form col-md-6 mx-auto"
-                    method="post"
+                  method="post"
                   th:action="@{/admin/appointments/create/step4}"
                   th:object="${appointment}"
             >
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <input type="hidden" th:field="*{userId}">
                 <input type="hidden" th:field="*{intervalId}">
                 <input type="hidden" th:field="*{services}">
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" th:field="*{details}" id="details" placeholder="Комментарий"></textarea>
+                    <textarea class="form-control" th:field="*{details}" id="details"
+                              placeholder="Комментарий"></textarea>
                     <label th:for="details">Комментарий</label>
                 </div>
                 <input class="btn btn-outline-dark px-5 d-block mx-auto" type="submit" value="Записать">
