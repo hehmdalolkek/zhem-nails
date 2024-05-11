@@ -47,39 +47,41 @@
             <p class="text-center alert alert-danger" th:if="${errors?.containsKey('userId')}">
                 <span th:text="${errors?.get('userId')}"></span>
             </p>
-            <form class="d-flex flex-column align-items-center"
+            <form class="form d-flex flex-column align-items-center"
                   method="post"
                   th:action="@{/admin/appointments/create/step2}"
                   th:object="${appointment}"
             >
                 <input type="hidden" th:field="*{intervalId}">
-                <div class="col-12 row users rounded border p-3 mb-4">
-                    <div class="user col-lg-6 my-1 px-lg-1" th:each="user : ${users}">
-                        <div class="border rounded">
-                            <input
-                                    class="btn-check"
-                                    type="radio"
-                                    th:field="*{userId}"
-                                    th:value="${user.getId()}"
-                                    autocomplete="off"
-                            >
-                            <label class="d-block btn" th:for="${#ids.prev('userId')}">
-                                <ul class="list-unstyled mb-0">
-                                    <li>
-                                        <span><b>ФИО:</b></span>
-                                        <span th:text="${user.getLastName()}"></span>
-                                        <span th:text="${user.getFirstName()}"></span>
-                                    </li>
-                                    <li>
-                                        <span><b>Номер телефона:</b></span>
-                                        <span th:text="${user.getFormattedPhone()}"></span>
-                                    </li>
-                                    <li>
-                                        <span><b>Электронная почта:</b></span>
-                                        <span th:text="${user.getEmail() != null} ? ${user.getEmail()} : 'Не указана'"></span>
-                                    </li>
-                                </ul>
-                            </label>
+                <div class="form-container col-12 position-relative mb-4">
+                    <div class="row users rounded border p-3 position-absolute mx-lg-5 mx-2">
+                        <div class="user col-lg-6 my-1 px-lg-1" th:each="user : ${users}">
+                            <div class="border rounded">
+                                <input
+                                        class="btn-check"
+                                        type="radio"
+                                        th:field="*{userId}"
+                                        th:value="${user.getId()}"
+                                        autocomplete="off"
+                                >
+                                <label class="d-block btn" th:for="${#ids.prev('userId')}">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <span><b>ФИО:</b></span>
+                                            <span th:text="${user.getLastName()}"></span>
+                                            <span th:text="${user.getFirstName()}"></span>
+                                        </li>
+                                        <li>
+                                            <span><b>Номер телефона:</b></span>
+                                            <span th:text="${user.getFormattedPhone()}"></span>
+                                        </li>
+                                        <li>
+                                            <span><b>Электронная почта:</b></span>
+                                            <span th:text="${user.getEmail() != null} ? ${user.getEmail()} : 'Не указана'"></span>
+                                        </li>
+                                    </ul>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

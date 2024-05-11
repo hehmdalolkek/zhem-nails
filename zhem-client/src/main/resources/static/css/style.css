@@ -42,6 +42,10 @@ textarea {
     resize: none;
 }
 
+img {
+    max-width: 100%
+}
+
 #error {
     .main {
         display: flex;
@@ -264,16 +268,24 @@ textarea {
     .search {
         display: flex;
         flex-wrap: wrap;
+
         input {
             width: 25%
         }
     }
-    .users {
-        max-height: 250px;
-        overflow-y: auto;
-        .user {
-            label {
-                padding-block: 10px;
+    .form-container {
+        height: 250px;
+        .users {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            max-height: 250px;
+            overflow-y: auto;
+            .user {
+                label {
+                    padding-block: 10px;
+                }
             }
         }
     }
@@ -297,7 +309,6 @@ textarea {
         }
     }
 }
-
 
 
 @media (max-width: 991px) {

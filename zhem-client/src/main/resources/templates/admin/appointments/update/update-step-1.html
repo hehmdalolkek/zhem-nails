@@ -34,7 +34,7 @@
                 <input type="hidden" name="intervalId" th:value="${appointment.getIntervalId()}">
                 <input class="btn btn-outline-dark px-5 d-block mx-auto" type="submit" value="Поиск">
             </form>
-            <form class="d-flex flex-column align-items-center"
+            <form class="form d-flex flex-column align-items-center"
                   method="post"
                   th:action="@{/admin/appointments/update/__${appointmentId}__/step2}"
                   th:object="${appointment}"
@@ -42,33 +42,35 @@
                 <input type="hidden" th:field="*{intervalId}">
                 <input type="hidden" th:field="*{services}">
                 <input type="hidden" th:field="*{details}">
-                <div class="col-12 row users rounded border p-3 mb-4">
-                    <div class="user col-lg-6 my-1 px-lg-1" th:each="user : ${users}">
-                        <div class="border rounded">
-                            <input class="btn-check"
-                                   type="radio"
-                                   th:field="*{userId}"
-                                   th:value="${user.getId()}"
-                                   autocomplete="off"
-                                   th:checked="${appointment.userId.equals(user.getId())}"
-                            >
-                            <label class="d-block btn" th:for="${#ids.prev('userId')}">
-                                <ul class="list-unstyled mb-0">
-                                    <li>
-                                        <span><b>ФИО:</b></span>
-                                        <span th:text="${user.getLastName()}"></span>
-                                        <span th:text="${user.getFirstName()}"></span>
-                                    </li>
-                                    <li>
-                                        <span><b>Номер телефона:</b></span>
-                                        <span th:text="${user.getFormattedPhone()}"></span>
-                                    </li>
-                                    <li>
-                                        <span><b>Электронная почта:</b></span>
-                                        <span th:text="${user.getEmail() != null} ? ${user.getEmail()} : 'Не указана'"></span>
-                                    </li>
-                                </ul>
-                            </label>
+                <div class="form-container col-12 position-relative mb-4">
+                    <div class="row users rounded border p-3 position-absolute mx-lg-5 mx-2">
+                        <div class="user col-lg-6 my-1 px-lg-1" th:each="user : ${users}">
+                            <div class="border rounded">
+                                <input class="btn-check"
+                                       type="radio"
+                                       th:field="*{userId}"
+                                       th:value="${user.getId()}"
+                                       autocomplete="off"
+                                       th:checked="${appointment.userId.equals(user.getId())}"
+                                >
+                                <label class="d-block btn" th:for="${#ids.prev('userId')}">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <span><b>ФИО:</b></span>
+                                            <span th:text="${user.getLastName()}"></span>
+                                            <span th:text="${user.getFirstName()}"></span>
+                                        </li>
+                                        <li>
+                                            <span><b>Номер телефона:</b></span>
+                                            <span th:text="${user.getFormattedPhone()}"></span>
+                                        </li>
+                                        <li>
+                                            <span><b>Электронная почта:</b></span>
+                                            <span th:text="${user.getEmail() != null} ? ${user.getEmail()} : 'Не указана'"></span>
+                                        </li>
+                                    </ul>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
