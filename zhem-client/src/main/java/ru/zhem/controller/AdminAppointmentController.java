@@ -25,6 +25,7 @@ import ru.zhem.service.interfaces.ZhemUserService;
 import ru.zhem.service.util.CalendarUtil;
 
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -222,24 +223,26 @@ public class AdminAppointmentController {
 
     @PostMapping("/update/{appointmentId:\\d+}/step2")
     public String updateAppointmentProcessSecond(@PathVariable("appointmentId") long appointmentId,
-                                                 @RequestParam(value = "year", required = false) String year,
+                                                 @RequestParam(value = "year", required = false) Integer year,
                                                  @RequestParam(value = "month", required = false) Integer month,
                                                  @Valid @ModelAttribute("appointment") AppointmentUpdateDto appointment,
                                                  BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                                                 HttpServletResponse response) {
+                                                 HttpServletResponse response, Locale locale) {
         if (bindingResult.hasErrors()) {
             return checkBindingResult(bindingResult, response, redirectAttributes, appointment.getIntervalId());
         } else {
-            YearMonth yearMonth;
-            try {
-                yearMonth = YearMonth.of(Integer.parseInt(year), month);
-            } catch (NumberFormatException | DateTimeException exception) {
-                yearMonth = YearMonth.now();
-            }
-            model.addAttribute("interval", this.intervalService.findIntervalById(appointment.getIntervalId()));
+            YearMonth yearMonth = this.calendarUtil.calcPrevNextMonth(model, year, month);
+            Map<LocalDate, List<IntervalDto>> mapOfIntervals =
+                    this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, true);
             model.addAttribute("mapOfIntervals",
-                    this.controllerUtil.generateIntervalCalendarForMonth(yearMonth, true));
+                    this.controllerUtil.addIntervalToMap(mapOfIntervals, appointment.getIntervalId()));
+            model.addAttribute("interval", this.intervalService.findIntervalById(appointment.getIntervalId()));
             model.addAttribute("appointmentId", appointmentId);
+            model.addAttribute("mapOfIntervalsIsEmpty",
+                    this.intervalService.findAllAvailableIntervals(year, month).isEmpty());
+            String monthTitle = yearMonth.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, locale);
+            monthTitle = monthTitle.replaceFirst(monthTitle.substring(0, 1), monthTitle.substring(0, 1).toUpperCase());
+            model.addAttribute("monthTitle", monthTitle);
             return "admin/appointments/update/update-step-2";
         }
     }
@@ -288,7 +291,11 @@ public class AdminAppointmentController {
                 this.appointmentService.updateAppointment(appointmentId, appointment);
                 redirectAttributes.addFlashAttribute("message", "Интервал успешно изменен");
                 redirectAttributes.addFlashAttribute("messageType", "success");
-                return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
+                if (appointment.getIntervalId() != null) {
+                    return "redirect:/admin/appointments/interval/" + appointment.getIntervalId();
+                } else {
+                    return "redirect:/admin/intervals";
+                }
             } catch (CustomBindException exception) {
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 Map<String, String> errors = exception.getErrors();

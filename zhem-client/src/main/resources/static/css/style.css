@@ -31,7 +31,7 @@ body {
 }
 
 .btn:active {
-    border: none !important;
+    border-color: var(--bs-border-color) !important;
 }
 
 .invalid-feedback {
@@ -135,7 +135,8 @@ textarea {
 
 #common-intervals,
 #admin-appointments,
-#admin-intervals {
+#admin-intervals,
+#update-appointment-2 {
     .daysOfWeek {
         ul {
             gap: 8px;
@@ -258,7 +259,8 @@ textarea {
     }
 }
 
-#create-appointment-1 {
+#create-appointment-1,
+#update-appointment-1 {
     .search {
         display: flex;
         flex-wrap: wrap;
@@ -277,13 +279,25 @@ textarea {
     }
 }
 
-#create-appointment-3 {
+#create-appointment-3,
+#update-appointment-3 {
     .form {
         textarea {
             height: 100px;
         }
     }
 }
+
+#update-appointment-2 {
+    .cards {
+        .card {
+            .radio-btn {
+                border: none !important;
+            }
+        }
+    }
+}
+
 
 
 @media (max-width: 991px) {
@@ -293,7 +307,8 @@ textarea {
 
     #common-intervals,
     #admin-appointments,
-    #admin-intervals {
+    #admin-intervals,
+    #update-appointment-2 {
         .cards {
             .card {
                 max-width: 300px;

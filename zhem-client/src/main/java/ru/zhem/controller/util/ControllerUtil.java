@@ -97,4 +97,13 @@ public class ControllerUtil {
         return mapOfIntervals;
     }
 
+    public Map<LocalDate, List<IntervalDto>> addIntervalToMap(Map<LocalDate, List<IntervalDto>> mapOfIntervals, Long intervalId) {
+        IntervalDto interval = this.intervalService.findIntervalById(intervalId);
+        if (mapOfIntervals.containsKey(interval.getDate())) {
+            mapOfIntervals
+                    .get(interval.getDate())
+                    .add(interval);
+        }
+        return mapOfIntervals;
+    }
 }
