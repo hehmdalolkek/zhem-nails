@@ -23,7 +23,7 @@
             <h1 class="title">Регистрация</h1>
             <form class="form" th:action="@{/user/registration}" method="post">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="phone" name="phone"
+                    <input type="tel" class="form-control" id="phone" name="phone"
                            placeholder="+7(999)999-99-99" th:value="${enteredData?.getPhone()}">
                     <label for="phone">Номер телефона*</label>
                     <span class="invalid-feedback" th:text="${errors?.get('phone')}"></span>
