@@ -57,31 +57,32 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div th:if="${appointments.numberOfElements} > 0">
             <ul class="pagination justify-content-center" th:if="${appointments.totalPages > 1}">
                 <li class="page-item" th:if="${appointments.number > 0}">
-                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.number - 1}}">Назад</a>
+                    <a class="page-link" th:href="@{/user/appointments?page=0}">&laquo;</a>
                 </li>
-                <li class="page-item" th:if="${appointments.totalPages > 3}">
-                    <a class="page-link" th:href="@{/user/appointments?page=0}">1</a>
+                <li class="page-item" th:if="${appointments.number > 0}">
+                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.number - 1}}">
+                        <span aria-hidden="true">&#8249;</span>
+                    </a>
                 </li>
-                <li class="page-item" th:if="${appointments.totalPages > 4}">
-                    <span class="page-link disabled">...</span>
-                </li>
-                <li class="page-item"
-                    th:each="page : ${#numbers.sequence(appointments.number - 1 > 0 ? appointments.number - 1 : 0, appointments.number + 1 < appointments.totalPages ? appointments.number + 1 : appointments.totalPages - 1)}">
-                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${page}}" th:text="${page + 1}"></a>
-                </li>
-                <li class="page-item"
-                    th:if="${appointments.totalPages > 4 && appointments.number < appointments.totalPages - 2}">
-                    <span class="page-link disabled">...</span>
-                </li>
-                <li class="page-item" th:if="${appointments.totalPages > 3}">
-                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.totalPages - 1}}"
-                       th:text="${appointments.totalPages}"></a>
+                <li class="page-item" th:each="page : ${#numbers.sequence(appointments.number - 1 > 0 ? appointments.number - 1 : 0,
+                 appointments.number + 1 < appointments.totalPages ? appointments.number + 1 : appointments.totalPages - 1)}">
+                    <a
+                            th:class="'page-link' + (${appointments.number == page} ? ' disabled' : '')"
+                            th:href="@{'/user/appointments?page=' + ${page}}"
+                            th:text="${page + 1}"></a>
                 </li>
                 <li class="page-item" th:if="${appointments.number < appointments.totalPages - 1}">
-                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.number + 1}}">Вперед</a>
+                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.number + 1}}">
+                        <span aria-hidden="true">&#8250;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${appointments.number < appointments.totalPages - 1}">
+                    <a class="page-link" th:href="@{'/user/appointments?page=' + ${appointments.totalPages - 1}}">
+                        <span>&raquo;</span>
+                    </a>
                 </li>
             </ul>
         </div>

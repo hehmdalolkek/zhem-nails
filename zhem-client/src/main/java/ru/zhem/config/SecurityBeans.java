@@ -67,7 +67,7 @@ public class SecurityBeans {
                             .loginPage("/admin/login").permitAll()
                             .loginProcessingUrl("/admin/login")
                             .failureUrl("/admin/login?error=loginError")
-                            .defaultSuccessUrl("/admin/dashboard", true))
+                            .defaultSuccessUrl("/admin/dashboard", false))
                     .rememberMe(rememberMe -> rememberMe
                             .rememberMeServices(rememberMeServices)
                             .tokenValiditySeconds(7776000))

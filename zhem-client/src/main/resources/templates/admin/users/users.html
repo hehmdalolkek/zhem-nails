@@ -42,36 +42,40 @@
                         <a th:href="'tel:' + ${user.getFormattedPhone()}" th:text="${user.getFormattedPhone()}"></a>
                     </td>
                     <td>
-                        <a th:if="${user.getEmail()} != null" th:href="'mailto:' + ${user.getEmail()}" th:text="${user.getEmail()}"></a>
+                        <a th:if="${user.getEmail()} != null" th:href="'mailto:' + ${user.getEmail()}"
+                           th:text="${user.getEmail()}"></a>
                         <span th:if="${user.getEmail()} == null">Не указана</span>
                     </td>
                     <td th:text="${user.getFormattedCreatedAt()}"></td>
                 </tr>
             </table>
         </div>
-        <div>
+        <div th:if="${users.numberOfElements} > 0">
             <ul class="pagination justify-content-center" th:if="${users.totalPages > 1}">
                 <li class="page-item" th:if="${users.number > 0}">
-                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.number - 1}}">Назад</a>
+                    <a class="page-link" th:href="@{/admin/users?page=0}">&laquo;</a>
                 </li>
-                <li class="page-item" th:if="${users.totalPages > 3}">
-                    <a class="page-link" th:href="@{/admin/users?page=0}">1</a>
-                </li>
-                <li class="page-item" th:if="${users.totalPages > 4}">
-                    <span class="page-link disabled">...</span>
+                <li class="page-item" th:if="${users.number > 0}">
+                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.number - 1}}">
+                        <span aria-hidden="true">&#8249;</span>
+                    </a>
                 </li>
                 <li class="page-item" th:each="page : ${#numbers.sequence(users.number - 1 > 0 ? users.number - 1 : 0,
                  users.number + 1 < users.totalPages ? users.number + 1 : users.totalPages - 1)}">
-                    <a class="page-link" th:href="@{'/admin/users?page=' + ${page}}" th:text="${page + 1}"></a>
-                </li>
-                <li class="page-item" th:if="${users.totalPages > 4 && users.number < users.totalPages - 2}">
-                    <span class="page-link disabled">...</span>
-                </li>
-                <li class="page-item" th:if="${users.totalPages > 3}">
-                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.totalPages - 1}}" th:text="${users.totalPages}"></a>
+                    <a
+                            th:class="'page-link' + (${users.number == page} ? ' disabled' : '')"
+                            th:href="@{'/admin/users?page=' + ${page}}"
+                            th:text="${page + 1}"></a>
                 </li>
                 <li class="page-item" th:if="${users.number < users.totalPages - 1}">
-                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.number + 1}}">Вперед</a>
+                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.number + 1}}">
+                        <span aria-hidden="true">&#8250;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${users.number < users.totalPages - 1}">
+                    <a class="page-link" th:href="@{'/admin/users?page=' + ${users.totalPages - 1}}">
+                        <span>&raquo;</span>
+                    </a>
                 </li>
             </ul>
         </div>
