@@ -360,7 +360,8 @@ textarea {
         }
     }
 
-    #create-appointment-1 {
+    #create-appointment-1,
+    #update-appointment-1 {
         .search {
             input {
                 width: 50%
@@ -376,11 +377,23 @@ textarea {
         .posts {
             .post {
                 margin-bottom: 10px !important;
+
                 .content {
                     img {
                         max-height: none;
                     }
                 }
+            }
+        }
+    }
+
+    #common-intervals,
+    #admin-appointments,
+    #admin-intervals,
+    #update-appointment-2 {
+        .cards {
+            .card {
+                max-width: none;
             }
         }
     }

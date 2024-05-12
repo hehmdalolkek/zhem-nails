@@ -20,11 +20,11 @@
                 <li class="breadcrumb-item active" aria-current="page">Изменение записи</li>
             </ol>
         </nav>
-        <div class="rounded border p-lg-5 p-3 pb-4">
-            <h2 class="title" th:text="'Изменение записи №' + ${appointmentId}"></h2>
+        <div class="rounded border py-lg-5 py-3 px-2">
+            <h2 class="text-center mb-lg-3 mb-2" th:text="'Изменение записи №' + ${appointmentId}"></h2>
             <h4 class="mb-3 text-center">Изменение интервала</h4>
             <div>
-                <nav class="d-flex justify-content-between align-items-center mb-4">
+                <nav class="d-flex justify-content-between align-items-center mb-lg-4 mb-1">
                     <form method="post"
                           th:object="${appointment}"
                           th:action="@{/admin/appointments/update/__${appointmentId}__/step2?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
@@ -77,7 +77,7 @@
                     <input type="hidden" th:field="*{userId}">
                     <input type="hidden" th:field="*{services}">
                     <input type="hidden" th:field="*{details}">
-                    <div class="cards flex-column align-items-center flex-md-row align-items-md-stretch mb-4">
+                    <div class="cards flex-column align-items-center flex-md-row align-items-md-stretch mb-md-4">
                         <div th:if="${mapOfIntervalsIsEmpty}" class="d-md-none">
                             <p>Нет свободных слотов для записи</p>
                         </div>

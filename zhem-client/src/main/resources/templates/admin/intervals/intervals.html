@@ -19,14 +19,14 @@
                 <li class="breadcrumb-item active" aria-current="page">Записи</li>
             </ol>
         </nav>
-        <div class="shadow-sm border rounded pt-5 pb-3 px-2">
-            <h1 class="title">Рабочий календарь</h1>
+        <div class="shadow-sm border rounded pt-lg-5 pt-3 pb-lg-3 pb-1 px-2">
+            <h1 class="text-center mb-lg-3 mb-2">Рабочий календарь</h1>
             <div>
                 <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null">
                     <span th:text="${message}"></span><span th:if="${errors?.containsKey('time')}"
                                                             th:text="': ' + ${errors?.get('time')}"></span>
                 </p>
-                <nav class="d-flex justify-content-between align-items-center mb-4">
+                <nav class="d-flex justify-content-between align-items-center mb-lg-4 mb-1">
                     <a class="btn ms-3"
                        th:href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
@@ -135,7 +135,7 @@
                         </form>
                     </div>
                 </div>
-                <nav class="d-flex justify-content-between align-items-center mt-3">
+                <nav class="d-flex justify-content-between align-items-center mt-lg-3">
                     <a class="btn ms-3"
                        th:href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
