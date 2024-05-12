@@ -21,26 +21,29 @@
             </ol>
         </nav>
         <h1 class="title">Портфолио</h1>
-        <ul class="posts flex-md-row flex-column align-content-center align-items-center list-unstyled" th:if="${posts.numberOfElements} > 0">
+        <ul class="posts flex-md-row flex-column align-content-center align-items-center list-unstyled"
+            th:if="${posts.numberOfElements} > 0">
             <li class="post mb-4" th:each="post : ${posts.content}">
-                <div th:if="${post.getContent()} != null">
-                    <a
-                            th:href="@{/img/__${post.getImage().getPath()}__}"
-                            class="glightbox"
-                            th:data-glightbox="'description: .description' + ${post.getId()} +'; descPosition: right;'"
-                    >
-                        <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
-                             th:alt="${post.getContent()}">
-                    </a>
-                    <div th:class="'glightbox-desc description' + ${post.getId()}">
-                        <p th:text="${post.getContent()}"></p>
+                <div class="content">
+                    <div th:if="${post.getContent()} != null">
+                        <a
+                                th:href="@{/img/__${post.getImage().getPath()}__}"
+                                class="glightbox"
+                                th:data-glightbox="'description: .description' + ${post.getId()} +'; descPosition: right;'"
+                        >
+                            <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                 th:alt="${post.getContent()}">
+                        </a>
+                        <div th:class="'glightbox-desc description' + ${post.getId()}">
+                            <p th:text="${post.getContent()}"></p>
+                        </div>
                     </div>
-                </div>
-                <div th:if="${post.getContent()} == null">
-                    <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
-                        <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
-                             th:alt="${post.getContent()}">
-                    </a>
+                    <div th:if="${post.getContent()} == null">
+                        <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
+                            <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                 th:alt="${post.getContent()}">
+                        </a>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -55,14 +58,16 @@
                 <li class="page-item" th:if="${posts.totalPages > 4}">
                     <span class="page-link disabled">...</span>
                 </li>
-                <li class="page-item" th:each="page : ${#numbers.sequence(posts.number - 1 > 0 ? posts.number - 1 : 0, posts.number + 1 < posts.totalPages ? posts.number + 1 : posts.totalPages - 1)}">
+                <li class="page-item"
+                    th:each="page : ${#numbers.sequence(posts.number - 1 > 0 ? posts.number - 1 : 0, posts.number + 1 < posts.totalPages ? posts.number + 1 : posts.totalPages - 1)}">
                     <a class="page-link" th:href="@{'/portfolio?page=' + ${page}}" th:text="${page + 1}"></a>
                 </li>
                 <li class="page-item" th:if="${posts.totalPages > 4 && posts.number < posts.totalPages - 2}">
                     <span class="page-link disabled">...</span>
                 </li>
                 <li class="page-item" th:if="${posts.totalPages > 3}">
-                    <a class="page-link" th:href="@{'/portfolio?page=' + ${posts.totalPages - 1}}" th:text="${posts.totalPages}"></a>
+                    <a class="page-link" th:href="@{'/portfolio?page=' + ${posts.totalPages - 1}}"
+                       th:text="${posts.totalPages}"></a>
                 </li>
                 <li class="page-item" th:if="${posts.number < posts.totalPages - 1}">
                     <a class="page-link" th:href="@{'/portfolio?page=' + ${posts.number + 1}}">Вперед</a>

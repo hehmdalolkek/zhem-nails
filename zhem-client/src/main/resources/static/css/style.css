@@ -279,8 +279,10 @@ textarea {
             width: 25%
         }
     }
+
     .form-container {
         height: 250px;
+
         .users {
             top: 0;
             right: 0;
@@ -288,6 +290,7 @@ textarea {
             left: 0;
             max-height: 250px;
             overflow-y: auto;
+
             .user {
                 label {
                     padding-block: 10px;
@@ -361,6 +364,23 @@ textarea {
         .search {
             input {
                 width: 50%
+            }
+        }
+    }
+}
+
+
+@media (max-width: 451px) {
+    #portfolio,
+    #admin-portfolio {
+        .posts {
+            .post {
+                margin-bottom: 10px !important;
+                .content {
+                    img {
+                        max-height: none;
+                    }
+                }
             }
         }
     }

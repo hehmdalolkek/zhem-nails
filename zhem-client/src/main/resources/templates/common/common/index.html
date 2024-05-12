@@ -111,24 +111,26 @@
                 <h2 class="title">Портфолио</h2>
                 <div class="posts d-flex flex-wrap justify-content-between flex-md-row flex-column align-content-center align-items-center ">
                     <div class="post" th:each="post : ${posts}">
-                        <div th:if="${post.getContent()} != null">
-                            <a
-                                    th:href="@{/img/__${post.getImage().getPath()}__}"
-                                    class="glightbox"
-                                    th:data-glightbox="'title: Фото работы; description: .description' + ${post.getId()} +'; descPosition: right;'"
-                            >
-                                <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
-                                     th:alt="${post.getContent()}">
-                            </a>
-                            <div th:class="'glightbox-desc description' + ${post.getId()}">
-                                <p th:text="${post.getContent()}"></p>
+                        <div class="content">
+                            <div th:if="${post.getContent()} != null">
+                                <a
+                                        th:href="@{/img/__${post.getImage().getPath()}__}"
+                                        class="glightbox"
+                                        th:data-glightbox="'title: Фото работы; description: .description' + ${post.getId()} +'; descPosition: right;'"
+                                >
+                                    <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                         th:alt="${post.getContent()}">
+                                </a>
+                                <div th:class="'glightbox-desc description' + ${post.getId()}">
+                                    <p th:text="${post.getContent()}"></p>
+                                </div>
                             </div>
-                        </div>
-                        <div th:if="${post.getContent()} == null">
-                            <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
-                                <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
-                                     th:alt="${post.getContent()}">
-                            </a>
+                            <div th:if="${post.getContent()} == null">
+                                <a th:href="@{/img/__${post.getImage().getPath()}__}" class="glightbox">
+                                    <img class="img-fluid" th:src="@{/img/__${post.getImage().getPath()}__}"
+                                         th:alt="${post.getContent()}">
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
