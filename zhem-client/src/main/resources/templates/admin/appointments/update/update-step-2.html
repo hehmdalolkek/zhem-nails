@@ -28,6 +28,7 @@
                     <form method="post"
                           th:object="${appointment}"
                           th:action="@{/admin/appointments/update/__${appointmentId}__/step2?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                         <input type="hidden" th:field="*{userId}">
                         <input type="hidden" th:field="*{services}">
                         <input type="hidden" th:field="*{details}">
@@ -45,6 +46,7 @@
                     <form method="post"
                           th:object="${appointment}"
                           th:action="@{/admin/appointments/update/__${appointmentId}__/step2?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                         <input type="hidden" th:field="*{userId}">
                         <input type="hidden" th:field="*{services}">
                         <input type="hidden" th:field="*{details}">
@@ -71,6 +73,7 @@
                         th:action="@{/admin/appointments/update/__${appointmentId}__/step3}"
                         th:object="${appointment}"
                 >
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <input type="hidden" th:field="*{userId}">
                     <input type="hidden" th:field="*{services}">
                     <input type="hidden" th:field="*{details}">

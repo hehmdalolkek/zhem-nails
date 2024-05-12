@@ -41,6 +41,7 @@
                   th:action="@{/admin/appointments/create/step3}"
                   th:object="${appointment}"
             >
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <input type="hidden" th:field="*{intervalId}">
                 <input type="hidden" th:field="*{userId}">
                 <div class="services mb-3">

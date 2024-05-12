@@ -38,7 +38,7 @@
                         <img width="50px" src="/images/next.svg" alt="arrow next"/>
                     </a>
                 </nav>
-                <p th:class="'text-center alert alert-' + ${messa1geType}" th:if="${message} != null">
+                <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null">
                     <span th:text="${message}"></span><span th:if="${errors?.containsKey('interval')}" th:text="': ' + ${errors?.get('interval')}"></span>
                 </p>
                 <div class="daysOfWeek d-none d-md-block">

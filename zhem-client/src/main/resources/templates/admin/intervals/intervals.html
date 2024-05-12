@@ -79,6 +79,7 @@
                                                 class="d-flex"
                                                 method="post"
                                                 th:action="@{/admin/intervals/update?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
+                                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                             <div class="w-100">
                                                 <input type="hidden" th:name="${_csrf.parameterName}"
                                                        th:value="${_csrf.token}"/>
@@ -103,6 +104,7 @@
                                     <div class="delete-time" th:if="${interval.getStatus() == statusAvailable}">
                                         <form data-form-confirm class="h-100" method="post"
                                               th:action="@{/admin/intervals/delete?year=__${yearMonth.getYear()}__&month=__${yearMonth.getMonthValue()}__}">
+                                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                             <input type="hidden" name="intervalId" th:value="${interval.getId()}">
                                             <button class="btn h-100 px-lg-1 px-2" type="submit">
                                                 <img src="/images/trash.svg" alt="trash" width="25px"/>
@@ -113,6 +115,7 @@
                             </div>
                         </div>
                         <form method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                             <button type="button" class="btn w-100 open-time-btn border-bottom rounded-bottom">Добавить
                                 время
                             </button>

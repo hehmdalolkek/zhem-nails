@@ -28,7 +28,7 @@
             <div class="d-flex flex-md-row flex-column">
                 <div class="px-2 px-md-5 flex-grow-1">
                     <form class="form text-center mb-md-0 mb-4" method="post" th:action="@{/admin/services/create}">
-
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                         <h5 class="mb-3">Добавление услуги</h5>
                         <div class="form-floating mb-3">
                             <input class="form-control" type="text" name="title" id="title"
@@ -44,6 +44,7 @@
                             <div class="border py-2 px-3 rounded d-flex">
                                 <span class="p-2 ps-3 flex-grow-1" th:text="${service.title}"></span>
                                 <form data-form-confirm method="post" th:action="@{/admin/services/delete}">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                     <input type="hidden" name="serviceId" th:value="${service.getId()}">
                                     <button class="btn">
                                         <img src="/images/trash.svg" alt="Trash" width="25px">

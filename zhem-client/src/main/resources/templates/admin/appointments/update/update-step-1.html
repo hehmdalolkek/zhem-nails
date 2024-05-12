@@ -39,6 +39,7 @@
                   th:action="@{/admin/appointments/update/__${appointmentId}__/step2}"
                   th:object="${appointment}"
             >
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <input type="hidden" th:field="*{intervalId}">
                 <input type="hidden" th:field="*{services}">
                 <input type="hidden" th:field="*{details}">
