@@ -12,9 +12,10 @@ services:
     volumes:
       - ./postgres-data/:/var/lib/postgresql/data
     restart: always
+    cpu_shares: 200
 
   backend:
-    build: /zhem-service/.
+    build: zhem-service/.
     container_name: zhem_service
     ports:
       - 8083:8081
@@ -30,9 +31,10 @@ services:
     depends_on:
       - db
     restart: always
+    cpu_shares: 400
 
   client:
-    build: /zhem-client/.
+    build: zhem-client/.
     container_name: zhem_client
     ports:
       - 8082:8080
@@ -46,3 +48,4 @@ services:
     depends_on:
       - backend
     restart: always
+    cpu_shares: 200
