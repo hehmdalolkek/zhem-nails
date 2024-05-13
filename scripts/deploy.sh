@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 
-ssh hehmdalolkek@89.111.173.149 << EOF
+ssh hehmdalolkek@178.208.94.26 << EOF
 
-cd zhem-nails
-
-docker-compose down
+cd app/zhem-nails
+docker compose down
 docker rmi zhem-nails-backend
 docker rmi zhem-nails-client
 
 git pull
-
+cd zhem-service
+mvn clean package
+cd ../../zhem-nails/zhem-client
 mvn clean package
 
-docker-compose up -d
+docker compose up -d
 
 EOF
