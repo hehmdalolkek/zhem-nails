@@ -5,7 +5,6 @@ spring:
     url: ${db-url:jdbc:postgresql://localhost:5432/zhem-db}
     username: ${db-username:postgres}
     password: ${db-password:root}
-    driver-class-name: org.postgresql.Driver
   flyway:
     schemas:
       - public
