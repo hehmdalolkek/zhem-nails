@@ -15,7 +15,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 0.05
+          cpus: 0.10
           memory: 50M
 
   backend:
@@ -38,7 +38,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 0.20
+          cpus: 0.40
           memory: 200M
 
 
@@ -60,5 +60,5 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 0.20
+          cpus: 0.30
           memory: 150M
