@@ -4,14 +4,14 @@ ssh hehmdalolkek@89.111.173.149 << EOF
 
 cd zhem-nails
 
-docker-compose down
-docker rmi zhem-nails-backend
-docker rmi zhem-nails-client
+sudo docker-compose down
+sudo docker rmi zhem-nails-backend
+sudo docker rmi zhem-nails-client
 
 git pull
 
 mvn clean package
 
-docker-compose up -d
+sudo docker-compose up -d
 
 EOF
