@@ -12,11 +12,7 @@ services:
     volumes:
       - ./postgres-data/:/var/lib/postgresql/data
     restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: 0.10
-          memory: 50M
+    mem_limit: 50m
 
   backend:
     build: zhem-service/.
@@ -35,12 +31,7 @@ services:
     depends_on:
       - db
     restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: 0.40
-          memory: 200M
-
+    mem_limit: 200m
 
   client:
     build: zhem-client/.
@@ -57,8 +48,4 @@ services:
     depends_on:
       - backend
     restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: 0.30
-          memory: 150M
+    mem_limit: 150m
