@@ -2,7 +2,7 @@ services:
 
   db:
     ports:
-      - "5433:5432"
+      - 5433:5432
     container_name: zhem_postgres
     image: postgres:16
     environment:
@@ -14,11 +14,10 @@ services:
     restart: always
 
   backend:
-    build:
-      context: ./zhem-service
+    build: zhem-service/.
     container_name: zhem_service
     ports:
-      - "8083:8081"
+      - 8083:8081
     environment:
       - db-url=jdbc:postgresql://db:5432/zhem-db
       - db-username=postgres
@@ -32,12 +31,12 @@ services:
       - db
     restart: always
 
+
   client:
-    build:
-      context: ./zhem-client
+    build: zhem-client/.
     container_name: zhem_client
     ports:
-      - "8082:8080"
+      - 8082:8080
     environment:
       - service-url=http://backend:8081
       - service-security-name=service
