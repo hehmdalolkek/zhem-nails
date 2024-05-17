@@ -12,17 +12,17 @@
 <body id="registration">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/}">Главная</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Регистрация</li>
             </ol>
         </nav>
-        <div class="col-lg-6 col-sm-12 mx-auto border shadow-sm rounded py-5 px-4">
+        <div class="col-lg-6 col-sm-12 mx-auto border shadow-sm bg-white py-5 px-4">
             <h1 class="title">Регистрация</h1>
             <form class="form" th:action="@{/user/registration}" method="post">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <div class="form-floating mb-3">
                     <input type="tel" class="form-control" id="phone" name="phone"
                            placeholder="+7(999)999-99-99" th:value="${enteredData?.getPhone()}">
@@ -53,11 +53,15 @@
                     <span class="invalid-feedback" th:text="${errors?.get('password')}"></span>
                 </div>
                 <div class="form-floating has-validation mb-3">
-                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Пароль">
+                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
+                           placeholder="Пароль">
                     <label for="confirmPassword">Подтвердите пароль*</label>
                     <span class="invalid-feedback" th:text="${errors?.get('passwordMatchers')}"></span>
                 </div>
-                <input class="btn btn-outline-dark d-block px-5 mx-auto" type="submit" value="Зарегистрироваться"/>
+                <div class="d-flex justify-content-center">
+                    <a class="btn py-2 me-2 border" th:href="@{/}">Отменить</a>
+                    <input class="btn btn-dark d-block px-5 py-2" type="submit" value="Зарегистрироваться"/>
+                </div>
             </form>
         </div>
     </main>

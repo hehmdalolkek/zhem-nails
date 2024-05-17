@@ -20,16 +20,16 @@ async function b_confirm() {
     modalElem.className = "modal fade modal-zoom";
     modalElem.innerHTML = `
                             <div class="modal-dialog modal-dialog-centered">
-                              <div class="modal-content p-2 pt-3 rounded-4">
+                              <div class="modal-content p-2 pt-3 rounded-0">
                                 <div class="modal-body text-center">
                                   <h5>Вы уверены, что хотите выполнить это действие?</h5>
                                   <p class="text-secondary mb-1">Данное действие невозможно будет отменить</p>
                                 </div>
                                 <div class="modal-footer border-top-0">
-                                  <button id="modal-btn-cancel" type="button" class="btn btn-outline-dark mx-2 py-2 rounded-3 flex-grow-1">
+                                  <button id="modal-btn-cancel" type="button" class="btn border mx-2 py-2 rounded-0 flex-grow-1">
                                     Отменить
                                   </button>
-                                  <button id="modal-btn-accept" type="button" class="btn btn-dark mx-2 py-2 rounded-3 flex-grow-1">
+                                  <button id="modal-btn-accept" type="button" class="btn btn-dark mx-2 py-2 rounded-0 flex-grow-1">
                                     Подтвердить
                                   </button>
                                 </div>

@@ -12,14 +12,14 @@
 <body id="profile">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/}">Главная</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Редактирование профиля</li>
             </ol>
         </nav>
-        <div class="shadow-sm border rounded py-lg-5 py-4 px-0 px-md-5 mx-auto d-flex flex-md-row flex-column">
+        <div class="shadow-sm border bg-white py-lg-5 py-4 px-0 px-md-5 mx-auto d-flex flex-md-row flex-column">
             <form class="form px-3 px-sm-5 flex-grow-1" method="post" th:action="@{/user/profile/update}" th:object="${user}">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <h2 class="title">Редактирование данных</h2>
@@ -49,8 +49,7 @@
                     <label for="lastName">Фамилия</label>
                 </div>
                 <div class="d-flex justify-content-end mb-4">
-                    <a class="btn btn-outline-dark me-2" th:href="@{/intervals}">Отменить</a>
-                    <input class="btn btn-dark" type="submit" value="Сохранить">
+                    <input class="btn btn-dark py-2 px-5" type="submit" value="Сохранить">
                 </div>
             </form>
             <form class="form flex-grow-1 px-3 px-sm-5" method="post" th:action="@{/user/profile/update-password}" th:object="${user}">
@@ -76,8 +75,7 @@
                     <label for="confirmPassword">Подтвердите новый пароль</label>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-outline-dark me-2" th:href="@{/intervals}">Отменить</a>
-                    <input class="btn btn-dark" type="submit" value="Сохранить">
+                    <input class="btn btn-dark py-2 px-5" type="submit" value="Сохранить">
                 </div>
             </form>
         </div>

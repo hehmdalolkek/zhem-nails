@@ -12,14 +12,14 @@
 <body id="admin-intervals">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Записи</li>
             </ol>
         </nav>
-        <div class="shadow-sm border rounded pt-lg-5 pt-3 pb-lg-3 pb-1 px-2">
+        <div class="shadow-sm border bg-white pt-lg-5 pt-3 pb-lg-3 pb-1 px-4">
             <h1 class="text-center mb-lg-3 mb-2">Рабочий календарь</h1>
             <div>
                 <p th:class="'text-center alert alert-' + ${messageType}" th:if="${message} != null">
@@ -27,7 +27,7 @@
                                                             th:text="': ' + ${errors?.get('time')}"></span>
                 </p>
                 <nav class="d-flex justify-content-between align-items-center mb-lg-4 mb-1">
-                    <a class="btn ms-3"
+                    <a class="btn ps-0"
                        th:href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
                     </a>
@@ -37,7 +37,7 @@
                             <span th:text="${yearMonth.getYear()}"></span>
                         </h3>
                     </div>
-                    <a class="btn me-3"
+                    <a class="btn pe-0"
                        th:href="@{/admin/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/next.svg" alt="arrow next"/>
                     </a>
@@ -63,12 +63,14 @@
                                 <div class="d-flex pe-2">
                                     <div class="current-time w-100">
                                         <a class="btn text-start w-100 py-3"
+                                           data-bs-toggle="tooltip" data-bs-title="Открыть запись" data-bs-custom-class="custom-tooltip"
                                            th:if="${interval.getStatus() != statusAvailable}"
                                            th:href="@{/admin/appointments/interval/{intervalId}(intervalId=${interval.getId()})}">
                                             <span th:text="${interval.getTime()}"></span>
-                                            <span class="badge rounded-pill text-bg-secondary ">Бронь</span>
+                                            <span class="badge rounded-pill text-bg-secondary">Бронь</span>
                                         </a>
                                         <a class="btn text-start w-100 py-3"
+                                           data-bs-toggle="tooltip" data-bs-title="Записать клиента" data-bs-custom-class="custom-tooltip"
                                            th:if="${interval.getStatus() == statusAvailable}"
                                            th:href="@{/admin/appointments/create/step1?intervalId=__${interval.getId()}__}">
                                             <span th:text="${interval.getTime()}"></span>
@@ -116,10 +118,10 @@
                         </div>
                         <form method="post">
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                            <button type="button" class="btn w-100 open-time-btn border-bottom rounded-bottom">Добавить
+                            <button type="button" class="btn w-100 open-time-btn border-bottom">Добавить
                                 время
                             </button>
-                            <div class="border-bottom rounded-bottom time-input">
+                            <div class="border-bottom time-input">
 
                                 <input type="hidden" name="date" th:value="${entry.getKey()}">
                                 <div class="form-floating">
@@ -136,11 +138,11 @@
                     </div>
                 </div>
                 <nav class="d-flex justify-content-between align-items-center mt-lg-3">
-                    <a class="btn ms-3"
+                    <a class="btn ps-0"
                        th:href="@{/admin/intervals?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
                     </a>
-                    <a class="btn me-3"
+                    <a class="btn pe-0"
                        th:href="@{/admin/intervals?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/next.svg" alt="arrow next"/>
                     </a>

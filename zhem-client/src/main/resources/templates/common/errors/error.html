@@ -12,7 +12,7 @@
 <body id="error">
 <div id="wrap">
     <div th:replace="~{fragments/header :: (${authUser} ? '#header_client' : '#header_guest')}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4 text-center">
+    <main class="main container-xxl mx-auto pb-4 text-center">
         <div>
             <h1 th:text="${status} + ': ' + ${title}"></h1>
             <p class="mb-5" th:text="${detail}"></p>
@@ -21,9 +21,7 @@
             </div>
         </div>
     </main>
-    <footer class="footer py-4 bg-body-tertiary" id="footer_user">
-        <p class="text-center mb-0">&#169 Copyright</p>
-    </footer>
+    <div th:replace="~{fragments/footer :: #footer_user}"></div>
 </div>
 <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/main.js}"></script>

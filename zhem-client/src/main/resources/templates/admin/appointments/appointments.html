@@ -12,18 +12,18 @@
 <body id="admin-appointments">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Записи</li>
             </ol>
         </nav>
-        <div class="shadow-sm border rounded pt-lg-5 pt-3 pb-lg-3 pb-1 px-2">
+        <div class="shadow-sm border bg-white pt-lg-5 pt-3 pb-lg-3 pb-1 px-4">
             <h1 class="text-center mb-lg-3 mb-2">Записи</h1>
             <div>
                 <nav class="d-flex justify-content-between align-items-center mb-lg-4 mb-1">
-                    <a class="btn ms-3"
+                    <a class="btn ps-0"
                        th:href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
                     </a>
@@ -33,7 +33,7 @@
                             <span th:text="${yearMonth.getYear()}"></span>
                         </h3>
                     </div>
-                    <a class="btn me-3"
+                    <a class="btn pe-0"
                        th:href="@{/admin/appointments?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/next.svg" alt="arrow next"/>
                     </a>
@@ -112,11 +112,11 @@
                 </div>
                 <nav th:if="${!mapOfAppointmentsIsEmpty}"
                      class="d-flex justify-content-between align-items-center mt-lg-3">
-                    <a class="btn ms-3"
+                    <a class="btn ps-0"
                        th:href="@{/admin/appointments?year=__${prevYearMonth.getYear()}__&month=__${prevYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
                     </a>
-                    <a class="btn me-3"
+                    <a class="btn pe-3"
                        th:href="@{/admin/appointments?year=__${nextYearMonth.getYear()}__&month=__${nextYearMonth.getMonthValue()}__}">
                         <img width="50px" src="/images/next.svg" alt="arrow next"/>
                     </a>

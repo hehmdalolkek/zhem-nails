@@ -1,7 +1,9 @@
-<header class="mb-lg-5 mb-4" id="header_admin">
-    <nav class="navbar border shadow-sm navbar-expand-lg bg-body-tertiary py-md-3 py-2">
+<header class="header mb-lg-5 mb-4" id="header_admin">
+    <nav class="navbar navbar-dark shadow navbar-expand-lg py-md-3 py-2">
         <div class="container-xxl">
-            <a class="navbar-brand fs-4" href="/">zhem.nails</a>
+            <h2 class="navbar-brand mb-0">
+                <a class="fs-3" href="/">zhem.nails</a>
+            </h2>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -32,7 +34,7 @@
                            aria-expanded="false">
                             <span th:text="'Профиль ' + ${authUser.getFirstName()}"></span>
                         </a>
-                        <ul class="dropdown-menu text-center">
+                        <ul class="dropdown-menu dropdown-menu-dark text-center">
                             <li>
                                 <a class="dropdown-item" th:href="@{/user/profile}">Профиль</a>
                             </li>
@@ -50,10 +52,12 @@
     </nav>
 </header>
 
-<header class="mb-lg-5 mb-4" id="header_client">
-    <nav class="navbar border shadow-sm navbar-expand-lg bg-body-tertiary py-md-3 py-2">
+<header class="header mb-lg-5 mb-4" id="header_client">
+    <nav class="navbar navbar-dark shadow navbar-expand-lg py-md-3 py-2">
         <div class="container-xxl">
-            <a class="navbar-brand fs-4" href="/">zhem.nails</a>
+            <h2 class="navbar-brand mb-0">
+                <a class="fs-3" href="/">zhem.nails</a>
+            </h2>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -84,7 +88,7 @@
                            aria-expanded="false">
                             <span th:text="'Профиль ' + ${authUser.getFirstName()}"></span>
                         </a>
-                        <ul class="dropdown-menu text-center">
+                        <ul class="dropdown-menu dropdown-menu-dark text-center">
                             <li>
                                 <a class="dropdown-item" th:href="@{/user/profile}">Профиль</a>
                             </li>
@@ -106,10 +110,12 @@
     </nav>
 </header>
 
-<header class="mb-lg-5 mb-4" id="header_guest">
-    <nav class="navbar border shadow-sm navbar-expand-lg bg-body-tertiary py-md-3 py-2">
+<header class="header mb-lg-5 mb-4" id="header_guest">
+    <nav class="navbar navbar-dark shadow navbar-expand-lg py-md-3 py-2">
         <div class="container-xxl">
-            <a class="navbar-brand fs-4" href="/">zhem.nails</a>
+            <h2 class="navbar-brand mb-0">
+                <a class="fs-3" href="/">zhem.nails</a>
+            </h2>
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
@@ -136,7 +142,7 @@
                         <a class="nav-link" th:href="@{/user/login}">Войти</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-dark" th:href="@{/user/registration}">Зарегистрироваться</a>
+                        <a class="btn btn-outline-light" th:href="@{/user/registration}">Зарегистрироваться</a>
                     </li>
                 </ul>
             </div>
