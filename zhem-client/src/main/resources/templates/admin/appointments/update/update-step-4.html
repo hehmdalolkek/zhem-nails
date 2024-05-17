@@ -12,7 +12,7 @@
 <body id="update-appointment-3">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
@@ -20,7 +20,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Изменение записи</li>
             </ol>
         </nav>
-        <div class="col-lg-10 mx-auto rounded border p-lg-5 p-3 pb-4">
+        <div class="col-lg-10 mx-auto bg-white border p-lg-5 p-3 pb-4">
             <h2 class="title" th:text="'Изменение записи №' + ${appointmentId}"></h2>
             <h4 class="mb-3 text-center">Изменение комментария</h4>
             <p class="text-center alert alert-danger" th:if="${errors?.containsKey('details')}">
@@ -40,7 +40,7 @@
                               placeholder="Комментарий"></textarea>
                     <label th:for="details">Комментарий</label>
                 </div>
-                <input class="btn btn-outline-dark px-5 d-block mx-auto" type="submit" value="Сохранить">
+                <input class="btn btn-dark px-5 py-2 d-block mx-auto" type="submit" value="Сохранить">
             </form>
         </div>
     </main>

@@ -12,7 +12,7 @@
 <body id="update-appointment-1">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
@@ -20,19 +20,19 @@
                 <li class="breadcrumb-item active" aria-current="page">Изменение записи</li>
             </ol>
         </nav>
-        <div class="col-lg-10 mx-auto rounded border p-lg-5 p-3 pb-4">
+        <div class="col-lg-10 mx-auto bg-white border p-lg-5 p-3 pb-4">
             <h2 class="title" th:text="'Изменение записи №' + ${appointmentId}"></h2>
             <h4 class="mb-3 text-center">Изменение клиента</h4>
             <form class="mb-3" method="get">
                 <div class="search mb-2">
-                    <input class="form-control" type="text" id="lastName" name="lastName" placeholder="Фамилия"/>
-                    <input class="form-control" type="text" id="firstName" name="firstName" placeholder="Имя"/>
-                    <input class="form-control" type="tel" id="phone" name="phone" placeholder="Номер телефона"/>
-                    <input class="form-control" type="email" id="email" name="email"
+                    <input class="form-control rounded-0" type="text" id="lastName" name="lastName" placeholder="Фамилия"/>
+                    <input class="form-control rounded-0" type="text" id="firstName" name="firstName" placeholder="Имя"/>
+                    <input class="form-control rounded-0" type="tel" id="phone" name="phone" placeholder="Номер телефона"/>
+                    <input class="form-control rounded-0" type="email" id="email" name="email"
                            placeholder="Электронная почта"/>
                 </div>
                 <input type="hidden" name="intervalId" th:value="${appointment.getIntervalId()}">
-                <input class="btn btn-outline-dark px-5 d-block mx-auto" type="submit" value="Поиск">
+                <input class="btn btn-outline-dark px-5 py-2 d-block mx-auto" type="submit" value="Поиск">
             </form>
             <form class="form d-flex flex-column align-items-center"
                   method="post"
@@ -44,9 +44,9 @@
                 <input type="hidden" th:field="*{services}">
                 <input type="hidden" th:field="*{details}">
                 <div class="form-container col-12 position-relative mb-4">
-                    <div class="row users rounded border position-absolute mx-lg-5 mx-1">
+                    <div class="row users border position-absolute mx-lg-5 mx-1">
                         <div class="user col-lg-6 my-1 px-lg-1" th:each="user : ${users}">
-                            <div class="border rounded">
+                            <div class="border">
                                 <input class="btn-check"
                                        type="radio"
                                        th:field="*{userId}"
@@ -54,7 +54,7 @@
                                        autocomplete="off"
                                        th:checked="${appointment.userId.equals(user.getId())}"
                                 >
-                                <label class="d-block btn" th:for="${#ids.prev('userId')}">
+                                <label class="d-block btn btn-outline-dark border-0" th:for="${#ids.prev('userId')}">
                                     <ul class="list-unstyled mb-0">
                                         <li>
                                             <span><b>ФИО:</b></span>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <input class="btn btn-outline-dark px-5 align-self-end" type="submit" value="Далее">
+                <input class="btn btn-dark py-2 px-5 align-self-end" type="submit" value="Далее">
             </form>
         </div>
     </main>

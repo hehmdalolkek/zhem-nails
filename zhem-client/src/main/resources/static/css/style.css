@@ -1,6 +1,26 @@
+:root {
+    --main-color: #f7f7f7;
+    --second-color: #212529;
+    --third-color: #fff;
+}
+
+.bg-white {
+    background: var(--third-color);
+}
+
 html,
 body {
     height: 100%;
+    font-family: "Ubuntu", sans-serif;
+    color: var(--second-color);
+    background: var(--main-color);
+}
+
+h1,
+h2,
+h3,
+b {
+    font-family: "Ubuntu", sans-serif;
 }
 
 #wrap {
@@ -13,12 +33,46 @@ body {
     flex: 1 0 auto;
 }
 
+.header,
+.footer {
+    color: var(--main-color);
+    background: var(--second-color);
+    .nav-link,
+    .navbar-brand > a {
+        color: var(--main-color);
+        text-decoration: none;
+    }
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    .dropdown-menu-dark {
+        background: var(--second-color);
+        .dropdown-item {
+            color: var(--main-color);
+        }
+        .dropdown-item:active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    }
+}
+
 .footer {
     flex: 0 0 auto;
-
     .footer__list {
         list-style-type: none;
     }
+    a {
+        color: var(--main-color);
+        text-decoration: none;
+    }
+}
+
+.main {
+    padding-top: 100px;
 }
 
 .title {
@@ -30,8 +84,21 @@ body {
     --bs-breadcrumb-divider: url(/images/breadcrumb.svg);
 }
 
+.btn {
+    border-radius: 0;
+}
+
+.alert {
+    border-radius: 0;
+}
+
 .btn:active {
     border-color: var(--bs-border-color) !important;
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: var(--second-color);
+    --bs-tooltip-color: var(--main-color);
 }
 
 .invalid-feedback {
@@ -42,9 +109,23 @@ textarea {
     resize: none;
 }
 
+.pagination {
+    --bs-pagination-disabled-color: var(--main-color);
+    --bs-pagination-disabled-bg: var(--second-color);
+}
+
+a,
+.page-link {
+    color: var(--second-color);
+}
+
 .modal.modal-zoom.fade:not(.show) .modal-dialog {
     transform: scale(0.97);
 }
+
+
+
+
 
 #modal-confirm {
     .btn {
@@ -66,6 +147,7 @@ textarea {
             position: relative;
             height: 100%;
             padding-bottom: 35px;
+            border-radius: 0;
 
             .btn {
                 position: absolute;
@@ -81,44 +163,88 @@ textarea {
         margin-bottom: 0 !important;
     }
 
-    #mainCarousel {
+    .skew-cc{
+        width:100%;
+        height:50px;
+        position:absolute;
+        left:0;
+        background: linear-gradient(to right bottom, var(--third-color) 49%, var(--main-color) 50%),    linear-gradient(-50deg, var(--main-color) 16px, transparent 0);
+    }
+
+    .skew-c{
+        width:100%;
+        height:50px;
+        position:absolute;
+        left:0;
+        background: linear-gradient(to left bottom, var(--main-color) 49%, var(--third-color) 50%);
+    }
+
+    #main-carousel {
+        padding-top: 73px;
+
         img {
             filter: brightness(70%);
             height: 600px;
             object-fit: cover;
         }
 
+        .carousel-title {
+            font-size: 58px;
+        }
+
         .btn {
             padding-inline: 50px;
+        }
+
+        .btn:hover {
+            background: var(--main-color);
         }
 
         .carousel-caption {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            color: var(--main-color);
         }
     }
 
+    #hello {
+        padding-top: 50px;
+        padding-bottom: 125px;
+    }
+
+    #advantages {
+        padding-top: 100px;
+        padding-bottom: 50px;
+        img {
+            transform: scale(.8);
+        }
+    }
+
+    #index-services {
+        padding-top: 150px;
+        padding-bottom: 100px;
+    }
+
     #portfolio {
+        padding-top: 150px;
+        padding-bottom: 100px;
         .post {
             text-align: center;
             margin-bottom: 30px;
-
             img {
                 max-width: 400px;
                 object-fit: cover;
             }
         }
-
         .btn {
             padding-inline: 50px;
         }
     }
 
-    #services {
-        .btn {
-            padding-inline: 50px;
-        }
+    #quote {
+        padding-top: 150px;
+        padding-bottom: 40px;
     }
 }
 
@@ -170,9 +296,13 @@ textarea {
             flex-direction: column;
             overflow-y: auto;
             margin-bottom: 10px;
+            border-radius: 0;
+            box-shadow: none !important;
 
             .card-header {
                 border-bottom: 1px solid var(--bs-border-color);
+                border-radius: 0;
+                background: var(--main-color);
             }
 
             .btn {
@@ -207,6 +337,7 @@ textarea {
             flex-direction: column;
             justify-content: space-between;
             row-gap: 10px;
+            border-radius: 0;
         }
     }
 }
@@ -325,6 +456,36 @@ textarea {
         margin-bottom: 25px;
     }
 
+    #index {
+        #hello {
+            padding-top: 0;
+            padding-bottom: 50px;
+        }
+
+        #advantages {
+            padding-top: 75px;
+            padding-bottom: 50px;
+            img {
+                transform: scale(.6);
+            }
+        }
+
+        #index-services {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        #portfolio {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        #quote {
+            padding-top: 100px;
+            padding-bottom: 20px;
+        }
+    }
+
     #common-intervals,
     #admin-appointments,
     #admin-intervals,
@@ -370,8 +531,53 @@ textarea {
     }
 }
 
+@media (max-width: 767px) {
+    .main {
+        padding-top: 76px;
+    }
+
+    #index {
+        #main-carousel {
+            padding-top: 56px;
+        }
+    }
+}
+
 
 @media (max-width: 451px) {
+    #index {
+        .main {
+            padding-top: 50px;
+        }
+
+        .skew-cc,
+        .skew-c {
+            height:25px;
+        }
+
+        #main-carousel {
+            padding-top: 55px;
+        }
+
+        #advantages {
+            padding-top: 50px;
+        }
+
+        #index-services {
+            padding-top: 75px;
+        }
+
+        #portfolio {
+            padding-top: 75px;
+            padding-bottom: 50px;
+        }
+
+        #quote {
+            padding-top: 75px;
+            padding-bottom: 20px;
+        }
+    }
+
     #portfolio,
     #admin-portfolio {
         .posts {
@@ -397,4 +603,24 @@ textarea {
             }
         }
     }
+}
+
+
+@font-face {
+    font-family: "Ubuntu";
+    src: url("/fonts/Ubuntu-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "Ubuntu";
+    src: url("/fonts/Ubuntu-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Ubuntu";
+    src: url("/fonts/Ubuntu-Italic.ttf") format("truetype");
+    font-style: italic;
+    font-weight: normal;
 }

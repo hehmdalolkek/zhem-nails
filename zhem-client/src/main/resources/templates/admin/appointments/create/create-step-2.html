@@ -12,7 +12,7 @@
 <body>
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
@@ -20,7 +20,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Запись клиента</li>
             </ol>
         </nav>
-        <div class="col-lg-10 mx-auto rounded border p-lg-5 p-3 pb-4">
+        <div class="col-lg-10 mx-auto bg-white border p-lg-5 p-3 pb-4">
             <h2 class="text-center">Запись клиента</h2>
             <div class="mb-lg-4 mb-2">
                 <h4 class="text-center">
@@ -55,7 +55,7 @@
                                th:text="${service.getTitle()}"></label>
                     </div>
                 </div>
-                <input class="btn btn-outline-dark px-5 align-self-end" type="submit" value="Далее">
+                <input class="btn btn-dark px-5 py-2 align-self-end" type="submit" value="Далее">
             </form>
         </div>
     </main>

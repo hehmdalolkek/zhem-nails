@@ -1,37 +1,49 @@
-<footer class="footer py-4 bg-body-tertiary" id="footer_admin">
+<footer class="footer pt-5 pb-4 border-top" id="footer_admin">
     <div class="container-xxl">
-        <div th:if="${adminUser}">
-            <h3>Контакты:</h3>
-            <ul class="footer__list ps-0">
-                <li>Номер телефона:
-                    <a th:href="'tel:' + ${adminUser.getFormattedPhone()}" th:text="${adminUser.getFormattedPhone()}"></a>
-                </li>
-                <li th:if="${adminUser.getEmail()}">
-                    Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}"
-                                          th:text="${adminUser.getEmail()}"></a>
-                </li>
-            </ul>
-            <hr>
+        <div class="mx-auto col-10 d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+            <h2 class="mb-4 mb-md-0 fs-1">
+                <a href="/">zhem.nails</a>
+            </h2>
+            <div th:if="${adminUser}">
+                <h4>Контакты</h4>
+                <ul class="footer__list ps-0">
+                    <li>Номер телефона:
+                        <a th:href="'tel:' + ${adminUser.getFormattedPhone()}"
+                           th:text="${adminUser.getFormattedPhone()}"></a>
+                    </li>
+                    <li th:if="${adminUser.getEmail()}">
+                        Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}"
+                                              th:text="${adminUser.getEmail()}"></a>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <hr>
         <p class="text-center mb-0">&#169 Copyright</p>
     </div>
 </footer>
 
-<footer class="footer py-4 bg-body-tertiary" id="footer_user">
+<footer class="footer pt-5 pb-4 border-top" id="footer_user">
     <div class="container-xxl">
-        <div th:if="${adminUser}">
-            <h3>Контакты:</h3>
-            <ul class="footer__list ps-0">
-                <li>Номер телефона:
-                    <a th:href="'tel:' + ${adminUser.getFormattedPhone()}" th:text="${adminUser.getFormattedPhone()}"></a>
-                </li>
-                <li th:if="${adminUser.getEmail()}">
-                    Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}"
-                                          th:text="${adminUser.getEmail()}"></a>
-                </li>
-            </ul>
-            <hr>
+        <div class="mx-auto col-10 d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+            <h2 class="mb-4 mb-md-0 fs-1">
+                <a href="/">zhem.nails</a>
+            </h2>
+            <div th:if="${adminUser}">
+                <h4>Контакты</h4>
+                <ul class="footer__list ps-0">
+                    <li>Номер телефона:
+                        <a th:href="'tel:' + ${adminUser.getFormattedPhone()}"
+                           th:text="${adminUser.getFormattedPhone()}"></a>
+                    </li>
+                    <li th:if="${adminUser.getEmail()}">
+                        Электронная почта: <a th:href="'mailto:' + ${adminUser.getEmail()}"
+                                              th:text="${adminUser.getEmail()}"></a>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <hr>
         <p class="text-center mb-0">&#169 Copyright</p>
     </div>
 </footer>

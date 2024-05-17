@@ -12,7 +12,7 @@
 <body id="update-appointment-2">
 <div id="wrap">
     <div th:replace="~{fragments/header :: #header_admin}"></div>
-    <main class="main container-xxl mx-auto pb-lg-5 pb-4">
+    <main class="main container-xxl mx-auto pb-4">
         <nav class="breadcrumbs" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
@@ -20,7 +20,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Изменение записи</li>
             </ol>
         </nav>
-        <div class="rounded border py-lg-5 py-3 px-2">
+        <div class="border bg-white py-lg-5 py-3 px-4">
             <h2 class="text-center mb-lg-3 mb-2" th:text="'Изменение записи №' + ${appointmentId}"></h2>
             <h4 class="mb-3 text-center">Изменение интервала</h4>
             <div>
@@ -33,7 +33,7 @@
                         <input type="hidden" th:field="*{services}">
                         <input type="hidden" th:field="*{details}">
                         <input type="hidden" th:field="*{intervalId}">
-                        <button class="btn me-3" type="submit">
+                        <button class="btn ps-0" type="submit">
                             <img width="50px" src="/images/prev.svg" alt="arrow previous"/>
                         </button>
                     </form>
@@ -51,7 +51,7 @@
                         <input type="hidden" th:field="*{services}">
                         <input type="hidden" th:field="*{details}">
                         <input type="hidden" th:field="*{intervalId}">
-                        <button class="btn me-3" type="submit">
+                        <button class="btn pe-0" type="submit">
                             <img width="50px" src="/images/next.svg" alt="arrow next"/>
                         </button>
                     </form>
@@ -101,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                    <input class="btn btn-outline-dark px-5 align-self-end" type="submit" value="Далее">
+                    <input class="btn btn-dark px-5 py-2 align-self-end" type="submit" value="Далее">
                 </form>
             </div>
         </div>
