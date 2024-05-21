@@ -123,6 +123,14 @@ a,
     transform: scale(0.97);
 }
 
+.glightbox-clean .gslide-description {
+    background: var(--second-color);
+    color: var(--main-color);
+    p {
+        font-family: "Ubuntu", sans-serif;
+    }
+}
+
 
 
 
