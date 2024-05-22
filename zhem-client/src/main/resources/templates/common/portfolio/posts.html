@@ -23,7 +23,7 @@
         <h1 class="title">Портфолио</h1>
         <ul class="posts flex-md-row flex-column align-content-center align-items-center list-unstyled"
             th:if="${posts.numberOfElements} > 0">
-            <li class="post mb-4" th:each="post : ${posts.content}">
+            <li class="post mb-3" th:each="post : ${posts.content}">
                 <div class="content">
                     <div th:if="${post.getContent()} != null">
                         <a
