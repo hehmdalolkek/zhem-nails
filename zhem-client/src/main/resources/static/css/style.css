@@ -540,7 +540,7 @@ a,
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.5px) {
     .main {
         padding-top: 76px;
     }
